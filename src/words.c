@@ -1,5 +1,7 @@
 #include "header.h"
 
+char words[2700][6] = 
+{
 // ABACK
 // ABASE
 // ABATE
@@ -2327,3 +2329,4 @@
 // ZEBRA
 // ZESTY
 // ZONAL
+};
