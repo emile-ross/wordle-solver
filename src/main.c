@@ -44,17 +44,25 @@ int main(int argc, char *argv[])
 
 		    for (int j = 0; j < NUM_WORDS; j++)
 		    {
+			int n_possible_answers = 0;
 			if (letter_indexed == words[j][word_letter_index])
 			{
 			    printf("True for %d\n", j);
+			    n_possible_answers++;
 			}
 		    }
-			    
-		    printf("Hi\n");
+		    printf("Possible words:\n");
 
-		    printf("Hi %d\n", argc);
-		    printf("Hi %d\n", i);
-		    printf("Hi %d\n", letter_arg_index);
+		    for (int j = 0; j < n_possible_answers; j++)
+		    {
+			char *possible_answer = words[word_letter_index];
+			//printf("%s", words;
+		    }
+		    // printf("Hi\n");
+
+		    //printf("Hi %d\n", argc);
+		    //printf("Hi %d\n", i);
+		    //printf("Hi %d\n", letter_arg_index);
 		}
 
 		i += FILTER_ARG_EXPECTED;
