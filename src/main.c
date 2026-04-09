@@ -42,20 +42,25 @@ int main(int argc, char *argv[])
 
 		    char letter_indexed = argv[letter_arg_index][0];
 
+		    char filtered_arr[NUM_WORDS][6];
+		    int n_possible_answers = 0;
 		    for (int j = 0; j < NUM_WORDS; j++)
 		    {
-			int n_possible_answers = 0;
 			if (letter_indexed == words[j][word_letter_index])
 			{
 			    printf("True for %d\n", j);
+			    strcpy(filtered_arr[n_possible_answers], words[j]);
 			    n_possible_answers++;
 			}
 		    }
 		    printf("Possible words:\n");
+		    printf("%d\n", n_possible_answers);
 
 		    for (int j = 0; j < n_possible_answers; j++)
 		    {
-			char *possible_answer = words[word_letter_index];
+			char *word_temp = filtered_arr[j];
+			printf("%s\n", word_temp);
+
 			//printf("%s", words;
 		    }
 		    // printf("Hi\n");
