@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
 
 		    char *endptr;
 		    int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
-		    printf("Integer value: %d\n", word_letter_index);
 		    word_letter_index--;
 		    if (word_letter_index > 5 || word_letter_index < 0)
 		    {
@@ -51,20 +50,9 @@ int main(int argc, char *argv[])
 		    {
 			if (letter_indexed == words[j][word_letter_index])
 			{
-			    printf("True for %d\n", j);
 			    strcpy(filtered_arr[n_possible_answers], words[j]);
 			    n_possible_answers++;
 			}
-		    }
-		    printf("Possible words:\n");
-		    printf("%d\n", n_possible_answers);
-
-		    for (int j = 0; j < n_possible_answers; j++)
-		    {
-			char *word_temp = filtered_arr[j];
-			printf("%s\n", word_temp);
-
-			//printf("%s", words;
 		    }
 		}
 
@@ -74,12 +62,12 @@ int main(int argc, char *argv[])
     }
     else
     {
-	//err(1);
+	err(1);
     }
 
-    //parse_command(argc, argv);
+    print_as_table(8, n_possible_answers, true);
 
-    print_as_table(5, n_possible_answers, false);
+    printf("%d possible words\n", n_possible_answers);
 
     return 0;
 }
@@ -144,14 +132,21 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
     {
 	if (awsum_mode)
 	{
-	    err(7); // not getting past that
+	    int empty_cells = total_elements % width;
+	    int total_cells = total_elements + width - empty_cells;
+	    int column_height = total_cells / width;
 
-	    int n_last_row = total_elements % width;
-    	    int n_items_full_row = total_elements - n_last_row; // the amount of items in all full row(s)
-    	    int size_column = n_items_full_row / width;
-    	    printf("%d\n", n_last_row);
-    	    printf("%d\n", n_items_full_row);
-    	    printf("%d\n", size_column);
+	    for (int base_count = 0; base_count < column_height; base_count++)
+	    {
+		for (int j = 0; j < width; j++)
+		{
+		    int base_offset = j * column_height;
+		    int index = base_count + base_offset;
+		    char *word_temp = filtered_arr[index];
+		    printf("%s ", word_temp);
+		}
+		printf("\n");
+	    }
 	}
 	else
 	{
@@ -162,7 +157,6 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 		{
 		    printf("\n");
 		}
-
 		char *word_temp = filtered_arr[i];
 		printf("%s ", word_temp);
 	    }
