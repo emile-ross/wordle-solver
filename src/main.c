@@ -1,5 +1,9 @@
 #include "header.h"
 
+char filtered_arr[NUM_WORDS][6];
+
+int n_possible_answers;
+
 int main(int argc, char *argv[])
 {
     if (argc >= 2)
@@ -42,8 +46,7 @@ int main(int argc, char *argv[])
 
 		    char letter_indexed = argv[letter_arg_index][0];
 
-		    char filtered_arr[NUM_WORDS][6];
-		    int n_possible_answers = 0;
+		    n_possible_answers = 0;
 		    for (int j = 0; j < NUM_WORDS; j++)
 		    {
 			if (letter_indexed == words[j][word_letter_index])
@@ -63,11 +66,6 @@ int main(int argc, char *argv[])
 
 			//printf("%s", words;
 		    }
-		    // printf("Hi\n");
-
-		    //printf("Hi %d\n", argc);
-		    //printf("Hi %d\n", i);
-		    //printf("Hi %d\n", letter_arg_index);
 		}
 
 		i += FILTER_ARG_EXPECTED;
@@ -76,9 +74,13 @@ int main(int argc, char *argv[])
     }
     else
     {
-	err(1);
+	//err(1);
     }
+
     //parse_command(argc, argv);
+
+    print_as_table(5, n_possible_answers, false);
+
     return 0;
 }
 
@@ -113,17 +115,6 @@ void debug(int num_arg, char *argument[])
     }
 }
 
-void test(int num_arg)
-{
-    printf("You entered %d command line argument", num_arg);
-    if (num_arg >= 2)
-    {
-	printf("s");
-    }
-
-    printf("\n");
-}
-
 void err(int error_code)
 {
     switch(error_code)
@@ -134,9 +125,48 @@ void err(int error_code)
 	    
 	case 5:
 	    printf("Index value must be between 1 and 5 (inclusive)\n");
+	    break;
+
+	case 7:
+	    printf("This feature hasn't been implemented\n");
+	    break;
+
 	default:
 	    printf("Missing error message\n");
 	    break;
     }
     exit(error_code);
+}
+
+void print_as_table(int width, int total_elements, bool awsum_mode)
+{
+    if (total_elements > 0)
+    {
+	if (awsum_mode)
+	{
+	    err(7); // not getting past that
+
+	    int n_last_row = total_elements % width;
+    	    int n_items_full_row = total_elements - n_last_row; // the amount of items in all full row(s)
+    	    int size_column = n_items_full_row / width;
+    	    printf("%d\n", n_last_row);
+    	    printf("%d\n", n_items_full_row);
+    	    printf("%d\n", size_column);
+	}
+	else
+	{
+	    printf("\n\n"); // just for clarity (will be removed later)
+	    for (int i = 0; i < total_elements; i++)
+	    {
+		if (i % width == 0)
+		{
+		    printf("\n");
+		}
+
+		char *word_temp = filtered_arr[i];
+		printf("%s ", word_temp);
+	    }
+	    printf("\n");
+	}
+    }
 }
