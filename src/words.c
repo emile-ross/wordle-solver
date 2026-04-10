@@ -1,6 +1,6 @@
 #include "header.h"
 
-char words[2700][6] = 
+char words[2328][6] = 
 {
     "ABACK",
     "ABASE",
