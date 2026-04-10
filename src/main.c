@@ -47,9 +47,9 @@ int main(int argc, char *argv[])
 
 		    char letter_indexed = argv[letter_arg_index][0];
 
-		    n_possible_answers = 0;
 		    if (first_execution)
 		    {
+			n_possible_answers = 0;
 			for (int j = 0; j < NUM_WORDS; j++)
 		    	{
 		    	    if (letter_indexed == words[j][word_letter_index])
@@ -61,19 +61,21 @@ int main(int argc, char *argv[])
 		    }
 		    else
 		    {
-			char filtered_arr_temp[NUM_WORDS][6];
-			for (int k = 0; k < NUM_WORDS; k++)
-		    	{
-		    	    if (letter_indexed == filtered_arr[k][word_letter_index])
-		    	    {
-		    	        strcpy(filtered_arr_temp[n_possible_answers], filtered_arr[k]);
-		    	        n_possible_answers++;
-		    	    }
-		    	}
+		        char filtered_arr_temp[NUM_WORDS][6];
+			int temp_count = 0;
 			for (int k = 0; k < n_possible_answers; k++)
 			{
-		    	    strcpy(filtered_arr[k], filtered_arr_temp[k]);
-			}
+			    if (letter_indexed == filtered_arr[k][word_letter_index])
+		            {
+				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
+				temp_count++;
+		            }
+		        }
+		        n_possible_answers = temp_count;
+		        for (int k = 0; k < n_possible_answers; k++)
+			{
+		            strcpy(filtered_arr[k], filtered_arr_temp[k]);
+		        }
 		    }
 
 		    first_execution = false;
