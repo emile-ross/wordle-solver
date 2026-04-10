@@ -210,7 +210,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 	if (awsum_mode)
 	{
 	    int empty_cells = total_elements % width;
-	    int total_cells = total_elements + width - empty_cells;
+	    int total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	// ternary operator to remove garbage data
 	    int column_height = total_cells / width;
 
 	    for (int base_count = 0; base_count < column_height; base_count++)
@@ -219,8 +219,12 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 		{
 		    int base_offset = j * column_height;
 		    int index = base_count + base_offset;
-		    char *word_temp = filtered_arr[index];
-		    printf("%s ", word_temp);
+
+		    // bounds checking (avoids printing garbage data
+		    if (index < total_elements)
+		    {
+			printf("%s ", filtered_arr[index]);
+		    }
 		}
 		printf("\n");
 	    }
@@ -237,8 +241,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 			printf("\n");
 		    }
 		}
-		char *word_temp = filtered_arr[i];
-		printf("%s ", word_temp);
+		printf("%s ", filtered_arr[i]);
 	    }
 	    printf("\n");
 	}
