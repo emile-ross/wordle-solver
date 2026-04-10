@@ -40,10 +40,8 @@ int main(int argc, char *argv[])
 		    char *endptr;
 		    int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
 		    word_letter_index--;
-		    if (word_letter_index > 5 || word_letter_index < 0)
-		    {
-			err(5);
-		    }
+
+		    user_index_validation(word_letter_index);
 
 		    char letter_indexed = argv[letter_arg_index][0];
 
@@ -53,6 +51,7 @@ int main(int argc, char *argv[])
 						// this needs to be reset only once
 			for (int j = 0; j < NUM_WORDS; j++)
 		    	{
+			    // compare the specified letter against the words in a loop
 		    	    if (letter_indexed == words[j][word_letter_index])
 		    	    {
 		    	        strcpy(filtered_arr[n_possible_answers], words[j]);
@@ -66,7 +65,68 @@ int main(int argc, char *argv[])
 			int temp_count = 0; // reset temporary count buffer
 			for (int k = 0; k < n_possible_answers; k++)
 			{
+			    // compare the specified letter against the words in a loop
 			    if (letter_indexed == filtered_arr[k][word_letter_index])
+		            {
+				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
+				temp_count++;
+		            }
+		        }
+		        n_possible_answers = temp_count;
+		        for (int k = 0; k < n_possible_answers; k++)
+			{
+		            strcpy(filtered_arr[k], filtered_arr_temp[k]);
+		        }
+		    }
+
+		    first_execution = false;
+		}
+		else if (strcmp(argv[i], "--exclude") == 0 || strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "-e") == 0)
+		{
+		    // this is the way this interprets characters
+		    // execute(./binary) flag(-x) letter_position(5) letter(A)
+		    // this means all words(in the list) NOT ending in A
+		    int letter_arg_index = i;
+		    letter_arg_index++;
+		    int number_arg_index = letter_arg_index;
+		    number_arg_index++;
+
+		    // word_letter_index is the index of the letter the user specified
+		    //
+		    // example 1: you want to find all words WITHOUT A as the first letter
+		    // 'A' is at index 1
+		    // This is not useful when it's the only flag since it will print about 2200 words...
+		    // It is useful when combined with other flags because it helps narrow down further the possible words
+
+		    char *endptr;
+		    int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
+		    word_letter_index--;
+		    user_index_validation(word_letter_index);
+
+		    char letter_indexed = argv[letter_arg_index][0];
+
+		    if (first_execution)
+		    {
+			n_possible_answers = 0;	// reset word count buffer
+						// this needs to be reset only once
+			for (int j = 0; j < NUM_WORDS; j++)
+		    	{
+			    // compare the specified letter against the words in a loop
+		    	    if (letter_indexed == words[j][word_letter_index])
+		    	    {
+		    	        strcpy(filtered_arr[n_possible_answers], words[j]);
+		    	        n_possible_answers++;
+		    	    }
+		    	}
+		    }
+		    else
+		    {
+		        char filtered_arr_temp[NUM_WORDS][6];
+			int temp_count = 0; // reset temporary count buffer
+			for (int k = 0; k < n_possible_answers; k++)
+			{
+			    // compare the specified letter against the words in a loop
+			    if (letter_indexed != filtered_arr[k][word_letter_index])
 		            {
 				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
 				temp_count++;
@@ -103,42 +163,11 @@ int main(int argc, char *argv[])
 	err(1);
     }
 
-    print_as_table(8, n_possible_answers, false);
+    print_as_table(8, n_possible_answers, true);
 
     printf("%d possible words\n", n_possible_answers);
 
     return 0;
-}
-
-void parse_command(int num_arg, char *argument[])
-{
-    // set the amount of filtered words but inclusively
-    int inc_filtered_num = NUM_WORDS;
-
-    int filtered_words = 0;
-    for (int i = 0; i < NUM_WORDS; i++)
-    {
-	if ('Z' == words[i][0])
-	{
-	    printf("True for %d\n", i);
-	    filtered_words++;
-	}
-    }
-    printf("True for %d words\n", filtered_words);
-}
-
-void debug(int num_arg, char *argument[])
-{
-    if (num_arg < 2)
-    {
-	printf("You haven't used any argments in your command\nMoving on...\n");
-    }
-
-    for (int i = 0; i < num_arg; i++)
-    {
-	// print all arguments by looping through all of them
-	printf("%s\n", argument[i]);
-    }
 }
 
 void err(int error_code)
@@ -159,7 +188,10 @@ void err(int error_code)
 
 	case 10:
 	    printf("Invalid flag\n");
-	    printf("The only valid flags are:\n");
+	    printf("The only valid flags are:\n\n");
+	    printf("-e (exclude)\n");
+	    printf("-x (exclude)\n");
+	    printf("--exclude (exclude)\n\n");
 	    printf("-s (strict)\n");
 	    printf("--strict (strict)\n");
 	    break;
@@ -210,5 +242,14 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 	    }
 	    printf("\n");
 	}
+    }
+}
+
+void user_index_validation(int index)
+{
+    if (index > 5 || index < 0)
+    {
+	// display error message for invalid value
+	err(5);
     }
 }
