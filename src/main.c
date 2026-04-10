@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
 	    while(i < argc)
 	    {
-		if (strcmp(argv[i], "-s") == 0)
+		if (strcmp(argv[i], "--strict") == 0 || strcmp(argv[i], "-s") == 0)
 		{
 		    // this is the way this interprets characters
 		    // execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -49,7 +49,8 @@ int main(int argc, char *argv[])
 
 		    if (first_execution)
 		    {
-			n_possible_answers = 0;
+			n_possible_answers = 0;	// reset word count buffer
+						// this needs to be reset only once
 			for (int j = 0; j < NUM_WORDS; j++)
 		    	{
 		    	    if (letter_indexed == words[j][word_letter_index])
@@ -62,7 +63,7 @@ int main(int argc, char *argv[])
 		    else
 		    {
 		        char filtered_arr_temp[NUM_WORDS][6];
-			int temp_count = 0;
+			int temp_count = 0; // reset temporary count buffer
 			for (int k = 0; k < n_possible_answers; k++)
 			{
 			    if (letter_indexed == filtered_arr[k][word_letter_index])
@@ -84,6 +85,15 @@ int main(int argc, char *argv[])
 		{
 		    err(10);
 		}
+
+		// read (FILTER_ARG_EXPECTED) ahead of the previous read
+		//
+		// example:
+		// the input is the following:
+		// ./binary -s A 1 -s D 2
+		// the first read is "-s A 1"
+		// FILTER_ARG_EXPECTED is 3 since the previous read had 3 arguments
+		// the next line will skip 3 because it's reading the next 3 arguments (-s D 2)
 		i += FILTER_ARG_EXPECTED;
 	    }
 	}
@@ -149,6 +159,9 @@ void err(int error_code)
 
 	case 10:
 	    printf("Invalid flag\n");
+	    printf("The only valid flags are:\n");
+	    printf("-s (strict)\n");
+	    printf("--strict (strict)\n");
 	    break;
 
 	default:
@@ -182,7 +195,6 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 	}
 	else
 	{
-	    //printf("\n\n"); // just for clarity (will be removed later)
 	    for (int i = 0; i < total_elements; i++)
 	    {
 		
