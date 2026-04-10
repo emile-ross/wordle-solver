@@ -1,6 +1,6 @@
 #include "header.h"
 
-char words[2328][6] = 
+char words[NUM_WORDS][6] = 
 {
     "ABACK",
     "ABASE",
@@ -139,6 +139,7 @@ char words[2328][6] =
     "AWASH",
     "AWFUL",
     "AWOKE",
+    "AWSUM",
     "AXIAL",
     "AXIOM",
     "AXION",
@@ -2011,7 +2012,7 @@ char words[2328][6] =
     "SWUNG",
     "SYNOD",
     "SYRUP",
-    "TABBY",
+    "TABBY", 
     "TABLE",
     "TABOO",
     "TACIT",
@@ -2033,6 +2034,7 @@ char words[2328][6] =
     "TASTY",
     "TATTY",
     "TAUNT",
+    "TAUPE",
     "TAWNY",
     "TEACH",
     "TEARY",
@@ -2081,10 +2083,12 @@ char words[2328][6] =
     "TILDE",
     "TIMER",
     "TIMID",
+    "TINGE",
     "TIPSY",
     "TITAN",
     "TITHE",
     "TITLE",
+    "TIZZY",
     "TOAST",
     "TODAY",
     "TODDY",
@@ -2330,9 +2334,3 @@ char words[2328][6] =
     "ZESTY",
     "ZONAL",
 };
-
-int main()
-{
-    printf("Hi\n");
-    return 0;
-}
