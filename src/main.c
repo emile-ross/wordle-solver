@@ -61,17 +61,26 @@ int main(int argc, char *argv[])
 		    }
 		    else
 		    {
+			char filtered_arr_temp[NUM_WORDS][6];
 			for (int k = 0; k < NUM_WORDS; k++)
 		    	{
 		    	    if (letter_indexed == filtered_arr[k][word_letter_index])
 		    	    {
-		    	        strcpy(filtered_arr[n_possible_answers], filtered_arr[k]);
+		    	        strcpy(filtered_arr_temp[n_possible_answers], filtered_arr[k]);
 		    	        n_possible_answers++;
 		    	    }
 		    	}
+			for (int k = 0; k < n_possible_answers; k++)
+			{
+		    	    strcpy(filtered_arr[k], filtered_arr_temp[k]);
+			}
 		    }
 
 		    first_execution = false;
+		}
+		else
+		{
+		    err(10);
 		}
 		i += FILTER_ARG_EXPECTED;
 	    }
@@ -137,7 +146,7 @@ void err(int error_code)
 	    break;
 
 	case 10:
-	    printf("CC \n");
+	    printf("Invalid flag\n");
 	    break;
 
 	default:
@@ -171,7 +180,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 	}
 	else
 	{
-	    printf("\n\n"); // just for clarity (will be removed later)
+	    //printf("\n\n"); // just for clarity (will be removed later)
 	    for (int i = 0; i < total_elements; i++)
 	    {
 		if (i % width == 0)
