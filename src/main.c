@@ -185,9 +185,13 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 	    //printf("\n\n"); // just for clarity (will be removed later)
 	    for (int i = 0; i < total_elements; i++)
 	    {
+		
 		if (i % width == 0)
 		{
-		    printf("\n");
+		    if (i != 0)
+		    {
+			printf("\n");
+		    }
 		}
 		char *word_temp = filtered_arr[i];
 		printf("%s ", word_temp);
