@@ -6,6 +6,8 @@ int n_possible_answers;
 
 int main(int argc, char *argv[])
 {
+    bool first_execution = true;
+
     if (argc >= 2)
     {
 	if (argc % FILTER_ARG_EXPECTED == 1)
@@ -46,16 +48,31 @@ int main(int argc, char *argv[])
 		    char letter_indexed = argv[letter_arg_index][0];
 
 		    n_possible_answers = 0;
-		    for (int j = 0; j < NUM_WORDS; j++)
+		    if (first_execution)
 		    {
-			if (letter_indexed == words[j][word_letter_index])
-			{
-			    strcpy(filtered_arr[n_possible_answers], words[j]);
-			    n_possible_answers++;
-			}
+			for (int j = 0; j < NUM_WORDS; j++)
+		    	{
+		    	    if (letter_indexed == words[j][word_letter_index])
+		    	    {
+		    	        strcpy(filtered_arr[n_possible_answers], words[j]);
+		    	        n_possible_answers++;
+		    	    }
+		    	}
 		    }
-		}
+		    else
+		    {
+			for (int k = 0; k < NUM_WORDS; k++)
+		    	{
+		    	    if (letter_indexed == filtered_arr[k][word_letter_index])
+		    	    {
+		    	        strcpy(filtered_arr[n_possible_answers], filtered_arr[k]);
+		    	        n_possible_answers++;
+		    	    }
+		    	}
+		    }
 
+		    first_execution = false;
+		}
 		i += FILTER_ARG_EXPECTED;
 	    }
 	}
@@ -65,7 +82,7 @@ int main(int argc, char *argv[])
 	err(1);
     }
 
-    print_as_table(8, n_possible_answers, true);
+    print_as_table(8, n_possible_answers, false);
 
     printf("%d possible words\n", n_possible_answers);
 
@@ -117,6 +134,10 @@ void err(int error_code)
 
 	case 7:
 	    printf("This feature hasn't been implemented\n");
+	    break;
+
+	case 10:
+	    printf("CC \n");
 	    break;
 
 	default:
