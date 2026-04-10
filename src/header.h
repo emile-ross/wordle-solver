@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define NUM_WORDS 2327
+#define NUM_WORDS 2331
 #define FILTER_ARG_EXPECTED 3
 #define ARGS_BEFORE_FLAG 1
 
@@ -20,3 +20,5 @@ void err(int error_code);
 
 void print_as_table(int width, int total_elements, bool awsum_mode);
 
+// General simple functions
+void user_index_validation(int index);
