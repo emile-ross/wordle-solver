@@ -7,20 +7,21 @@ int n_possible_answers;
 int main(int argc, char *argv[])
 {
     bool first_execution = true;
+    int ARGS_BEFORE_CUR_FLAG = ARGS_BEFORE_FLAG_BASE;
 
     if (argc >= 2)
     {
 	// in order to ignore the first argument of the command (probably the execution command)
-	int i = ARGS_BEFORE_FLAG;
+	int flag_r = ARGS_BEFORE_CUR_FLAG; // doesn't require all flags to have 3 arguments
 
-	while(i < argc)
+	while(flag_r < argc)
 	{
-	    if (strcmp(argv[i], "--strict") == 0 || strcmp(argv[i], "-s") == 0)
+	    if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
 	    {
 	        // this is the way this interprets characters
 	        // execute(./binary) flag(-s) letter_position(5) letter(A)
 	        // this means all words(in the list) ending in A
-	        int letter_arg_index = i;
+	        int letter_arg_index = flag_r;
 	        letter_arg_index++;
 	        int number_arg_index = letter_arg_index;
 	        number_arg_index++;
@@ -78,14 +79,14 @@ int main(int argc, char *argv[])
 	        }
 
 	        first_execution = false;
-	        i += P_FILTERS_ARG_EXP;
+	        flag_r += P_FILTERS_ARG_EXP;
 	    }
-	    else if (strcmp(argv[i], "--exclude") == 0 || strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "-e") == 0)
+	    else if (strcmp(argv[flag_r], "--exclude") == 0 || strcmp(argv[flag_r], "-x") == 0 || strcmp(argv[flag_r], "-e") == 0)
 	    {
 	        // this is the way this interprets characters
 	        // execute(./binary) flag(-x) letter_position(5) letter(A)
 	        // this means all words(in the list) NOT ending in A
-	        int letter_arg_index = i;
+	        int letter_arg_index = flag_r;
 	        letter_arg_index++;
 	        int number_arg_index = letter_arg_index;
 	        number_arg_index++;
@@ -139,11 +140,11 @@ int main(int argc, char *argv[])
 	        }
 
 	        first_execution = false;
-	        i += P_FILTERS_ARG_EXP;
+	        flag_r += P_FILTERS_ARG_EXP;
 	    }
-	    else if (strcmp(argv[i], "--includes") == 0 || strcmp(argv[i], "-i") == 0)
+	    else if (strcmp(argv[flag_r], "--includes") == 0 || strcmp(argv[flag_r], "-i") == 0)
 	    {
-	        int letter_arg_index = i;
+	        int letter_arg_index = flag_r;
 	        letter_arg_index++;
 
 	        // 
@@ -171,7 +172,8 @@ int main(int argc, char *argv[])
 	        }
 	        else
 	        {
-	            char filtered_arr_temp[NUM_WORDS][6];
+		    int buffer_size_word = NUM_LETTERS_WORD + 1;
+	            char filtered_arr_temp[NUM_WORDS][buffer_size_word];
 		    int temp_count = 0; // reset temporary count buffer
 		    for (int k = 0; k < n_possible_answers; k++)
 		    {
@@ -194,7 +196,7 @@ int main(int argc, char *argv[])
 	        }
 
 	        first_execution = false;
-	        i += P_FILTERS_ARG_EXP;
+	        flag_r += G_FILTERS_ARG_EXP;
 	    }
 	    else
 	    {
