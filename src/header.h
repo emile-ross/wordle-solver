@@ -7,6 +7,7 @@
 #include <stdbool.h>
 
 #define NUM_WORDS 2331
+#define NUM_LETTERS_WORD 5
 
 #define ARGS_BEFORE_FLAG 1
 #define P_FILTERS_ARG_EXP 3
