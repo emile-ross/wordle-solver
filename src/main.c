@@ -163,7 +163,7 @@ int main(int argc, char *argv[])
 	err(1);
     }
 
-    print_as_table(8, n_possible_answers, true);
+    print_as_table(8, n_possible_answers, awsum_table_mode);
 
     printf("%d possible words\n", n_possible_answers);
 
