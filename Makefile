@@ -1,10 +1,13 @@
 USER_FLAGS = -Wall
 FLAGS = -Wall -Wextra -pedantic -std=c99
-
-COMPILE_CMD = zig cc src/main.c src/words.c -o binary
+ZIG = zig cc
+COMPILE_CMD = src/main.c src/words.c src/config.c -o binary
 
 base: 
-	$(COMPILE_CMD) $(ZIG_FLAGS)
+	$(ZIG) $(COMPILE_CMD) $(FLAGS)
 
 full: 
-	$(COMPILE_CMD) $(ZIG_FLAGS) -Werror
+	$(ZIG) $(COMPILE_CMD) $(FLAGS) -Werror
+
+gcc:
+	gcc $(COMPILE_CMD) $(FLAGS)
