@@ -7,8 +7,9 @@
 #include <stdbool.h>
 
 #define NUM_WORDS 2331
-#define FILTER_ARG_EXPECTED 3
+
 #define ARGS_BEFORE_FLAG 1
+#define P_FILTERS_ARG_EXP 3
 
 extern char words[NUM_WORDS][6];
 extern char filtered_arr[NUM_WORDS][6];
@@ -22,3 +23,8 @@ void print_as_table(int width, int total_elements, bool awsum_mode);
 
 // General simple functions
 void user_index_validation(int index);
+
+
+// config file
+extern bool awsum_table_mode;
+extern int table_width;
