@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     if (argc >= 2)
     {
-	if (argc % FILTER_ARG_EXPECTED == 1)
+	if (argc % P_FILTERS_ARG_EXP == 1)
 	{
 	    // in order to ignore the first argument of the command (probably the execution command)
 	    int i = ARGS_BEFORE_FLAG;
@@ -80,6 +80,7 @@ int main(int argc, char *argv[])
 		    }
 
 		    first_execution = false;
+		    i += P_FILTERS_ARG_EXP;
 		}
 		else if (strcmp(argv[i], "--exclude") == 0 || strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "-e") == 0)
 		{
@@ -140,21 +141,21 @@ int main(int argc, char *argv[])
 		    }
 
 		    first_execution = false;
+		    i += P_FILTERS_ARG_EXP;
 		}
 		else
 		{
 		    err(10);
 		}
 
-		// read (FILTER_ARG_EXPECTED) ahead of the previous read
+		// read (P_FILTERS_ARG_EXP) ahead of the previous read
 		//
 		// example:
 		// the input is the following:
 		// ./binary -s A 1 -s D 2
 		// the first read is "-s A 1"
-		// FILTER_ARG_EXPECTED is 3 since the previous read had 3 arguments
+		// P_FILTERS_ARG_EXP is 3 since the previous read had 3 arguments
 		// the next line will skip 3 because it's reading the next 3 arguments (-s D 2)
-		i += FILTER_ARG_EXPECTED;
 	    }
 	}
     }
@@ -163,7 +164,7 @@ int main(int argc, char *argv[])
 	err(1);
     }
 
-    print_as_table(8, n_possible_answers, awsum_table_mode);
+    print_as_table(table_width, n_possible_answers, awsum_table_mode);
 
     printf("%d possible words\n", n_possible_answers);
 
