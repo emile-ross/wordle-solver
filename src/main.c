@@ -10,207 +10,205 @@ int main(int argc, char *argv[])
 
     if (argc >= 2)
     {
-	if (argc % P_FILTERS_ARG_EXP == 1)
-	{
-	    // in order to ignore the first argument of the command (probably the execution command)
-	    int i = ARGS_BEFORE_FLAG;
+	// in order to ignore the first argument of the command (probably the execution command)
+	int i = ARGS_BEFORE_FLAG;
 
-	    while(i < argc)
+	while(i < argc)
+	{
+	    if (strcmp(argv[i], "--strict") == 0 || strcmp(argv[i], "-s") == 0)
 	    {
-		if (strcmp(argv[i], "--strict") == 0 || strcmp(argv[i], "-s") == 0)
-		{
-		    // this is the way this interprets characters
-		    // execute(./binary) flag(-s) letter_position(5) letter(A)
-		    // this means all words(in the list) ending in A
-		    int letter_arg_index = i;
-		    letter_arg_index++;
-		    int number_arg_index = letter_arg_index;
-		    number_arg_index++;
+	        // this is the way this interprets characters
+	        // execute(./binary) flag(-s) letter_position(5) letter(A)
+	        // this means all words(in the list) ending in A
+	        int letter_arg_index = i;
+	        letter_arg_index++;
+	        int number_arg_index = letter_arg_index;
+	        number_arg_index++;
 
-		    // word_letter_index is the index of the letter the user is looking for
-		    //
-		    // example 1: you want to find all words with A as the first letter
-		    // 'A' is at index 1
-		    // "AFTER" would work
-		    //
-		    // example 2: if you wanted the find all words with 'T' as the third letter
-		    // 'T' would be at index 3 
-		    // "AFTER" would work
+	        // word_letter_index is the index of the letter the user is looking for
+	        //
+	        // example 1: you want to find all words with A as the first letter
+	        // 'A' is at index 1
+	        // "AFTER" would work
+	        //
+	        // example 2: if you wanted the find all words with 'T' as the third letter
+	        // 'T' would be at index 3 
+	        // "AFTER" would work
 
-		    char *endptr;
-		    int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
-		    word_letter_index--;
+	        char *endptr;
+	        int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
+	        word_letter_index--;
 
-		    user_index_validation(word_letter_index);
+	        user_index_validation(word_letter_index);
 
-		    char letter_indexed = argv[letter_arg_index][0];
+	        char letter_indexed = argv[letter_arg_index][0];
 
-		    if (first_execution)
-		    {
-			n_possible_answers = 0;	// reset word count buffer
+	        if (first_execution)
+	        {
+		    n_possible_answers = 0;	// reset word count buffer
 						// this needs to be reset only once
-			for (int j = 0; j < NUM_WORDS; j++)
-		    	{
-			    // compare the specified letter against the words in a loop
-		    	    if (letter_indexed == words[j][word_letter_index])
-		    	    {
-		    	        strcpy(filtered_arr[n_possible_answers], words[j]);
-		    	        n_possible_answers++;
-		    	    }
-		    	}
-		    }
-		    else
+		    for (int j = 0; j < NUM_WORDS; j++)
 		    {
-		        char filtered_arr_temp[NUM_WORDS][6];
-			int temp_count = 0; // reset temporary count buffer
-			for (int k = 0; k < n_possible_answers; k++)
-			{
-			    // compare the specified letter against the words in a loop
-			    if (letter_indexed == filtered_arr[k][word_letter_index])
-		            {
-				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
-				temp_count++;
-		            }
-		        }
-		        n_possible_answers = temp_count;
-		        for (int k = 0; k < n_possible_answers; k++)
-			{
-		            strcpy(filtered_arr[k], filtered_arr_temp[k]);
-		        }
-		    }
-
-		    first_execution = false;
-		    i += P_FILTERS_ARG_EXP;
-		}
-		else if (strcmp(argv[i], "--exclude") == 0 || strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "-e") == 0)
-		{
-		    // this is the way this interprets characters
-		    // execute(./binary) flag(-x) letter_position(5) letter(A)
-		    // this means all words(in the list) NOT ending in A
-		    int letter_arg_index = i;
-		    letter_arg_index++;
-		    int number_arg_index = letter_arg_index;
-		    number_arg_index++;
-
-		    // word_letter_index is the index of the letter the user specified
-		    //
-		    // example 1: you want to find all words WITHOUT A as the first letter
-		    // 'A' is at index 1
-		    // This is not useful when it's the only flag since it will print about 2200 words...
-		    // It is useful when combined with other flags because it helps narrow down further the possible words
-
-		    char *endptr;
-		    int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
-		    word_letter_index--;
-		    user_index_validation(word_letter_index);
-
-		    char letter_indexed = argv[letter_arg_index][0];
-
-		    if (first_execution)
+			// compare the specified letter against the words in a loop
+	        	if (letter_indexed == words[j][word_letter_index])
+	        	{
+	        	    strcpy(filtered_arr[n_possible_answers], words[j]);
+	        	    n_possible_answers++;
+	        	}
+	            }
+	        }
+	        else
+	        {
+	            char filtered_arr_temp[NUM_WORDS][6];
+		    int temp_count = 0; // reset temporary count buffer
+		    for (int k = 0; k < n_possible_answers; k++)
 		    {
-			n_possible_answers = 0;	// reset word count buffer
-						// this needs to be reset only once
-			for (int j = 0; j < NUM_WORDS; j++)
-		    	{
-			    // compare the specified letter against the words in a loop
-		    	    if (letter_indexed == words[j][word_letter_index])
-		    	    {
-		    	        strcpy(filtered_arr[n_possible_answers], words[j]);
-		    	        n_possible_answers++;
-		    	    }
-		    	}
-		    }
-		    else
+			// compare the specified letter against the words in a loop
+			if (letter_indexed == filtered_arr[k][word_letter_index])
+			{
+			    strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
+			    temp_count++;
+	                }
+	            }
+	            n_possible_answers = temp_count;
+	            for (int k = 0; k < n_possible_answers; k++)
 		    {
-		        char filtered_arr_temp[NUM_WORDS][6];
-			int temp_count = 0; // reset temporary count buffer
-			for (int k = 0; k < n_possible_answers; k++)
-			{
-			    // compare the specified letter against the words in a loop
-			    if (letter_indexed != filtered_arr[k][word_letter_index])
-		            {
-				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
-				temp_count++;
-		            }
-		        }
-		        n_possible_answers = temp_count;
-		        for (int k = 0; k < n_possible_answers; k++)
-			{
-		            strcpy(filtered_arr[k], filtered_arr_temp[k]);
-		        }
-		    }
+			strcpy(filtered_arr[k], filtered_arr_temp[k]);
+	            }
+	        }
 
-		    first_execution = false;
-		    i += P_FILTERS_ARG_EXP;
-		}
-		// else if (strcmp(argv[i], "--includes") == 0 || strcmp(argv[i], "-i") == 0)
-		// {
-		//     int letter_arg_index = i;
-		//     letter_arg_index++;
-
-		//     // 
-		//     // 
-		//     // 
-
-		//     char letter_indexed = argv[letter_arg_index][0];
-
-		//     if (first_execution)
-		//     {
-		// 	n_possible_answers = 0;	// reset word count buffer
-		// 				// this needs to be reset only once
-		// 	for (int j = 0; j < NUM_WORDS; j++)
-		//     	{
-		// 	    // compare the specified letter against the words in a loop
-		//     	    if (letter_indexed == words[j][word_letter_index])
-		//     	    {
-		//     	        strcpy(filtered_arr[n_possible_answers], words[j]);
-		//     	        n_possible_answers++;
-		//     	    }
-		//     	}
-		//     }
-		//     else
-		//     {
-		//         char filtered_arr_temp[NUM_WORDS][6];
-		// 	int temp_count = 0; // reset temporary count buffer
-		// 	for (int k = 0; k < n_possible_answers; k++)
-		// 	{
-		// 	    // compare the specified letter against the words in a loop
-		// 	    if (letter_indexed == filtered_arr[k][word_letter_index])
-		//             {
-		// 		strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
-		// 		temp_count++;
-		//             }
-		//         }
-		//         n_possible_answers = temp_count;
-		//         for (int k = 0; k < n_possible_answers; k++)
-		// 	{
-		//             strcpy(filtered_arr[k], filtered_arr_temp[k]);
-		//         }
-		//     }
-
-		//     first_execution = false;
-		//     i += P_FILTERS_ARG_EXP;
-
-
-		// }
-		else
-		{
-		    err(10);
-		}
-
-		// read (P_FILTERS_ARG_EXP) ahead of the previous read
-		//
-		// example:
-		// the input is the following:
-		// ./binary -s A 1 -s D 2
-		// the first read is "-s A 1"
-		// P_FILTERS_ARG_EXP is 3 since the previous read had 3 arguments
-		// the next line will skip 3 because it's reading the next 3 arguments (-s D 2)
+	        first_execution = false;
+	        i += P_FILTERS_ARG_EXP;
 	    }
-	}
-	else
-	{
-	    err(1);
+	    else if (strcmp(argv[i], "--exclude") == 0 || strcmp(argv[i], "-x") == 0 || strcmp(argv[i], "-e") == 0)
+	    {
+	        // this is the way this interprets characters
+	        // execute(./binary) flag(-x) letter_position(5) letter(A)
+	        // this means all words(in the list) NOT ending in A
+	        int letter_arg_index = i;
+	        letter_arg_index++;
+	        int number_arg_index = letter_arg_index;
+	        number_arg_index++;
+
+	        // word_letter_index is the index of the letter the user specified
+	        //
+	        // example 1: you want to find all words WITHOUT A as the first letter
+	        // 'A' is at index 1
+	        // This is not useful when it's the only flag since it will print about 2200 words...
+	        // It is useful when combined with other flags because it helps narrow down further the possible words
+
+	        char *endptr;
+	        int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
+	        word_letter_index--;
+	        user_index_validation(word_letter_index);
+
+	        char letter_indexed = argv[letter_arg_index][0];
+
+	        if (first_execution)
+	        {
+		    n_possible_answers = 0;	// reset word count buffer
+						// this needs to be reset only once
+		    for (int j = 0; j < NUM_WORDS; j++)
+	            {
+			// compare the specified letter against the words in a loop
+	        	if (letter_indexed == words[j][word_letter_index])
+	        	{
+	        	    strcpy(filtered_arr[n_possible_answers], words[j]);
+	        	    n_possible_answers++;
+	        	}
+	            }
+	        }
+	        else
+	        {
+	            char filtered_arr_temp[NUM_WORDS][6];
+		    int temp_count = 0; // reset temporary count buffer
+		    for (int k = 0; k < n_possible_answers; k++)
+		    {
+			// compare the specified letter against the words in a loop
+			if (letter_indexed != filtered_arr[k][word_letter_index])
+	                {
+			    strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
+			    temp_count++;
+	                }
+	            }
+	            n_possible_answers = temp_count;
+	            for (int k = 0; k < n_possible_answers; k++)
+		    {
+	                strcpy(filtered_arr[k], filtered_arr_temp[k]);
+	            }
+	        }
+
+	        first_execution = false;
+	        i += P_FILTERS_ARG_EXP;
+	    }
+	    else if (strcmp(argv[i], "--includes") == 0 || strcmp(argv[i], "-i") == 0)
+	    {
+	        int letter_arg_index = i;
+	        letter_arg_index++;
+
+	        // 
+	        // 
+	        // 
+
+	        char letter_indexed = argv[letter_arg_index][0];
+
+	        if (first_execution)
+	        {
+		    n_possible_answers = 0;	// reset word count buffer
+						// this needs to be reset only once
+		    for (int j = 0; j < NUM_WORDS; j++)
+	            {
+			// compare the specified letter against the words in a loop
+			for (int k = 0; k < NUM_LETTERS_WORD; k++)
+			{
+			    if (letter_indexed == words[j][k])
+			    {
+				strcpy(filtered_arr[n_possible_answers], words[j]);
+				n_possible_answers++;
+			    }
+			}
+		    }
+	        }
+	        else
+	        {
+	            char filtered_arr_temp[NUM_WORDS][6];
+		    int temp_count = 0; // reset temporary count buffer
+		    for (int k = 0; k < n_possible_answers; k++)
+		    {
+			// compare the specified letter against the words in a loop
+			for (int l = 0; l < NUM_LETTERS_WORD; l++)
+			{
+			    if (letter_indexed == filtered_arr[k][l])
+	                    {
+				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
+				temp_count++;
+	                    }
+			}
+		    }
+
+	            n_possible_answers = temp_count;
+	            for (int k = 0; k < n_possible_answers; k++)
+		    {
+			strcpy(filtered_arr[k], filtered_arr_temp[k]);
+	            }
+	        }
+
+	        first_execution = false;
+	        i += P_FILTERS_ARG_EXP;
+	    }
+	    else
+	    {
+	        err(10);
+	    }
+
+	    // read (P_FILTERS_ARG_EXP) ahead of the previous read
+	    //
+	    // example:
+	    // the input is the following:
+	    // ./binary -s A 1 -s D 2
+	    // the first read is "-s A 1"
+	    // P_FILTERS_ARG_EXP is 3 since the previous read had 3 arguments
+	    // the next line will skip 3 because it's reading the next 3 arguments (-s D 2)
 	}
     }
     else
