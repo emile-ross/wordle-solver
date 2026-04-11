@@ -143,6 +143,11 @@ int main(int argc, char *argv[])
 		    first_execution = false;
 		    i += P_FILTERS_ARG_EXP;
 		}
+		else if (strcmp(argv[i], "--includes") == 0 || strcmp(argv[i], "-i") == 0)
+		{
+
+
+		}
 		else
 		{
 		    err(10);
@@ -195,6 +200,8 @@ void err(int error_code)
 	    printf("--exclude (exclude)\n\n");
 	    printf("-s (strict)\n");
 	    printf("--strict (strict)\n");
+	    printf("-i (includes)\n");
+	    printf("--includes (includes)\n");
 	    break;
 
 	default:
