@@ -77,7 +77,10 @@ int main(int argc, char *argv[])
 			strcpy(filtered_arr[k], filtered_arr_temp[k]);
 	            }
 	        }
-
+		if (verbose)
+		{
+		    printf("Moved %d words to the filtered array\n", n_possible_answers);
+		}
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
 	    }
@@ -138,6 +141,10 @@ int main(int argc, char *argv[])
 	                strcpy(filtered_arr[k], filtered_arr_temp[k]);
 	            }
 	        }
+		if (verbose)
+		{
+		    printf("Moved %d words to the filtered array\n", n_possible_answers);
+		}
 
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
