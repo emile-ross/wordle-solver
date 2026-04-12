@@ -9,3 +9,6 @@ bool awsum_table_mode = false; // false by default
 
 int table_width = 6; // 6 by default
 // this is the width of the table (the number of words displayed on the x axis)
+
+
+bool verbose = false;
