@@ -13,6 +13,18 @@
 #define P_FILTERS_ARG_EXP 3
 #define G_FILTERS_ARG_EXP 2
 
+// Define colours
+#define ANSI_RED 	"\x1b[31m"
+#define ANSI_GREEN 	"\x1b[32m" 
+#define ANSI_CYAN    	"\x1b[36m"
+#define ANSI_LCYAN    	"\x1b[96m"
+
+#define BOLD_S  	"\x1B[1m" 
+
+// reset styling
+#define STYLE_END	"\x1B[0m" 
+
+
 extern char words[NUM_WORDS][6];
 extern char filtered_arr[NUM_WORDS][6];
 
@@ -36,4 +48,4 @@ extern bool awsum_table_mode;
 extern int table_width;
 extern bool verbose;
 
-void verbose_printing(char *flag, char LETTER, int indexed_letter_value, int affected_words);
+void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
