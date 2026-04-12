@@ -78,7 +78,10 @@ int main(int argc, char *argv[])
 	            }
 	        }
 
-		verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, true);
+		if (verbose)
+		{
+		    verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, true);
+		}
 		    
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
@@ -141,7 +144,10 @@ int main(int argc, char *argv[])
 	            }
 	        }
 
-		verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, false);
+		if (verbose)
+		{
+		    verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, false);
+		}
 
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
@@ -197,7 +203,11 @@ int main(int argc, char *argv[])
 
 	        first_execution = false;
 	        flag_r += G_FILTERS_ARG_EXP;
-		verbose_printing(argv[flag_r], letter_indexed, 0, n_possible_answers, true);
+		if (verbose)
+		{
+		    verbose_printing("-i", letter_indexed, 0, n_possible_answers, true);
+		    //verbose_printing(argv[flag_r], letter_indexed, 0, n_possible_answers, true);
+		}
 	    }
 	    else
 	    {
@@ -224,7 +234,7 @@ int main(int argc, char *argv[])
 
     print_as_table(table_width, n_possible_answers, awsum_table_mode);
 
-    printf("%d possible words\n", n_possible_answers);
+    printf(BOLD_S"%d possible words\n"STYLE_END, n_possible_answers);
 
     return 0;
 }
@@ -311,7 +321,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 
 void user_index_validation(int index)
 {
-    if (index > 5 || index < 0)
+    if (index < 0 || index > 5 )
     {
 	// display error message for invalid value
 	err(5);
@@ -323,15 +333,20 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
     indexed_letter_value++; // in order to make it more user friendly 
 			    // because the user inputs a value 1-5 not 0-4
 
-    printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "BOLD_S "%d"STYLE_END ANSI_LCYAN" words ", flag, affected_words);
+    printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
+
+    if (affected_words != 1)
+    {
+	printf("s");
+    }
 
     if (letter_is_present)
     {
-	printf("with ");
+	printf(" with ");
     }
     else
     {
-	printf("without ");
+	printf(" without ");
     }
 
     printf(BOLD_S"%c "STYLE_END ANSI_LCYAN, letter);
