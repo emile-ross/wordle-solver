@@ -34,4 +34,6 @@ void user_index_validation(int index);
 // config file
 extern bool awsum_table_mode;
 extern int table_width;
+extern bool verbose;
 
+void verbose_printing(char *flag, char LETTER, int indexed_letter_value, int affected_words);
