@@ -1,6 +1,6 @@
 #include "header.h"
 
-char filtered_arr[NUM_WORDS][6];
+char filtered_arr[NUM_WORDS][INDEX_LETTERS_WORD];
 
 int n_possible_answers;
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	        }
 	        else
 	        {
-	            char filtered_arr_temp[NUM_WORDS][6];
+	            char filtered_arr_temp[NUM_WORDS][INDEX_LETTERS_WORD];
 		    int temp_count = 0; // reset temporary count buffer
 		    for (int k = 0; k < n_possible_answers; k++)
 		    {
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 
 		if (verbose)
 		{
-		    verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, true);
+		    verbose_printing("--strict", letter_indexed, word_letter_index, n_possible_answers, true);
 		}
 		    
 	        first_execution = false;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 	        }
 	        else
 	        {
-	            char filtered_arr_temp[NUM_WORDS][6];
+	            char filtered_arr_temp[NUM_WORDS][INDEX_LETTERS_WORD];
 		    int temp_count = 0; // reset temporary count buffer
 		    for (int k = 0; k < n_possible_answers; k++)
 		    {
@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
 
 		if (verbose)
 		{
-		    verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, false);
+		    verbose_printing("--exclude", letter_indexed, word_letter_index, n_possible_answers, false);
 		}
 
 	        first_execution = false;
@@ -205,8 +205,7 @@ int main(int argc, char *argv[])
 	        flag_r += G_FILTERS_ARG_EXP;
 		if (verbose)
 		{
-		    verbose_printing("-i", letter_indexed, 0, n_possible_answers, true);
-		    //verbose_printing(argv[flag_r], letter_indexed, 0, n_possible_answers, true);
+		    verbose_printing("--includes", letter_indexed, -1, n_possible_answers, true);
 		}
 	    }
 	    else
@@ -330,8 +329,6 @@ void user_index_validation(int index)
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present)
 {
-    indexed_letter_value++; // in order to make it more user friendly 
-			    // because the user inputs a value 1-5 not 0-4
 
     printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
 
@@ -351,8 +348,10 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 
     printf(BOLD_S"%c "STYLE_END ANSI_LCYAN, letter);
 
-    if (indexed_letter_value != 0)
+    if (indexed_letter_value != -1)
     {
+	indexed_letter_value++; // in order to make it more user friendly 
+				// because the user inputs a value 1-5 not 0-4
 	printf("at index "BOLD_S"%d "STYLE_END ANSI_LCYAN, indexed_letter_value);
     }
 
