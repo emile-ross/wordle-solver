@@ -77,12 +77,8 @@ int main(int argc, char *argv[])
 			strcpy(filtered_arr[k], filtered_arr_temp[k]);
 	            }
 	        }
-		if (verbose)
-		{
-		    printf("Moved %d words to the filtered array\n", n_possible_answers);
-		}
 
-		verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers);
+		verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, true);
 		    
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
@@ -144,10 +140,8 @@ int main(int argc, char *argv[])
 	                strcpy(filtered_arr[k], filtered_arr_temp[k]);
 	            }
 	        }
-		if (verbose)
-		{
-		    printf("Moved %d words to the filtered array\n", n_possible_answers);
-		}
+
+		verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers, false);
 
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
@@ -203,6 +197,7 @@ int main(int argc, char *argv[])
 
 	        first_execution = false;
 	        flag_r += G_FILTERS_ARG_EXP;
+		verbose_printing(argv[flag_r], letter_indexed, 0, n_possible_answers, true);
 	    }
 	    else
 	    {
@@ -323,14 +318,28 @@ void user_index_validation(int index)
     }
 }
 
-void verbose_printing(char *flag, char LETTER, int indexed_letter_value, int affected_words)
+void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present)
 {
-    if (indexed_letter_value == 0)
+    indexed_letter_value++; // in order to make it more user friendly 
+			    // because the user inputs a value 1-5 not 0-4
+
+    printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "BOLD_S "%d"STYLE_END ANSI_LCYAN" words ", flag, affected_words);
+
+    if (letter_is_present)
     {
-	err(6);
+	printf("with ");
     }
     else
     {
-	printf("%s flag caused %d words with %c at index %d to be moved to the filtered array\n", flag, affected_words, LETTER, indexed_letter_value);
+	printf("without ");
     }
+
+    printf(BOLD_S"%c "STYLE_END ANSI_LCYAN, letter);
+
+    if (indexed_letter_value != 0)
+    {
+	printf("at index "BOLD_S"%d "STYLE_END ANSI_LCYAN, indexed_letter_value);
+    }
+
+    printf("to be moved to the filtered array\n"STYLE_END);
 }
