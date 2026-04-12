@@ -14,8 +14,13 @@ gcc:
 clang:
 	clang $(COMPILE_CMD) $(FLAGS)
 
-macos: clang
-	@# "make macos" redirects to "make clang"
+
 
 linux: gcc
 	@# "make linux" redirects to "make gcc"
+
+macos: clang
+	@# "make macos" redirects to "make clang"
+
+windows: 
+	@echo "No."
