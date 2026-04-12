@@ -81,6 +81,9 @@ int main(int argc, char *argv[])
 		{
 		    printf("Moved %d words to the filtered array\n", n_possible_answers);
 		}
+
+		verbose_printing(argv[flag_r], letter_indexed, word_letter_index, n_possible_answers);
+		    
 	        first_execution = false;
 	        flag_r += P_FILTERS_ARG_EXP;
 	    }
@@ -317,5 +320,17 @@ void user_index_validation(int index)
     {
 	// display error message for invalid value
 	err(5);
+    }
+}
+
+void verbose_printing(char *flag, char LETTER, int indexed_letter_value, int affected_words)
+{
+    if (indexed_letter_value == 0)
+    {
+	err(6);
+    }
+    else
+    {
+	printf("%s flag caused %d words with %c at index %d to be moved to the filtered array\n", flag, affected_words, LETTER, indexed_letter_value);
     }
 }
