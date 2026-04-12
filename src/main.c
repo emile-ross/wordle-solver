@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     bool first_execution = true;
     int ARGS_BEFORE_CUR_FLAG = ARGS_BEFORE_FLAG_BASE;
 
-    if (argc >= 2)
+    if (argc >= 2)  // or else there's nothing
     {
 	// in order to ignore the first argument of the command (probably the execution command)
 	int flag_r = ARGS_BEFORE_CUR_FLAG; // doesn't require all flags to have 3 arguments
@@ -147,10 +147,6 @@ int main(int argc, char *argv[])
 	        int letter_arg_index = flag_r;
 	        letter_arg_index++;
 
-	        // 
-	        // 
-	        // 
-
 	        char letter_indexed = argv[letter_arg_index][0];
 
 	        if (first_execution)
@@ -211,6 +207,9 @@ int main(int argc, char *argv[])
 	    // the first read is "-s A 1"
 	    // P_FILTERS_ARG_EXP is 3 since the previous read had 3 arguments
 	    // the next line will skip 3 because it's reading the next 3 arguments (-s D 2)
+
+	    // G_FILTERS_ARG_EXP is 2 since the flags with it only read 2 arguments (-i D)
+	    // this means the word has a 'D'
 	}
     }
     else
