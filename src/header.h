@@ -7,6 +7,8 @@
 #include <stdbool.h>
 
 #define NUM_WORDS 2331
+#define NUM_COMMON_WORDS 5700
+
 #define NUM_LETTERS_WORD 5
 // INDEX_LETTERS_WORD is NUM_LETTERS + 1
 #define INDEX_LETTERS_WORD 6
@@ -32,6 +34,8 @@
 
 
 extern char words[NUM_WORDS][INDEX_LETTERS_WORD];
+extern char common_words[NUM_WORDS][INDEX_LETTERS_WORD]; 
+
 extern char filtered_arr[NUM_WORDS][INDEX_LETTERS_WORD];
 
 
