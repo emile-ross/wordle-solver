@@ -1,6 +1,7 @@
 #define HEADER_DOT_H
 #define _POSIX_C_SOURCE 200809L
 
+#include "enums.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@
 #define ARGS_BEFORE_FLAG_BASE 1
 #define P_FILTERS_ARG_EXP 3
 #define G_FILTERS_ARG_EXP 2
+#define WORD_LIST_ARG_EXP 2
 
 // Define colours
 #define ANSI_RED 	"\x1b[31m"
@@ -48,6 +50,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode);
 // Global variables
 extern int ARGS_BEFORE_CUR_FLAG;
 extern int flag_r;
+extern enum ALL_WORD_LISTS word_list;
 
 
 // General simple functions

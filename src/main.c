@@ -16,7 +16,17 @@ int main(int argc, char *argv[])
 
 	while(flag_r < argc)
 	{
-	    if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
+	    if (strcmp(argv[flag_r], "--word-list") == 0 || strcmp(argv[flag_r], "-w") == 0)
+	    {
+		// TODO:
+		// attempt to read the flag after the flag
+		// assign the corresponding word list to the enum
+
+		// this sets the word list as the common word list (5700 words)
+		enum ALL_WORD_LISTS word_list = common;
+	        flag_r += WORD_LIST_ARG_EXP;
+	    }
+	    else if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
 	    {
 	        // this is the way this interprets characters
 	        // execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -348,6 +358,8 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 
     printf(BOLD_S"%c "STYLE_END ANSI_LCYAN, letter);
 
+
+    // might add colour options here
     if (indexed_letter_value != -1)
     {
 	indexed_letter_value++; // in order to make it more user friendly 
