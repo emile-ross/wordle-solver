@@ -7,6 +7,7 @@ int n_possible_answers;
 int main(int argc, char *argv[])
 {
     bool first_execution = true;
+		enum ALL_WORD_LISTS word_list = nyt;
     int ARGS_BEFORE_CUR_FLAG = ARGS_BEFORE_FLAG_BASE;
 
     if (argc >= 2)  // or else there's nothing
@@ -18,12 +19,12 @@ int main(int argc, char *argv[])
 	{
 	    if (strcmp(argv[flag_r], "--word-list") == 0 || strcmp(argv[flag_r], "-w") == 0)
 	    {
-		// TODO:
-		// attempt to read the flag after the flag
-		// assign the corresponding word list to the enum
+		    // TODO:
+		    // attempt to read the flag after the flag
+		    // assign the corresponding word list to the enum
 
-		// this sets the word list as the common word list (5700 words)
-		enum ALL_WORD_LISTS word_list = common;
+		      // this sets the word list as the common word list (5700 words)
+          enum ALL_WORD_LISTS word_list = common;
 	        flag_r += WORD_LIST_ARG_EXP;
 	    }
 	    else if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
