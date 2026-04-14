@@ -1,19 +1,50 @@
-FG = -Wall -Wextra -pedantic -std=c99
+FLAGS = -Wall -Wextra -pedantic -std=c99
 ZIG = zig cc
-CMD = src/main.c src/words.c src/config.c src/common-words -o binary
+
+CONFIG_FILE_PATH = src/config.c
+MAIN_FILE_PATH = src/main.c
+
+BASE_ALL_WORDS_FILE_PATH = src/all-words
+BASE_COM_WORDS_FILE_PATH = src/common-words
+BASE_NYT_WORDS_FILE_PATH = src/words
+
+SRC_ALL_WORDS = $(BASE_ALL_WORDS_FILE_PATH).c
+SRC_COM_WORDS = $(BASE_COM_WORDS_FILE_PATH).c
+SRC_NYT_WORDS = $(BASE_NYT_WORDS_FILE_PATH).c
+
+OBJ_ALL_WORDS_FP = $(BASE_ALL_WORDS_FILE_PATH).o
+OBJ_COM_WORDS_FP = $(BASE_COM_WORDS_FILE_PATH).o
+OBJ_NYT_WORDS_FP = $(BASE_NYT_WORDS_FILE_PATH).o
+
+
+BASE_SRC_FILES = $(MAIN_FILE_PATH) $(CONFIG_FILE_PATH)
+WORD_SRC_FILES = $(SRC_NYT_WORDS) $(SRC_ALL_WORDS) $(SRC_COM_WORDS)
+
+OUT_ALL_OBJ_F = -c $(SRC_ALL_WORDS) -o $(OBJ_ALL_WORDS_FP) 
+OUT_COM_OBJ_F = -c $(SRC_COM_WORDS) -o $(OBJ_COM_WORDS_FP)
+OUT_NYT_OBJ_F = -c $(SRC_NYT_WORDS) -o $(OBJ_NYT_WORDS_FP) 
+
+OUT = -o binary
+
+main: 
+	$(ZIG) 
+
+all:
+	$(ZIG) $(OUT_ALL_OBJ_F) $(FLAGS)
+	$(ZIG) $(OUT_COM_OBJ_F) $(FLAGS)
+	$(ZIG) $(OUT_NYT_OBJ_F) $(FLAGS)
 
 base: 
-	$(ZIG) $(CMD) $(FLAGS) -Werror
+	$(ZIG) $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS) -Werror
 
 zig: 
-	$(ZIG) $(CMD) $(FG)
+	$(ZIG) $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
 
 gcc:
-	gcc $(CMD) $(FG)
+	gcc $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
 
 clang:
-	clang $(CMD) $(FG)
-
+	clang $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
 
 linux: gcc
 
