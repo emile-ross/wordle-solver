@@ -7,7 +7,6 @@ int n_possible_answers;
 int main(int argc, char *argv[])
 {
     bool first_execution = true;
-		enum ALL_WORD_LISTS word_list = nyt;
     int ARGS_BEFORE_CUR_FLAG = ARGS_BEFORE_FLAG_BASE;
 
     if (argc >= 2)  // or else there's nothing
@@ -19,12 +18,58 @@ int main(int argc, char *argv[])
 	{
 	    if (strcmp(argv[flag_r], "--word-list") == 0 || strcmp(argv[flag_r], "-w") == 0)
 	    {
-		    // TODO:
-		    // attempt to read the flag after the flag
-		    // assign the corresponding word list to the enum
+	        if (!first_execution)	// print error message if -w comes after words have been filtered
+		{
+		    if (!ignore_warn)
+		    {
+			err(16);
+		    }
+		}
 
-		      // this sets the word list as the common word list (5700 words)
-          enum ALL_WORD_LISTS word_list = common;
+		if (argc >= 3)
+		{
+		    // TODO
+		    //	fix the repetition of "if (verbose)" and printing of the current word list
+		    //	can be fixed with a single switch statement with enum cases
+
+		    int wlist_indx_t = flag_r + 1;  // read 1 argument ahead of the "flag_r" integer
+
+		    if (strcmp(argv[wlist_indx_t], "common") == 0 || strcmp(argv[wlist_indx_t], "common-words") == 0)
+		    {
+			enum ALL_WORD_LISTS word_list = common;
+			if (verbose)
+			{
+			    printf(ANSI_LCYAN"using "BOLD_S"common"STYLE_END ANSI_LCYAN" word list\n"STYLE_END);
+			}
+		    }
+		    else if (strcmp(argv[wlist_indx_t], "all") == 0 || strcmp(argv[wlist_indx_t], "all-words") == 0)
+		    {
+			enum ALL_WORD_LISTS word_list = all;
+			if (verbose)
+			{
+			    printf(ANSI_LCYAN"using "BOLD_S"all"STYLE_END ANSI_LCYAN" word list\n"STYLE_END);
+			}
+		    }
+		    else if (strcmp(argv[wlist_indx_t], "nyt") == 0 || strcmp(argv[wlist_indx_t], "NYT") == 0 || strcmp(argv[wlist_indx_t], "times") == 0)
+		    {
+			enum ALL_WORD_LISTS word_list = nyt;
+			if (verbose)
+			{
+			    printf(ANSI_LCYAN"using the "BOLD_S"New-York-Times"STYLE_END ANSI_LCYAN" word list\n"STYLE_END);
+			}
+		    }
+		    else
+		    {
+			err(15);
+		    }
+		}
+		else // missing arguments
+		{
+		    err(1); 
+		}
+
+
+		// this sets the word list as the common word list (5700 words)
 	        flag_r += WORD_LIST_ARG_EXP;
 	    }
 	    else if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
@@ -276,6 +321,14 @@ void err(int error_code)
 	    printf("-i (includes)\n");
 	    printf("--includes (includes)\n");
 	    break;
+
+	case 15:
+	    printf("Unknown word list\n");
+
+	case 16:
+	    printf("The \"-w\" or \"--word-list\" flags must be the first flag\n");
+	    break;
+
 
 	default:
 	    printf("Missing error message\n");

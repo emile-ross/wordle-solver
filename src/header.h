@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+// number of words for each array
 #define NUM_WORDS 2331
 #define NUM_COMMON_WORDS 5700
+#define NUM_ALL_WORDS 8916
 
 #define NUM_LETTERS_WORD 5
 // INDEX_LETTERS_WORD is NUM_LETTERS + 1
@@ -37,6 +39,7 @@
 
 extern char words[NUM_WORDS][INDEX_LETTERS_WORD];
 extern char common_words[NUM_WORDS][INDEX_LETTERS_WORD]; 
+extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 extern char filtered_arr[NUM_WORDS][INDEX_LETTERS_WORD];
 
@@ -61,6 +64,7 @@ void user_index_validation(int index);
 extern bool awsum_table_mode;
 extern int table_width;
 extern bool verbose;
+extern bool ignore_warn;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
 

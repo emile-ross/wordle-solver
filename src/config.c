@@ -11,4 +11,9 @@ int table_width = 6; // 6 by default
 // this is the width of the table (the number of words displayed on the x axis)
 
 
-bool verbose = true; // shows more logs and information about the program
+bool verbose = false; // false by default
+// shows more logs and information about the program
+
+
+bool ignore_warn = false; // false by default
+// ignores some warnings
