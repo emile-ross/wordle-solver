@@ -10,7 +10,7 @@
 // number of words for each array
 #define NUM_WORDS 2331
 #define NUM_COMMON_WORDS 5700
-#define NUM_ALL_WORDS 8916
+#define NUM_ALL_WORDS 12923
 
 #define NUM_LETTERS_WORD 5
 // INDEX_LETTERS_WORD is NUM_LETTERS + 1
@@ -38,23 +38,24 @@
 
 
 extern char words[NUM_WORDS][INDEX_LETTERS_WORD];
-extern char common_words[NUM_WORDS][INDEX_LETTERS_WORD]; 
+extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
 extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-extern char filtered_arr[NUM_WORDS][INDEX_LETTERS_WORD];
+extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 
-void test(int num_arg);
-void parse_command(int num_arg, char *argument[]);
 void err(int error_code);
 
 void print_as_table(int width, int total_elements, bool awsum_mode);
 
+int strict_parsing(enum ALL_WORD_LISTS w_list, bool f_exec, char *arguments[]);
+
 // Global variables
 extern int ARGS_BEFORE_CUR_FLAG;
-extern int flag_r;
 extern enum ALL_WORD_LISTS word_list;
-
+extern int n_possible_answers;
+extern bool first_execution;
+static int flag_r;
 
 // General simple functions
 void user_index_validation(int index);

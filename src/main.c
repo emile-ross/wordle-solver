@@ -1,6 +1,6 @@
 #include "header.h"
 
-char filtered_arr[NUM_WORDS][INDEX_LETTERS_WORD];
+char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 int n_possible_answers;
 
@@ -324,6 +324,7 @@ void err(int error_code)
 
 	case 15:
 	    printf("Unknown word list\n");
+	    break;
 
 	case 16:
 	    printf("The \"-w\" or \"--word-list\" flags must be the first flag\n");
