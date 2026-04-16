@@ -48,14 +48,13 @@ void err(int error_code);
 
 void print_as_table(int width, int total_elements, bool awsum_mode);
 
-int strict_parsing(enum ALL_WORD_LISTS w_list, bool f_exec, char *arguments[]);
+int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *arguments[]);
 
 // Global variables
 extern int ARGS_BEFORE_CUR_FLAG;
 extern enum ALL_WORD_LISTS word_list;
 extern int n_possible_answers;
-extern bool first_execution;
-static int flag_r;
+
 
 // General simple functions
 void user_index_validation(int index);
