@@ -27,7 +27,9 @@ OUT_NYT_OBJ_F = -c $(SRC_NYT_WORDS) -o $(OBJ_NYT_WORDS_FP)
 
 LINK_WORD_OBJ_FP = $(OBJ_ALL_WORDS_FP) $(OBJ_COM_WORDS_FP) $(OBJ_NYT_WORDS_FP)
 
-OUT = -o binary
+OUT_BIN_NAME = binary
+
+OUT = -o $(OUT_BIN_NAME)
 
 main: 
 	$(ZIG) $(LINK_WORD_OBJ_FP) $(BASE_SRC_FILES) $(OUT) $(FLAGS) -Werror
@@ -58,6 +60,10 @@ clang:
 	clang $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
 
 linux: gcc
+	
+android: gcc
+	chmod u+x $(OUT_BIN_NAME)
+	cp $(OUT_BIN_NAME) ~
 
 macos: clang
 
