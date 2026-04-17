@@ -17,7 +17,6 @@ OBJ_ALL_WORDS_FP = $(BASE_ALL_WORDS_FILE_PATH).o
 OBJ_COM_WORDS_FP = $(BASE_COM_WORDS_FILE_PATH).o
 OBJ_NYT_WORDS_FP = $(BASE_NYT_WORDS_FILE_PATH).o
 
-
 BASE_SRC_FILES = $(MAIN_FILE_PATH) $(CONFIG_FILE_PATH) $(PARSING_FILE_PATH)
 WORD_SRC_FILES = $(SRC_NYT_WORDS) $(SRC_ALL_WORDS) $(SRC_COM_WORDS)
 
@@ -30,12 +29,6 @@ LINK_WORD_OBJ_FP = $(OBJ_ALL_WORDS_FP) $(OBJ_COM_WORDS_FP) $(OBJ_NYT_WORDS_FP)
 OUT_BIN_NAME = binary
 
 OUT = -o $(OUT_BIN_NAME)
-
-main: 
-	$(ZIG) $(LINK_WORD_OBJ_FP) $(BASE_SRC_FILES) $(OUT) $(FLAGS) -Werror
-
-main-e: 
-	$(ZIG) $(LINK_WORD_OBJ_FP) $(BASE_SRC_FILES) $(OUT) $(FLAGS)
 
 all:
 	$(ZIG) $(OUT_ALL_OBJ_F) $(FLAGS)
@@ -64,8 +57,16 @@ linux: gcc
 android: gcc
 	chmod u+x $(OUT_BIN_NAME)
 	cp $(OUT_BIN_NAME) ~
+	@echo "Binary file was copied to your home directory"
+	@echo "execute it with ~/$(OUT_BIN_NAME)"
 
 macos: clang
 
 windows: 
 	@echo "No."
+
+main: 
+	$(ZIG) $(LINK_WORD_OBJ_FP) $(BASE_SRC_FILES) $(OUT) $(FLAGS) -Werror
+
+main-e: 
+	$(ZIG) $(LINK_WORD_OBJ_FP) $(BASE_SRC_FILES) $(OUT) $(FLAGS)
