@@ -62,7 +62,7 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *
 	
         n_possible_answers = 0;	// reset word count buffer
     				// this needs to be reset only once
-        for (int j = 0; j < NUM_WORDS; j++)
+        for (int j = 0; j < NUM_ALL_WORDS; j++)
 	{
 	    // compare the specified letter against the words in a loop
 	    if (letter_indexed == ptr[j][word_letter_index])
@@ -74,7 +74,7 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *
     }
     else
     {
-        char filtered_arr_temp[NUM_WORDS][INDEX_LETTERS_WORD];
+        char filtered_arr_temp[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
         int temp_count = 0; // reset temporary count buffer
 
         for (int k = 0; k < n_possible_answers; k++)
