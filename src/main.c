@@ -117,7 +117,7 @@ int main(int argc, char *argv[])
 	        }
 	        else
 	        {
-	            char filtered_arr_temp[NUM_WORDS][INDEX_LETTERS_WORD];
+	            char filtered_arr_temp[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 		    int temp_count = 0; // reset temporary count buffer
 		    for (int k = 0; k < n_possible_answers; k++)
 		    {

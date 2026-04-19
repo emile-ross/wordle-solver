@@ -1,6 +1,6 @@
 #include "header.h"
 
-int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *arguments[])
+int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool letter_indexed_bl, char *arguments[])
 {
     // this is the way this interprets characters
     // execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -62,13 +62,16 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *
 	
         n_possible_answers = 0;	// reset word count buffer
     				// this needs to be reset only once
-        for (int j = 0; j < NUM_ALL_WORDS; j++)
+	if (letter_indexed_bl)
 	{
-	    // compare the specified letter against the words in a loop
-	    if (letter_indexed == ptr[j][word_letter_index])
+	    for (int j = 0; j < NUM_ALL_WORDS; j++)
 	    {
-		memcpy(filtered_arr[n_possible_answers], ptr[j], INDEX_LETTERS_WORD);
-		n_possible_answers++;
+	        // compare the specified letter against the words in a loop
+	        if (letter_indexed == ptr[j][word_letter_index])
+	        {
+	    	memcpy(filtered_arr[n_possible_answers], ptr[j], INDEX_LETTERS_WORD);
+	    	n_possible_answers++;
+	        }
 	    }
 	}
     }
@@ -136,12 +139,12 @@ void exclude_filter(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char 
     				// this needs to be reset only once
         for (int j = 0; j < NUM_WORDS; j++)
         {
-    	// compare the specified letter against the words in a loop
-    	if (letter_indexed == words[j][word_letter_index])
-    	{
-    	    strcpy(filtered_arr[n_possible_answers], words[j]);
-    	    n_possible_answers++;
-    	}
+	   // compare the specified letter against the words in a loop
+    	   if (letter_indexed == words[j][word_letter_index])
+    	   {
+    	       strcpy(filtered_arr[n_possible_answers], words[j]);
+    	       n_possible_answers++;
+    	   }
         }
     }
     else
@@ -150,11 +153,11 @@ void exclude_filter(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char 
         int temp_count = 0; // reset temporary count buffer
         for (int k = 0; k < n_possible_answers; k++)
         {
-    	// compare the specified letter against the words in a loop
-    	if (letter_indexed != filtered_arr[k][word_letter_index])
+	    // compare the specified letter against the words in a loop
+	    if (letter_indexed != filtered_arr[k][word_letter_index])
             {
-    	    strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
-    	    temp_count++;
+		strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
+		temp_count++;
             }
         }
         n_possible_answers = temp_count;
