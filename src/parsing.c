@@ -8,6 +8,8 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool f
 
     char (*ptr)[6];
 
+    int n_pos_arr;
+
     if (*f_exec)
     {
 	switch (w_list)
@@ -28,6 +30,19 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool f
     	        err(15);
     	        break;
     	}
+	
+	// since this is the first execution, it will parse through the entire array
+	n_pos_arr = NUM_ALL_WORDS;
+
+        n_possible_answers = 0;	// reset word count buffer
+    				// this needs to be reset only once
+	
+    }
+    else
+    {
+	
+    	ptr = filtered_arr;
+	n_pos_arr = n_possible_answers;
     }
 
     int letter_arg_index = *flag_r;
@@ -53,64 +68,48 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool f
 
     char letter_indexed = arguments[letter_arg_index][0];
 
-    if (*f_exec)
+    char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
+    int temp_count = 0; // reset temporary count buffer
+    
+    if (verbose)
     {
-	if (verbose)
-	{
-	    printf(ANSI_LCYAN"Parsing through the entire word list (first filter)\n"STYLE_END);
-	}
-	
-        n_possible_answers = 0;	// reset word count buffer
-    				// this needs to be reset only once
-	if (letter_indexed_bl)
-	{
-	    if (filter_include_bl)
-	    {
-		for (int j = 0; j < NUM_ALL_WORDS; j++)
-	    	{
-	    	    // compare the specified letter against the words in a loop
-	    	    if (letter_indexed == ptr[j][word_letter_index])
-	    	    {
-	    	        memcpy(filtered_arr[n_possible_answers], ptr[j], INDEX_LETTERS_WORD);
-	    	        n_possible_answers++;
-	    	    }
-	    	}
-	    }
-	    else
-	    {
-		for (int j = 0; j < NUM_ALL_WORDS; j++)
-	    	{
-	    	    // compare the specified letter against the words in a loop
-	    	    if (letter_indexed != ptr[j][word_letter_index])
-	    	    {
-	    	        memcpy(filtered_arr[n_possible_answers], ptr[j], INDEX_LETTERS_WORD);
-	    	        n_possible_answers++;
-	    	    }
-	    	}
-	    }
-	}
+        printf(ANSI_LCYAN"Parsing through the entire word list (first filter)\n"STYLE_END);
     }
-    else
+    
+    if (letter_indexed_bl)
     {
-        char filtered_arr_temp[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
-        int temp_count = 0; // reset temporary count buffer
-
-        for (int k = 0; k < n_possible_answers; k++)
+        if (filter_include_bl)
         {
-	    // compare the specified letter against the words in a loop
-	    if (letter_indexed == filtered_arr[k][word_letter_index])
+	    for (int j = 0; j < n_pos_arr; j++)
 	    {
-		memcpy(filtered_arr_temp[temp_count], filtered_arr[k], INDEX_LETTERS_WORD);
-		temp_count++;
+        	// compare the specified letter against the words in a loop
+        	if (letter_indexed == ptr[j][word_letter_index])
+        	{
+        	    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+        	    temp_count++;
+        	}
             }
         }
-
-        n_possible_answers = temp_count;
-
-	for (int k = 0; k < n_possible_answers; k++)
-	{
-	    strcpy(filtered_arr[k], filtered_arr_temp[k]);
+        else
+        {
+	    for (int j = 0; j < n_pos_arr; j++)
+            {
+		// compare the specified letter against the words in a loop
+        	if (letter_indexed != ptr[j][word_letter_index])
+        	{
+        	    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+        	    temp_count++;
+        	}
+            }
         }
+    }
+    
+    n_possible_answers = temp_count;
+    
+    // Write to filtered array
+    for (int k = 0; k < n_possible_answers; k++)
+    {
+        strcpy(filtered_arr[k], filtered_arr_temp[k]);
     }
 
     if (verbose)

@@ -79,69 +79,7 @@ int main(int argc, char *argv[])
 	    }
 	    else if (strcmp(argv[flag_r], "--exclude") == 0 || strcmp(argv[flag_r], "-x") == 0 || strcmp(argv[flag_r], "-e") == 0)
 	    {
-	        // this is the way this interprets characters
-	        // execute(./binary) flag(-x) letter_position(5) letter(A)
-	        // this means all words(in the list) NOT ending in A
-	        int letter_arg_index = flag_r;
-	        letter_arg_index++;
-	        int number_arg_index = letter_arg_index;
-	        number_arg_index++;
-
-	        // word_letter_index is the index of the letter the user specified
-	        //
-	        // example 1: you want to find all words WITHOUT A as the first letter
-	        // 'A' is at index 1
-	        // This is not useful when it's the only flag since it will print about 2200 words...
-	        // It is useful when combined with other flags because it helps narrow down further the possible words
-
-	        char *endptr;
-	        int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
-	        word_letter_index--;
-	        user_index_validation(word_letter_index);
-
-	        char letter_indexed = argv[letter_arg_index][0];
-
-	        if (first_execution)
-	        {
-		    n_possible_answers = 0;	// reset word count buffer
-						// this needs to be reset only once
-		    for (int j = 0; j < NUM_WORDS; j++)
-	            {
-			// compare the specified letter against the words in a loop
-	        	if (letter_indexed == words[j][word_letter_index])
-	        	{
-	        	    strcpy(filtered_arr[n_possible_answers], words[j]);
-	        	    n_possible_answers++;
-	        	}
-	            }
-	        }
-	        else
-	        {
-	            char filtered_arr_temp[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
-		    int temp_count = 0; // reset temporary count buffer
-		    for (int k = 0; k < n_possible_answers; k++)
-		    {
-			// compare the specified letter against the words in a loop
-			if (letter_indexed != filtered_arr[k][word_letter_index])
-	                {
-			    strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
-			    temp_count++;
-	                }
-	            }
-	            n_possible_answers = temp_count;
-	            for (int k = 0; k < n_possible_answers; k++)
-		    {
-	                strcpy(filtered_arr[k], filtered_arr_temp[k]);
-	            }
-	        }
-
-		if (verbose)
-		{
-		    verbose_printing("--exclude", letter_indexed, word_letter_index, n_possible_answers, false);
-		}
-
-	        first_execution = false;
-	        flag_r += P_FILTERS_ARG_EXP;
+		strict_parsing(&flag_r, word_list, &first_execution, false, true, argv);
 	    }
 	    else if (strcmp(argv[flag_r], "--includes") == 0 || strcmp(argv[flag_r], "-i") == 0)
 	    {
