@@ -106,9 +106,8 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *
     return 0;
 }
 
-void exclude_filter()
+void exclude_filter(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, char *arguments[])
 {
-    NUM_ALL_WORDS
     // this is the way this interprets characters
     // execute(./binary) flag(-x) letter_position(5) letter(A)
     // this means all words(in the list) NOT ending in A
@@ -125,13 +124,13 @@ void exclude_filter()
     // It is useful when combined with other flags because it helps narrow down further the possible words
     
     char *endptr;
-    int word_letter_index = strtol(argv[number_arg_index], &endptr, 10);
+    int word_letter_index = strtol(arguments[number_arg_index], &endptr, 10);
     word_letter_index--;
     user_index_validation(word_letter_index);
     
-    char letter_indexed = argv[letter_arg_index][0];
+    char letter_indexed = arguments[letter_arg_index][0];
     
-    if (first_execution)
+    if (*f_exec)
     {
         n_possible_answers = 0;	// reset word count buffer
     				// this needs to be reset only once
@@ -170,6 +169,6 @@ void exclude_filter()
         verbose_printing("--exclude", letter_indexed, word_letter_index, n_possible_answers, false);
     }
     
-    first_execution = false;
+    f_exec = false;
     flag_r += P_FILTERS_ARG_EXP;
 }
