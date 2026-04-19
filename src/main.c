@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 	    }
 	    else if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
 	    {
-		strict_parsing(&flag_r, word_list, &first_execution, argv);
+		strict_parsing(&flag_r, word_list, &first_execution, true, true, argv);
 	    }
 	    else if (strcmp(argv[flag_r], "--exclude") == 0 || strcmp(argv[flag_r], "-x") == 0 || strcmp(argv[flag_r], "-e") == 0)
 	    {
