@@ -61,10 +61,14 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool f
     // "AFTER" would work
 
     char *endptr;
-    int word_letter_index = strtol(arguments[number_arg_index], &endptr, 10);
-    word_letter_index--;
+    int word_letter_index;
+    if (letter_indexed_bl)
+    {
+	word_letter_index = strtol(arguments[number_arg_index], &endptr, 10);
+	word_letter_index--;
+	user_index_validation(word_letter_index);
+    }
 
-    user_index_validation(word_letter_index);
 
     char letter_indexed = arguments[letter_arg_index][0];
 
@@ -76,6 +80,7 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool f
         printf(ANSI_LCYAN"Parsing through the entire word list (first filter)\n"STYLE_END);
     }
     
+    // parsing logic is below for all options
     if (letter_indexed_bl)
     {
         if (filter_include_bl)
@@ -103,6 +108,30 @@ int strict_parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool f
             }
         }
     }
+    else
+    {
+	if (filter_include_bl)
+	{
+	    for (int j = 0; j < n_pos_arr; j++)
+            {
+		// compare the specified letter against the words in a loop
+		for (int k = 0; k < NUM_LETTERS_WORD; k++)
+		{
+		    if (letter_indexed == ptr[j][k])
+		    {
+			memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+			temp_count++;
+			break;
+		    }
+		}
+            }
+        }
+	else
+	{
+	    err(7);
+	}
+    }
+
     
     n_possible_answers = temp_count;
     
