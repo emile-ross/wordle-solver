@@ -37,7 +37,7 @@
 #define STYLE_END	"\x1B[0m" 
 
 
-extern char words[NUM_WORDS][INDEX_LETTERS_WORD];
+extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
 extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
 extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 

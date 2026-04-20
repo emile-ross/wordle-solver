@@ -15,15 +15,18 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	switch (w_list)
     	{
     	    case nyt:
-    	        ptr = words;
+    	        ptr = nyt_words;
+		n_pos_arr = NUM_WORDS;
     	        break;
 
     	    case common:
     	        ptr = common_words;
+		n_pos_arr = NUM_COMMON_WORDS;
     	        break;
 
     	    case all:
     	        ptr = all_words;
+		n_pos_arr = NUM_ALL_WORDS;
     	        break;
 
     	    default:
@@ -32,11 +35,9 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     	}
 	
 	// since this is the first execution, it will parse through the entire array
-	n_pos_arr = NUM_ALL_WORDS;
 
         n_possible_answers = 0;	// reset word count buffer
     				// this needs to be reset only once
-	
     }
     else
     {
@@ -85,6 +86,14 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     {
         if (filter_include_bl)
         {
+	    bool first_character = false;
+	    bool prev_character_found = false;
+
+	    if (word_letter_index == 0)
+	    {
+		prev_character_found = true;
+	    }
+
 	    for (int j = 0; j < n_pos_arr; j++)
 	    {
         	// compare the specified letter against the words in a loop
@@ -92,7 +101,23 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
         	{
         	    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
         	    temp_count++;
+
+		    if (!prev_character_found)
+		    {
+			if (first_character)
+		    	{
+			    prev_character_found = true;
+		    	}
+		    }
         	}
+		else
+		{
+		    if (prev_character_found)
+		    {
+			break;
+		    }
+		}
+
             }
         }
         else

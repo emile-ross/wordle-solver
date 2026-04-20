@@ -1,6 +1,6 @@
 #include "header.h"
 
-char words[NUM_WORDS][6] = 
+char nyt_words[NUM_WORDS][6] = 
 {
     "ABACK",
     "ABASE",
