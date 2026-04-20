@@ -162,8 +162,20 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
         verbose_printing("--strict", letter_indexed, word_letter_index, n_possible_answers, true);
     }
         
+    int arg_offset;
+
+    if (letter_indexed_bl)
+    {
+	arg_offset = P_FILTERS_ARG_EXP;
+    }
+    else
+    {
+	arg_offset = G_FILTERS_ARG_EXP;
+    }
+
+    *(flag_r) += arg_offset;
+
     *(f_exec) = false;
-    *(flag_r) += P_FILTERS_ARG_EXP;
 
     return 0;
 }
