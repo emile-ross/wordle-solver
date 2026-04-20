@@ -11,7 +11,35 @@ make base
 
 ## Usage
 
-The program currently only accepts the "-s" flag (strict)
+The wordle engine currently accepts 4 different flags:
+
+### ``--strict``
+
+Use this flag if letter is at the correct position.  (the letter is green)  
+Specify the letter and it's position.  
+
+``-s [LETTER] [POSITION]``
+
+### ``--exclude``
+
+Use this flag if the letter is not in the word at (x) position.  (the letter is yellow)
+The flag can be used to tell the program the letter isn't at a specific position.  Use it to specify you got a yellow letter at (x) position.  
+
+``-x [LETTER] [POSITION]``
+
+### ``--includes``
+
+Use this flag if the letter is in the word somewhere.  (the letter is yellow)
+
+``-i [LETTER]``
+
+### ``--absent``
+
+Use this flag if the letter is not in the word.  (the letter is grey)
+
+``-a [LETTER]``
+
+
 
 example command:
 ```sh
