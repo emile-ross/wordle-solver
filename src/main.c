@@ -75,68 +75,19 @@ int main(int argc, char *argv[])
 	    }
 	    else if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
 	    {
-		strict_parsing(&flag_r, word_list, &first_execution, true, true, argv);
+		parsing(&flag_r, word_list, &first_execution, true, true, argv);
 	    }
 	    else if (strcmp(argv[flag_r], "--exclude") == 0 || strcmp(argv[flag_r], "-x") == 0 || strcmp(argv[flag_r], "-e") == 0)
 	    {
-		strict_parsing(&flag_r, word_list, &first_execution, false, true, argv);
+		parsing(&flag_r, word_list, &first_execution, false, true, argv);
 	    }
 	    else if (strcmp(argv[flag_r], "--includes") == 0 || strcmp(argv[flag_r], "-i") == 0)
 	    {
-		strict_parsing(&flag_r, word_list, &first_execution, true, false, argv);
-//	        int letter_arg_index = flag_r;
-//	        letter_arg_index++;
-//
-//	        char letter_indexed = argv[letter_arg_index][0];
-//
-//	        if (first_execution)
-//	        {
-//		    n_possible_answers = 0;	// reset word count buffer
-//						// this needs to be reset only once
-//		    for (int j = 0; j < NUM_WORDS; j++)
-//	            {
-//			// compare the specified letter against the words in a loop
-//			for (int k = 0; k < NUM_LETTERS_WORD; k++)
-//			{
-//			    if (letter_indexed == words[j][k])
-//			    {
-//				strcpy(filtered_arr[n_possible_answers], words[j]);
-//				n_possible_answers++;
-//			    }
-//			}
-//		    }
-//	        }
-//	        else
-//	        {
-//		    int buffer_size_word = NUM_LETTERS_WORD + 1;
-//	            char filtered_arr_temp[NUM_WORDS][buffer_size_word];
-//		    int temp_count = 0; // reset temporary count buffer
-//		    for (int k = 0; k < n_possible_answers; k++)
-//		    {
-//			// compare the specified letter against the words in a loop
-//			for (int l = 0; l < NUM_LETTERS_WORD; l++)
-//			{
-//			    if (letter_indexed == filtered_arr[k][l])
-//	                    {
-//				strcpy(filtered_arr_temp[temp_count], filtered_arr[k]);
-//				temp_count++;
-//	                    }
-//			}
-//		    }
-//
-//	            n_possible_answers = temp_count;
-//	            for (int k = 0; k < n_possible_answers; k++)
-//		    {
-//			strcpy(filtered_arr[k], filtered_arr_temp[k]);
-//	            }
-//	        }
-//
-//	        first_execution = false;
-//	        flag_r += G_FILTERS_ARG_EXP;
-//		if (verbose)
-//		{
-//		    verbose_printing("--includes", letter_indexed, -1, n_possible_answers, true);
-//		}
+		parsing(&flag_r, word_list, &first_execution, true, false, argv);
+	    }
+	    else if (strcmp(argv[flag_r], "--absent") == 0 || strcmp(argv[flag_r], "-a") == 0 || strcmp(argv[flag_r], "-d") == 0)
+	    {
+		parsing(&flag_r, word_list, &first_execution, false, false, argv);
 	    }
 	    else
 	    {
