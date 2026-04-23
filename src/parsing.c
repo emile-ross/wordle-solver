@@ -174,7 +174,6 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	}
     }
 
-    
     n_possible_answers = temp_count;
     
     // Write to filtered array

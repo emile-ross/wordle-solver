@@ -34,26 +34,14 @@ int main(int argc, char *argv[])
 		    if (strcmp(argv[wlist_indx_t], "common") == 0 || strcmp(argv[wlist_indx_t], "common-words") == 0)
 		    {
 			word_list = common;
-			if (verbose)
-			{
-			    printf(ANSI_LCYAN"using "BOLD_S"common"STYLE_END ANSI_LCYAN" word list\n"STYLE_END);
-			}
 		    }
 		    else if (strcmp(argv[wlist_indx_t], "all") == 0 || strcmp(argv[wlist_indx_t], "all-words") == 0)
 		    {
 			word_list = all;
-			if (verbose)
-			{
-			    printf(ANSI_LCYAN"using "BOLD_S"all"STYLE_END ANSI_LCYAN" word list\n"STYLE_END);
-			}
 		    }
 		    else if (strcmp(argv[wlist_indx_t], "nyt") == 0 || strcmp(argv[wlist_indx_t], "NYT") == 0 || strcmp(argv[wlist_indx_t], "times") == 0)
 		    {
 			word_list = nyt;
-			if (verbose)
-			{
-			    printf(ANSI_LCYAN"using the "BOLD_S"New-York-Times"STYLE_END ANSI_LCYAN" word list\n"STYLE_END);
-			}
 		    }
 		    else
 		    {

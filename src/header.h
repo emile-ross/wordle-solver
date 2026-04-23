@@ -37,6 +37,7 @@
 #define STYLE_END	"\x1B[0m" 
 
 
+#define n_num_list (3)
 extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
 extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
 extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
@@ -44,6 +45,8 @@ extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 // filtered array used to store filtered words and it is also used for printing results
 extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
+
+extern char *word_list_text[n_num_list];
 
 void err(int error_code);
 
