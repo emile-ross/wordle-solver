@@ -1,8 +1,8 @@
 #include "header.h"
 
-
 void command_parsing(int argc, int flag_reading_index, char *arguments[])
 {
+    bool first_execution = true;
     if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
     {
         if (!first_execution)	// print error message if -w comes after words have been filtered

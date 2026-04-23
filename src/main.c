@@ -5,97 +5,13 @@ char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 int n_possible_answers;
 enum ALL_WORD_LISTS word_list;
+
 int main(int argc, char *argv[])
 {
-    bool first_execution = true;
-    int ARGS_BEFORE_CUR_FLAG = ARGS_BEFORE_FLAG_BASE;
-
     if (argc >= 2)  // or else there's nothing
     {
-	// in order to ignore the first argument of the command (probably the execution command)
-	int flag_r = ARGS_BEFORE_CUR_FLAG; // doesn't require all flags to have 3 arguments
-
-	while(flag_r < argc)
-	{
-	    if (strcmp(argv[flag_r], "--word-list") == 0 || strcmp(argv[flag_r], "-w") == 0)
-	    {
-	        if (!first_execution)	// print error message if -w comes after words have been filtered
-		{
-		    if (!ignore_warn)
-		    {
-			err(16);
-		    }
-		}
-
-		if (argc >= 3)
-		{
-		    int wlist_indx_t = flag_r + 1;  // read 1 argument ahead of the "flag_r" integer
-
-		    if (strcmp(argv[wlist_indx_t], "common") == 0 || strcmp(argv[wlist_indx_t], "common-words") == 0)
-		    {
-			word_list = common;
-		    }
-		    else if (strcmp(argv[wlist_indx_t], "all") == 0 || strcmp(argv[wlist_indx_t], "all-words") == 0)
-		    {
-			word_list = all;
-		    }
-		    else if (strcmp(argv[wlist_indx_t], "nyt") == 0 || strcmp(argv[wlist_indx_t], "NYT") == 0 || strcmp(argv[wlist_indx_t], "times") == 0)
-		    {
-			word_list = nyt;
-		    }
-		    else
-		    {
-			err(15);
-		    }
-		    
-		    if (verbose)
-		    {
-			printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_text[word_list]);
-		    }
-		    
-		}
-		else // missing arguments
-		{
-		    err(1); 
-		}
-
-
-		// this sets the word list as the common word list (5700 words)
-	        flag_r += WORD_LIST_ARG_EXP;
-	    }
-	    else if (strcmp(argv[flag_r], "--strict") == 0 || strcmp(argv[flag_r], "-s") == 0)
-	    {
-		parsing(&flag_r, word_list, &first_execution, true, true, argv);
-	    }
-	    else if (strcmp(argv[flag_r], "--exclude") == 0 || strcmp(argv[flag_r], "-x") == 0 || strcmp(argv[flag_r], "-e") == 0)
-	    {
-		parsing(&flag_r, word_list, &first_execution, false, true, argv);
-	    }
-	    else if (strcmp(argv[flag_r], "--includes") == 0 || strcmp(argv[flag_r], "-i") == 0)
-	    {
-		parsing(&flag_r, word_list, &first_execution, true, false, argv);
-	    }
-	    else if (strcmp(argv[flag_r], "--absent") == 0 || strcmp(argv[flag_r], "-a") == 0 || strcmp(argv[flag_r], "-d") == 0)
-	    {
-		parsing(&flag_r, word_list, &first_execution, false, false, argv);
-	    }
-	    else
-	    {
-	        err(10);
-	    }
-
-	    // read (P_FILTERS_ARG_EXP) ahead of the previous read
-	    //
-	    // example:
-	    // the input is the following:
-	    // ./binary -s A 1 -s D 2
-	    // the first read is "-s A 1"
-	    // P_FILTERS_ARG_EXP is 3 since the previous read had 3 arguments
-	    // the next line will skip 3 because it's reading the next 3 arguments (-s D 2)
-
-	    // G_FILTERS_ARG_EXP is 2 since the flags with it only read 2 arguments (-i D)
-	    // this means the word has a 'D'
-	}
+	int flag_r = ARGS_BEFORE_FLAG_BASE;
+	command_parsing(argc, flag_r, argv);
     }
     else
     {

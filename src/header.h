@@ -53,6 +53,7 @@ void err(int error_code);
 void print_as_table(int width, int total_elements, bool awsum_mode);
 
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[]);
+void command_parsing(int argc, int flag_reading_index, char *arguments[]);
 
 // Global variables
 extern int ARGS_BEFORE_CUR_FLAG;
