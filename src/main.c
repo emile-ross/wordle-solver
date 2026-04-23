@@ -29,10 +29,6 @@ int main(int argc, char *argv[])
 
 		if (argc >= 3)
 		{
-		    // TODO
-		    //	fix the repetition of "if (verbose)" and printing of the current word list
-		    //	can be fixed with a single switch statement with enum cases
-
 		    int wlist_indx_t = flag_r + 1;  // read 1 argument ahead of the "flag_r" integer
 
 		    if (strcmp(argv[wlist_indx_t], "common") == 0 || strcmp(argv[wlist_indx_t], "common-words") == 0)
@@ -63,6 +59,12 @@ int main(int argc, char *argv[])
 		    {
 			err(15);
 		    }
+		    
+		    if (verbose)
+		    {
+			printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_text[word_list]);
+		    }
+		    
 		}
 		else // missing arguments
 		{

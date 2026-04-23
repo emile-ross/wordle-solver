@@ -1,5 +1,13 @@
 #include "header.h"
 
+char *word_list_text[n_num_list] =
+{
+    "all",
+    "common",
+    "New-York-Times",
+};
+
+
 char nyt_words[NUM_WORDS][6] = 
 {
     "ABACK",
