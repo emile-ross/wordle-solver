@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../header.h"
 
 char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD] = 
 {

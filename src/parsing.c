@@ -66,7 +66,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     int word_letter_index;
     if (letter_indexed_bl)
     {
-		word_letter_index = strtol(arguments[number_arg_index], &endptr, 10);
+		word_letter_index = (int)strtol(arguments[number_arg_index], &endptr, 10);
 		word_letter_index--;
 		user_index_validation(word_letter_index);
     }

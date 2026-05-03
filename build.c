@@ -1,22 +1,69 @@
-FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion
-ZIG = zig cc
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
-PARSING_FILE_PATH = src/parsing
-CONFIG_FILE_PATH = src/config
-MAIN_FILE_PATH = src/main
-CMDPARS_FILE_PATH = src/command-parsing
+char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion";
+char *ZIG = "zig cc";
 
-BASE_ALL_WORDS_FILE_PATH = src/word-lists/all-words
-BASE_COM_WORDS_FILE_PATH = src/word-lists/common-words
-BASE_NYT_WORDS_FILE_PATH = src/word-lists/words
+#define fp_size 32
 
-SRC_ALL_WORDS = $(BASE_ALL_WORDS_FILE_PATH).c
-SRC_COM_WORDS = $(BASE_COM_WORDS_FILE_PATH).c
-SRC_NYT_WORDS = $(BASE_NYT_WORDS_FILE_PATH).c
+char PARSING_FILE_PATH[fp_size] = "src/parsing";
+char CONFIG_FILE_PATH[fp_size] = "src/config";
+char MAIN_FILE_PATH[fp_size] = "src/main";
+char CMDPARS_FILE_PATH[fp_size] = "src/command-parsing";
 
-OBJ_ALL_WORDS_FP = $(BASE_ALL_WORDS_FILE_PATH).o
-OBJ_COM_WORDS_FP = $(BASE_COM_WORDS_FILE_PATH).o
-OBJ_NYT_WORDS_FP = $(BASE_NYT_WORDS_FILE_PATH).o
+char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
+char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
+char NYT_WORDS_FILE_PATH[fp_size] = "src/word-lists/words";
+char *src_file_extention = ".c";
+char *obj_file_extention = ".c";
+bool compile_into_objects = false; /* hard coded right now but it will be dynamic in the future */
+
+int main(int argc, char *argv[])
+{
+	char SRC_ALL_WORDS[fp_size];
+	char SRC_COM_WORDS[fp_size];
+	char SRC_NYT_WORDS[fp_size];
+	
+	char OBJ_ALL_WORDS_FP[fp_size];
+	char OBJ_COM_WORDS_FP[fp_size];
+	char OBJ_NYT_WORDS_FP[fp_size];
+
+	strcpy(SRC_ALL_WORDS, ALL_WORDS_FILE_PATH);
+	strcpy(SRC_COM_WORDS, COM_WORDS_FILE_PATH);
+	strcpy(SRC_NYT_WORDS, NYT_WORDS_FILE_PATH);
+
+	strcat(SRC_ALL_WORDS, src_file_extention);
+	strcat(SRC_COM_WORDS, src_file_extention);
+	strcat(SRC_NYT_WORDS, src_file_extention);
+
+	if (compile_into_objects)
+	{
+		/* create and initialize object file paths */
+		strcpy(OBJ_ALL_WORDS_FP, ALL_WORDS_FILE_PATH);
+		strcpy(OBJ_COM_WORDS_FP, COM_WORDS_FILE_PATH);
+		strcpy(OBJ_NYT_WORDS_FP, NYT_WORDS_FILE_PATH);
+
+		strcat(OBJ_ALL_WORDS_FP, obj_file_extention);
+		strcat(OBJ_COM_WORDS_FP, obj_file_extention);
+		strcat(OBJ_NYT_WORDS_FP, obj_file_extention);
+	}
+
+	char cmd[512];
+	/* hard coded command to compile */
+	snprintf(cmd, sizeof(cmd),
+			"zig cc src/main.c src/config.c src/parsing.c src/command-parsing.c src/word-lists/words.c src/word-lists/all-words.c src/word-lists/common-words.c -o binary %s"
+			, ALL_FLAGS);
+	system(cmd);
+
+	return 0;
+}
+/*
+ * We are replacing this entire thing.. 
+
+OBJ_ALL_WORDS_FP = $(ALL_WORDS_FILE_PATH).o
+OBJ_COM_WORDS_FP = $(COM_WORDS_FILE_PATH).o
+OBJ_NYT_WORDS_FP = $(NYT_WORDS_FILE_PATH).o
 
 PARSING_SRC_FILE_PATH = $(PARSING_FILE_PATH).c
 CONFIG_SRC_FILE_PATH = $(CONFIG_FILE_PATH).c
@@ -90,3 +137,4 @@ main-e:
 
 link:
 	$(ZIG) $(BASE_OBJ_FILES_FP) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS)
+	*/

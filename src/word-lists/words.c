@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../header.h"
 
 char *word_list_text[n_num_list] =
 {

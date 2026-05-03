@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../header.h"
 
 char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD] = 
 {
