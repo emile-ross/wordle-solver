@@ -2,9 +2,10 @@
 
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
 {
-    // this is the way this interprets characters
-    // execute(./binary) flag(-s) letter_position(5) letter(A)
-    // this means all words(in the list) ending in A
+	/* this is the way this interprets characters
+	 * execute(./binary) flag(-s) letter_position(5) letter(A)
+	 * this means all words(in the list) ending in A
+	 */
 
     char (*ptr)[6];
 
@@ -12,21 +13,21 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 
     if (*f_exec)
     {
-	switch (w_list)
+		switch (w_list)
     	{
     	    case nyt:
     	        ptr = nyt_words;
-		n_pos_arr = NUM_WORDS;
+				n_pos_arr = NUM_WORDS;
     	        break;
 
     	    case common:
     	        ptr = common_words;
-		n_pos_arr = NUM_COMMON_WORDS;
+				n_pos_arr = NUM_COMMON_WORDS;
     	        break;
 
     	    case all:
     	        ptr = all_words;
-		n_pos_arr = NUM_ALL_WORDS;
+				n_pos_arr = NUM_ALL_WORDS;
     	        break;
 
     	    default:
@@ -34,10 +35,10 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     	        break;
     	}
 	
-	// since this is the first execution, it will parse through the entire array
+	/* since this is the first execution, it will parse through the entire array */
 
-        n_possible_answers = 0;	// reset word count buffer
-    				// this needs to be reset only once
+        n_possible_answers = 0;	/* reset word count buffer
+								this needs to be reset only once */
     }
     else
     {
@@ -51,23 +52,23 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     int number_arg_index = letter_arg_index;
     number_arg_index++;
 
-    // word_letter_index is the index of the letter the user is looking for
-    //
-    // example 1: you want to find all words with A as the first letter
-    // 'A' is at index 1
-    // "AFTER" would work
-    //
-    // example 2: if you wanted the find all words with 'T' as the third letter
-    // 'T' would be at index 3 
-    // "AFTER" would work
+    /* word_letter_index is the index of the letter the user is looking for
+     *
+     * example 1: you want to find all words with A as the first letter
+     * 'A' is at index 1
+     * "AFTER" would work
+     *
+     * example 2: if you wanted the find all words with 'T' as the third letter
+     * 'T' would be at index 3 
+     * "AFTER" would work */
 
     char *endptr;
     int word_letter_index;
     if (letter_indexed_bl)
     {
-	word_letter_index = strtol(arguments[number_arg_index], &endptr, 10);
-	word_letter_index--;
-	user_index_validation(word_letter_index);
+		word_letter_index = strtol(arguments[number_arg_index], &endptr, 10);
+		word_letter_index--;
+		user_index_validation(word_letter_index);
     }
 
 
@@ -81,102 +82,99 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
         printf(ANSI_LCYAN"Parsing through the entire word list (first filter)\n"STYLE_END);
     }
     
-    // parsing logic is below for all options
+    /* parsing logic is below for all options */
     if (letter_indexed_bl)
     {
         if (filter_include_bl)
         {
-	    bool first_character = false;
-	    bool prev_character_found = false;
+			bool first_character = false;
+			bool prev_character_found = false;
 
-	    if (word_letter_index == 0)
-	    {
-		prev_character_found = true;
-	    }
+			if (word_letter_index == 0)
+			{
+				first_character = true;
+			}
 
-	    for (int j = 0; j < n_pos_arr; j++)
-	    {
-        	// compare the specified letter against the words in a loop
-        	if (letter_indexed == ptr[j][word_letter_index])
-        	{
-        	    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-        	    temp_count++;
-
-		    if (!prev_character_found)
-		    {
-			if (first_character)
-		    	{
-			    prev_character_found = true;
-		    	}
-		    }
-        	}
-		else
-		{
-		    if (prev_character_found)
-		    {
-			break;
-		    }
-		}
-
-            }
+			for (int j = 0; j < n_pos_arr; j++)
+			{
+				// compare the specified letter against the words in a loop
+				if (letter_indexed == ptr[j][word_letter_index])
+        		{
+        		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+        		    temp_count++;
+					if (!prev_character_found)
+					{
+						if (first_character)
+						{
+							prev_character_found = true;
+						}
+					}
+				}
+				else
+				{
+					if (prev_character_found)
+					{
+						break;
+					}
+				}
+			}
         }
         else
         {
-	    for (int j = 0; j < n_pos_arr; j++)
+			for (int j = 0; j < n_pos_arr; j++)
             {
-		// compare the specified letter against the words in a loop
-        	if (letter_indexed != ptr[j][word_letter_index])
-        	{
-        	    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-        	    temp_count++;
-        	}
+				// compare the specified letter against the words in a loop
+				if (letter_indexed != ptr[j][word_letter_index])
+        		{
+        		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+        		    temp_count++;
+        		}
             }
         }
     }
     else
     {
-	if (filter_include_bl)
-	{
-	    for (int j = 0; j < n_pos_arr; j++)
-            {
-		// compare the specified letter against the words in a loop
-		for (int k = 0; k < NUM_LETTERS_WORD; k++)
+		if (filter_include_bl)
 		{
-		    if (letter_indexed == ptr[j][k])
-		    {
-			memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-			temp_count++;
-			break;
-		    }
-		}
+			for (int j = 0; j < n_pos_arr; j++)
+            {
+				// compare the specified letter against the words in a loop
+				for (int k = 0; k < NUM_LETTERS_WORD; k++)
+				{
+					if (letter_indexed == ptr[j][k])
+					{
+						memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+						temp_count++;
+						break;
+					}
+				}
             }
         }
-	else
-	{
-	    for (int j = 0; j < n_pos_arr; j++)
+		else
+		{
+			for (int j = 0; j < n_pos_arr; j++)
             {
-		bool letter_match = false;
-		// compare the specified letter against the words in a loop
-		for (int k = 0; k < NUM_LETTERS_WORD; k++)
-		{
-		    if (letter_indexed == ptr[j][k])
-		    {
-			letter_match = true;
-		    }
-		}
-
-		if (!letter_match)
-		{
-		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-		    temp_count++;
-		}
+				bool letter_match = false;
+				// compare the specified letter against the words in a loop
+				for (int k = 0; k < NUM_LETTERS_WORD; k++)
+				{
+					if (letter_indexed == ptr[j][k])
+		    		{
+						letter_match = true;
+		    		}
+				}
+				if (!letter_match)
+				{
+					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+					temp_count++;
+				}
             }
-	}
+		}
     }
 
     n_possible_answers = temp_count;
     
-    // Write to filtered array
+    /* Write to filtered array */
     for (int k = 0; k < n_possible_answers; k++)
     {
         strcpy(filtered_arr[k], filtered_arr_temp[k]);
@@ -185,16 +183,15 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     {
         verbose_printing("--strict", letter_indexed, word_letter_index, n_possible_answers, true);
     }
-        
     int arg_offset;
 
     if (letter_indexed_bl)
     {
-	arg_offset = P_FILTERS_ARG_EXP;
+		arg_offset = P_FILTERS_ARG_EXP;
     }
     else
     {
-	arg_offset = G_FILTERS_ARG_EXP;
+		arg_offset = G_FILTERS_ARG_EXP;
     }
 
     *(flag_r) += arg_offset;
@@ -203,4 +200,3 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 
     return 0;
 }
-
