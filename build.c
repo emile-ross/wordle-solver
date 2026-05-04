@@ -23,7 +23,7 @@ bool compile_into_objects = false; /* hard coded right now but it will be dynami
 
 int main(int argc, char *argv[])
 {
-	int total_cmd_size = 64;
+	int total_flags_size = 16;
 	bool Wall_flag = false;
 	bool Wconversion_flag = false;
 	bool Wpedantic_flag = false;
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
 		if (num_flags > 0)
 		{
 			int temp_total_flag_size = flag_mem_size * num_flags;
-			total_cmd_size += temp_total_flag_size;
+			total_flags_size += temp_total_flag_size;
 		}
 	}
 
@@ -114,7 +114,6 @@ int main(int argc, char *argv[])
 		strcat(OBJ_NYT_WORDS_FP, obj_file_extention);
 	}
 
-	printf("Hi\n");
 	int mem_needed_src = 0;
 	if (!compile_into_objects)
 	{
@@ -125,25 +124,45 @@ int main(int argc, char *argv[])
 
 		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
 
-		printf("%d\n", mem_needed_src);
+		const char *compiler = "zig cc";
+
+		int mem_needed = mem_needed_src + snprintf(NULL, 0, "%s ", compiler);
+
+
+		char *flags_string_base = "-o wordle";
+
+		if (num_flags > 0)
+		{
+			printf("Error flags not supported yet.\n");
+		}
+
+		int mem_needed_output_flags = snprintf(NULL, 0, "%s", flags_string_base);
+		mem_needed_output_flags++;
+		total_flags_size += mem_needed_output_flags;
+		mem_needed += total_flags_size;
+
+		char flags_string[mem_needed_output_flags];
+		snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
+
+		/* TODO craft cmd */
+
+		char source_files[mem_needed_src];
+		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
+
+		char safe_cmd[mem_needed];
+		snprintf(safe_cmd, (size_t)mem_needed, "%s %s %s", compiler, source_files, flags_string);
+
+		system(safe_cmd);
 	}
 
-	const char *compiler = "zig cc";
-
-	printf("%d\n", mem_needed_src);
-
-	int mem_needed = mem_needed_src + snprintf(NULL, 0, "%s ", compiler);
-
-	printf("%d\n", mem_needed);
-
-	/* TODO craft cmd */
-
+	/*
 	char cmd[512];
-	/* hard coded command to compile */
+	hard coded command to compile
 	snprintf(cmd, sizeof(cmd),
 			"zig cc src/main.c src/config.c src/parsing.c src/command-parsing.c src/word-lists/words.c src/word-lists/all-words.c src/word-lists/common-words.c -o binary %s"
 			, ALL_FLAGS);
 	system(cmd);
+	*/
 
 	return 0;
 }

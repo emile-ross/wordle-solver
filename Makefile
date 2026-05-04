@@ -1,92 +1,26 @@
+build_bin := $(wildcard build)
 FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion
 ZIG = zig cc
+build_bin_cmd = gcc build.c -o build
+build_mac_cmd = clang build.c -o build
 
-PARSING_FILE_PATH = src/parsing
-CONFIG_FILE_PATH = src/config
-MAIN_FILE_PATH = src/main
-CMDPARS_FILE_PATH = src/command-parsing
+bin-c:
 
-BASE_ALL_WORDS_FILE_PATH = src/word-lists/all-words
-BASE_COM_WORDS_FILE_PATH = src/word-lists/common-words
-BASE_NYT_WORDS_FILE_PATH = src/word-lists/words
+ifeq ($(build_bin),)
+	@$(build_mac_cmd)
+endif
 
-SRC_ALL_WORDS = $(BASE_ALL_WORDS_FILE_PATH).c
-SRC_COM_WORDS = $(BASE_COM_WORDS_FILE_PATH).c
-SRC_NYT_WORDS = $(BASE_NYT_WORDS_FILE_PATH).c
+bin:
 
-OBJ_ALL_WORDS_FP = $(BASE_ALL_WORDS_FILE_PATH).o
-OBJ_COM_WORDS_FP = $(BASE_COM_WORDS_FILE_PATH).o
-OBJ_NYT_WORDS_FP = $(BASE_NYT_WORDS_FILE_PATH).o
+ifeq ($(build_bin),)
+	@$(build_bin_cmd)
+endif
 
-PARSING_SRC_FILE_PATH = $(PARSING_FILE_PATH).c
-CONFIG_SRC_FILE_PATH = $(CONFIG_FILE_PATH).c
-MAIN_SRC_FILE_PATH = $(MAIN_FILE_PATH).c
-CMDPARS_SRC_FILE_PATH = $(CMDPARS_FILE_PATH).c
+base: bin
+	@./build
 
-PARSING_OBJ_FILE_PATH = $(PARSING_FILE_PATH).o
-CONFIG_OBJ_FILE_PATH = $(CONFIG_FILE_PATH).o
-MAIN_OBJ_FILE_PATH = $(MAIN_FILE_PATH).o
-CMDPARS_OBJ_FILE_PATH = $(CMDPARS_FILE_PATH).o
-
-BASE_SRC_FILES = $(MAIN_SRC_FILE_PATH) $(CONFIG_SRC_FILE_PATH) $(PARSING_SRC_FILE_PATH) $(CMDPARS_SRC_FILE_PATH)
-WORD_SRC_FILES = $(SRC_NYT_WORDS) $(SRC_ALL_WORDS) $(SRC_COM_WORDS)
-
-OUT_ALL_OBJ_F = -c $(SRC_ALL_WORDS) -o $(OBJ_ALL_WORDS_FP) 
-OUT_COM_OBJ_F = -c $(SRC_COM_WORDS) -o $(OBJ_COM_WORDS_FP)
-OUT_NYT_OBJ_F = -c $(SRC_NYT_WORDS) -o $(OBJ_NYT_WORDS_FP) 
-
-LINK_WORD_OBJ_FP = $(OBJ_ALL_WORDS_FP) $(OBJ_COM_WORDS_FP) $(OBJ_NYT_WORDS_FP)
-BASE_OBJ_FILES_FP = $(CMDPARS_OBJ_FILE_PATH) $(MAIN_OBJ_FILE_PATH) $(CONFIG_OBJ_FILE_PATH) $(PARSING_OBJ_FILE_PATH)
-
-OUT_BIN_NAME = binary
-
-OUT = -o $(OUT_BIN_NAME)
-
-all:
-	$(ZIG) $(OUT_ALL_OBJ_F) $(FLAGS)
-	$(ZIG) $(OUT_COM_OBJ_F) $(FLAGS)
-	$(ZIG) $(OUT_NYT_OBJ_F) $(FLAGS)
-	$(ZIG) -c $(PARSING_SRC_FILE_PATH) -o $(CMDPARS_OBJ_FILE_PATH) $(FLAGS)
-	$(ZIG) -c $(CONFIG_SRC_FILE_PATH) -o $(PARSING_OBJ_FILE_PATH) $(FLAGS)
-	$(ZIG) -c $(MAIN_SRC_FILE_PATH) -o $(CONFIG_OBJ_FILE_PATH) $(FLAGS)
-	$(ZIG) -c $(CMDPARS_SRC_FILE_PATH) -o $(MAIN_OBJ_FILE_PATH) $(FLAGS)
-
-clean: 
-	@rm $(OBJ_ALL_WORDS_FP)
-	@rm $(OBJ_COM_WORDS_FP)
-	@rm $(OBJ_NYT_WORDS_FP)
-
-base: 
-	$(ZIG) $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS) -Werror
-
-zig: 
-	$(ZIG) $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
-
-gcc:
-	gcc $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
-
-clang:
-	clang $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
-
-linux: gcc
-	
-android: gcc
-	chmod u+x $(OUT_BIN_NAME)
-	cp $(OUT_BIN_NAME) ~
-	@echo "Binary file was copied to your home directory"
-	@echo "execute it with ~/$(OUT_BIN_NAME)"
-
-macos: clang
+macos: bin-c
+	@./build
 
 windows: 
 	@echo "No."
-
-# Linking the word list files but still compiling the BASE_SRC_FILES
-main: 
-	$(ZIG) $(BASE_SRC_FILES) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS) -Werror
-
-main-e: 
-	$(ZIG) $(BASE_SRC_FILES) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS)
-
-link:
-	$(ZIG) $(BASE_OBJ_FILES_FP) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS)
