@@ -1,11 +1,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion";
 char *ZIG = "zig cc";
 
 #define fp_size 32
+#define base_args 1
 
 char PARSING_FILE_PATH[fp_size] = "src/parsing";
 char CONFIG_FILE_PATH[fp_size] = "src/config";
@@ -21,6 +23,69 @@ bool compile_into_objects = false; /* hard coded right now but it will be dynami
 
 int main(int argc, char *argv[])
 {
+	int total_cmd_size = 64;
+	bool Wall_flag = false;
+	bool Wconversion_flag = false;
+	bool Wpedantic_flag = false;
+	bool Werror_flag = false;
+	bool C99_flag = false;
+
+	int flag_mem_size = 16;
+
+	int num_flags = 0;
+
+	if (argc > base_args)
+	{
+		int flag_r = base_args;
+		while (argc > flag_r)
+		{
+			char flag_temp = argv[flag_r][0];
+			bool success = true;
+
+			switch (flag_temp)
+			{
+				case 'a':
+					Wall_flag = true;
+					break;
+				case 'c':
+					Wconversion_flag = true;
+					break;
+				case 'e':
+					Werror_flag = true;
+					break;
+				case 'p':
+					Wpedantic_flag = true;
+					break;
+				case 9:
+					C99_flag = true;
+					break;
+				default:
+					success = false;
+					break;
+			}
+
+			if (success)
+			{
+				num_flags++;
+				flag_r++;
+			}
+			else
+			{
+				/* this is an error */
+				printf("Unknown argument: %c\n", flag_temp);
+				exit(1);
+			}
+		}
+
+		if (num_flags > 0)
+		{
+			int temp_total_flag_size = flag_mem_size * num_flags;
+			total_cmd_size += temp_total_flag_size;
+		}
+	}
+
+	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c ";
+
 	char SRC_ALL_WORDS[fp_size];
 	char SRC_COM_WORDS[fp_size];
 	char SRC_NYT_WORDS[fp_size];
@@ -48,6 +113,30 @@ int main(int argc, char *argv[])
 		strcat(OBJ_COM_WORDS_FP, obj_file_extention);
 		strcat(OBJ_NYT_WORDS_FP, obj_file_extention);
 	}
+
+	printf("Hi\n");
+	int mem_needed_src = 0;
+	if (!compile_into_objects)
+	{
+		char *parsing = PARSING_FILE_PATH;
+		char *configp = CONFIG_FILE_PATH;
+		char *main_fp = MAIN_FILE_PATH;
+		char *cmd_parsing = CMDPARS_FILE_PATH;
+
+		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
+
+		printf("%d\n", mem_needed_src);
+	}
+
+	const char *compiler = "zig cc";
+
+	printf("%d\n", mem_needed_src);
+
+	int mem_needed = mem_needed_src + snprintf(NULL, 0, "%s ", compiler);
+
+	printf("%d\n", mem_needed);
+
+	/* TODO craft cmd */
 
 	char cmd[512];
 	/* hard coded command to compile */
