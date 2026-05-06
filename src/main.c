@@ -8,7 +8,7 @@ enum ALL_WORD_LISTS word_list;
 
 int main(int argc, char *argv[])
 {
-    if (argc >= 2)  // or else there's nothing
+    if (argc >= 2)  /* or else there's nothing */
     {
 		int flag_r = ARGS_BEFORE_FLAG_BASE;
 		command_parsing(argc, flag_r, argv);
@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
 
     print_as_table(table_width, n_possible_answers, awsum_table_mode);
 
+	/* print the number of possible words 
+	 * this is obtained by the last function going through the entire word list
+	 * in order to check if the word is matching */
     printf(BOLD_S"%d possible words\n"STYLE_END, n_possible_answers);
 
     return 0;
@@ -77,23 +80,23 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 		if (awsum_mode)
 		{
 		    int empty_cells = total_elements % width;
-		    int total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	// ternary operator to remove garbage data
+		    int total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	/* ternary operator to remove garbage data */
 		    int column_height = total_cells / width;
 
 		    for (int base_count = 0; base_count < column_height; base_count++)
 		    {
-			for (int j = 0; j < width; j++)
-			{
-			    int base_offset = j * column_height;
-			    int index = base_count + base_offset;
+				for (int j = 0; j < width; j++)
+				{
+				    int base_offset = j * column_height;
+				    int index = base_count + base_offset;
 
-			    // bounds checking (avoids printing garbage data
-			    if (index < total_elements)
-			    {
-					printf("%s ", filtered_arr[index]);
-			    }
-			}
-			printf("\n");
+				    /* bounds checking (avoids printing garbage data */
+				    if (index < total_elements)
+				    {
+						printf("%s ", filtered_arr[index]);
+				    }
+				}
+				printf("\n");
 		    }
 		}
 		else
@@ -128,6 +131,9 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 
     printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
 
+	/* craft sentence with appropriate words
+	 * make sure it is grammatically correct (plural and negative statements) */
+
     if (affected_words != 1)
     {
 		printf("s");
@@ -145,7 +151,9 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
     printf(BOLD_S"%c "STYLE_END ANSI_LCYAN, letter);
 
 
-    // might add colour options here
+    /* ~~might add colour options here~~*/
+    /* colour options were added */
+
     if (indexed_letter_value != -1)
     {
 		indexed_letter_value++; /* in order to make it more user friendly 

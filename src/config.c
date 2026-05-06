@@ -17,3 +17,8 @@ bool verbose = false; /* false by default
 
 bool ignore_warn = false; /* false by default
 							 ignores some warnings */
+
+
+enum ALL_WORD_LISTS default_word_list = nyt; /* nyt by default (nyt = New York Times word list)
+ * this sets the default word list
+ * it is used when no word list is specified in the command */

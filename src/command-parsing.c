@@ -5,6 +5,9 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     bool first_execution = true;
     if (argc >= 2)
     {
+		/* set the default word list as the nyt word list */
+		word_list = default_word_list;
+
 		while(flag_reading_index < argc)
     	{
 			if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)

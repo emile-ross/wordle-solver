@@ -42,9 +42,9 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     }
     else
     {
-	
+		/* rename variables */
     	ptr = filtered_arr;
-	n_pos_arr = n_possible_answers;
+		n_pos_arr = n_possible_answers;
     }
 
     int letter_arg_index = *flag_r;
@@ -66,16 +66,18 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     int word_letter_index;
     if (letter_indexed_bl)
     {
+		/* convert the string containing the index to the letter
+		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
 		word_letter_index = (int)strtol(arguments[number_arg_index], &endptr, 10);
-		word_letter_index--;
-		user_index_validation(word_letter_index);
+		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
+								   therefore, we need to convert it from a count to an index */
+		user_index_validation(word_letter_index); /* validate the index the user provided */
     }
-
 
     char letter_indexed = arguments[letter_arg_index][0];
 
     char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
-    int temp_count = 0; // reset temporary count buffer
+    int temp_count = 0; /* reset temporary count buffer */
     
     if (verbose)
     {

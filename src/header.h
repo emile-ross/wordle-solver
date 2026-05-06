@@ -59,6 +59,7 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[]);
 // Global variables
 extern int ARGS_BEFORE_CUR_FLAG;
 extern enum ALL_WORD_LISTS word_list;
+extern enum ALL_WORD_LISTS default_word_list;
 extern int n_possible_answers;
 
 
