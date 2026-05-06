@@ -17,10 +17,10 @@ ifeq ($(build_bin),)
 endif
 
 base: bin
-	@./build
+	@./build Z
 
 macos: bin-c
-	@./build
+	@./build G
 
 windows: 
 	@echo "No."

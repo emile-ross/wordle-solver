@@ -4,7 +4,8 @@
 #include <stdbool.h>
 
 char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion";
-char *ZIG = "zig cc";
+char *ZIG_COMPILER_NAME = "zig cc";
+char *GCC_COMPILER_NAME = "gcc";
 
 #define fp_size 32
 #define base_args 1
@@ -21,6 +22,15 @@ char *src_file_extention = ".c";
 char *obj_file_extention = ".c";
 bool compile_into_objects = false; /* hard coded right now but it will be dynamic in the future */
 
+typedef enum 
+{
+    CLANG,
+    GCC,
+    ZIG,
+} compiler_enum;
+
+compiler_enum compiler_choice;
+
 int main(int argc, char *argv[])
 {
 	int total_flags_size = 16;
@@ -34,10 +44,35 @@ int main(int argc, char *argv[])
 	int flag_mem_size = 16;
 
 	int num_flags = 0;
-
 	if (argc > base_args)
 	{
-		int flag_r = base_args;
+		int flag_r = base_args + 1;
+
+		int base_flag_r = 1;
+		while (base_args >= base_flag_r)
+		{
+			char compiler_arg_temp = argv[base_flag_r][0];
+			switch (compiler_arg_temp)
+			{
+				case 'C':
+					compiler_choice = CLANG;
+					break;
+				case 'G':
+					compiler_choice = GCC;
+					break;
+				case 'Z':
+					compiler_choice = ZIG;
+					break;
+
+				default:
+					printf("Missing compiler or unknown compiler\n");
+					printf("%c", compiler_arg_temp);
+					exit(1);
+					break;
+			}
+			base_flag_r++;
+		}
+
 		while (argc > flag_r)
 		{
 			char flag_temp = argv[flag_r][0];
@@ -167,6 +202,7 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
+
 /*
  * We are replacing this entire thing.. 
 
