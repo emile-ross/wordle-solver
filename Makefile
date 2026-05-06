@@ -22,7 +22,7 @@ wordle: bin-g
 
 base:
 	zig cc $(BCMD) $(FG)
-	$(C) Z a 9 p x c
+	$(C) Z a 9 p x c s
 
 macos: bin-c
 	@$(C) C

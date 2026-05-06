@@ -10,7 +10,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 		bool word_list_is_specified = false;
 
 		int n_valid_args = 0;
-		int valid_args_index[16];
+		int valid_args_index[max_valid_args];
 		for (int i = 0; i < argc; i++)
 		{
 			if (strcmp(arguments[i], "--draw") == 0 || strcmp(arguments[i], "-d") == 0)
@@ -18,7 +18,6 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
-				break;
 			}
 			else if (strcmp(arguments[i], "--word-list") == 0 || strcmp(arguments[i], "-w") == 0)
     	    {
@@ -120,7 +119,44 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 		}
 		else
 		{
-			err(7);
+			int min_args_draw = 3;
+			bool x_pattern = false;
+			if (word_list_is_specified)
+			{
+				min_args_draw += 2;
+			}
+			if (argc >= min_args_draw)
+			{
+				for (int i = 1; i < argc; i++)
+				{
+					bool unused_arg = true;
+					for (int j = 0; j < n_valid_args; j++)
+					{
+						if (i == valid_args_index[j])
+						{
+							unused_arg = false;
+							break;
+						}
+					}
+					if (unused_arg)
+					{
+						if (argc > min_args_draw)
+						{
+							if (strcmp(arguments[i], "-x") == 0)
+							{
+								x_pattern = true;
+							}
+						}
+						else
+						{
+							char wordle_answer[INDEX_LETTERS_WORD];
+							snprintf(wordle_answer, sizeof(wordle_answer),
+									"%s", arguments[i]);
+							printf("%s\n", wordle_answer);
+						}
+					}
+				}
+			}
 		}
     }
 }

@@ -36,6 +36,7 @@
 /* reset styling */
 #define STYLE_END	"\x1B[0m" 
 
+#define max_valid_args 16
 
 #define n_num_list (3)
 extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
