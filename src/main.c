@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     if (argc >= 2)  /* or else there's nothing */
     {
 		int flag_r = ARGS_BEFORE_FLAG_BASE;
-		command_parsing(argc, flag_r, argv);
+		command_parsing(argc, flag_r, argv, &find_match_mode);
     }
     else
     {

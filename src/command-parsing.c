@@ -1,6 +1,6 @@
 #include "header.h"
 
-void command_parsing(int argc, int flag_reading_index, char *arguments[])
+void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode)
 {
     bool first_execution = true;
     if (argc >= 2)
@@ -9,10 +9,22 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 		word_list = default_word_list;
 		bool word_list_is_specified = false;
 
+		int n_valid_args = 0;
+		int valid_args_index[16];
 		for (int i = 0; i < argc; i++)
 		{
-			if (strcmp(arguments[i], "--word-list") == 0 || strcmp(arguments[i], "-w") == 0)
+			if (strcmp(arguments[i], "--draw") == 0 || strcmp(arguments[i], "-d") == 0)
+			{
+				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
+				valid_args_index[n_valid_args] = i;
+				n_valid_args++;
+				break;
+			}
+			else if (strcmp(arguments[i], "--word-list") == 0 || strcmp(arguments[i], "-w") == 0)
     	    {
+				valid_args_index[n_valid_args] = i;
+				n_valid_args++;
+
 				bool valid_word_list = true;
 				if (!first_execution)	/* print error message if -w comes after words have been filtered */
 				{
@@ -22,10 +34,10 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 						err(16);
 					}
 				}
-    		
+				int list_name_index;
 				if (argc >= 3)
     			{
-    			    int list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
+    			    list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
     			    if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
     			    {
 						word_list = common;
@@ -59,49 +71,57 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 
 				if (valid_word_list)
 				{
+					valid_args_index[n_valid_args] = list_name_index;
+					n_valid_args++;
 					word_list_is_specified = true;
 					/* break out of the flag checking loop 
 					 * because a valid word list argument was provided 
 					 * Valid word list argument: (-w all or something like that) */
-					break; 
 				}
     		}
 		}
 
-		while(flag_reading_index < argc)
-    	{
-    		if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
+		if (find_match_mode)
+		{
+			while(flag_reading_index < argc)
     		{
-    		    parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments);
-    		}
-    		else if (strcmp(arguments[flag_reading_index], "--exclude") == 0 || strcmp(arguments[flag_reading_index], "-x") == 0 || strcmp(arguments[flag_reading_index], "-e") == 0)
-    		{
-    		    parsing(&flag_reading_index, word_list, &first_execution, false, true, arguments);
-    		}
-    		else if (strcmp(arguments[flag_reading_index], "--includes") == 0 || strcmp(arguments[flag_reading_index], "-i") == 0)
-    		{
-    		    parsing(&flag_reading_index, word_list, &first_execution, true, false, arguments);
-    		}
-    		else if (strcmp(arguments[flag_reading_index], "--absent") == 0 || strcmp(arguments[flag_reading_index], "-a") == 0 || strcmp(arguments[flag_reading_index], "-d") == 0)
-    		{
-    		    parsing(&flag_reading_index, word_list, &first_execution, false, false, arguments);
-    		}
-    		else
-    		{
-				if (word_list_is_specified)
-				{
-					if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
+    			if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
+    			{
+    			    parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments);
+    			}
+    			else if (strcmp(arguments[flag_reading_index], "--exclude") == 0 || strcmp(arguments[flag_reading_index], "-x") == 0 || strcmp(arguments[flag_reading_index], "-e") == 0)
+    			{
+    			    parsing(&flag_reading_index, word_list, &first_execution, false, true, arguments);
+    			}
+    			else if (strcmp(arguments[flag_reading_index], "--includes") == 0 || strcmp(arguments[flag_reading_index], "-i") == 0)
+    			{
+    			    parsing(&flag_reading_index, word_list, &first_execution, true, false, arguments);
+    			}
+    			else if (strcmp(arguments[flag_reading_index], "--absent") == 0 || strcmp(arguments[flag_reading_index], "-a") == 0 || strcmp(arguments[flag_reading_index], "-d") == 0)
+    			{
+    			    parsing(&flag_reading_index, word_list, &first_execution, false, false, arguments);
+    			}
+    			else
+    			{
+					if (word_list_is_specified)
 					{
-						flag_reading_index += WORD_LIST_ARG_EXP;
+						if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
+						{
+							flag_reading_index += WORD_LIST_ARG_EXP;
+						}
 					}
-				}
-				else 
-				{
-					/* can be improved */
-					invalid_flag(argc, flag_reading_index, arguments);
-				}
+					else 
+					{
+						/* can be improved */
+						invalid_flag(argc, flag_reading_index, arguments);
+					}
+    			}
     		}
-    	}
+		}
+		else
+		{
+			err(7);
+		}
     }
 }
 
