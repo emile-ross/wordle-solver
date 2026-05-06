@@ -1,33 +1,31 @@
 cond := $(wildcard build)
 B = build
+C = ./$(B)
 W = wordle
 FG = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
-ZIG = zig cc
-GCC = gcc
-CLANG = clang
-BCMD = build.c -o build
+BCMD = $(B).c -o $(B)
 
 bin-g:
 
 ifeq ($(cond),)
-	@$(GCC) $(BCMD)
+	@gcc $(BCMD)
 endif
 
 bin-c:
 
 ifeq ($(cond),)
-	@$(CLANG) $(BCMD)
+	@clang $(BCMD)
 endif
 
 wordle: bin-g
-	@./build G a
+	@$(C) G a
 
 base:
-	$(ZIG) $(BCMD) $(FG)
-	./build Z a 9 p x c
+	zig cc $(BCMD) $(FG)
+	$(C) Z a 9 p x c
 
 macos: bin-c
-	@./build C
+	@$(C) C
 
 android: bin-g
 	@cp -f $(B) ~
@@ -35,7 +33,7 @@ android: bin-g
 	@~/$(B) G a
 	cp -f $(W) ~
 	chmod u+x ~/$(W)
-	@echo "The \"wordle\" file was copied to your home directory"
+	@echo "The \"$(W)\" file was copied to your home directory"
 	@echo "execute it with ~/$(W)"
 
 windows: 
