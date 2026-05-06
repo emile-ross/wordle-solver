@@ -8,12 +8,14 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 		/* set the default word list as the nyt word list */
 		word_list = default_word_list;
 
-		while(flag_reading_index < argc)
-    	{
+		for (int i = 0; i < argc; i++)
+		{
 			if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
     	    {
+				bool valid_word_list = true;
 				if (!first_execution)	/* print error message if -w comes after words have been filtered */
 				{
+					valid_word_list = false;
 					if (!ignore_warn)
 					{
 						err(16);
@@ -37,6 +39,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 					}
 					else
 					{
+						valid_word_list = false;
 						err(15);
 					}
     		        
@@ -48,14 +51,22 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 				}
     			else /* missing arguments */
     			{
+					valid_word_list = false;
 					err(1); 
     			}
-    		
-				/* this sets the word list as the common word list (5700 words) */
-    			flag_reading_index += WORD_LIST_ARG_EXP;
 
+
+				if (valid_word_list)
+				{
+					flag_reading_index += WORD_LIST_ARG_EXP;
+					break;
+				}
     		}
-    		else if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
+		}
+
+		while(flag_reading_index < argc)
+    	{
+    		if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
     		{
     		    parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments);
     		}

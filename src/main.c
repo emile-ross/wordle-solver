@@ -8,6 +8,10 @@ enum ALL_WORD_LISTS word_list;
 
 int main(int argc, char *argv[])
 {
+	bool find_match_mode = true; /* true by default
+	 * true: finds all possible words matching all criterias
+	 * false: tries to make a pattern with the letter colour */
+
     if (argc >= 2)  /* or else there's nothing */
     {
 		int flag_r = ARGS_BEFORE_FLAG_BASE;
@@ -18,7 +22,10 @@ int main(int argc, char *argv[])
 		err(1);
     }
 
-    print_as_table(table_width, n_possible_answers, awsum_table_mode);
+	if (find_match_mode)
+	{
+		print_as_table(table_width, n_possible_answers, awsum_table_mode);
+	}
 
 	/* print the number of possible words 
 	 * this is obtained by the last function going through the entire word list
