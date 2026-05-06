@@ -1,17 +1,21 @@
-# wordle
+# wordle cheat
 
 This is a wordle solver engine
+
+It finds all words matching your criterias (see [examples](example-commands))
 
 ## Download and compile
 
 ```sh
 git clone https://github.com/imawsumm/wordle
-make base
+make wordle
 ```
 
 ## Usage
 
-The wordle engine currently accepts 4 different flags:
+[Skip to examples](example-commands)
+
+The wordle engine accepts 4 different flags:
 
 ### ``--strict``
 
@@ -39,14 +43,26 @@ Use this flag if the letter is not in the word.  (the letter is grey)
 
 ``-a [LETTER]``
 
+## example commands:
 
-
-example command:
-```sh
-./binary -s A 1 -s D 2
-```
+### simple command
 the following command will search for all words with the following characteristics:
-- first letter is A
-- second letter is D
+- first letter is A (-s A 1)
+- second letter is D (-s D 2)
+```sh
+./wordle -s A 1 -s D 2
+```
 
-There is no limit to the amount of flags one can use but more than 5 would be useless with the current features 
+### complex command
+This command searches for all words following these characteristics:
+- first letter is A (-s A 1)
+- the letter D is somewhere in the word (-i D)
+- there isn't the letter D at the third position (-x D 3)
+- the letter Z is not in this word (-a Z)
+
+```sh
+./wordle -s A 1 -i D -x D 3 -a Z
+```
+
+
+There is no limit to the amount of flags one can use.  
