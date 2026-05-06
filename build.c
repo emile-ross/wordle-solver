@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 	bool Wpedantic_flag = false;
 	bool Werror_flag = false;
 	bool C99_flag = false;
+	bool verbose = false;
 
 	int flag_mem_size = 16;
 

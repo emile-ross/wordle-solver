@@ -1,13 +1,13 @@
 build_bin := $(wildcard build)
-FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion
+FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 ZIG = zig cc
-build_bin_cmd = gcc build.c -o build
-build_mac_cmd = clang build.c -o build
+build_bin_cmd = gcc build.c -o build $(FLAGS)
+build_compat_cmd = clang build.c -o build
 
 bin-c:
 
 ifeq ($(build_bin),)
-	@$(build_mac_cmd)
+	@$(build_compat_cmd)
 endif
 
 bin:

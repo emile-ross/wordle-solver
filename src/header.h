@@ -22,8 +22,8 @@
 #define WORD_LIST_ARG_EXP 2
 
 // Define colours
-#define ANSI_RED 	"\x1b[31m"
-#define ANSI_GREEN 	"\x1b[32m" 
+#define ANSI_RED		"\x1b[31m"
+#define ANSI_GREEN		"\x1b[32m" 
 #define ANSI_CYAN    	"\x1b[36m"
 #define ANSI_LCYAN    	"\x1b[96m"
 #define ANSI_YELLOW 	"\x1b[33m"
@@ -54,6 +54,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode);
 
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[]);
 void command_parsing(int argc, int flag_reading_index, char *arguments[]);
+void invalid_flag(int total_args_index, int flag_index, char *flag[]);
 
 // Global variables
 extern int ARGS_BEFORE_CUR_FLAG;

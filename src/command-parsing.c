@@ -9,7 +9,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     	{
 			if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
     	    {
-				if (!first_execution)	// print error message if -w comes after words have been filtered
+				if (!first_execution)	/* print error message if -w comes after words have been filtered */
 				{
 					if (!ignore_warn)
 					{
@@ -19,7 +19,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     		
 				if (argc >= 3)
     			{
-    			    int wlist_indx_t = flag_reading_index + 1;  // read 1 argument ahead of the "flag_reading_index" integer
+    			    int wlist_indx_t = flag_reading_index + 1;  /* read 1 argument ahead of the "flag_reading_index" integer */
     			    if (strcmp(arguments[wlist_indx_t], "common") == 0 || strcmp(arguments[wlist_indx_t], "common-words") == 0)
     			    {
 						word_list = common;
@@ -37,19 +37,19 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 						err(15);
 					}
     		        
-    		    if (verbose)
-    		    {
-    		    	printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_text[word_list]);
-    		    }
+					if (verbose)
+    		    	{
+    		    		printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_text[word_list]);
+    		    	}
     		        
-    		}
-    		else // missing arguments
-    		{
-				err(1); 
-    		}
+				}
+    			else /* missing arguments */
+    			{
+					err(1); 
+    			}
     		
-    		// this sets the word list as the common word list (5700 words)
-    		flag_reading_index += WORD_LIST_ARG_EXP;
+				/* this sets the word list as the common word list (5700 words) */
+    			flag_reading_index += WORD_LIST_ARG_EXP;
 
     		}
     		else if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
@@ -70,8 +70,49 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     		}
     		else
     		{
-    		    err(10);
+				/* can be improved */
+				invalid_flag(argc, flag_reading_index, arguments);
     		}
     	}
     }
+}
+
+void invalid_flag(int total_args_index, int flag_index, char *flag[])
+{
+	total_args_index--;
+	/* determine the amount of arguments to print around the value */
+	int num_args_surrounding = 4;
+
+	printf(ANSI_RED"Invalid flag"STYLE_END": \""BOLD_S"%s"STYLE_END"\" at position %d\n", flag[flag_index], flag_index);
+
+	if (num_args_surrounding > 0)
+	{
+		int lower_bound = flag_index - num_args_surrounding;
+		if (lower_bound < 0)
+		{
+			lower_bound = 0;
+		}
+
+		int upper_bound = flag_index + num_args_surrounding;
+		if (upper_bound > total_args_index)
+		{
+			upper_bound = total_args_index;
+		}
+
+		printf("\nHere’s where the command uses an invalid argument:");
+		printf("\n\""BOLD_S);
+		for (int i = lower_bound; i < flag_index; i++)
+		{
+			printf("%s ", flag[i]);
+		}
+
+		printf(ANSI_RED"%s "STYLE_END BOLD_S, flag[flag_index]);
+
+		for (int i = flag_index + 1; i < upper_bound; i++)
+		{
+			printf("%s ", flag[i]);
+		}
+		printf(STYLE_END"\"\n\n");
+	}
+	err(10);
 }
