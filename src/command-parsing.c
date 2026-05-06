@@ -84,7 +84,7 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[])
 {
 	total_args_index--;
 	/* determine the amount of arguments to print around the value */
-	int num_args_surrounding = 4;
+	int num_args_surrounding = command_arguments_context;
 
 	printf(ANSI_RED"Invalid flag"STYLE_END": \""BOLD_S"%s"STYLE_END"\" at position %d\n", flag[flag_index], flag_index);
 

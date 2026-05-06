@@ -99,7 +99,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
-				// compare the specified letter against the words in a loop
+				/* compare the specified letter against the words in a loop */
 				if (letter_indexed == ptr[j][word_letter_index])
         		{
         		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
@@ -125,7 +125,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
         {
 			for (int j = 0; j < n_pos_arr; j++)
             {
-				// compare the specified letter against the words in a loop
+				/* compare the specified letter against the words in a loop */
 				if (letter_indexed != ptr[j][word_letter_index])
         		{
         		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
@@ -140,7 +140,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		{
 			for (int j = 0; j < n_pos_arr; j++)
             {
-				// compare the specified letter against the words in a loop
+				/* compare the specified letter against the words in a loop */
 				for (int k = 0; k < NUM_LETTERS_WORD; k++)
 				{
 					if (letter_indexed == ptr[j][k])
@@ -157,7 +157,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			for (int j = 0; j < n_pos_arr; j++)
             {
 				bool letter_match = false;
-				// compare the specified letter against the words in a loop
+				/* compare the specified letter against the words in a loop */
 				for (int k = 0; k < NUM_LETTERS_WORD; k++)
 				{
 					if (letter_indexed == ptr[j][k])
