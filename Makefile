@@ -1,35 +1,30 @@
-build_bin := $(wildcard build)
+cond := $(wildcard build)
 B = build
 W = wordle
-FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
+FG = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 ZIG = zig cc
 GCC = gcc
 CLANG = clang
-build_bin_cmd = build.c -o build
+BCMD = build.c -o build
 
 bin-g:
 
-ifeq ($(build_bin),)
-	@$(GCC) $(build_bin_cmd)
+ifeq ($(cond),)
+	@$(GCC) $(BCMD)
 endif
 
 bin-c:
 
-ifeq ($(build_bin),)
-	@$(CLANG) $(build_bin_cmd)
-endif
-
-bin-z:
-
-ifeq ($(build_bin),)
-	@$(ZIG) $(build_bin_cmd) $(FLAGS)
+ifeq ($(cond),)
+	@$(CLANG) $(BCMD)
 endif
 
 wordle: bin-g
 	@./build G a
 
-base: bin-z
-	@./build Z a 9 p x c
+base:
+	$(ZIG) $(BCMD) $(FG)
+	./build Z a 9 p x c
 
 macos: bin-c
 	@./build C
