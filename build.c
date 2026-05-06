@@ -4,6 +4,9 @@
 #include <stdbool.h>
 
 char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion";
+
+#define compiler_name_len (8)
+char *CLANG_COMPILER_NAME = "clang";
 char *ZIG_COMPILER_NAME = "zig cc";
 char *GCC_COMPILER_NAME = "gcc";
 
@@ -35,11 +38,12 @@ int main(int argc, char *argv[])
 {
 	int total_flags_size = 16;
 	bool Wall_flag = false;
+	bool Wextra_flag = false;
 	bool Wconversion_flag = false;
 	bool Wpedantic_flag = false;
 	bool Werror_flag = false;
 	bool C99_flag = false;
-	bool verbose = false;
+	bool verbose = false; /* false by default */
 
 	int flag_mem_size = 16;
 
@@ -49,26 +53,33 @@ int main(int argc, char *argv[])
 		int flag_r = base_args + 1;
 
 		int base_flag_r = 1;
-		while (base_args >= base_flag_r)
+		bool compiler_found = false;
+		while (base_args < argc)
 		{
 			char compiler_arg_temp = argv[base_flag_r][0];
 			switch (compiler_arg_temp)
 			{
 				case 'C':
 					compiler_choice = CLANG;
+					compiler_found = true;
 					break;
 				case 'G':
 					compiler_choice = GCC;
+					compiler_found = true;
 					break;
 				case 'Z':
 					compiler_choice = ZIG;
+					compiler_found = true;
 					break;
-
 				default:
 					printf("Missing compiler or unknown compiler\n");
 					printf("%c", compiler_arg_temp);
 					exit(1);
 					break;
+			}
+			if (compiler_found)
+			{
+				break;
 			}
 			base_flag_r++;
 		}
@@ -92,7 +103,10 @@ int main(int argc, char *argv[])
 				case 'p':
 					Wpedantic_flag = true;
 					break;
-				case 9:
+				case 'x':
+					Wextra_flag = true;
+					break;
+				case '9':
 					C99_flag = true;
 					break;
 				default:
@@ -160,23 +174,70 @@ int main(int argc, char *argv[])
 
 		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
 
-		const char *compiler = "zig cc";
+		char compiler[compiler_name_len];
+
+		switch (compiler_choice)
+		{
+			case GCC:
+				strcpy(compiler, GCC_COMPILER_NAME);
+				break;
+
+			case CLANG:
+				strcpy(compiler, CLANG_COMPILER_NAME);
+				break;
+
+			case ZIG:
+				strcpy(compiler, ZIG_COMPILER_NAME);
+				break;
+
+			default:
+				printf("Unknown compiler\n Very weird error\n");
+				exit(1);
+		}
 
 		int mem_needed = mem_needed_src + snprintf(NULL, 0, "%s ", compiler);
 
 
 		char *flags_string_base = "-o wordle";
 
+		int mem_needed_all_c_flags = 1;
+
+		char all_custom_flags[256] = ""; 
 		if (num_flags > 0)
 		{
-			printf("Error flags not supported yet.\n");
+			if (Wall_flag)
+			{
+				strcat(all_custom_flags, "-Wall ");
+			}
+			if (Wextra_flag)
+			{
+				strcat(all_custom_flags, "-Wextra ");
+			}
+			if (Wconversion_flag)
+			{
+				strcat(all_custom_flags, "-Wconversion ");
+			}
+			if (Wpedantic_flag)
+			{
+				strcat(all_custom_flags, "-Wpedantic ");
+			}
+			if (Werror_flag)
+			{
+				strcat(all_custom_flags, "-Werror ");
+			}
+			if (C99_flag)
+			{
+				strcat(all_custom_flags, "-std=c99 ");
+			}
+
+			mem_needed_all_c_flags = 1 + snprintf(NULL, 0, "%s ", all_custom_flags);
 		}
 
 		int mem_needed_output_flags = snprintf(NULL, 0, "%s", flags_string_base);
 		mem_needed_output_flags++;
 		total_flags_size += mem_needed_output_flags;
+		mem_needed += mem_needed_all_c_flags;
 		mem_needed += total_flags_size;
-
 		char flags_string[mem_needed_output_flags];
 		snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
 
@@ -186,20 +247,16 @@ int main(int argc, char *argv[])
 		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
 
 		char safe_cmd[mem_needed];
-		snprintf(safe_cmd, (size_t)mem_needed, "%s %s %s", compiler, source_files, flags_string);
+
+		snprintf(safe_cmd, (size_t)mem_needed, "%s%s%s %s", compiler, source_files, flags_string, all_custom_flags);
+
+		if (verbose)
+		{
+			printf("%s", safe_cmd);
+		}
 
 		system(safe_cmd);
 	}
-
-	/*
-	char cmd[512];
-	hard coded command to compile
-	snprintf(cmd, sizeof(cmd),
-			"zig cc src/main.c src/config.c src/parsing.c src/command-parsing.c src/word-lists/words.c src/word-lists/all-words.c src/word-lists/common-words.c -o binary %s"
-			, ALL_FLAGS);
-	system(cmd);
-	*/
-
 	return 0;
 }
 
@@ -267,18 +324,6 @@ android: gcc
 	cp $(OUT_BIN_NAME) ~
 	@echo "Binary file was copied to your home directory"
 	@echo "execute it with ~/$(OUT_BIN_NAME)"
-
-macos: clang
-
-windows: 
-	@echo "No."
-
-# Linking the word list files but still compiling the BASE_SRC_FILES
-main: 
-	$(ZIG) $(BASE_SRC_FILES) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS) -Werror
-
-main-e: 
-	$(ZIG) $(BASE_SRC_FILES) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS)
 
 link:
 	$(ZIG) $(BASE_OBJ_FILES_FP) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS)
