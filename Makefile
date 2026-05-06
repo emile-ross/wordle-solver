@@ -1,5 +1,6 @@
 build_bin := $(wildcard build)
-bin_n = build
+B = build
+W = wordle
 FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 ZIG = zig cc
 GCC = gcc
@@ -34,11 +35,13 @@ macos: bin-c
 	@./build C
 
 android: bin-g
-	@./build G a
-	chmod u+x $(bin_n)
-	cp -f $(bin_n) ~
-	@echo "Binary file was copied to your home directory"
-	@echo "execute it with ~/$(bin_n)"
+	@cp -f $(B) ~
+	chmod u+x ~/$(B)
+	@~/$(B) G a
+	cp -f $(W) ~
+	chmod u+x ~/$(W)
+	@echo "The \"wordle\" file was copied to your home directory"
+	@echo "execute it with ~/$(W)"
 
 windows: 
 	@echo "No."

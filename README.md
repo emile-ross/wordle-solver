@@ -2,7 +2,7 @@
 
 This is a wordle solver engine
 
-It finds all words matching your criterias (see [examples](example-commands))
+It finds all words matching your criterias (see [examples](#example-commands))
 
 ## Download and compile
 
@@ -13,7 +13,7 @@ make wordle
 
 ## Usage
 
-[Skip to examples](example-commands)
+[Skip to examples](#example-commands)
 
 The wordle engine accepts 4 different flags:
 
