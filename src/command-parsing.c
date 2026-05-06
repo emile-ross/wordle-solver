@@ -7,10 +7,11 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     {
 		/* set the default word list as the nyt word list */
 		word_list = default_word_list;
+		bool word_list_is_specified = false;
 
 		for (int i = 0; i < argc; i++)
 		{
-			if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
+			if (strcmp(arguments[i], "--word-list") == 0 || strcmp(arguments[i], "-w") == 0)
     	    {
 				bool valid_word_list = true;
 				if (!first_execution)	/* print error message if -w comes after words have been filtered */
@@ -24,16 +25,16 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     		
 				if (argc >= 3)
     			{
-    			    int wlist_indx_t = flag_reading_index + 1;  /* read 1 argument ahead of the "flag_reading_index" integer */
-    			    if (strcmp(arguments[wlist_indx_t], "common") == 0 || strcmp(arguments[wlist_indx_t], "common-words") == 0)
+    			    int list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
+    			    if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
     			    {
 						word_list = common;
     			    }
-    			    else if (strcmp(arguments[wlist_indx_t], "all") == 0 || strcmp(arguments[wlist_indx_t], "all-words") == 0)
+    			    else if (strcmp(arguments[list_name_index], "all") == 0 || strcmp(arguments[list_name_index], "all-words") == 0)
     			    {
     			    	word_list = all;
     			    }
-    			    else if (strcmp(arguments[wlist_indx_t], "nyt") == 0 || strcmp(arguments[wlist_indx_t], "NYT") == 0 || strcmp(arguments[wlist_indx_t], "times") == 0)
+    			    else if (strcmp(arguments[list_name_index], "nyt") == 0 || strcmp(arguments[list_name_index], "NYT") == 0 || strcmp(arguments[list_name_index], "times") == 0)
     			    {
 						word_list = nyt;
 					}
@@ -58,8 +59,11 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
 
 				if (valid_word_list)
 				{
-					flag_reading_index += WORD_LIST_ARG_EXP;
-					break;
+					word_list_is_specified = true;
+					/* break out of the flag checking loop 
+					 * because a valid word list argument was provided 
+					 * Valid word list argument: (-w all or something like that) */
+					break; 
 				}
     		}
 		}
@@ -84,8 +88,18 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[])
     		}
     		else
     		{
-				/* can be improved */
-				invalid_flag(argc, flag_reading_index, arguments);
+				if (word_list_is_specified)
+				{
+					if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
+					{
+						flag_reading_index += WORD_LIST_ARG_EXP;
+					}
+				}
+				else 
+				{
+					/* can be improved */
+					invalid_flag(argc, flag_reading_index, arguments);
+				}
     		}
     	}
     }
