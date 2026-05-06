@@ -10,7 +10,7 @@
 /* number of words for each array */
 #define NUM_WORDS 2331
 #define NUM_COMMON_WORDS 5700
-#define NUM_ALL_WORDS 12923
+#define NUM_ALL_WORDS 14862
 
 #define NUM_LETTERS_WORD 5
 /* INDEX_LETTERS_WORD is NUM_LETTERS + 1 */
