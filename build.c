@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion";
+char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow";
 
 #define compiler_name_len (8)
 char *CLANG_COMPILER_NAME = "clang";
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 	bool Wpedantic_flag = false;
 	bool Werror_flag = false;
 	bool C99_flag = false;
+	bool Wshadow_flag = false;
 	bool verbose = false; /* false by default */
 
 	int flag_mem_size = 16;
@@ -105,6 +106,9 @@ int main(int argc, char *argv[])
 					break;
 				case 'x':
 					Wextra_flag = true;
+					break;
+				case 's':
+					Wshadow_flag = true;
 					break;
 				case '9':
 					C99_flag = true;
@@ -202,7 +206,7 @@ int main(int argc, char *argv[])
 
 		int mem_needed_all_c_flags = 1;
 
-		char all_custom_flags[256] = ""; 
+		char all_custom_flags[1024] = ""; 
 		if (num_flags > 0)
 		{
 			if (Wall_flag)
@@ -220,6 +224,10 @@ int main(int argc, char *argv[])
 			if (Wpedantic_flag)
 			{
 				strcat(all_custom_flags, "-Wpedantic ");
+			}
+			if (Wshadow_flag)
+			{
+				strcat(all_custom_flags, "-Wshadow ");
 			}
 			if (Werror_flag)
 			{
