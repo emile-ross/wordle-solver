@@ -127,12 +127,12 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 			}
 			if (argc >= min_args_draw)
 			{
-				for (int i = 1; i < argc; i++)
+				for (int flag_temp = 1; flag_temp < argc; flag_temp++)
 				{
 					bool unused_arg = true;
 					for (int j = 0; j < n_valid_args; j++)
 					{
-						if (i == valid_args_index[j])
+						if (flag_temp == valid_args_index[j])
 						{
 							unused_arg = false;
 							break;
@@ -142,7 +142,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					{
 						if (argc > min_args_draw)
 						{
-							if (strcmp(arguments[i], "-x") == 0)
+							if (strcmp(arguments[flag_temp], "-x") == 0)
 							{
 								x_pattern = true;
 							}
@@ -151,7 +151,31 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 						{
 							char wordle_answer[INDEX_LETTERS_WORD];
 							snprintf(wordle_answer, sizeof(wordle_answer),
-									"%s", arguments[i]);
+									"%s", arguments[flag_temp]);
+
+							if (!x_pattern)
+							{
+								for (int i = 1; i < NUM_LETTERS_WORD; i++)
+								{
+									bool first_execution_letter = true;
+									for (int j = 1; j < NUM_LETTERS_WORD; j++)
+									{
+										if (wordle_answer[j] == wordle_answer[i])
+										{
+											if (!(i == j))
+											{
+												/* -x flag */
+												direct_parsing(wordle_answer[i], j, false, true, &first_execution_letter);
+											}
+										}
+									}
+
+									direct_parsing(wordle_answer[i], i, true, true, &first_execution);
+								}
+								parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments);
+    			    			parsing(&flag_reading_index, word_list, &first_execution, false, false, arguments);
+							}
+
 							printf("%s\n", wordle_answer);
 						}
 					}

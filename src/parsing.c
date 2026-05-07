@@ -203,11 +203,22 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     return 0;
 }
 
-void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl)
+void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec)
 {
-    char (*ptr)[6] = all_words;
-	int n_pos_arr = NUM_ALL_WORDS;
+    char (*ptr)[6];
+	int n_pos_arr;
 
+	if (f_exec)
+	{
+		ptr = all_words;
+		n_pos_arr = NUM_ALL_WORDS;
+	}
+    else
+    {
+		/* rename variables */
+    	ptr = filtered_arr;
+		n_pos_arr = n_possible_answers;
+    }
     char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
     int temp_count = 0; /* reset temporary count buffer */
     if (letter_indexed_bl)
@@ -310,4 +321,5 @@ void direct_parsing(char letter_indexed, int word_letter_index, bool filter_incl
     {
         verbose_printing("--strict", letter_indexed, word_letter_index, n_possible_answers, true);
     }
+    *(f_exec) = false;
 }
