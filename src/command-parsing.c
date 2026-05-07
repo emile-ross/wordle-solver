@@ -127,68 +127,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 			}
 			if (argc >= min_args_draw)
 			{
-				for (int flag_temp = 1; flag_temp < argc; flag_temp++)
-				{
-					bool unused_arg = true;
-					for (int j = 0; j < n_valid_args; j++)
-					{
-						if (flag_temp == valid_args_index[j])
-						{
-							unused_arg = false;
-							break;
-						}
-					}
-					if (unused_arg)
-					{
-						if (argc > min_args_draw)
-						{
-							if (strcmp(arguments[flag_temp], "-x") == 0)
-							{
-								x_pattern = true;
-							}
-						}
-						else
-						{
-							char wordle_answer[INDEX_LETTERS_WORD];
-							snprintf(wordle_answer, sizeof(wordle_answer),
-									"%s", arguments[flag_temp]);
 
-							if (!x_pattern)
-							{
-								for (int i = 0; i < NUM_LETTERS_WORD; i++)
-								{
-									char possible_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
-									bool first_execution_letter = true;
-									for (int j = 0; j < NUM_LETTERS_WORD; j++)
-									{
-										if (wordle_answer[j] == wordle_answer[i])
-										{
-											if (!(i == j))
-											{
-												/* -x flag */
-												direct_parsing(wordle_answer[j], j, false, true, &first_execution_letter, &possible_words);
-											}
-										}
-									}
-									direct_parsing(wordle_answer[i], i, true, true, &first_execution_letter);
-									for (int j = 0; j < NUM_LETTERS_WORD; j++)
-									{
-										if (!(wordle_answer[j] == wordle_answer[i]))
-										{
-											direct_parsing(wordle_answer[j], j, false, false, &first_execution_letter);
-										}
-										else
-										{
-											direct_parsing(wordle_answer[j], j, false, true, &first_execution_letter);
-										}
-									}
-									print_as_table(table_width, n_possible_answers, awsum_table_mode);
-								}
-							}
-							printf("%s\n", wordle_answer);
-						}
-					}
-				}
 			}
 		}
     }
