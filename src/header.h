@@ -78,3 +78,5 @@ extern int command_arguments_context;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
 
+
+void drawing(char wordle_answer[INDEX_LETTERS_WORD]);
