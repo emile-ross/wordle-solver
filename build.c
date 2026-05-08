@@ -17,6 +17,7 @@ char PARSING_FILE_PATH[fp_size] = "src/parsing";
 char CONFIG_FILE_PATH[fp_size] = "src/config";
 char MAIN_FILE_PATH[fp_size] = "src/main";
 char CMDPARS_FILE_PATH[fp_size] = "src/command-parsing";
+char DRAWING_FILE_PATH[fp_size] = "src/drawing";
 
 char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
 char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
@@ -138,7 +139,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c ";
+	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c ";
 
 	char SRC_ALL_WORDS[fp_size];
 	char SRC_COM_WORDS[fp_size];
@@ -175,8 +176,9 @@ int main(int argc, char *argv[])
 		char *configp = CONFIG_FILE_PATH;
 		char *main_fp = MAIN_FILE_PATH;
 		char *cmd_parsing = CMDPARS_FILE_PATH;
+		char *drawingpath = DRAWING_FILE_PATH;
 
-		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
+		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, drawingpath, main_fp);
 
 		char compiler[compiler_name_len];
 
@@ -252,7 +254,7 @@ int main(int argc, char *argv[])
 		/* TODO craft cmd */
 
 		char source_files[mem_needed_src];
-		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, main_fp);
+		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, main_fp, drawingpath, configp, parsing);
 
 		char safe_cmd[mem_needed];
 
@@ -267,72 +269,3 @@ int main(int argc, char *argv[])
 	}
 	return 0;
 }
-
-/*
- * We are replacing this entire thing.. 
-
-OBJ_ALL_WORDS_FP = $(ALL_WORDS_FILE_PATH).o
-OBJ_COM_WORDS_FP = $(COM_WORDS_FILE_PATH).o
-OBJ_NYT_WORDS_FP = $(NYT_WORDS_FILE_PATH).o
-
-PARSING_SRC_FILE_PATH = $(PARSING_FILE_PATH).c
-CONFIG_SRC_FILE_PATH = $(CONFIG_FILE_PATH).c
-MAIN_SRC_FILE_PATH = $(MAIN_FILE_PATH).c
-CMDPARS_SRC_FILE_PATH = $(CMDPARS_FILE_PATH).c
-
-PARSING_OBJ_FILE_PATH = $(PARSING_FILE_PATH).o
-CONFIG_OBJ_FILE_PATH = $(CONFIG_FILE_PATH).o
-MAIN_OBJ_FILE_PATH = $(MAIN_FILE_PATH).o
-CMDPARS_OBJ_FILE_PATH = $(CMDPARS_FILE_PATH).o
-
-BASE_SRC_FILES = $(MAIN_SRC_FILE_PATH) $(CONFIG_SRC_FILE_PATH) $(PARSING_SRC_FILE_PATH) $(CMDPARS_SRC_FILE_PATH)
-WORD_SRC_FILES = $(SRC_NYT_WORDS) $(SRC_ALL_WORDS) $(SRC_COM_WORDS)
-
-OUT_ALL_OBJ_F = -c $(SRC_ALL_WORDS) -o $(OBJ_ALL_WORDS_FP) 
-OUT_COM_OBJ_F = -c $(SRC_COM_WORDS) -o $(OBJ_COM_WORDS_FP)
-OUT_NYT_OBJ_F = -c $(SRC_NYT_WORDS) -o $(OBJ_NYT_WORDS_FP) 
-
-LINK_WORD_OBJ_FP = $(OBJ_ALL_WORDS_FP) $(OBJ_COM_WORDS_FP) $(OBJ_NYT_WORDS_FP)
-BASE_OBJ_FILES_FP = $(CMDPARS_OBJ_FILE_PATH) $(MAIN_OBJ_FILE_PATH) $(CONFIG_OBJ_FILE_PATH) $(PARSING_OBJ_FILE_PATH)
-
-OUT_BIN_NAME = binary
-
-OUT = -o $(OUT_BIN_NAME)
-
-all:
-	$(ZIG) $(OUT_ALL_OBJ_F) $(FLAGS)
-	$(ZIG) $(OUT_COM_OBJ_F) $(FLAGS)
-	$(ZIG) $(OUT_NYT_OBJ_F) $(FLAGS)
-	$(ZIG) -c $(PARSING_SRC_FILE_PATH) -o $(CMDPARS_OBJ_FILE_PATH) $(FLAGS)
-	$(ZIG) -c $(CONFIG_SRC_FILE_PATH) -o $(PARSING_OBJ_FILE_PATH) $(FLAGS)
-	$(ZIG) -c $(MAIN_SRC_FILE_PATH) -o $(CONFIG_OBJ_FILE_PATH) $(FLAGS)
-	$(ZIG) -c $(CMDPARS_SRC_FILE_PATH) -o $(MAIN_OBJ_FILE_PATH) $(FLAGS)
-
-clean: 
-	@rm $(OBJ_ALL_WORDS_FP)
-	@rm $(OBJ_COM_WORDS_FP)
-	@rm $(OBJ_NYT_WORDS_FP)
-
-base: 
-	$(ZIG) $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS) -Werror
-
-zig: 
-	$(ZIG) $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
-
-gcc:
-	gcc $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
-
-clang:
-	clang $(BASE_SRC_FILES) $(WORD_SRC_FILES) $(OUT) $(FLAGS)
-
-linux: gcc
-	
-android: gcc
-	chmod u+x $(OUT_BIN_NAME)
-	cp $(OUT_BIN_NAME) ~
-	@echo "Binary file was copied to your home directory"
-	@echo "execute it with ~/$(OUT_BIN_NAME)"
-
-link:
-	$(ZIG) $(BASE_OBJ_FILES_FP) $(LINK_WORD_OBJ_FP) $(OUT) $(FLAGS)
-	*/
