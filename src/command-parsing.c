@@ -2,6 +2,7 @@
 
 void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode)
 {
+	bool x_pattern = false;
     bool first_execution = true;
     if (argc >= 2)
     {
@@ -120,14 +121,43 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 		else
 		{
 			int min_args_draw = 3;
-			bool x_pattern = false;
 			if (word_list_is_specified)
 			{
 				min_args_draw += 2;
 			}
 			if (argc >= min_args_draw)
 			{
-
+				/* match arguments */
+				char wordle_answer[INDEX_LETTERS_WORD];
+				for (int flag_temp = 1; flag_temp < argc; flag_temp++)
+				{
+					bool unused_arg = true;
+					for (int j = 0; j < n_valid_args; j++)
+					{
+						if (flag_temp == valid_args_index[j])
+						{
+							unused_arg = false;
+							break;
+						}
+					}
+					if (unused_arg)
+					{
+						if (argc > min_args_draw)
+						{
+							if (strcmp(arguments[flag_temp], "-x") == 0)
+							{
+								x_pattern = true;
+							}
+							/* if it's not -x flag it's probably an invalid or unused argument */
+						}
+						else
+						{
+							snprintf(wordle_answer, sizeof(wordle_answer),
+									"%s", arguments[flag_temp]);
+							drawing(wordle_answer);
+						}
+					}
+				}
 			}
 		}
     }
