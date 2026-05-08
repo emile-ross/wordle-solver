@@ -81,3 +81,4 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD]);
+char to_uppercase(char letter); /* a replacement for toupper() since it is hot garbage */

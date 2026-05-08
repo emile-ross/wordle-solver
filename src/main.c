@@ -2,7 +2,6 @@
 
 char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-
 int n_possible_answers;
 enum ALL_WORD_LISTS word_list;
 
@@ -170,3 +169,20 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 
     printf("to be moved to the filtered array\n"STYLE_END);
 }
+
+char to_uppercase(char letter)
+{
+	switch (letter)
+	{
+		case 'a':
+			return 'A';
+		case 'b':
+			return 'B';
+		case 'c':
+			return 'C';
+
+		default:
+			return letter;
+	}
+}
+
