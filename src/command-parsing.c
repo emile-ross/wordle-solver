@@ -2,7 +2,7 @@
 
 void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode)
 {
-	bool x_pattern = false;
+	/* bool x_pattern = false; */
     bool first_execution = true;
     if (argc >= 2)
     {
@@ -146,7 +146,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 						{
 							if (strcmp(arguments[flag_temp], "-x") == 0)
 							{
-								x_pattern = true;
+								/* x_pattern = true; */
 							}
 							/* if it's not -x flag it's probably an invalid or unused argument */
 						}
