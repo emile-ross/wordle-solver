@@ -180,6 +180,38 @@ char to_uppercase(char letter)
 			return 'B';
 		case 'c':
 			return 'C';
+		case 'd':
+			return 'D';
+		case 'e':
+			return 'E';
+		case 'f':
+			return 'F';
+		case 'g':
+			return 'G';
+		case 'h':
+			return 'H';
+		case 'i':
+			return 'I';
+		case 'j':
+			return 'J';
+		case 'k':
+			return 'K';
+		case 'l':
+			return 'L';
+		case 'm':
+			return 'M';
+		case 'n':
+			return 'N';
+		case 'o':
+			return 'O';
+		case 'p':
+			return 'P';
+		case 'q':
+			return 'Q';
+		case 'r':
+			return 'R';
+		case 's':
+			return 'S';
 
 		default:
 			return letter;
