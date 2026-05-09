@@ -18,10 +18,12 @@ char CONFIG_FILE_PATH[fp_size] = "src/config";
 char MAIN_FILE_PATH[fp_size] = "src/main";
 char CMDPARS_FILE_PATH[fp_size] = "src/command-parsing";
 char DRAWING_FILE_PATH[fp_size] = "src/drawing";
+char FUNCTIONS_FILE_PATH[fp_size] = "src/functions";
 
 char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
 char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
 char NYT_WORDS_FILE_PATH[fp_size] = "src/word-lists/words";
+
 char *src_file_extention = ".c";
 char *obj_file_extention = ".c";
 bool compile_into_objects = false; /* hard coded right now but it will be dynamic in the future */
@@ -139,7 +141,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c ";
+	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c ";
 
 	char SRC_ALL_WORDS[fp_size];
 	char SRC_COM_WORDS[fp_size];
@@ -177,8 +179,9 @@ int main(int argc, char *argv[])
 		char *main_fp = MAIN_FILE_PATH;
 		char *cmd_parsing = CMDPARS_FILE_PATH;
 		char *drawingpath = DRAWING_FILE_PATH;
+		char *func_path = FUNCTIONS_FILE_PATH;
 
-		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, configp, parsing, drawingpath, main_fp);
+		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, func_path, cmd_parsing, configp, parsing, drawingpath, main_fp);
 
 		char compiler[compiler_name_len];
 
@@ -254,7 +257,7 @@ int main(int argc, char *argv[])
 		/* TODO craft cmd */
 
 		char source_files[mem_needed_src];
-		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, main_fp, drawingpath, configp, parsing);
+		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, main_fp, func_path, drawingpath, configp, parsing);
 
 		char safe_cmd[mem_needed];
 
