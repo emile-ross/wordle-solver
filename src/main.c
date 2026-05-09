@@ -212,6 +212,20 @@ char to_uppercase(char letter)
 			return 'R';
 		case 's':
 			return 'S';
+		case 't':
+			return 'T';
+		case 'u':
+			return 'U';
+		case 'v':
+			return 'V';
+		case 'w':
+			return 'W';
+		case 'x':
+			return 'X';
+		case 'y':
+			return 'Y';
+		case 'z':
+			return 'Z';
 
 		default:
 			return letter;
