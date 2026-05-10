@@ -11,7 +11,9 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 
 	bool x_pattern = false;
 
-	//char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS];
+	/*
+	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS][NUM_LETTERS_WORD];
+	*/
 
 	if (!x_pattern)
 	{
@@ -27,6 +29,12 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 					num_answers++;
 				}
 			}
+			printf(BOLD_S"\nEntry %d \n"STYLE_END, i);
+			if (num_answers < 1)
+			{
+				printf("No matches were found\n");
+			}
+			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
 		}
 	}
 	

@@ -134,7 +134,7 @@ void user_index_validation(int index)
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present)
 {
-
+	/* add colour to options */
     printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
 
 	/* craft sentence with appropriate words
@@ -156,10 +156,7 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 
     printf(BOLD_S"%c "STYLE_END ANSI_LCYAN, letter);
 
-
-    /* ~~might add colour options here~~*/
-    /* colour options were added */
-
+	/* add colour to options */
     if (indexed_letter_value != -1)
     {
 		indexed_letter_value++; /* in order to make it more user friendly 
