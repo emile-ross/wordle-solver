@@ -11,7 +11,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 
 	bool x_pattern = false;
 
-	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS];
+	//char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS];
 
 	if (!x_pattern)
 	{
@@ -26,10 +26,6 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 					strcpy(filtered_words[j], all_words[j]);
 					num_answers++;
 				}
-			}
-			for (int j = 0; j < num_answers; j++)
-			{
-				printf("%s\n", filtered_words[j]);
 			}
 		}
 	}
