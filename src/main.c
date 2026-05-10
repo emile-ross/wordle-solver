@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
 	if (find_match_mode)
 	{
-		print_as_table(table_width, n_possible_answers, awsum_table_mode);
+		print_as_table(table_width, n_possible_answers, awsum_table_mode, filtered_arr);
 	}
 
 	/* print the number of possible words 
@@ -79,7 +79,7 @@ void err(int error_code)
     exit(error_code);
 }
 
-void print_as_table(int width, int total_elements, bool awsum_mode)
+void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {
     if (total_elements > 0)
     {
@@ -99,7 +99,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 				    /* bounds checking (avoids printing garbage data */
 				    if (index < total_elements)
 				    {
-						printf("%s ", filtered_arr[index]);
+						printf("%s ", all_answers_print[index]);
 				    }
 				}
 				printf("\n");
@@ -116,7 +116,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode)
 						printf("\n");
 				    }
 				}
-				printf("%s ", filtered_arr[i]);
+				printf("%s ", all_answers_print[i]);
 		    }
 		    printf("\n");
 		}
