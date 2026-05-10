@@ -17,7 +17,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 	{
 		for (int i = 0; i < 5; i++)
 		{
-			char filtered_words[NUM_ALL_WORDS];
+			char filtered_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 			int num_answers = 0;
 			for (int j = 0; j < NUM_ALL_WORDS; j++)
 			{
@@ -26,7 +26,10 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 					strcpy(filtered_words[j], all_words[j]);
 				}
 			}
-			/* printf("%s\n"); */
+			for (int j = 0; j < num_answers; j++)
+			{
+				printf("%s\n", filtered_words[j]);
+			}
 		}
 	}
 	
