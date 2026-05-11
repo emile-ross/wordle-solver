@@ -30,18 +30,22 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 				}
 			}
 			printf(BOLD_S"\nEntry %d \n"STYLE_END, i);
+
 			if (num_answers < 1)
 			{
 				printf("No matches were found\n");
 			}
-			for (int j = 0; j < num_answers; j++)
-			{
-				printf("%s ", filtered_words[j]);
-				if (j % table_width)
+		    for (int j = 0; j < num_answers; j++)
+		    {
+				if (j % table_width == 0)
 				{
-					printf("\n");
+				    if (j != 0)
+				    {
+						printf("\n");
+				    }
 				}
-			}
+				printf("%s ", filtered_words[j]);
+		    }
 			/*
 			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
 			*/
