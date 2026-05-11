@@ -5,29 +5,23 @@ W = wordle
 FG = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 BCMD = $(B).c -o $(B)
 
-bin-g:
+bin:
 
 ifeq ($(cond),)
 	@gcc $(BCMD)
 endif
 
-bin-c:
-
-ifeq ($(cond),)
-	@clang $(BCMD)
-endif
-
-wordle: bin-g
+wordle: bin
 	@$(C) G a
 
 base:
 	zig cc $(BCMD) $(FG)
 	$(C) Z a 9 p x c s e
 
-macos: bin-c
+macos: bin
 	@$(C) C
 
-android: bin-g
+android: bin
 	@cp -f $(B) ~
 	chmod u+x ~/$(B)
 	@~/$(B) G a
