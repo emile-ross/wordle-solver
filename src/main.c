@@ -54,7 +54,7 @@ void err(int error_code)
 		    printf("The only valid flags are:\n\n");
 		    printf(BOLD_S" -e"STYLE_END" (exclude)\n");
 		    printf(BOLD_S" -x"STYLE_END" (exclude)\n");
-		    printf(BOLD_S"   --exclude"STYLE_END" (the letter \'X\' isn't at position Y)\n");
+		    printf(BOLD_S"   --excludes"STYLE_END" (the letter \'X\' isn't at position Y)\n");
 		    printf(BOLD_S" -s"STYLE_END" (strict)\n");
 		    printf(BOLD_S"   --strict"STYLE_END" (the letter \'X\' is at position Y)\n\n");
 		    printf(BOLD_S" -a"STYLE_END" (letter is absent)\n");

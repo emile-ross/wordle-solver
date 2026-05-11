@@ -89,7 +89,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
     			{
     			    parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments);
     			}
-    			else if (strcmp(arguments[flag_reading_index], "--exclude") == 0 || strcmp(arguments[flag_reading_index], "-x") == 0 || strcmp(arguments[flag_reading_index], "-e") == 0)
+    			else if (strcmp(arguments[flag_reading_index], "--excludes") == 0 || strcmp(arguments[flag_reading_index], "-x") == 0 || strcmp(arguments[flag_reading_index], "-e") == 0)
     			{
     			    parsing(&flag_reading_index, word_list, &first_execution, false, true, arguments);
     			}
