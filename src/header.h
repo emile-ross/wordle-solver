@@ -39,9 +39,11 @@
 #define max_valid_args 16
 
 #define n_num_list (3)
-extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
-extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
-extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+
+/* Word lists */
+	extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
+	extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
+	extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 /* filtered array used to store filtered words and it is also used for printing results */
 extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
@@ -49,14 +51,16 @@ extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 extern char *word_list_text[n_num_list];
 
-void err(int error_code);
+/* errors and error codes */
+	void err(int error_code);
+	void invalid_flag(int total_args_index, int flag_index, char *flag[]);
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[]);
 void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode);
-void invalid_flag(int total_args_index, int flag_index, char *flag[]);
+void drawing(char wordle_answer[INDEX_LETTERS_WORD]);
 
 /* Global variables */
 extern int ARGS_BEFORE_CUR_FLAG;
@@ -66,18 +70,15 @@ extern int n_possible_answers;
 
 
 /* General simple functions */
-void user_index_validation(int index);
+	void user_index_validation(int index);
+	char to_uppercase(char letter);		/* a replacement for toupper() since it is hot garbage */
 
 
 /* config file */
-extern bool awsum_table_mode;
-extern int table_width;
-extern bool verbose;
-extern bool ignore_warn;
-extern int command_arguments_context;
+	extern bool awsum_table_mode;
+	extern int table_width;
+	extern bool verbose;
+	extern bool ignore_warn;
+	extern int command_arguments_context;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
-
-
-void drawing(char wordle_answer[INDEX_LETTERS_WORD]);
-char to_uppercase(char letter); /* a replacement for toupper() since it is hot garbage */
