@@ -25,7 +25,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 			{
 				if (wordle_answer[i] == all_words[j][i])
 				{
-					strcpy(filtered_words[j], all_words[j]);
+					strcpy(filtered_words[num_answers], all_words[j]);
 					num_answers++;
 				}
 			}
