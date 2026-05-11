@@ -2,6 +2,8 @@
 
 char to_uppercase(char letter)
 {
+	/* if the letter is lowercase, 
+	 * then, return the uppercase version */
 	switch (letter)
 	{
 		case 'a':

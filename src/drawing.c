@@ -11,9 +11,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 
 	bool x_pattern = false;
 
-	/*
 	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS][NUM_LETTERS_WORD];
-	*/
 
 	if (!x_pattern)
 	{
@@ -34,6 +32,11 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 			if (num_answers < 1)
 			{
 				printf("No matches were found\n");
+			}
+
+			for (int j = 0; j < num_answers; j++)
+			{
+				strcpy(all_answers[i][j], filtered_words[j]);
 			}
 			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
 		}
