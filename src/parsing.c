@@ -74,7 +74,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		user_index_validation(word_letter_index); /* validate the index the user provided */
     }
 
-    char letter_indexed = arguments[letter_arg_index][0];
+	char letter_indexed = to_uppercase(arguments[letter_arg_index][0]);
 
     char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
     int temp_count = 0; /* reset temporary count buffer */
