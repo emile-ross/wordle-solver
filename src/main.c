@@ -4,7 +4,6 @@ char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 int n_possible_answers;
 enum ALL_WORD_LISTS word_list;
-
 int main(int argc, char *argv[])
 {
 	bool find_match_mode = true; /* true by default
@@ -14,6 +13,8 @@ int main(int argc, char *argv[])
     if (argc >= 2)  /* or else there's nothing */
     {
 		int flag_r = ARGS_BEFORE_FLAG_BASE;
+		/* execute command parsing and provide the address of find_match_mode
+		 * in order to then dereference the address */
 		command_parsing(argc, flag_r, argv, &find_match_mode);
     }
     else

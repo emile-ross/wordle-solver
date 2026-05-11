@@ -81,7 +81,16 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     
     if (verbose)
     {
-        printf(ANSI_LCYAN"Parsing through the entire word list (first filter)\n"STYLE_END);
+        printf(ANSI_LCYAN"Parsing through the entire word list "STYLE_END);
+
+		if (*f_exec)
+		{
+			printf(ANSI_LCYAN"("BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+		}
+		else
+		{
+			printf(ANSI_LCYAN"("BOLD_S"second"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+		}
     }
     
     /* parsing logic is below for all options */
