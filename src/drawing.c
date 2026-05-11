@@ -35,20 +35,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 			{
 				printf("No matches were found\n");
 			}
-		    for (int j = 0; j < num_answers; j++)
-		    {
-				if (j % table_width == 0)
-				{
-				    if (j != 0)
-				    {
-						printf("\n");
-				    }
-				}
-				printf("%s ", filtered_words[j]);
-		    }
-			/*
 			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
-			*/
 		}
 	}
 	
