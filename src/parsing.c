@@ -73,6 +73,10 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 								   therefore, we need to convert it from a count to an index */
 		user_index_validation(word_letter_index); /* validate the index the user provided */
     }
+	else
+	{
+		word_letter_index = -1;
+	}
 
 	char letter_indexed = to_uppercase(arguments[letter_arg_index][0]);
 
@@ -81,15 +85,35 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     
     if (verbose)
     {
-        printf(ANSI_LCYAN"Parsing through the entire word list "STYLE_END);
+        printf(ANSI_LCYAN"Parsing through "STYLE_END);
+
+		int w_list_size = 32;
 
 		if (*f_exec)
 		{
-			printf(ANSI_LCYAN"("BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+			char word_list_name[w_list_size];
+			switch (w_list)
+			{
+				case nyt:
+					snprintf(word_list_name, (size_t)w_list_size, "New York Times word list");
+					break;
+				case common:
+					snprintf(word_list_name, (size_t)w_list_size, "common word list");
+					break;
+				case all:
+					snprintf(word_list_name, (size_t)w_list_size, "all words");
+					break;
+				default:
+					snprintf(word_list_name, (size_t)w_list_size, "[Unknown word list]");
+					break;
+			}
+			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name);
+			printf(ANSI_LCYAN"("UDRL_S BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
 		else
 		{
-			printf(ANSI_LCYAN"("BOLD_S"second"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+			printf(ANSI_LCYAN UDRL_S BOLD_S"the filtered array"STYLE_END" ");
+			printf(ANSI_LCYAN"("UDRL_S BOLD_S"not first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
     }
     
