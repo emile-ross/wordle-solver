@@ -31,6 +31,7 @@
 #define ANSI_WHITE    	"\x1b[97m"
 
 #define BOLD_S  	"\x1B[1m" 
+#define UDRL_S  	"\x1B[4m" 
 
 /* reset styling */
 #define STYLE_END	"\x1B[0m" 
