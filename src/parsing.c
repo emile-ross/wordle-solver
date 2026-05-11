@@ -85,10 +85,13 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     }
     
     /* parsing logic is below for all options */
+	char flag_string[24];
+
     if (letter_indexed_bl)
     {
         if (filter_include_bl)
         {
+			snprintf(flag_string, sizeof(flag_string), "--strict");
 			bool first_character = false;
 			bool prev_character_found = false;
 
@@ -123,6 +126,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
         }
         else
         {
+			snprintf(flag_string, sizeof(flag_string), "--exclude");
 			for (int j = 0; j < n_pos_arr; j++)
             {
 				/* compare the specified letter against the words in a loop */
@@ -138,6 +142,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     {
 		if (filter_include_bl)
 		{
+			snprintf(flag_string, sizeof(flag_string), "--includes");
 			for (int j = 0; j < n_pos_arr; j++)
             {
 				/* compare the specified letter against the words in a loop */
@@ -154,6 +159,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
         }
 		else
 		{
+			snprintf(flag_string, sizeof(flag_string), "--absent");
 			for (int j = 0; j < n_pos_arr; j++)
             {
 				bool letter_match = false;
@@ -183,7 +189,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     }
     if (verbose)
     {
-        verbose_printing("--strict", letter_indexed, word_letter_index, n_possible_answers, true);
+        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
     }
     int arg_offset;
 
