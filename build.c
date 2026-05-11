@@ -232,7 +232,7 @@ int main(int argc, char *argv[])
 			}
 			if (Wshadow_flag)
 			{
-				strcat(all_custom_flags, "-Wshadow ");
+				strcat(all_custom_flags, "-Wshadow -g ");
 			}
 			if (Werror_flag)
 			{
