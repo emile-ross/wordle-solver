@@ -1,6 +1,6 @@
 #include "header.h"
 
-void drawing(char wordle_answer[INDEX_LETTERS_WORD])
+void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 {
 	char wordle_answer_temp[INDEX_LETTERS_WORD];
 	for (int i = 0; i < NUM_LETTERS_WORD; i++)
@@ -9,7 +9,6 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 	}
 	wordle_answer = wordle_answer_temp;
 
-	bool x_pattern = false;
 	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS][NUM_LETTERS_WORD];
 
 	if (!x_pattern)
@@ -61,6 +60,10 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD])
 			}
 			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
 		}
+	}
+	else
+	{
+		err(7);
 	}
 	
 	printf("%s\n", wordle_answer);

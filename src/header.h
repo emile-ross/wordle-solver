@@ -60,7 +60,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[]);
 void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode);
-void drawing(char wordle_answer[INDEX_LETTERS_WORD]);
+void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 
 /* Global variables */
 extern int ARGS_BEFORE_CUR_FLAG;
