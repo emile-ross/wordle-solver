@@ -98,10 +98,6 @@ void err(int error_code)
 		    printf("Unknown word list\n");
 		    break;
 
-		case 16:
-		    printf("The \"-w\" or \"--word-list\" flags must be the first flag\n");
-		    break;
-
 		default:
 		    printf("Missing error message\n");
 			critical = false;
