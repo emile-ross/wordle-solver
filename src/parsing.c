@@ -44,8 +44,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     {
 		if (n_possible_answers == 0)
 		{
-			printf("No possible words\n");
-			exit(0);
+			err(20);
 		}
 		/* rename variables */
     	ptr = filtered_arr;

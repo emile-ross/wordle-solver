@@ -48,6 +48,11 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 								break; 
 							}
 						}
+
+						if (letter_matches)
+						{
+							break;
+						}
 					}
 				}
 			
@@ -78,6 +83,6 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 		err(7);
 	}
 	
-	printf("%s\n", wordle_answer);
+	printf(BOLD_S"\n\n%s\n"STYLE_END, wordle_answer);
 }
 

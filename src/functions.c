@@ -98,6 +98,11 @@ void err(int error_code)
 		    printf("Unknown word list\n");
 		    break;
 
+		case 20:
+		    printf(BOLD_S"No possible answers.\n"STYLE_END);
+		    printf(BOLD_S"Try editing your filters.\n"STYLE_END);
+		    break;
+
 		default:
 		    printf("Missing error message\n");
 			critical = false;
