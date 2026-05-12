@@ -22,15 +22,11 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			{
 				if (wordle_answer[letter_index] == all_words[j][letter_index])
 				{
-					strcpy(filtered_words[num_answers], all_words[j]);
+					strcpy(filtered_words_temp[num_answers], all_words[j]);
 					num_answers++;
 				}
 			}
 			int temp_count = 0;
-			for (int i = 0; i < num_answers; i++)
-			{
-				strcpy(filtered_words_temp[i], filtered_words[i]);
-			}
 			for (int word_iteration = 0; word_iteration < num_answers; word_iteration++)
 			{
 				bool letter_matches = false;
