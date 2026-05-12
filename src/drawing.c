@@ -31,21 +31,34 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			{
 				strcpy(filtered_words_temp[i], filtered_words[i]);
 			}
-			for (int j = 0; j < num_answers; j++)
+			for (int word_iteration = 0; word_iteration < num_answers; word_iteration++)
 			{
-				for (int word_letter_index = 0; word_letter_index < NUM_LETTERS_WORD; word_letter_index++)
+				bool letter_matches = false;
+				/* loop for every letter in the original word (answer) */
+				for (int answer_letter_index = 0; answer_letter_index < NUM_LETTERS_WORD; answer_letter_index++)
 				{
-					if (word_letter_index != letter_index)
+					/* if the letter in the orignal word matches the index of the temporary word to check,
+					 * we have to go to the next letter */
+					if (answer_letter_index != letter_index)
 					{
-						if (wordle_answer[j] != all_words[j][word_letter_index])
+						char original_letter = wordle_answer[answer_letter_index];
+						for (int letter_iteration = 0; letter_iteration < NUM_LETTERS_WORD; letter_iteration++)
 						{
-							strcpy(filtered_words[temp_count], filtered_words_temp[j]);
-							temp_count++;
-							/* break out of the word_letter_index loop 
-							 * since a letter is matching in the word */
-							break; 
+							if (original_letter == all_words[word_iteration][letter_iteration])
+							{
+								letter_matches = true;
+								/* break out of the answer_letter_index loop 
+								 * since a letter is matching in the word */
+								break; 
+							}
 						}
 					}
+				}
+			
+				if (!letter_matches)
+				{
+					strcpy(filtered_words[temp_count], filtered_words_temp[word_iteration]);
+					temp_count++;
 				}
 			}
 			num_answers = temp_count;
