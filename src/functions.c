@@ -117,12 +117,13 @@ void err(int error_code)
 void warn(warnings warning_type)
 {
 	bool critical = false;
-
+	char *message;
+	char *solution;
 	switch (warning_type)
 	{
 		case draw:
-			printf(BOLD_S ANSI_RED"Warning"STYLE_END ANSI_RED" the --draw option isn't fully functional yet");
-			printf(",\nyou might encounter some problems/errors with it\n"STYLE_END);
+			message = "the --draw option isn't fully functional yet";
+			solution = "you might encounter some problems/errors with it";
 			break;
 
 		case xdraw:
@@ -138,8 +139,34 @@ void warn(warnings warning_type)
 
 	if (critical)
 	{
+		/* cast the enum to an int 
+		 * this exits the program if the warning is a critical one */
 		exit((int)warning_type);
 	}
+
+	if (solution != NULL)
+	{
+		const char *warning_message_s_template = BOLD_S ANSI_RED"Warning"STYLE_END ANSI_RED" %s,\n%s"STYLE_END;
+
+		int message_size = 1 + snprintf(NULL, 0, warning_message_s_template, message, solution);
+
+		char warning_message[(size_t)message_size];
+		snprintf(warning_message, (size_t)message_size, warning_message_s_template, message, solution);
+
+		printf("%s\n", warning_message);
+	}
+	else
+	{
+		const char *warning_message_template = BOLD_S ANSI_RED"Warning"STYLE_END ANSI_RED" %s"STYLE_END;
+
+		int message_size = 1 + snprintf(NULL, 0, warning_message_template, message);
+
+		char warning_message[(size_t)message_size];
+		snprintf(warning_message, (size_t)message_size, warning_message_template, message);
+
+		printf("%s\n", warning_message);
+	}
+
 
 	printf("Press any key to continue");
 

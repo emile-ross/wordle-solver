@@ -4,8 +4,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
-	 * this means all words(in the list) ending in A
-	 */
+	 * this means all words(in the list) ending in A */
 
     char (*ptr)[6];
 
@@ -35,7 +34,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     	        break;
     	}
 	
-	/* since this is the first execution, it will parse through the entire array */
+		/* since this is the first execution, it will parse through the entire array */
 
         n_possible_answers = 0;	/* reset word count buffer
 								this needs to be reset only once */
@@ -217,6 +216,9 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		}
     }
 
+	/* set the global "n_possible_answers" to "temp_count" local variable 
+	 * this is done in order to prevent breaking the other processes using the global 
+	 * it also avoids modifying the global all the time */
     n_possible_answers = temp_count;
     
     /* Write to filtered array */
@@ -226,6 +228,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     }
     if (verbose)
     {
+		/* display verbose message */
         verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
     }
     int arg_offset;
