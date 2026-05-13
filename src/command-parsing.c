@@ -16,6 +16,12 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 		{
 			if (strcmp(arguments[i], "--draw") == 0 || strcmp(arguments[i], "-d") == 0)
 			{
+				if (!ignore_warn)
+				{
+					printf(BOLD_S ANSI_RED"Warning"STYLE_END ANSI_RED" the --draw option isn't fully functional yet");
+					printf(",\n you might encounter some problems/errors with it\n"STYLE_END);
+					getchar();
+				}
 				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
