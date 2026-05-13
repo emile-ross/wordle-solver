@@ -4,3 +4,10 @@ enum ALL_WORD_LISTS
     common,
     nyt,
 };
+
+typedef enum 
+{
+	draw,
+	strict,
+	xdraw,
+} warnings ;

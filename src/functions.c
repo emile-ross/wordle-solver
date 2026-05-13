@@ -113,3 +113,37 @@ void err(int error_code)
 		exit(error_code);
 	}
 }
+
+void warn(warnings warning_type)
+{
+	bool critical = false;
+
+	switch (warning_type)
+	{
+		case draw:
+			printf(BOLD_S ANSI_RED"Warning"STYLE_END ANSI_RED" the --draw option isn't fully functional yet");
+			printf(",\nyou might encounter some problems/errors with it\n"STYLE_END);
+			break;
+
+		case xdraw:
+			printf(BOLD_S ANSI_RED"Warning"STYLE_END ANSI_RED" the -x option isn't fully functional yet");
+			printf(",\n you might encounter some problems/errors with it\n"STYLE_END);
+			break;
+
+		default: 
+			printf("Unknown warning\n");
+			critical = true;
+			break;
+	}
+
+	if (critical)
+	{
+		exit((int)warning_type);
+	}
+
+	printf("Press any key to continue");
+
+	getchar();
+
+	printf("\n");
+}

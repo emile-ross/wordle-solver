@@ -53,6 +53,7 @@ extern char *word_list_text[n_num_list];
 
 /* errors and error codes */
 	void err(int error_code);
+	void warn(warnings warning_type); /* warnings */
 	void invalid_flag(int total_args_index, int flag_index, char *flag[]);
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
