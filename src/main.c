@@ -4,6 +4,7 @@ char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 int n_possible_answers;
 enum ALL_WORD_LISTS word_list;
+
 int main(int argc, char *argv[])
 {
 	bool find_match_mode = true; /* true by default

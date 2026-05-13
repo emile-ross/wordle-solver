@@ -178,3 +178,71 @@ void warn(warnings warning_type)
 
 	printf("\n");
 }
+
+void validate_word(char command_word_string[INDEX_LETTERS_WORD])
+{
+	char command_word_string_temp[INDEX_LETTERS_WORD];
+	for (int i = 0; i < NUM_LETTERS_WORD; i++)
+	{
+		command_word_string_temp[i] = to_uppercase(command_word_string[i]);
+	}
+	strcpy(command_word_string, command_word_string_temp);
+
+	int list_priority = -1;
+	bool match = false;
+	if (command_word_string != NULL)
+	{
+		for (int i = 0; i < NUM_WORDS; i++)
+		{
+			if (strcmp(command_word_string, nyt_words[i]) == 0)
+			{
+				list_priority = 2;
+				match = true;
+				goto match;
+			}
+		}
+		for (int i = 0; i < NUM_COMMON_WORDS; i++)
+		{
+			if (strcmp(command_word_string, common_words[i]) == 0)
+			{
+				list_priority = 1;
+				match = true;
+				goto match;
+			}
+		}
+		for (int i = 0; i < NUM_ALL_WORDS; i++)
+		{
+			if (strcmp(command_word_string, all_words[i]) == 0)
+			{
+				list_priority = 0;
+				match = true;
+				goto match;
+			}
+		}
+	}
+	match:
+
+	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
+
+	if (match)
+	{
+		printf("was found in the following lists:\n\n");
+		if (list_priority >= 2)
+		{
+			printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
+		}
+		if (list_priority >= 1)
+		{
+			printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
+		}
+		if (list_priority >= 0)
+		{
+			printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
+		}
+	}
+	else
+	{
+		printf("was not found in any word list\n");
+	}
+	exit(0);
+}

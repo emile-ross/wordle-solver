@@ -4,6 +4,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 {
 	bool x_pattern = false;
     bool first_execution = true;
+	bool validate_word_bl = false;
     if (argc >= 2)
     {
 		/* set the default word list as the nyt word list */
@@ -84,6 +85,13 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					 * Valid word list argument: (-w all or something like that) */
 				}
     		}
+			else if (strcmp(arguments[i], "-v") == 0 || strcmp(arguments[i], "--validate") == 0)
+			{
+				find_match_mode = false; /* We aren't matching words */
+				validate_word_bl = true; /* we are validating a word */
+				valid_args_index[n_valid_args] = i;
+				n_valid_args++;
+			}
 		}
 
 		if (find_match_mode)
@@ -133,7 +141,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 			if (argc >= min_args_draw)
 			{
 				/* match arguments */
-				char wordle_answer[INDEX_LETTERS_WORD];
+				char command_word_string[INDEX_LETTERS_WORD];
 				for (int flag_temp = 1; flag_temp < argc; flag_temp++)
 				{
 					bool arg_found = false;
@@ -148,24 +156,34 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					}
 					if (unused_arg)
 					{
-						if (argc > min_args_draw)
+						if (!validate_word_bl)
 						{
-							if (strcmp(arguments[flag_temp], "-x") == 0 || strcmp(arguments[flag_temp], "-X") == 0)
+							if (argc > min_args_draw)
 							{
-								arg_found = true;
-								x_pattern = true;
+								if (strcmp(arguments[flag_temp], "-x") == 0 || strcmp(arguments[flag_temp], "-X") == 0)
+								{
+									arg_found = true;
+									x_pattern = true;
+								}
+								/* if it's not -x flag it's probably an invalid or unused argument */
 							}
-							/* if it's not -x flag it's probably an invalid or unused argument */
 						}
 					}
 					
 					if (!arg_found)
 					{
-						snprintf(wordle_answer, sizeof(wordle_answer),
+						snprintf(command_word_string, sizeof(command_word_string),
 								"%s", arguments[flag_temp]);
 					}
 				}
-				drawing(wordle_answer, x_pattern);
+				if (!validate_word_bl)
+				{
+					drawing(command_word_string, x_pattern);
+				}
+				else
+				{
+					validate_word(command_word_string);
+				}
 			}
 		}
     }
