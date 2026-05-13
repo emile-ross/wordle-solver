@@ -66,14 +66,12 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
     		    	{
     		    		printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_text[word_list]);
     		    	}
-    		        
 				}
     			else /* missing arguments */
     			{
 					valid_word_list = false;
 					err(1); 
     			}
-
 
 				if (valid_word_list)
 				{

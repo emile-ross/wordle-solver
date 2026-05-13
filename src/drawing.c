@@ -123,4 +123,3 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 
 	printf(BOLD_S"\n\n%s\n"STYLE_END, wordle_answer);
 }
-

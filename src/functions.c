@@ -188,56 +188,57 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	}
 	strcpy(command_word_string, command_word_string_temp);
 
-	int list_priority = -1;
+	int list_num = -1;
 	bool match = false;
 	if (command_word_string != NULL)
 	{
+		list_num++;
 		for (int i = 0; i < NUM_WORDS; i++)
 		{
 			if (strcmp(command_word_string, nyt_words[i]) == 0)
 			{
-				list_priority = 2;
 				match = true;
 				goto match;
 			}
 		}
+		list_num++;
 		for (int i = 0; i < NUM_COMMON_WORDS; i++)
 		{
 			if (strcmp(command_word_string, common_words[i]) == 0)
 			{
-				list_priority = 1;
 				match = true;
 				goto match;
 			}
 		}
+		list_num++;
 		for (int i = 0; i < NUM_ALL_WORDS; i++)
 		{
 			if (strcmp(command_word_string, all_words[i]) == 0)
 			{
-				list_priority = 0;
 				match = true;
 				goto match;
 			}
 		}
 	}
-	match:
-
+	match:	/* goto is used to go here whenever a word has been matched in any word list */
 	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
 
 	if (match)
 	{
 		printf("was found in the following lists:\n\n");
-		if (list_priority >= 2)
+		switch (list_num)
 		{
-			printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
-		}
-		if (list_priority >= 1)
-		{
-			printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
-		}
-		if (list_priority >= 0)
-		{
-			printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
+			case 0:
+				printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
+				__attribute__ ((fallthrough));
+			case 1:
+				printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
+				__attribute__ ((fallthrough));
+			case 2:
+				printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
+				break;
+			default:
+				err(15);
 		}
 	}
 	else
