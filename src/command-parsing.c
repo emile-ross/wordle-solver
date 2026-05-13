@@ -20,6 +20,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 				{
 					warn(draw);
 				}
+
 				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;

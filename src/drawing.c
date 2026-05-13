@@ -13,6 +13,8 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 
 	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS][NUM_LETTERS_WORD];
 
+	int num_all_answers[NUM_LETTERS_WORD];
+
 	if (!x_pattern)
 	{
 		for (int entry_i = 0; entry_i < NUM_LETTERS_WORD; entry_i++)
@@ -92,6 +94,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			{
 				strcpy(all_answers[entry_i][j], filtered_words[j]);
 			}
+			num_all_answers[entry_i] = num_answers;
 			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
 		}
 	}
@@ -100,6 +103,24 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 		err(7);
 	}
 	
+	printf("\n");
+
+	for (int entry_i = 0; entry_i < NUM_LETTERS_WORD; entry_i++)
+	{
+		int entry_user_num = entry_i + 1;
+		printf(BOLD_S"Entry #%d"STYLE_END": "BOLD_S, entry_user_num);
+		if (num_all_answers[entry_i] > 1)
+		{
+			printf("%d"STYLE_END, num_all_answers[entry_i]);
+		}
+		else
+		{
+			printf("no"STYLE_END);
+		}
+		printf(" possible words\n");
+
+	}
+
 	printf(BOLD_S"\n\n%s\n"STYLE_END, wordle_answer);
 }
 
