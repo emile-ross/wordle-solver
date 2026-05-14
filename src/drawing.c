@@ -84,15 +84,12 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 							{
 								for (int i = 0; i < NUM_LETTERS_WORD; i++)
 								{
-									if (entry_i != letter_iteration)
+									if (wordle_answer[answer_letter_index] == filtered_words_temp[word_iteration][letter_iteration])
 									{
-										if (wordle_answer[answer_letter_index] == filtered_words_temp[word_iteration][letter_iteration])
-										{
-											all_letters_are_grey = false;
-											/* break out of the answer_letter_index loop 
-											 * since a letter is matching in the word */
-											break; 
-										}
+										all_letters_are_grey = false;
+										/* break out of the answer_letter_index loop 
+										 * since a letter is matching in the word */
+										break; 
 									}
 								}
 							}
@@ -139,6 +136,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 	{
 		int entry_user_num = entry_i + 1;
 		printf(BOLD_S"Entry #%d"STYLE_END": "BOLD_S, entry_user_num);
+
 		if (num_all_answers[entry_i] > 1)
 		{
 			printf("%d"STYLE_END, num_all_answers[entry_i]);
@@ -148,7 +146,6 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			printf("no"STYLE_END);
 		}
 		printf(" possible words\n");
-
 	}
 
 	printf(BOLD_S"\n\n%s\n"STYLE_END, wordle_answer);
