@@ -38,7 +38,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 						{
 							if (grey_letters[j] == wordle_answer[i])
 							{
-								duplicate = false;
+								duplicate = true;
 							}
 						}
 
@@ -135,6 +135,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 	for (int entry_i = 0; entry_i < NUM_LETTERS_WORD; entry_i++)
 	{
 		int entry_user_num = entry_i + 1;
+
 		printf(BOLD_S"Entry #%d"STYLE_END": "BOLD_S, entry_user_num);
 
 		if (num_all_answers[entry_i] > 1)
@@ -148,5 +149,11 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 		printf(" possible words\n");
 	}
 
-	printf(BOLD_S"\n\n%s\n"STYLE_END, wordle_answer);
+	printf("Wordle answer: "BOLD_S"%s\n"STYLE_END, wordle_answer);
+
+	for (int i = 1; i < indenting; i++)
+	{
+		printf("\n");
+	}
+	exit(0);
 }
