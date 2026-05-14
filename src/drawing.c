@@ -82,12 +82,18 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 						{
 							if (green_letter != filtered_words_temp[word_iteration][letter_iteration])
 							{
-								if (wordle_answer[answer_letter_index] == filtered_words_temp[word_iteration][letter_iteration])
+								for (int i = 0; i < NUM_LETTERS_WORD; i++)
 								{
-									all_letters_are_grey = false;
-									/* break out of the answer_letter_index loop 
-									 * since a letter is matching in the word */
-									break; 
+									if (entry_i != letter_iteration)
+									{
+										if (wordle_answer[answer_letter_index] == filtered_words_temp[word_iteration][letter_iteration])
+										{
+											all_letters_are_grey = false;
+											/* break out of the answer_letter_index loop 
+											 * since a letter is matching in the word */
+											break; 
+										}
+									}
 								}
 							}
 						}
