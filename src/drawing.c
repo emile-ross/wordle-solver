@@ -149,6 +149,11 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 		printf(" possible words\n");
 	}
 
+	for (int i = 0; i < indenting; i++)
+	{
+		printf("\n");
+	}
+
 	printf("Wordle answer: "BOLD_S"%s\n"STYLE_END, wordle_answer);
 
 	for (int i = 1; i < indenting; i++)

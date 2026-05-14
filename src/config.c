@@ -6,15 +6,18 @@ bool awsum_table_mode = false; /* false by default */
 /* if true, print items in columns and then go to the next column
  * if false, print items from left to right and then go to next row(down) */
 
-int table_width = 6; /* 6 by default
+int table_width = 6;	/* 6 by default
 						this is the width of the table (the number of words displayed on the x axis */
 
+int indenting = 2;		/* 2 by default
+						   this is the default indenting value 
+						   (the number of lines being skipped in order to seperate different elements) */
 
 bool verbose = false; /* false by default
 						 shows more logs and information about the program */
 
 
-bool ignore_warn = false; /* false by default
+bool ignore_warn = true; /* false by default
 							 ignores some warnings */
 
 

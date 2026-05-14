@@ -80,6 +80,7 @@ extern int n_possible_answers;
 	extern bool awsum_table_mode;
 	extern int table_width;
 	extern bool verbose;
+	extern int indenting;
 	extern bool ignore_warn;
 	extern int command_arguments_context;
 
