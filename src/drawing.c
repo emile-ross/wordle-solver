@@ -22,6 +22,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			char grey_letters[5];
 			char green_letter;
 			int green_letter_index = 0;
+
 			for (int i = 0; i < NUM_LETTERS_WORD; i++)
 			{
 				if (i == entry_i)
@@ -30,8 +31,25 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				}
 				else
 				{
-					grey_letters[green_letter_index] = wordle_answer[i];
-					green_letter_index++;
+					if (i >= 1)
+					{
+						for (int j = 0; j < i; j++)
+						{
+							if (grey_letters[j] == wordle_answer[i])
+							{
+								goto duplicate_letter;
+							}
+						}
+						grey_letters[green_letter_index] = wordle_answer[i];
+						green_letter_index++;
+					}
+					else
+					{
+						grey_letters[green_letter_index] = wordle_answer[i];
+						green_letter_index++;
+					}
+
+					duplicate_letter:
 				}
 			}
 

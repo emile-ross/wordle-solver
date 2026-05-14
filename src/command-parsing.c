@@ -5,6 +5,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 	bool x_pattern = false;
     bool first_execution = true;
 	bool validate_word_bl = false;
+
     if (argc >= 2)
     {
 		/* set the default word list as the nyt word list */
@@ -136,6 +137,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 			{
 				min_args_draw += 2;
 			}
+
 			if (argc >= min_args_draw)
 			{
 				/* match arguments */
@@ -174,6 +176,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 								"%s", arguments[flag_temp]);
 					}
 				}
+
 				if (!validate_word_bl)
 				{
 					drawing(command_word_string, x_pattern);
