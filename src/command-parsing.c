@@ -41,7 +41,9 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 						err(16);
 					}
 				}
+
 				int list_name_index;
+
 				if (argc >= 3)
     			{
     			    list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
@@ -95,7 +97,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 
 		if (find_match_mode)
 		{
-			while(flag_reading_index < argc)
+			while (flag_reading_index < argc)
     		{
     			if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
     			{

@@ -108,6 +108,7 @@ void err(int error_code)
 			critical = false;
 		    break;
     }
+
 	if (critical)
 	{
 		exit(error_code);
@@ -186,10 +187,12 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	{
 		command_word_string_temp[i] = to_uppercase(command_word_string[i]);
 	}
+
 	strcpy(command_word_string, command_word_string_temp);
 
 	int list_num = -1;
 	bool match = false;
+
 	if (command_word_string != NULL)
 	{
 		list_num++;

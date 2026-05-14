@@ -10,4 +10,11 @@ typedef enum
 	draw,
 	strict,
 	xdraw,
-} warnings ;
+} warnings;
+
+typedef enum
+{
+	drawing_mode,
+	matching_mode,
+	validating_mode,
+} parsing_modes;
