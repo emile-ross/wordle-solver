@@ -33,23 +33,26 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				{
 					if (i >= 1)
 					{
+						bool duplicate = false;
 						for (int j = 0; j < i; j++)
 						{
 							if (grey_letters[j] == wordle_answer[i])
 							{
-								goto duplicate_letter;
+								duplicate = false;
 							}
 						}
-						grey_letters[green_letter_index] = wordle_answer[i];
-						green_letter_index++;
+
+						if (!duplicate)
+						{
+							grey_letters[green_letter_index] = wordle_answer[i];
+							green_letter_index++;
+						}
 					}
 					else
 					{
 						grey_letters[green_letter_index] = wordle_answer[i];
 						green_letter_index++;
 					}
-
-					duplicate_letter:
 				}
 			}
 
@@ -77,12 +80,15 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 					{
 						for (int letter_iteration = 0; letter_iteration < NUM_LETTERS_WORD; letter_iteration++)
 						{
-							if (grey_letters[answer_letter_index] == filtered_words_temp[word_iteration][letter_iteration])
+							if (green_letter != filtered_words_temp[word_iteration][letter_iteration])
 							{
-								all_letters_are_grey = false;
-								/* break out of the answer_letter_index loop 
-								 * since a letter is matching in the word */
-								break; 
+								if (wordle_answer[answer_letter_index] == filtered_words_temp[word_iteration][letter_iteration])
+								{
+									all_letters_are_grey = false;
+									/* break out of the answer_letter_index loop 
+									 * since a letter is matching in the word */
+									break; 
+								}
 							}
 						}
 
