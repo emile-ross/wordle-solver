@@ -17,6 +17,8 @@ make wordle
 
 The wordle engine accepts 4 different flags:
 
+## Wordle solving
+
 ### ``--strict``
 
 Use this flag if letter is at the correct position.  (the letter is green)  
@@ -64,5 +66,18 @@ This command searches for all words following these characteristics:
 ./wordle -s A 1 -i D -x D 3 -a Z
 ```
 
+## Word validation
 
+### ``--validate``
+The ``-v`` flag can be used in order to check if a word exists.  
+
+The ``-v`` flag takes in the word to lookup directly from the command
+
+example command:
+```sh
+./wordle -v share
+```
+This command would check if the word "share" can be found in the New-York Times word list, the common word list and the "all words" list
+
+The program will then display a message for each word list it can be found in.  
 There is no limit to the amount of flags one can use.  
