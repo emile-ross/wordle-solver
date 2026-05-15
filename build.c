@@ -6,6 +6,8 @@
 char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow";
 
 #define compiler_name_len (8)
+#define num_src_files (10)
+
 char *CLANG_COMPILER_NAME = "clang";
 char *ZIG_COMPILER_NAME = "zig cc";
 char *GCC_COMPILER_NAME = "gcc";
@@ -20,6 +22,21 @@ char CMDPARS_FILE_PATH[fp_size] = "src/command-parsing";
 char DRAWING_FILE_PATH[fp_size] = "src/drawing";
 char FUNCTIONS_FILE_PATH[fp_size] = "src/functions";
 char ERRORS_FN_FILE_PATH[fp_size] = "src/errors";
+
+char *all_source_files[num_src_files] = 
+{
+	"src/parsing",
+	"src/config",
+	"src/main",
+	"src/command-parsing",
+	"src/drawing",
+	"src/functions",
+	"src/errors",
+	"src/word-lists/all-words",
+	"src/word-lists/common-words",
+	"src/word-lists/words",
+};
+
 
 char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
 char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
@@ -143,6 +160,12 @@ int main(int argc, char *argv[])
 	}
 
 	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
+	/*
+	for (int i = 0; i < num_src_files; i++)
+	{
+	}
+	*/
+
 
 	char SRC_ALL_WORDS[fp_size];
 	char SRC_COM_WORDS[fp_size];
