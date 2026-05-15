@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c ";
+	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
 
 	char SRC_ALL_WORDS[fp_size];
 	char SRC_COM_WORDS[fp_size];
