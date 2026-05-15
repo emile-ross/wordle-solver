@@ -19,6 +19,7 @@ char MAIN_FILE_PATH[fp_size] = "src/main";
 char CMDPARS_FILE_PATH[fp_size] = "src/command-parsing";
 char DRAWING_FILE_PATH[fp_size] = "src/drawing";
 char FUNCTIONS_FILE_PATH[fp_size] = "src/functions";
+char ERRORS_FN_FILE_PATH[fp_size] = "src/errors";
 
 char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
 char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
@@ -180,8 +181,9 @@ int main(int argc, char *argv[])
 		char *cmd_parsing = CMDPARS_FILE_PATH;
 		char *drawingpath = DRAWING_FILE_PATH;
 		char *func_path = FUNCTIONS_FILE_PATH;
+		char *errs_path = ERRORS_FN_FILE_PATH;
 
-		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, func_path, cmd_parsing, configp, parsing, drawingpath, main_fp);
+		mem_needed_src = 1 + snprintf(NULL, 0, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, errs_path, func_path, cmd_parsing, configp, parsing, drawingpath, main_fp);
 
 		char compiler[compiler_name_len];
 
@@ -257,7 +259,7 @@ int main(int argc, char *argv[])
 		/* TODO craft cmd */
 
 		char source_files[mem_needed_src];
-		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, main_fp, func_path, drawingpath, configp, parsing);
+		snprintf(source_files, (size_t)mem_needed_src, src_files_template, SRC_NYT_WORDS, SRC_ALL_WORDS, SRC_COM_WORDS, cmd_parsing, main_fp, errs_path, func_path, drawingpath, configp, parsing);
 
 		char safe_cmd[mem_needed];
 
