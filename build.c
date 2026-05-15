@@ -23,7 +23,7 @@ char DRAWING_FILE_PATH[fp_size] = "src/drawing";
 char FUNCTIONS_FILE_PATH[fp_size] = "src/functions";
 char ERRORS_FN_FILE_PATH[fp_size] = "src/errors";
 
-char *all_source_files[num_src_files] = 
+char *all_src_files[num_src_files] = 
 {
 	"src/parsing",
 	"src/config",
@@ -160,11 +160,13 @@ int main(int argc, char *argv[])
 	}
 
 	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
-	/*
+
+	char *full_compilation_path = "%s ";
+
 	for (int i = 0; i < num_src_files; i++)
 	{
+		strcat(full_compilation_path, all_src_files[i]);
 	}
-	*/
 
 
 	char SRC_ALL_WORDS[fp_size];
