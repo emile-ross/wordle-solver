@@ -54,7 +54,7 @@ typedef enum
 
 compiler_enum compiler_choice;
 
-int main(int argc, char *argv[])
+int main (int argc, char *argv[])
 {
 	int total_flags_size = 16;
 	bool Wall_flag = false;
@@ -75,6 +75,7 @@ int main(int argc, char *argv[])
 
 		int base_flag_r = 1;
 		bool compiler_found = false;
+
 		while (base_args < argc)
 		{
 			char compiler_arg_temp = argv[base_flag_r][0];
@@ -160,15 +161,19 @@ int main(int argc, char *argv[])
 
 	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
 
-	/*
-	int full_cmp_size = 0;
+	int full_cmp_size = 1;
+
+	for (int i = 0; i < num_src_files; i++)
+	{
+		full_cmp_size += snprintf(NULL, 0, all_src_files[i]);
+	}
+
 	char full_compilation_path[full_cmp_size];
 
 	for (int i = 0; i < num_src_files; i++)
 	{
 		strcat(full_compilation_path, all_src_files[i]);
 	}
-	*/
 
 
 	char SRC_ALL_WORDS[fp_size];
