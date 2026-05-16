@@ -161,11 +161,11 @@ int main (int argc, char *argv[])
 
 	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
 
-	int full_cmp_size = 1;
+	int full_cmp_size = 1; /* for the NULL terminator */
 
 	for (int i = 0; i < num_src_files; i++)
 	{
-		full_cmp_size += snprintf(NULL, 0, all_src_files[i]);
+		full_cmp_size += snprintf(NULL, 0, " %s", all_src_files[i]);
 	}
 
 	char full_compilation_path[full_cmp_size];
