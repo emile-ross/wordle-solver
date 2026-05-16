@@ -23,6 +23,10 @@ char DRAWING_FILE_PATH[fp_size] = "src/drawing";
 char FUNCTIONS_FILE_PATH[fp_size] = "src/functions";
 char ERRORS_FN_FILE_PATH[fp_size] = "src/errors";
 
+char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
+char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
+char NYT_WORDS_FILE_PATH[fp_size] = "src/word-lists/words";
+
 char *all_src_files[num_src_files] = 
 {
 	"src/parsing",
@@ -36,11 +40,6 @@ char *all_src_files[num_src_files] =
 	"src/word-lists/common-words",
 	"src/word-lists/words",
 };
-
-
-char ALL_WORDS_FILE_PATH[fp_size] = "src/word-lists/all-words";
-char COM_WORDS_FILE_PATH[fp_size] = "src/word-lists/common-words";
-char NYT_WORDS_FILE_PATH[fp_size] = "src/word-lists/words";
 
 char *src_file_extention = ".c";
 char *obj_file_extention = ".c";
@@ -161,12 +160,15 @@ int main(int argc, char *argv[])
 
 	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
 
-	char *full_compilation_path = "%s ";
+	/*
+	int full_cmp_size = 0;
+	char full_compilation_path[full_cmp_size];
 
 	for (int i = 0; i < num_src_files; i++)
 	{
 		strcat(full_compilation_path, all_src_files[i]);
 	}
+	*/
 
 
 	char SRC_ALL_WORDS[fp_size];
