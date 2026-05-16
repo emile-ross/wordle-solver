@@ -160,22 +160,6 @@ int main (int argc, char *argv[])
 	}
 
 	const char *src_files_template = " %s %s %s %s.c %s.c %s.c %s.c %s.c %s.c %s.c ";
-
-	int full_cmp_size = 1; /* for the NULL terminator */
-
-	for (int i = 0; i < num_src_files; i++)
-	{
-		full_cmp_size += snprintf(NULL, 0, " %s", all_src_files[i]);
-	}
-
-	char full_compilation_path[full_cmp_size];
-
-	for (int i = 0; i < num_src_files; i++)
-	{
-		strcat(full_compilation_path, all_src_files[i]);
-	}
-
-
 	char SRC_ALL_WORDS[fp_size];
 	char SRC_COM_WORDS[fp_size];
 	char SRC_NYT_WORDS[fp_size];
@@ -303,6 +287,21 @@ int main (int argc, char *argv[])
 		}
 
 		system(safe_cmd);
+
+		int full_cmp_size = 1; /* for the NULL terminator */
+
+		for (int i = 0; i < num_src_files; i++)
+		{
+			full_cmp_size += snprintf(NULL, 0, " %s", all_src_files[i]);
+		}
+
+		char full_compilation_path[full_cmp_size];
+
+		for (int i = 0; i < num_src_files; i++)
+		{
+			strcat(full_compilation_path, all_src_files[i]);
+		}
+
 	}
 	return 0;
 }
