@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
 	bool Werror_flag = false;
 	bool C99_flag = false;
 	bool Wshadow_flag = false;
-	bool verbose = true; /* false by default */
+	bool verbose = false; /* false by default */
 
 	int num_flags = 0;
 	if (argc > base_args)
@@ -121,6 +121,16 @@ int main (int argc, char *argv[])
 				case '9':
 					C99_flag = true;
 					break;
+				case 'B':
+					C99_flag = true;
+					Wall_flag = true;
+					Wconversion_flag = true;
+					Werror_flag = true;
+					Wextra_flag = true;
+					Wpedantic_flag = true;
+					Wshadow_flag = true;
+					num_flags += 6;
+					break;
 				default:
 					success = false;
 					break;
@@ -139,6 +149,7 @@ int main (int argc, char *argv[])
 			}
 		}
 	}
+
 	if (!compile_into_objects)
 	{
 		char compiler[compiler_name_len];
@@ -228,11 +239,12 @@ int main (int argc, char *argv[])
 			snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
 			strcat(full_compilation_path, temp_file_path);
 		}
+
 		strcat(full_compilation_path, flags_string);
 		strcat(full_compilation_path, " ");
 		strcat(full_compilation_path, all_custom_flags);
 
-		if (verbose)
+		if (verbose) 
 		{
 			printf("%s\n", full_compilation_path);
 		}
