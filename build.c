@@ -64,7 +64,7 @@ int main (int argc, char *argv[])
 	bool Werror_flag = false;
 	bool C99_flag = false;
 	bool Wshadow_flag = false;
-	bool verbose = false; /* false by default */
+	bool verbose = true; /* false by default */
 
 	int flag_mem_size = 16;
 
@@ -99,10 +99,12 @@ int main (int argc, char *argv[])
 					exit(1);
 					break;
 			}
+
 			if (compiler_found)
 			{
 				break;
 			}
+
 			base_flag_r++;
 		}
 
@@ -283,25 +285,32 @@ int main (int argc, char *argv[])
 
 		if (verbose)
 		{
-			printf("%s", safe_cmd);
+			printf("%s\n", safe_cmd);
 		}
 
 		system(safe_cmd);
 
 		int full_cmp_size = 1; /* for the NULL terminator */
+		int cmd_cmp_size[num_src_files];
 
 		for (int i = 0; i < num_src_files; i++)
 		{
-			full_cmp_size += snprintf(NULL, 0, " %s", all_src_files[i]);
+			int temp_size = snprintf(NULL, 0, "%s.c ", all_src_files[i]);
+			full_cmp_size += temp_size;
+			cmd_cmp_size[i] = temp_size;
 		}
 
 		char full_compilation_path[full_cmp_size];
+		snprintf(full_compilation_path, (size_t)full_cmp_size, "zig cc ");
 
-		for (int i = 0; i < num_src_files; i++)
+		for (int j = 0; j < num_src_files; j++)
 		{
-			strcat(full_compilation_path, all_src_files[i]);
+			int command_size = 1 + cmd_cmp_size[j];
+			char temp_file_path[command_size];
+			snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
+			strcat(full_compilation_path, temp_file_path);
 		}
-
+		printf("%s\n", full_compilation_path);
 	}
 	return 0;
 }
