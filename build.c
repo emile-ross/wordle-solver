@@ -300,8 +300,12 @@ int main (int argc, char *argv[])
 			cmd_cmp_size[i] = temp_size;
 		}
 
+		full_cmp_size += snprintf(NULL, 0, "%s ", compiler);
+		full_cmp_size += snprintf(NULL, 0, "%s %s ", flags_string, all_custom_flags);
+
 		char full_compilation_path[full_cmp_size];
-		snprintf(full_compilation_path, (size_t)full_cmp_size, "zig cc ");
+		
+		snprintf(full_compilation_path, (size_t)full_cmp_size, "%s ", compiler);
 
 		for (int j = 0; j < num_src_files; j++)
 		{
@@ -310,6 +314,10 @@ int main (int argc, char *argv[])
 			snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
 			strcat(full_compilation_path, temp_file_path);
 		}
+		strcat(full_compilation_path, flags_string);
+		strcat(full_compilation_path, " ");
+		strcat(full_compilation_path, all_custom_flags);
+
 		printf("%s\n", full_compilation_path);
 	}
 	return 0;
