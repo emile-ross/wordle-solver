@@ -15,7 +15,7 @@ wordle: bin
 
 base:
 	zig cc $(BCMD) $(FG)
-	$(C) Z a 9 p x c s e
+	$(C) Z B
 
 macos: bin
 	@$(C) C

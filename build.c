@@ -218,7 +218,7 @@ int main (int argc, char *argv[])
 		int full_cmp_size = 1; /* for the NULL terminator */
 		int cmd_cmp_size[num_src_files];
 
-		for (int i = 0; i < num_src_files; i++)
+		for (int i = 0; i < num_src_files; i+++)
 		{
 			int temp_size = snprintf(NULL, 0, "%s.c ", all_src_files[i]);
 			full_cmp_size += temp_size;
@@ -240,6 +240,7 @@ int main (int argc, char *argv[])
 			strcat(full_compilation_path, temp_file_path);
 		}
 
+		/* concatenates the strings with a space in between them */
 		strcat(full_compilation_path, flags_string);
 		strcat(full_compilation_path, " ");
 		strcat(full_compilation_path, all_custom_flags);
