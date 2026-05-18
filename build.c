@@ -6,7 +6,7 @@
 char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow";
 
 #define compiler_name_len (8)
-#define num_src_files (10)
+#define num_src_files (11)
 
 char *CLANG_COMPILER_NAME = "clang";
 char *ZIG_COMPILER_NAME = "zig cc";
@@ -23,6 +23,7 @@ char *all_src_files[num_src_files] =
 	"src/command-parsing",
 	"src/drawing",
 	"src/functions",
+	"src/printing",
 	"src/errors",
 	"src/word-lists/all-words",
 	"src/word-lists/common-words",
@@ -77,6 +78,12 @@ int main (int argc, char *argv[])
 				case 'Z':
 					compiler_choice = ZIG;
 					compiler_found = true;
+					break;
+				case 'W':
+					/* Windows compilation is not supported. 
+					 * I hardcoded forward slashes everywhere in here */
+					printf("Windows compilation is not supported.\n");
+					return 32;
 					break;
 				default:
 					printf("Missing compiler or unknown compiler\n");
@@ -218,7 +225,7 @@ int main (int argc, char *argv[])
 		int full_cmp_size = 1; /* for the NULL terminator */
 		int cmd_cmp_size[num_src_files];
 
-		for (int i = 0; i < num_src_files; i+++)
+		for (int i = 0; i < num_src_files; i++)
 		{
 			int temp_size = snprintf(NULL, 0, "%s.c ", all_src_files[i]);
 			full_cmp_size += temp_size;

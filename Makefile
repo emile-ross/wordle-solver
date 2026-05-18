@@ -30,4 +30,4 @@ android: bin
 	@echo "execute it with ~/$(W)"
 
 windows: 
-	@echo "No."
+	@$(C) W
