@@ -5,7 +5,6 @@ FG = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 BCMD = build.c -o build
 
 bin:
-
 ifeq ($(cond),)
 	@gcc $(BCMD)
 endif

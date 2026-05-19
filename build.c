@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-char *ALL_FLAGS = "-Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow";
-
 #define compiler_name_len (8)
 #define num_src_files (11)
 
@@ -43,7 +41,7 @@ typedef enum
 
 compiler_enum compiler_choice;
 
-int main (int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	bool Wall_flag = false;
 	bool Wextra_flag = false;
