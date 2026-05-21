@@ -1,8 +1,8 @@
 enum ALL_WORD_LISTS 
 {
-    all,
-    common,
-    nyt,
+	all,
+	common,
+	nyt,
 };
 
 typedef enum 

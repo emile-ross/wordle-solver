@@ -31,3 +31,7 @@ int command_arguments_context = 4; /* 4 by default */
 /* this is the amount of arguments displayed around the error when a user types an invalid argument
  * the value corresponds to the number of arguments displayed before the error and after the error
  * it helps to provide context to the user whenever they make a mistake */
+
+/* this caps the amount of results that can be printed */
+int element_cap = 250; /* default is 250 */
+bool cap_total_elements = false; /* default is false */

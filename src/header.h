@@ -46,10 +46,9 @@
 	extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 /* filtered array used to store filtered words and it is also used for printing results */
-extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-
-extern char *word_list_text[n_num_list];
+	extern char *word_list_text[n_num_list];
 
 /* errors and error codes */
 	void err(int error_code);
@@ -83,5 +82,8 @@ extern int n_possible_answers;
 	extern int indenting;
 	extern bool ignore_warn;
 	extern int command_arguments_context;
+
+	extern int element_cap;
+	extern bool cap_total_elements;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
