@@ -11,17 +11,17 @@ int main(int argc, char *argv[])
 	 * true: finds all possible words matching all criterias
 	 * false: tries to make a pattern with the letter colour */
 
-    if (argc >= 2)  /* or else there's nothing */
-    {
-		int flag_r = ARGS_BEFORE_FLAG_BASE;
-		/* execute command parsing and provide the address of find_match_mode
-		 * in order to then dereference the address */
-		command_parsing(argc, flag_r, argv, &find_match_mode);
-    }
-    else
-    {
-		err(1);
-    }
+	if (argc >= 2)  /* or else there's nothing */
+	{
+	    	int flag_r = ARGS_BEFORE_FLAG_BASE;
+	    	/* execute command parsing and provide the address of find_match_mode
+	    	 * in order to then dereference the address */
+	    	command_parsing(argc, flag_r, argv, &find_match_mode);
+	}
+	else
+	{
+	    	err(1);
+	}
 
 	if (find_match_mode)
 	{
@@ -32,6 +32,6 @@ int main(int argc, char *argv[])
 		 * in order to check if the word is matching */
 		printf(BOLD_S"%d possible words\n"STYLE_END, n_possible_answers);
 	}
-    return 0;
+	return 0;
 }
 
