@@ -1,3 +1,5 @@
+wordle readme
+
 # wordle cheat
 
 This is a wordle solver engine
@@ -65,6 +67,11 @@ This command searches for all words following these characteristics:
 ```sh
 ./wordle -s A 1 -i D -x D 3 -a Z
 ```
+
+# real scenario
+
+Lets say you typed "K I T T Y" as your first guess for the wordle.  If the K in KITTY is green and thé Y is yellow, you can narrow the answer to a single word with this information.  
+Since K was green and it was the first letter, you can use the flag ``-s K 1``
 
 ## Word validation
 
