@@ -124,6 +124,9 @@ int main(int argc, char *argv[])
 				case '9':
 					C99_flag = true;
 					break;
+				case 'v':
+					verbose = true;
+					break;
 				case 'B':
 					C99_flag = true;
 					Wall_flag = true;
@@ -132,7 +135,7 @@ int main(int argc, char *argv[])
 					Wpedantic_flag = true;
 					Wshadow_flag = true;
 					verbose = true;
-					num_flags += 5;
+					num_flags += 6;
 					break;
 				default:
 					success = false;
@@ -243,8 +246,15 @@ int main(int argc, char *argv[])
 
 	/* concatenates the strings with a space in between them */
 	strcat(full_compilation_path, flags_string);
-	strcat(full_compilation_path, " ");
-	strcat(full_compilation_path, all_custom_flags);
+
+	/* if there are more than 0 flags,
+	 * and verbose if false
+	 * if verbose is false, it's still true if num_flags is greater than 1 */
+	if (num_flags > 0 && ((verbose && num_flags > 1) || !verbose))
+	{
+		strcat(full_compilation_path, " ");
+		strcat(full_compilation_path, all_custom_flags);
+	}
 
 	if (verbose) 
 	{
