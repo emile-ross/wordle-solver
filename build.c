@@ -29,8 +29,6 @@ char *all_src_files[num_src_files] =
 };
 
 char *src_file_extention = ".c";
-char *obj_file_extention = ".c";
-bool compile_into_objects = false; /* hard coded right now but it will be dynamic in the future */
 
 typedef enum 
 {
@@ -130,11 +128,11 @@ int main(int argc, char *argv[])
 					C99_flag = true;
 					Wall_flag = true;
 					Wconversion_flag = true;
-					Werror_flag = true;
 					Wextra_flag = true;
 					Wpedantic_flag = true;
 					Wshadow_flag = true;
-					num_flags += 6;
+					verbose = true;
+					num_flags += 5;
 					break;
 				default:
 					success = false;
@@ -155,106 +153,104 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (!compile_into_objects)
+	char compiler[compiler_name_len];
+
+	switch (compiler_choice)
 	{
-		char compiler[compiler_name_len];
+		case GCC:
+			strcpy(compiler, GCC_COMPILER_NAME);
+			break;
 
-		switch (compiler_choice)
-		{
-			case GCC:
-				strcpy(compiler, GCC_COMPILER_NAME);
-				break;
+		case CLANG:
+			strcpy(compiler, CLANG_COMPILER_NAME);
+			break;
 
-			case CLANG:
-				strcpy(compiler, CLANG_COMPILER_NAME);
-				break;
+		case ZIG:
+			strcpy(compiler, ZIG_COMPILER_NAME);
+			break;
 
-			case ZIG:
-				strcpy(compiler, ZIG_COMPILER_NAME);
-				break;
-
-			default:
-				printf("Unknown compiler\n Very weird error\n");
-				exit(1);
-		}
-
-		char *flags_string_base = "-o wordle";
-
-		char all_custom_flags[1024] = ""; 
-
-		if (num_flags > 0)
-		{
-			if (Wall_flag)
-			{
-				strcat(all_custom_flags, "-Wall ");
-			}
-			if (Wextra_flag)
-			{
-				strcat(all_custom_flags, "-Wextra ");
-			}
-			if (Wconversion_flag)
-			{
-				strcat(all_custom_flags, "-Wconversion ");
-			}
-			if (Wpedantic_flag)
-			{
-				strcat(all_custom_flags, "-Wpedantic ");
-			}
-			if (Wshadow_flag)
-			{
-				strcat(all_custom_flags, "-Wshadow -g ");
-			}
-			if (Werror_flag)
-			{
-				strcat(all_custom_flags, "-Werror ");
-			}
-			if (C99_flag)
-			{
-				strcat(all_custom_flags, "-std=c99 ");
-			}
-		}
-
-		int mem_needed_output_flags = snprintf(NULL, 0, "%s", flags_string_base);
-		mem_needed_output_flags++;
-		char flags_string[mem_needed_output_flags];
-		snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
-
-		/* TODO craft cmd */
-		int full_cmp_size = 1; /* for the NULL terminator */
-		int cmd_cmp_size[num_src_files];
-
-		for (int i = 0; i < num_src_files; i++)
-		{
-			int temp_size = snprintf(NULL, 0, "%s.c ", all_src_files[i]);
-			full_cmp_size += temp_size;
-			cmd_cmp_size[i] = temp_size;
-		}
-
-		full_cmp_size += snprintf(NULL, 0, "%s ", compiler);
-		full_cmp_size += snprintf(NULL, 0, "%s %s ", flags_string, all_custom_flags);
-
-		char full_compilation_path[full_cmp_size];
-		
-		snprintf(full_compilation_path, (size_t)full_cmp_size, "%s ", compiler);
-
-		for (int j = 0; j < num_src_files; j++)
-		{
-			int command_size = 1 + cmd_cmp_size[j];
-			char temp_file_path[command_size];
-			snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
-			strcat(full_compilation_path, temp_file_path);
-		}
-
-		/* concatenates the strings with a space in between them */
-		strcat(full_compilation_path, flags_string);
-		strcat(full_compilation_path, " ");
-		strcat(full_compilation_path, all_custom_flags);
-
-		if (verbose) 
-		{
-			printf("%s\n", full_compilation_path);
-		}
-		system(full_compilation_path);
+		default:
+			printf("Unknown compiler\n Very weird error\n");
+			exit(1);
 	}
+
+	char *flags_string_base = "-o wordle";
+
+	char all_custom_flags[1024] = ""; 
+
+	if (num_flags > 0)
+	{
+		if (Wall_flag)
+		{
+			strcat(all_custom_flags, "-Wall ");
+		}
+		if (Wextra_flag)
+		{
+			strcat(all_custom_flags, "-Wextra ");
+		}
+		if (Wconversion_flag)
+		{
+			strcat(all_custom_flags, "-Wconversion ");
+		}
+		if (Wpedantic_flag)
+		{
+			strcat(all_custom_flags, "-Wpedantic ");
+		}
+		if (Wshadow_flag)
+		{
+			strcat(all_custom_flags, "-Wshadow -g ");
+		}
+		if (Werror_flag)
+		{
+			strcat(all_custom_flags, "-Werror ");
+		}
+		if (C99_flag)
+		{
+			strcat(all_custom_flags, "-std=c99 ");
+		}
+	}
+
+	int mem_needed_output_flags = (int)strlen(flags_string_base);
+	mem_needed_output_flags++;
+	char flags_string[mem_needed_output_flags];
+	snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
+
+	/* TODO craft cmd */
+	int full_cmp_size = 1; /* for the NULL terminator */
+	int cmd_cmp_size[num_src_files];
+
+	for (int i = 0; i < num_src_files; i++)
+	{
+		int temp_size = snprintf(NULL, 0, "%s.c ", all_src_files[i]);
+		full_cmp_size += temp_size;
+		cmd_cmp_size[i] = temp_size;
+	}
+
+	full_cmp_size += snprintf(NULL, 0, "%s ", compiler);
+	full_cmp_size += snprintf(NULL, 0, "%s %s ", flags_string, all_custom_flags);
+
+	char full_compilation_path[full_cmp_size];
+	
+	snprintf(full_compilation_path, (size_t)full_cmp_size, "%s ", compiler);
+
+	for (int j = 0; j < num_src_files; j++)
+	{
+		int command_size = 1 + cmd_cmp_size[j];
+		char temp_file_path[command_size];
+		snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
+		strcat(full_compilation_path, temp_file_path);
+	}
+
+	/* concatenates the strings with a space in between them */
+	strcat(full_compilation_path, flags_string);
+	strcat(full_compilation_path, " ");
+	strcat(full_compilation_path, all_custom_flags);
+
+	if (verbose) 
+	{
+		printf("%s\n", full_compilation_path);
+	}
+	system(full_compilation_path);
+
 	return 0;
 }
