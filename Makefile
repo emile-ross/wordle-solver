@@ -1,7 +1,6 @@
 cond := $(wildcard build)
 C = ./build
 W = wordle
-FG = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 BCMD = build.c -o build
 
 bin:
@@ -10,11 +9,11 @@ ifeq ($(cond),)
 endif
 
 wordle: bin
-	@$(C) G a
+	@$(C) G
 
 base:
-	zig cc $(BCMD) $(FG)
-	$(C) Z B
+	zig cc $(BCMD) -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
+	$(C) Z B e
 
 macos: bin
 	@$(C) C
