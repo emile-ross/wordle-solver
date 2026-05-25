@@ -5,50 +5,47 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
-
-    char (*ptr)[6];
-
-    int n_pos_arr;
-
-    if (*f_exec)
-    {
+	
+	char (*ptr)[6];
+	
+	int n_pos_arr;
+	
+	if (*f_exec)
+	{
 		switch (w_list)
-    	{
-    	    case nyt:
-    	        ptr = nyt_words;
-				n_pos_arr = NUM_WORDS;
-    	        break;
-
-    	    case common:
-    	        ptr = common_words;
-				n_pos_arr = NUM_COMMON_WORDS;
-    	        break;
-
-    	    case all:
-    	        ptr = all_words;
-				n_pos_arr = NUM_ALL_WORDS;
-    	        break;
-
-    	    default:
-    	        err(15);
-    	        break;
-    	}
+		{
+		case nyt:
+			ptr = nyt_words;
+			n_pos_arr = NUM_WORDS;
+			break;
+		case common:
+			ptr = common_words;
+			n_pos_arr = NUM_COMMON_WORDS;
+			break;
+		case all:
+			ptr = all_words;
+			n_pos_arr = NUM_ALL_WORDS;
+			break;
+	
+		default:
+			err(15);
+			break;
+		}
 	
 		/* since this is the first execution, it will parse through the entire array */
-
-        n_possible_answers = 0;	/* reset word count buffer
-								this needs to be reset only once */
-    }
-    else
-    {
+		n_possible_answers = 0;	
+		/* reset word count buffer this needs to be reset only once */
+	}
+	else
+    	{
 		if (n_possible_answers == 0)
 		{
 			err(20);
 		}
 		/* rename variables */
-    	ptr = filtered_arr;
+		ptr = filtered_arr;
 		n_pos_arr = n_possible_answers;
-    }
+	}
 
     int letter_arg_index = *flag_r;
     letter_arg_index++;
@@ -65,17 +62,17 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
      * 'T' would be at index 3 
      * "AFTER" would work */
 
-    char *endptr;
-    int word_letter_index;
-    if (letter_indexed_bl)
-    {
+	char *endptr;
+    	int word_letter_index;
+    	if (letter_indexed_bl)
+	{
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
 		word_letter_index = (int)strtol(arguments[number_arg_index], &endptr, 10);
 		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
 								   therefore, we need to convert it from a count to an index */
 		user_index_validation(word_letter_index); /* validate the index the user provided */
-    }
+	}
 	else
 	{
 		word_letter_index = -1;
@@ -86,9 +83,9 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
     int temp_count = 0; /* reset temporary count buffer */
     
-    if (verbose)
-    {
-        printf(ANSI_LCYAN"Parsing through "STYLE_END);
+	if (verbose)
+	{
+		printf(ANSI_LCYAN"Parsing through "STYLE_END);
 
 		int w_list_size = 32;
 
@@ -97,18 +94,18 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			char word_list_name[w_list_size];
 			switch (w_list)
 			{
-				case nyt:
-					snprintf(word_list_name, (size_t)w_list_size, "New York Times word list");
-					break;
-				case common:
-					snprintf(word_list_name, (size_t)w_list_size, "common word list");
-					break;
-				case all:
-					snprintf(word_list_name, (size_t)w_list_size, "all words");
-					break;
-				default:
-					snprintf(word_list_name, (size_t)w_list_size, "[Unknown word list]");
-					break;
+			case nyt:
+				snprintf(word_list_name, (size_t)w_list_size, "New York Times word list");
+				break;
+			case common:
+				snprintf(word_list_name, (size_t)w_list_size, "common word list");
+				break;
+			case all:
+				snprintf(word_list_name, (size_t)w_list_size, "all words");
+				break;
+			default:
+				snprintf(word_list_name, (size_t)w_list_size, "[Unknown word list]");
+				break;
 			}
 			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name);
 			printf(ANSI_LCYAN"("UDRL_S BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
@@ -118,37 +115,35 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			printf(ANSI_LCYAN UDRL_S BOLD_S"the filtered array"STYLE_END" ");
 			printf(ANSI_LCYAN"("UDRL_S BOLD_S"not first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
-    }
+	}
     
-    /* parsing logic is below for all options */
+	/* parsing logic is below for all options */
 	char flag_string[24];
 
-    if (letter_indexed_bl)
-    {
-        if (filter_include_bl)
-        {
+	if (letter_indexed_bl)
+	{
+		if (filter_include_bl)
+		{
 			snprintf(flag_string, sizeof(flag_string), "--strict");
 			bool first_character = false;
 			bool prev_character_found = false;
-
+		
 			if (word_letter_index == 0)
 			{
 				first_character = true;
 			}
-
+		
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				if (letter_indexed == ptr[j][word_letter_index])
-        		{
-        		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-        		    temp_count++;
-					if (!prev_character_found)
+				{
+					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+					temp_count++;
+		
+					if (!prev_character_found && first_character)
 					{
-						if (first_character)
-						{
-							prev_character_found = true;
-						}
+						prev_character_found = true;
 					}
 				}
 				else
@@ -159,19 +154,19 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 					}
 				}
 			}
-        }
-        else
-        {
+		}
+		else
+		{
 			snprintf(flag_string, sizeof(flag_string), "--exclude");
 			for (int j = 0; j < n_pos_arr; j++)
-            {
+			{
 				/* compare the specified letter against the words in a loop */
 				if (letter_indexed != ptr[j][word_letter_index])
-        		{
-        		    memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-        		    temp_count++;
-        		}
-            }
+				{
+					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+					temp_count++;
+				}
+			}
         }
     }
     else
@@ -197,15 +192,16 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		{
 			snprintf(flag_string, sizeof(flag_string), "--absent");
 			for (int j = 0; j < n_pos_arr; j++)
-            {
+			{
 				bool letter_match = false;
 				/* compare the specified letter against the words in a loop */
 				for (int k = 0; k < NUM_LETTERS_WORD; k++)
 				{
 					if (letter_indexed == ptr[j][k])
-		    		{
+					{
 						letter_match = true;
-		    		}
+						break;
+					}
 				}
 				if (!letter_match)
 				{
@@ -228,8 +224,8 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
     }
     if (verbose)
     {
-		/* display verbose message */
-        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
+	    /* display verbose message */
+	    verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
     }
     int arg_offset;
 
