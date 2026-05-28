@@ -37,18 +37,19 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 	    	}
 	    	else
 	    	{
-	    	    for (int i = 0; i < total_elements; i++)
-	    	    {
-	    			if (i % width == 0)
-	    			{
-	    			    if (i != 0)
-	    			    {
-	    					printf("\n");
-	    			    }
-	    			}
-	    			printf("%s ", all_answers_print[i]);
-	    	    }
-	    	    printf("\n");
+			for (int i = 0; i < total_elements; i++)
+			{
+			    	if (i % width == 0)
+				{
+					/* add newline when the width is reached */
+					if (i != 0)
+					{
+						printf("\n");
+					}
+				}
+			    	printf("%s ", all_answers_print[i]);
+			}
+			printf("\n");
 	    	}
 	}
 }
@@ -56,34 +57,34 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present)
 {
 	/* add colour to options */
-    printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "UDRL_S BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
+	printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "UDRL_S BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
 
 	/* craft sentence with appropriate words
 	 * make sure it is grammatically correct (plural and negative statements) */
 
-    if (affected_words != 1)
-    {
+	if (affected_words != 1)
+    	{
 		printf("s");
-    }
+    	}
 
-    if (letter_is_present)
-    {
-		printf(" with ");
-    }
-    else
-    {
-		printf(" without ");
-    }
+    	if (letter_is_present)
+    	{
+    	    	printf(" with ");
+    	}
+    	else
+    	{
+    	    	printf(" without ");
+    	}
 
-    printf(UDRL_S BOLD_S"%c"STYLE_END" "ANSI_LCYAN, letter);
+    	printf(UDRL_S BOLD_S"%c"STYLE_END" "ANSI_LCYAN, letter);
 
 	/* add colour to options */
-    if (indexed_letter_value != -1)
-    {
-		indexed_letter_value++; /* in order to make it more user friendly 
-								   because the user inputs a value 1-5 not 0-4 */
-		printf("at index "UDRL_S BOLD_S"%d"STYLE_END" "ANSI_LCYAN, indexed_letter_value);
-    }
+    	if (indexed_letter_value != -1)
+    	{
+    	    	indexed_letter_value++; /* in order to make it more user friendly 
+    	    							   because the user inputs a value 1-5 not 0-4 */
+    	    	printf("at index "UDRL_S BOLD_S"%d"STYLE_END" "ANSI_LCYAN, indexed_letter_value);
+    	}
 
-    printf("to be moved to the filtered array\n"STYLE_END);
+	printf("to be moved to the filtered array\n"STYLE_END);
 }

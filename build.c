@@ -32,9 +32,9 @@ char *src_file_extention = ".c";
 
 typedef enum 
 {
-    CLANG,
-    GCC,
-    ZIG,
+	CLANG,
+	GCC,
+	ZIG,
 } compiler_enum;
 
 compiler_enum compiler_choice;
@@ -63,29 +63,29 @@ int main(int argc, char *argv[])
 			char compiler_arg_temp = argv[base_flag_r][0];
 			switch (compiler_arg_temp)
 			{
-				case 'C':
-					compiler_choice = CLANG;
-					compiler_found = true;
-					break;
-				case 'G':
-					compiler_choice = GCC;
-					compiler_found = true;
-					break;
-				case 'Z':
-					compiler_choice = ZIG;
-					compiler_found = true;
-					break;
-				case 'W':
-					/* Windows compilation is not supported. 
-					 * I hardcoded forward slashes everywhere in here */
-					printf("Windows compilation is not supported.\n");
-					return 32;
-					break;
-				default:
-					printf("Missing compiler or unknown compiler\n");
-					printf("%c", compiler_arg_temp);
-					exit(1);
-					break;
+			case 'C':
+				compiler_choice = CLANG;
+				compiler_found = true;
+				break;
+			case 'G':
+				compiler_choice = GCC;
+				compiler_found = true;
+				break;
+			case 'Z':
+				compiler_choice = ZIG;
+				compiler_found = true;
+				break;
+			case 'W':
+				/* Windows compilation is not supported. 
+				 * I hardcoded forward slashes everywhere in here */
+				printf("Windows compilation is not supported.\n");
+				return 32;
+				break;
+			default:
+				printf("Missing compiler or unknown compiler\n");
+				printf("%c", compiler_arg_temp);
+				exit(1);
+				break;
 			}
 
 			if (compiler_found)

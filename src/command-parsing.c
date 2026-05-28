@@ -118,18 +118,18 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
     				}
     				else
     				{
-						if (word_list_is_specified)
+					if (word_list_is_specified)
+					{
+						if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
 						{
-							if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
-							{
-								flag_reading_index += WORD_LIST_ARG_EXP;
-							}
+							flag_reading_index += WORD_LIST_ARG_EXP;
 						}
-						else 
-						{
-							/* can be improved */
-							invalid_flag(argc, flag_reading_index, arguments);
-						}
+					}
+					else 
+					{
+						/* can be improved */
+						invalid_flag(argc, flag_reading_index, arguments);
+					}
     				}
     			}
 		}

@@ -87,7 +87,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	{
 		printf(ANSI_LCYAN"Parsing through "STYLE_END);
 
-		int w_list_size = 32;
+		size_t w_list_size = 32;
 
 		if (*f_exec)
 		{
@@ -95,16 +95,16 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			switch (w_list)
 			{
 			case nyt:
-				snprintf(word_list_name, (size_t)w_list_size, "New York Times word list");
+				snprintf(word_list_name, w_list_size, "New York Times word list");
 				break;
 			case common:
-				snprintf(word_list_name, (size_t)w_list_size, "common word list");
+				snprintf(word_list_name, w_list_size, "common word list");
 				break;
 			case all:
-				snprintf(word_list_name, (size_t)w_list_size, "all words");
+				snprintf(word_list_name, w_list_size, "all words");
 				break;
 			default:
-				snprintf(word_list_name, (size_t)w_list_size, "[Unknown word list]");
+				snprintf(word_list_name, w_list_size, "[Unknown word list]");
 				break;
 			}
 			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name);
@@ -167,15 +167,15 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 					temp_count++;
 				}
 			}
-        }
-    }
-    else
-    {
+		}
+	}
+    	else
+    	{
 		if (filter_include_bl)
 		{
 			snprintf(flag_string, sizeof(flag_string), "--includes");
 			for (int j = 0; j < n_pos_arr; j++)
-            {
+			{
 				/* compare the specified letter against the words in a loop */
 				for (int k = 0; k < NUM_LETTERS_WORD; k++)
 				{
@@ -186,8 +186,8 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 						break;
 					}
 				}
-            }
-        }
+			}
+		}
 		else
 		{
 			snprintf(flag_string, sizeof(flag_string), "--absent");
@@ -208,39 +208,39 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
 					temp_count++;
 				}
-            }
+			}
 		}
-    }
+	}
 
 	/* set the global "n_possible_answers" to "temp_count" local variable 
 	 * this is done in order to prevent breaking the other processes using the global 
 	 * it also avoids modifying the global all the time */
-    n_possible_answers = temp_count;
-    
-    /* Write to filtered array */
-    for (int k = 0; k < n_possible_answers; k++)
-    {
-        strcpy(filtered_arr[k], filtered_arr_temp[k]);
-    }
-    if (verbose)
-    {
-	    /* display verbose message */
-	    verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
-    }
-    int arg_offset;
-
-    if (letter_indexed_bl)
-    {
-		arg_offset = P_FILTERS_ARG_EXP;
-    }
-    else
-    {
-		arg_offset = G_FILTERS_ARG_EXP;
-    }
-
-    *(flag_r) += arg_offset;
-
-    *(f_exec) = false;
-
-    return 0;
+	n_possible_answers = temp_count;
+	
+	/* Write to filtered array */
+	for (int k = 0; k < n_possible_answers; k++)
+	{
+	    strcpy(filtered_arr[k], filtered_arr_temp[k]);
+	}
+	if (verbose)
+	{
+	        /* display verbose message */
+	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
+	}
+	int arg_offset;
+	
+	if (letter_indexed_bl)
+	{
+	    	arg_offset = P_FILTERS_ARG_EXP;
+	}
+	else
+	{
+	    	arg_offset = G_FILTERS_ARG_EXP;
+	}
+	
+	*(flag_r) += arg_offset;
+	
+	*(f_exec) = false;
+	
+	return 0;
 }

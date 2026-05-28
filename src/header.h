@@ -21,22 +21,22 @@
 #define WORD_LIST_ARG_EXP 2
 
 /* Define colours */
-#define ANSI_RED		"\x1b[31m"
-#define ANSI_GREEN		"\x1b[32m" 
-#define ANSI_CYAN    	"\x1b[36m"
-#define ANSI_LCYAN    	"\x1b[96m"
-#define ANSI_YELLOW 	"\x1b[33m"
-#define ANSI_LYELLOW 	"\x1b[93m"
-#define ANSI_BLUE    	"\x1b[34m"
-#define ANSI_WHITE    	"\x1b[97m"
+#define ANSI_RED	"\x1b[31m"
+#define ANSI_GREEN	"\x1b[32m" 
+#define ANSI_CYAN	"\x1b[36m"
+#define ANSI_LCYAN	"\x1b[96m"
+#define ANSI_YELLOW	"\x1b[33m"
+#define ANSI_LYELLOW	"\x1b[93m"
+#define ANSI_BLUE	"\x1b[34m"
+#define ANSI_WHITE	"\x1b[97m"
 
-#define BOLD_S  	"\x1B[1m" 
+#define BOLD_S		"\x1B[1m" 
 #define UDRL_S  	"\x1B[4m" 
 
 /* reset styling */
 #define STYLE_END	"\x1B[0m" 
 
-#define max_valid_args 16
+#define max_valid_args (16)
 
 #define n_num_list (3)
 
@@ -64,10 +64,10 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
 /* Global variables */
-extern int ARGS_BEFORE_CUR_FLAG;
-extern enum ALL_WORD_LISTS word_list;
-extern enum ALL_WORD_LISTS default_word_list;
-extern int n_possible_answers;
+	extern int ARGS_BEFORE_CUR_FLAG;
+	extern enum ALL_WORD_LISTS word_list;
+	extern enum ALL_WORD_LISTS default_word_list;
+	extern int n_possible_answers;
 
 
 /* General simple functions */
