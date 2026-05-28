@@ -103,43 +103,43 @@ int main(int argc, char *argv[])
 
 			switch (flag_temp)
 			{
-				case 'a':
-					Wall_flag = true;
-					break;
-				case 'c':
-					Wconversion_flag = true;
-					break;
-				case 'e':
-					Werror_flag = true;
-					break;
-				case 'p':
-					Wpedantic_flag = true;
-					break;
-				case 'x':
-					Wextra_flag = true;
-					break;
-				case 's':
-					Wshadow_flag = true;
-					break;
-				case '9':
-					C99_flag = true;
-					break;
-				case 'v':
-					verbose = true;
-					break;
-				case 'B':
-					C99_flag = true;
-					Wall_flag = true;
-					Wconversion_flag = true;
-					Wextra_flag = true;
-					Wpedantic_flag = true;
-					Wshadow_flag = true;
-					verbose = true;
-					num_flags += 6;
-					break;
-				default:
-					success = false;
-					break;
+			case 'a':
+				Wall_flag = true;
+				break;
+			case 'c':
+				Wconversion_flag = true;
+				break;
+			case 'e':
+				Werror_flag = true;
+				break;
+			case 'p':
+				Wpedantic_flag = true;
+				break;
+			case 'x':
+				Wextra_flag = true;
+				break;
+			case 's':
+				Wshadow_flag = true;
+				break;
+			case '9':
+				C99_flag = true;
+				break;
+			case 'v':
+				verbose = true;
+				break;
+			case 'B':
+				C99_flag = true;
+				Wall_flag = true;
+				Wconversion_flag = true;
+				Wextra_flag = true;
+				Wpedantic_flag = true;
+				Wshadow_flag = true;
+				verbose = true;
+				num_flags += 6;
+				break;
+			default:
+				success = false;
+				break;
 			}
 
 			if (success)
@@ -160,21 +160,21 @@ int main(int argc, char *argv[])
 
 	switch (compiler_choice)
 	{
-		case GCC:
-			strcpy(compiler, GCC_COMPILER_NAME);
-			break;
+	case GCC:
+		strcpy(compiler, GCC_COMPILER_NAME);
+		break;
 
-		case CLANG:
-			strcpy(compiler, CLANG_COMPILER_NAME);
-			break;
+	case CLANG:
+		strcpy(compiler, CLANG_COMPILER_NAME);
+		break;
 
-		case ZIG:
-			strcpy(compiler, ZIG_COMPILER_NAME);
-			break;
+	case ZIG:
+		strcpy(compiler, ZIG_COMPILER_NAME);
+		break;
 
-		default:
-			printf("Unknown compiler\n Very weird error\n");
-			exit(1);
+	default:
+		printf("Unknown compiler\n Very weird error\n");
+		exit(1);
 	}
 
 	char *flags_string_base = "-o wordle";
