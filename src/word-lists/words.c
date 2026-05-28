@@ -2,9 +2,9 @@
 
 char *word_list_text[n_num_list] =
 {
-    "all",
-    "common",
-    "New-York-Times",
+	"all",
+	"common",
+	"New-York-Times",
 };
 
 
@@ -134,7 +134,6 @@ char nyt_words[NUM_WORDS][6] =
     "ATTIC",
     "AUDIO",
     "AUDIT",
-    "AUGUR",
     "AUGUR",
     "AUNTY",
     "AVAIL",
@@ -581,6 +580,7 @@ char nyt_words[NUM_WORDS][6] =
     "DITTO",
     "DITTY",
     "DIVER",
+    "DIVOT",
     "DIZZY",
     "DODGE",
     "DODGY",
