@@ -39,6 +39,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 							if (grey_letters[j] == wordle_answer[i])
 							{
 								duplicate = true;
+								break;
 							}
 						}
 

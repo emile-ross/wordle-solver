@@ -39,6 +39,13 @@ void err(int error_code)
 		printf(BOLD_S"No possible answers.\n"STYLE_END);
 		printf(BOLD_S"Try editing your filters."STYLE_END);
 		break;
+
+	case 21:
+		printf("Word is too long");
+		break;
+	case 22:
+		printf("Word is too short");
+		break;
 	
 	default:
 		printf("Missing error message\n");
