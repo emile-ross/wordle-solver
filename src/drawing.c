@@ -69,6 +69,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				}
 			}
 			int temp_count = 0;
+
 			for (int word_iteration = 0; word_iteration < num_answers; word_iteration++)
 			{
 				bool all_letters_are_grey = true;

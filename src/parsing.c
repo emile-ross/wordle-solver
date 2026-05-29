@@ -80,8 +80,8 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 
 	char letter_indexed = to_uppercase(arguments[letter_arg_index][0]);
 
-    char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
-    int temp_count = 0; /* reset temporary count buffer */
+	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
+    	int temp_count = 0; /* reset temporary count buffer */
     
 	if (verbose)
 	{
@@ -220,15 +220,15 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-	    strcpy(filtered_arr[k], filtered_arr_temp[k]);
+		strcpy(filtered_arr[k], filtered_arr_temp[k]);
 	}
 	if (verbose)
 	{
 	        /* display verbose message */
 	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
 	}
+
 	int arg_offset;
-	
 	if (letter_indexed_bl)
 	{
 	    	arg_offset = P_FILTERS_ARG_EXP;
@@ -239,7 +239,6 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	}
 	
 	*(flag_r) += arg_offset;
-	
 	*(f_exec) = false;
 	
 	return 0;

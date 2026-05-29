@@ -100,18 +100,7 @@ void warn(warnings warning_type)
 	}
 
 	/* use the message template including the solution if it was specified */
-	if (solution != NULL)
-	{
-		const char *warning_message_s_template = BOLD_S ANSI_RED"%s"STYLE_END ANSI_RED" %s,\n%s"STYLE_END;
-
-		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_s_template, warning_message_title, message, solution);
-
-		char warning_message[message_size];
-		snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
-
-		printf("%s\n", warning_message);
-	}
-	else
+	if (solution == NULL)
 	{
 		const char *warning_message_template = BOLD_S ANSI_RED"%s"STYLE_END ANSI_RED" %s"STYLE_END;
 
@@ -119,6 +108,17 @@ void warn(warnings warning_type)
 
 		char warning_message[message_size];
 		snprintf(warning_message, message_size, warning_message_template, warning_message_title, message);
+
+		printf("%s\n", warning_message);
+	}
+	else
+	{
+		const char *warning_message_s_template = BOLD_S ANSI_RED"%s"STYLE_END ANSI_RED" %s,\n%s"STYLE_END;
+
+		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_s_template, warning_message_title, message, solution);
+
+		char warning_message[message_size];
+		snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
 
 		printf("%s\n", warning_message);
 	}

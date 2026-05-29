@@ -198,7 +198,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 				}
 			}
 		}
-    }
+	}
 }
 
 void invalid_flag(int total_args_index, int flag_index, char *flag[])
@@ -231,7 +231,6 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[])
 		}
 
 		printf(ANSI_RED"%s "STYLE_END BOLD_S, flag[flag_index]);
-
 		for (int i = flag_index + 1; i < upper_bound; i++)
 		{
 			printf("%s ", flag[i]);
