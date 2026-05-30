@@ -18,13 +18,13 @@ char *all_src_files[num_src_files] =
 	"src/parsing",
 	"src/config",
 	"src/main",
-	"src/command-parsing",
+	"src/command_parsing",
 	"src/drawing",
 	"src/functions",
 	"src/printing",
 	"src/errors",
-	"src/word-lists/all-words",
-	"src/word-lists/common-words",
+	"src/word-lists/all_words",
+	"src/word-lists/common_words",
 	"src/word-lists/words",
 };
 
@@ -178,7 +178,6 @@ int main(int argc, char *argv[])
 	}
 
 	char *flags_string_base = "-o wordle";
-
 	char all_custom_flags[1024] = ""; 
 
 	if (num_flags > 0)
@@ -252,6 +251,7 @@ int main(int argc, char *argv[])
 	 * if verbose is false, it's still true if num_flags is greater than 1 */
 	if (num_flags > 0 && ((verbose && num_flags > 1) || !verbose))
 	{
+		/* append space if there are flags */
 		strcat(full_compilation_path, " ");
 		strcat(full_compilation_path, all_custom_flags);
 	}
