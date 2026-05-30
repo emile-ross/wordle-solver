@@ -170,20 +170,28 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					
 					if (!arg_found)
 					{
-						size_t command_word_string_size = strlen(arguments[flag_temp]);
+						if (unused_arg)
+						{
+							size_t command_word_string_size = strlen(arguments[flag_temp]);
 
-						if (INDEX_LETTERS_WORD <= command_word_string_size)
-						{
-							err(21);
-						}
-						else if (NUM_LETTERS_WORD > command_word_string_size)
-						{
-							err(22);
-						}
-						else
-						{
-							snprintf(command_word_string, (size_t)INDEX_LETTERS_WORD,
-									"%s", arguments[flag_temp]);
+							printf("%s\n", arguments[flag_temp]);
+
+							if (NUM_LETTERS_WORD < command_word_string_size)
+							{
+								/* word is too long */
+								err(21);
+							}
+							else if (NUM_LETTERS_WORD > command_word_string_size)
+							{
+								/* word is too short 
+								 * error code 22 is for when the word is too short */
+								err(22);
+							}
+							else
+							{
+								snprintf(command_word_string, (size_t)INDEX_LETTERS_WORD,
+										"%s", arguments[flag_temp]);
+							}
 						}
 					}
 				}
