@@ -1,5 +1,12 @@
 #include "header.h"
 
+char *word_list_text[n_num_list] =
+{
+	"all",
+	"common",
+	"New-York-Times",
+};
+
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
 {
 	/* this is the way this interprets characters

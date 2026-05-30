@@ -10,7 +10,6 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 		}
 	}
 
-
 	if (total_elements > 0)
 	{
 	    	if (awsum_mode)
