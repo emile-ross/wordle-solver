@@ -94,27 +94,30 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	{
 		printf(ANSI_LCYAN"Parsing through "STYLE_END);
 
-		size_t w_list_size = 32;
-
 		if (*f_exec)
 		{
-			char word_list_name[w_list_size];
+			char **word_list_name;
+			char *nyt_name = "New York Times word list";
+			char *common_name = "common word list";
+			char *all_word_name = "all words";
+			char *unknown_word_list = "[Unknown word list]";
+
 			switch (w_list)
 			{
 			case nyt:
-				snprintf(word_list_name, w_list_size, "New York Times word list");
+				word_list_name = &nyt_name;
 				break;
 			case common:
-				snprintf(word_list_name, w_list_size, "common word list");
+				word_list_name = &common_name;
 				break;
 			case all:
-				snprintf(word_list_name, w_list_size, "all words");
+				word_list_name = &all_word_name;
 				break;
 			default:
-				snprintf(word_list_name, w_list_size, "[Unknown word list]");
+				word_list_name = &unknown_word_list;
 				break;
 			}
-			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name);
+			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", *word_list_name);
 			printf(ANSI_LCYAN"("UDRL_S BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
 		else
