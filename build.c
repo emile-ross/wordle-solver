@@ -25,7 +25,7 @@ char *all_src_files[num_src_files] =
 	"src/errors",
 	"src/word-lists/all_words",
 	"src/word-lists/common_words",
-	"src/word-lists/words",
+	"src/word-lists/nyt_words",
 };
 
 char *src_file_extention = ".c";
