@@ -12,6 +12,8 @@
 #define NUM_COMMON_WORDS 5700
 #define NUM_ALL_WORDS 14862
 
+#define NUM_FR_ALL_WORDS  8065
+
 #define NUM_LETTERS_WORD 5
 #define INDEX_LETTERS_WORD 6
 
@@ -41,9 +43,12 @@
 #define n_num_list (3)
 
 /* Word lists */
-	extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
-	extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
-	extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+	/* english */
+		extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
+		extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
+		extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+	/* french */
+		extern char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
 
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];

@@ -4,7 +4,7 @@
 #include <stdbool.h>
 
 #define compiler_name_len (8)
-#define num_src_files (11)
+#define num_src_files (12)
 
 char *CLANG_COMPILER_NAME = "clang";
 char *ZIG_COMPILER_NAME = "zig cc";
@@ -26,6 +26,7 @@ char *all_src_files[num_src_files] =
 	"src/word-lists/all_words",
 	"src/word-lists/common_words",
 	"src/word-lists/nyt_words",
+	"src/word-lists/fr_all_words",
 };
 
 char *src_file_extention = ".c";
