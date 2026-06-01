@@ -115,9 +115,10 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	{
 		for (int i = 0; i < NUM_COMMON_WORDS; i++)
 		{
-			if (strcmp(command_word_string, common_words[i]) == 0)
+			if (strcmp(command_word_string, fr_all_words[i]) == 0)
 			{
 				french_match = true;
+				printf("MAAATCH\n");
 			}
 		}
 	}
@@ -126,9 +127,10 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 
 	if (match || french_match)
 	{
+		printf("was found in the following lists:\n\n");
+
 		if (match)
 		{
-			printf("was found in the following lists:\n\n");
 			switch (list_num)
 			{
 			case 0:
