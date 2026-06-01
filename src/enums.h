@@ -1,5 +1,6 @@
 enum ALL_WORD_LISTS 
 {
+	fr_all,
 	all,
 	common,
 	nyt,

@@ -29,6 +29,11 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			ptr = common_words;
 			n_pos_arr = NUM_COMMON_WORDS;
 			break;
+		case fr_all:
+			ptr = fr_all_words;
+			n_pos_arr = NUM_FR_ALL_WORDS;
+			break;
+	
 		case all:
 			ptr = all_words;
 			n_pos_arr = NUM_ALL_WORDS;
@@ -100,6 +105,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			char *nyt_name = "New York Times word list";
 			char *common_name = "common word list";
 			char *all_word_name = "all words";
+			char *french_all_word_name = "all words french";
 			char *unknown_word_list = "[Unknown word list]";
 
 			switch (w_list)
@@ -113,6 +119,10 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			case all:
 				word_list_name = &all_word_name;
 				break;
+			case fr_all:
+				word_list_name = &french_all_word_name;
+				break;
+
 			default:
 				word_list_name = &unknown_word_list;
 				break;
