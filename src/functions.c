@@ -76,6 +76,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 
 	int list_num = -1;
 	bool match = false;
+	bool french_match = false;
 
 	if (command_word_string != NULL)
 	{
@@ -107,25 +108,51 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 			}
 		}
 	}
+
 	match:	/* goto is used to go here whenever a word has been matched in any word list */
+
+	if (command_word_string != NULL)
+	{
+		for (int i = 0; i < NUM_COMMON_WORDS; i++)
+		{
+			if (strcmp(command_word_string, common_words[i]) == 0)
+			{
+				french_match = true;
+			}
+		}
+	}
+
 	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
 
-	if (match)
+	if (match || french_match)
 	{
-		printf("was found in the following lists:\n\n");
-		switch (list_num)
+		if (match)
 		{
-		case 0:
-			printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
-			__attribute__ ((fallthrough));
-		case 1:
-			printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
-			__attribute__ ((fallthrough));
-		case 2:
-			printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
-			break;
-		default:
-			err(15);
+			printf("was found in the following lists:\n\n");
+			switch (list_num)
+			{
+			case 0:
+				printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
+				__attribute__ ((fallthrough));
+			case 1:
+				printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
+				__attribute__ ((fallthrough));
+			case 2:
+				printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
+				break;
+			default:
+				err(15);
+			}
+		}
+
+		if (french_match)
+		{
+			if (match)
+			{
+				printf("\n");
+			}
+
+			printf(ANSI_GREEN"french \"all words\" list\n"STYLE_END);
 		}
 	}
 	else
