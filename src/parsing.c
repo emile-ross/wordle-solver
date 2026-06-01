@@ -1,10 +1,11 @@
 #include "header.h"
 
-char *word_list_text[n_num_list] =
+char *word_list_text[NUM_WORD_LISTS] =
 {
-	"all",
-	"common",
-	"New-York-Times",
+	"all french words",
+	"all words",
+	"common words",
+	"New-York-Times words",
 };
 
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
@@ -102,25 +103,21 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		if (*f_exec)
 		{
 			char **word_list_name;
-			char *nyt_name = "New York Times word list";
-			char *common_name = "common word list";
-			char *all_word_name = "all words";
-			char *french_all_word_name = "all words french";
 			char *unknown_word_list = "[Unknown word list]";
 
 			switch (w_list)
 			{
 			case nyt:
-				word_list_name = &nyt_name;
+				word_list_name = &word_list_text[w_list];
 				break;
 			case common:
-				word_list_name = &common_name;
+				word_list_name = &word_list_text[w_list];
 				break;
 			case all:
-				word_list_name = &all_word_name;
+				word_list_name = &word_list_text[w_list];
 				break;
 			case fr_all:
-				word_list_name = &french_all_word_name;
+				word_list_name = &word_list_text[w_list];
 				break;
 
 			default:
