@@ -1,5 +1,3 @@
-wordle readme
-
 # wordle cheat
 
 This is a wordle solver engine
@@ -93,3 +91,26 @@ There is no limit to the amount of flags one can use.
 
 For drawing you can use the ``-d`` flag
 It will provide the user with every word they can use in order to make a staircase with valid (green) letters
+
+
+## word lists
+This program includes several word lists:
+
+### all words
+
+The ``all_words`` list includes a list of all english words including some that may be valid only in certain parts of the world.  
+The ``-w all`` flag specifies the ``all_words`` list.  
+
+### common words
+The ``common_words`` list
+The ``-w common`` flag specifies the ``common_words`` list.  
+
+### New York Times words
+
+The ``nyt_words`` list is a list of all possible New York Times answers.  
+This the default word list the program will use whenever you don't specify a word list.  
+The ``-w nyt`` flag specifies the ``nyt_words`` list.  
+
+### all french words
+
+The ``fr_all_words`` list is a list of all 5 letter french words.  The ``-w fr`` flag specifies the french word list.  
