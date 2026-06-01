@@ -123,7 +123,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 
 	if (command_word_string != NULL)
 	{
-		for (int i = 0; i < NUM_COMMON_WORDS; i++)
+		for (int i = 0; i < NUM_FR_ALL_WORDS; i++)
 		{
 			if (strcmp(command_word_string, fr_all_words[i]) == 0)
 			{

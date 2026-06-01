@@ -56,7 +56,7 @@
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-	extern char *word_list_text[n_num_list];
+	extern char *word_list_text[NUM_WORD_LISTS];
 
 /* errors and error codes */
 	void err(int error_code);
