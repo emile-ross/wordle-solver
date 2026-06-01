@@ -78,6 +78,13 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	bool match = false;
 	bool french_match = false;
 
+	bool word_list_matches[NUM_WORD_LISTS];
+
+	for (int i = 0; i < NUM_WORD_LISTS; i++)
+	{
+		word_list_matches[i] = false;
+	}
+
 	if (command_word_string != NULL)
 	{
 		list_num++;
@@ -85,6 +92,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 		{
 			if (strcmp(command_word_string, nyt_words[i]) == 0)
 			{
+				word_list_matches[nyt] = true;
 				match = true;
 				goto match;
 			}
@@ -94,6 +102,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 		{
 			if (strcmp(command_word_string, common_words[i]) == 0)
 			{
+				word_list_matches[common] = true;
 				match = true;
 				goto match;
 			}
@@ -103,6 +112,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 		{
 			if (strcmp(command_word_string, all_words[i]) == 0)
 			{
+				word_list_matches[all] = true;
 				match = true;
 				goto match;
 			}
@@ -117,8 +127,8 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 		{
 			if (strcmp(command_word_string, fr_all_words[i]) == 0)
 			{
+				word_list_matches[fr_all] = true;
 				french_match = true;
-				printf("MAAATCH\n");
 			}
 		}
 	}

@@ -8,11 +8,14 @@
 #include <stdbool.h>
 
 /* number of words for each array */
-#define NUM_WORDS 2337
-#define NUM_COMMON_WORDS 5700
-#define NUM_ALL_WORDS 14862
+#define NUM_WORD_LISTS 4
 
-#define NUM_FR_ALL_WORDS  8065
+	#define NUM_WORDS 2337
+	#define NUM_COMMON_WORDS 5700
+	#define NUM_ALL_WORDS 14862
+	
+	#define NUM_FR_ALL_WORDS  8065
+
 
 #define NUM_LETTERS_WORD 5
 #define INDEX_LETTERS_WORD 6
