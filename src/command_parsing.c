@@ -200,13 +200,13 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					}
 				}
 
-				if (!validate_word_bl)
+				if (validate_word_bl)
 				{
-					drawing(command_word_string, x_pattern);
+					validate_word(command_word_string);
 				}
 				else
 				{
-					validate_word(command_word_string);
+					drawing(command_word_string, x_pattern);
 				}
 			}
 		}
