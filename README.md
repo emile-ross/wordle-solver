@@ -7,7 +7,7 @@ It finds all words matching your criterias (see [examples](#example-commands))
 ## Download and compile
 
 ```sh
-git clone https://github.com/imawsumm/wordle
+git clone https://github.com/emile-ross/wordle
 make wordle
 ```
 
@@ -98,19 +98,19 @@ This program includes several word lists:
 
 ### all words
 
-The ``all_words`` list includes a list of [all english words](https://raw.githubusercontent.com/ImAwsumm/wordle/refs/heads/main/src/word-lists/all_words.c) including some that may be valid only in certain parts of the world.  
+The ``all_words`` list includes a list of [all english words](https://raw.githubusercontent.com/emile-ross/wordle/refs/heads/main/src/word-lists/all_words.c) including some that may be valid only in certain parts of the world.  
 The ``-w all`` flag specifies the ``all_words`` list.  
 
 ### common words
-The ``common_words`` list is a list of the most [common 5 letter words](https://raw.githubusercontent.com/ImAwsumm/wordle/refs/heads/main/src/word-lists/common_words.c).  It is shorter than the ``all_words`` list while being longer than the ``myt_words`` list.  
+The ``common_words`` list is a list of the most [common 5 letter words](https://raw.githubusercontent.com/emile-ross/wordle/refs/heads/main/src/word-lists/common_words.c).  It is shorter than the ``all_words`` list while being longer than the ``myt_words`` list.  
 The ``-w common`` flag specifies the ``common_words`` list.  
 
 ### New York Times words
 
-The ``nyt_words`` list is a list of all possible [New York Times answers](https://raw.githubusercontent.com/ImAwsumm/wordle/refs/heads/main/src/word-lists/nyt_words.c).  
+The ``nyt_words`` list is a list of all possible [New York Times answers](https://raw.githubusercontent.com/emile-ross/wordle/refs/heads/main/src/word-lists/nyt_words.c).  
 This the default word list the program will use whenever you don't specify a word list.  
 The ``-w nyt`` flag specifies the ``nyt_words`` list.  
 
 ### all french words
 
-The ``fr_all_words`` list is a list of [all 5 letter french words](https://raw.githubusercontent.com/ImAwsumm/wordle/refs/heads/main/src/word-lists/fr_all_words.c).  The ``-w fr`` flag specifies the french word list.  
+The ``fr_all_words`` list is a list of [all 5 letter french words](https://raw.githubusercontent.com/emile-ross/wordle/refs/heads/main/src/word-lists/fr_all_words.c).  The ``-w fr`` flag specifies the french word list.  
