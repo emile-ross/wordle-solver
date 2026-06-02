@@ -1,6 +1,6 @@
 #include "header.h"
 
-int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
+int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
