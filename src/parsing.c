@@ -1,13 +1,5 @@
 #include "header.h"
 
-char *word_list_text[NUM_WORD_LISTS] =
-{
-	"all french words",
-	"all words",
-	"common words",
-	"New-York-Times words",
-};
-
 int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
 {
 	/* this is the way this interprets characters
@@ -50,7 +42,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		/* reset word count buffer this needs to be reset only once */
 	}
 	else
-    	{
+	{
 		if (n_possible_answers == 0)
 		{
 			err(20);
@@ -59,25 +51,25 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 		ptr = filtered_arr;
 		n_pos_arr = n_possible_answers;
 	}
-
-    int letter_arg_index = *flag_r;
-    letter_arg_index++;
-    int number_arg_index = letter_arg_index;
-    number_arg_index++;
-
-    /* word_letter_index is the index of the letter the user is looking for
-     *
-     * example 1: you want to find all words with A as the first letter
-     * 'A' is at index 1
-     * "AFTER" would work
-     *
-     * example 2: if you wanted the find all words with 'T' as the third letter
-     * 'T' would be at index 3 
-     * "AFTER" would work */
-
+	
+	int letter_arg_index = *flag_r;
+	letter_arg_index++;
+	int number_arg_index = letter_arg_index;
+	number_arg_index++;
+	
+	/* word_letter_index is the index of the letter the user is looking for
+	 *
+	 * example 1: you want to find all words with A as the first letter
+	 * 'A' is at index 1
+	 * "AFTER" would work
+	 *
+	 * example 2: if you wanted the find all words with 'T' as the third letter
+	 * 'T' would be at index 3 
+	 * "AFTER" would work */
+	
 	char *endptr;
-    	int word_letter_index;
-    	if (letter_indexed_bl)
+	int word_letter_index;
+	if (letter_indexed_bl)
 	{
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
@@ -90,21 +82,21 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	{
 		word_letter_index = -1;
 	}
-
+	
 	char letter_indexed = to_uppercase(arguments[letter_arg_index][0]);
-
+	
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
-    	int temp_count = 0; /* reset temporary count buffer */
-    
+	int temp_count = 0; /* reset temporary count buffer */
+	
 	if (verbose)
 	{
 		printf(ANSI_LCYAN"Parsing through "STYLE_END);
-
+	
 		if (*f_exec)
 		{
 			char **word_list_name;
 			char *unknown_word_list = "[Unknown word list]";
-
+	
 			switch (w_list)
 			{
 			case nyt:
@@ -119,7 +111,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			case fr_all:
 				word_list_name = &word_list_text[w_list];
 				break;
-
+	
 			default:
 				word_list_name = &unknown_word_list;
 				break;
@@ -133,10 +125,10 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			printf(ANSI_LCYAN"("UDRL_S BOLD_S"not first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
 	}
-    
+	
 	/* parsing logic is below for all options */
 	char flag_string[24];
-
+	
 	if (letter_indexed_bl)
 	{
 		if (filter_include_bl)
@@ -186,8 +178,8 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			}
 		}
 	}
-    	else
-    	{
+	else
+	{
 		if (filter_include_bl)
 		{
 			snprintf(flag_string, sizeof(flag_string), "--includes");
@@ -228,7 +220,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 			}
 		}
 	}
-
+	
 	/* set the global "n_possible_answers" to "temp_count" local variable 
 	 * this is done in order to prevent breaking the other processes using the global 
 	 * it also avoids modifying the global all the time */
@@ -244,7 +236,7 @@ int parsing(int *flag_r, enum ALL_WORD_LISTS w_list, bool *f_exec, bool filter_i
 	        /* display verbose message */
 	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
 	}
-
+	
 	int arg_offset;
 	if (letter_indexed_bl)
 	{

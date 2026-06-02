@@ -1,5 +1,13 @@
 #include "header.h"
 
+char *word_list_text[NUM_WORD_LISTS] =
+{
+	"all french words",
+	"all words",
+	"common words",
+	"New-York-Times words",
+};
+
 char to_uppercase(char letter)
 {
 	/* if the letter is lowercase, 
@@ -181,4 +189,8 @@ void user_index_validation(int index)
 	    	/* display error message for invalid value (invalid index into the word) */
 	    	err(5);
 	}
+}
+
+void verbose_init(void)
+{
 }
