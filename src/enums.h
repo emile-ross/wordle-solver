@@ -1,10 +1,10 @@
-enum ALL_WORD_LISTS 
+typedef enum  
 {
 	fr_all,
 	all,
 	common,
 	nyt,
-};
+} ALL_WORD_LISTS ;
 
 typedef enum 
 {
