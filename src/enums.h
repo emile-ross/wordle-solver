@@ -19,3 +19,11 @@ typedef enum
 	matching_mode,
 	validating_mode,
 } parsing_modes;
+
+
+typedef enum
+{
+	UNKNOWN_WORD_LIST = 15,
+	WORD_TOO_LONG = 21,
+	WORD_TOO_SHORT = 22,
+} error_codes;
