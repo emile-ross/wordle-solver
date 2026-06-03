@@ -86,8 +86,8 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 /* config file */
 	extern bool awsum_table_mode;
 	extern int table_width;
-	extern bool verbose;
-	extern int indenting;
+	extern const bool verbose;
+	extern const int indenting;
 	extern bool ignore_warn;
 	extern int command_arguments_context;
 

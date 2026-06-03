@@ -9,11 +9,11 @@ bool awsum_table_mode = false;	/* false by default */
 int table_width = 6;	/* 6 by default */
 /* this is the width of the table (the number of words displayed on the x axis */
 
-int indenting = 2;	/* 2 by default */
+const int indenting = 2;	/* 2 by default */
 /* this is the default indenting value 
  * (the number of lines being skipped in order to seperate different elements) */
 
-bool verbose = true;	/* false by default */
+const bool verbose = true;	/* false by default */
 /* shows more logs and information about the program */
 
 

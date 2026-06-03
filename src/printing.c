@@ -48,8 +48,15 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 				}
 			    	printf("%s ", all_answers_print[i]);
 			}
+			/* decrease the indenting by one */
+			int temp_indenting = indenting;
+			if (indenting >= 2)
+			{
+				temp_indenting--;
+			}
+
 			/* add newline when the whole list is done printing */
-			for (int i = 0; i < indenting; i++)
+			for (int i = 0; i < temp_indenting; i++)
 			{
 				printf("\n");
 			}
@@ -89,5 +96,16 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
     	    	printf("at index "UDRL_S BOLD_S"%d"STYLE_END" "ANSI_LCYAN, indexed_letter_value);
     	}
 
-	printf("to be moved to the filtered array\n"STYLE_END);
+	printf("to be moved to the filtered array"STYLE_END);
+
+	/* decrease the indenting by one */
+	int temp_indenting = indenting;
+	if (indenting >= 2)
+	{
+		temp_indenting--;
+	}
+	for (int i = 0; i < temp_indenting; i++)
+	{
+		printf("\n");
+	}
 }
