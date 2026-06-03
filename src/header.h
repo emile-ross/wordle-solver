@@ -26,6 +26,7 @@
 #define WORD_LIST_ARG_EXP 2
 
 /* Define colours */
+#define ANSI_GREY	"\x1b[90m"
 #define ANSI_RED	"\x1b[31m"
 #define ANSI_GREEN	"\x1b[32m" 
 #define ANSI_CYAN	"\x1b[36m"
