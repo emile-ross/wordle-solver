@@ -129,7 +129,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 	}
 	else
 	{
-		err(7);
+		err(FEAT_NOT_IMPLEMENTED);
 	}
 	
 	printf("\n");

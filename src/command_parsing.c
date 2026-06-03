@@ -38,7 +38,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					valid_word_list = false;
 					if (!ignore_warn)
 					{
-						err(15);
+						err(UNKNOWN_WORD_LIST);
 					}
 				}
 
@@ -67,7 +67,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					else
 					{
 						valid_word_list = false;
-						err(15);
+						err(UNKNOWN_WORD_LIST);
 					}
 
 					if (verbose)
@@ -249,5 +249,5 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[])
 		}
 		printf(STYLE_END"\"\n\n");
 	}
-	err(10);
+	err(CMD_INVALID_ARG);
 }

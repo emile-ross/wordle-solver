@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	}
 	else
 	{
-	    	err(1);
+	    	err(CMD_MISSING_ARGS);
 	}
 
 	if (find_match_mode)
