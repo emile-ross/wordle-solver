@@ -13,15 +13,16 @@ const int indenting = 2;	/* 2 by default */
 /* this is the default indenting value 
  * (the number of lines being skipped in order to seperate different elements) */
 
-const bool verbose = true;	/* false by default */
+const bool verbose false;	/* false by default */
 /* shows more logs and information about the program */
 
 
-bool ignore_warn = true;	/* false by default */
+bool ignore_warn = false;	/* false by default */
 /* ignores some warnings */
 
 
 /* Parsing & command options */
+
 ALL_WORD_LISTS default_word_list = nyt;	/* nyt by default (nyt = New York Times word list) */
 /* this sets the default word list
  * it is used when no word list is specified in the command */
