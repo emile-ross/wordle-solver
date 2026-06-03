@@ -161,7 +161,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 				printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
 				break;
 			default:
-				err(15);
+				err(UNKNOWN_WORD_LIST);
 			}
 		}
 
@@ -187,7 +187,7 @@ void user_index_validation(int index)
 	if (index < 0 || index > 5 )
 	{
 	    	/* display error message for invalid value (invalid index into the word) */
-	    	err(5);
+	    	err(CMD_INDEX_BOUNDS);
 	}
 }
 

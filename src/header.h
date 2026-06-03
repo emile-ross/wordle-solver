@@ -43,8 +43,6 @@
 
 #define max_valid_args (16)
 
-#define n_num_list (3)
-
 /* Word lists */
 	/* english */
 		extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
