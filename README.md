@@ -48,7 +48,7 @@ Use this flag if the letter is not in the word.  (the letter is grey)
 ## example commands:
 
 ### simple command
-the following command will search for all words with the following characteristics:
+the following command will search for all words (in the nyt word list) with the following characteristics:
 - first letter is A (-s A 1)
 - second letter is D (-s D 2)
 ```sh
@@ -66,10 +66,20 @@ This command searches for all words following these characteristics:
 ./wordle -s A 1 -i D -x D 3 -a Z
 ```
 
-# real scenario
+
+## real scenario
 
 Lets say you typed "K I T T Y" as your first guess for the wordle.  If the K in KITTY is green and the Y is yellow, you can narrow the answer to a single word with this information.  
-Since K was green and it was the first letter, you can use the flag ``-s K 1``
+Since K was green and it was the first letter, you can use the flag ``-s K 1`` 
+You can other flags because Y was yellow.  The flag ``-i Y`` combined with ``-x Y 5`` narrows down the answer to all words with a Y but no Y as the last letter.  
+
+Full command: ``./wordle -s K 1 -i Y -x Y 5``
+
+Command output: 
+```
+KAYAK
+1 possible word
+```
 
 ## Word validation
 
