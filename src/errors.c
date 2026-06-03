@@ -1,6 +1,6 @@
 #include "header.h"
 
-void err(int error_code)
+void err(error_codes error_code)
 {
 	bool critical = true;
 
@@ -60,7 +60,7 @@ void err(int error_code)
 
 	if (critical)
 	{
-		exit(error_code);
+		exit((int)error_code);
 	}
 }
 
@@ -88,7 +88,7 @@ void warn(warnings warning_type)
 		default: 
 			printf("Unknown warning\n");
 			critical = true;
-			err((int)warning_type);
+			err((error_codes)warning_type);
 			break;
 	}
 

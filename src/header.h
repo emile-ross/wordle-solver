@@ -59,7 +59,7 @@
 	extern char *word_list_text[NUM_WORD_LISTS];
 
 /* errors and error codes */
-	void err(int error_code);
+	void err(error_codes error_code);
 	void warn(warnings warning_type); /* warnings */
 	void invalid_flag(int total_args_index, int flag_index, char *flag[]);
 
