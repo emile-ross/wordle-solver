@@ -48,7 +48,11 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 				}
 			    	printf("%s ", all_answers_print[i]);
 			}
-			printf("\n");
+			/* add newline when the whole list is done printing */
+			for (int i = 0; i < indenting; i++)
+			{
+				printf("\n");
+			}
 	    	}
 	}
 }
