@@ -38,7 +38,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					valid_word_list = false;
 					if (!ignore_warn)
 					{
-						err(16);
+						err(15);
 					}
 				}
 
