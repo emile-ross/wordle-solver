@@ -31,11 +31,6 @@ int main(int argc, char *argv[])
 	if (find_match_mode)
 	{
 		print_as_table(table_width, n_possible_answers, awsum_table_mode, filtered_arr);
-
-		/* print the number of possible words 
-		 * this is obtained by the last function going through the entire word list
-		 * in order to check if the word is matching */
-		printf(BOLD_S"%d possible words\n"STYLE_END, n_possible_answers);
 	}
 	return 0;
 }

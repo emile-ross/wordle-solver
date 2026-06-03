@@ -2,14 +2,25 @@
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {
+	/* hide elements */
+	int hidden_elements = 0;
+	bool hidden_msg = false;
 	if (cap_total_elements)
 	{
 		if (element_cap < total_elements)
 		{
+			hidden_elements = total_elements - element_cap;
 			total_elements = element_cap;
+		}
+
+		if (hidden_elements > 0)
+		{
+			/* the hidden elements message will be displayed */
+			hidden_msg = true;
 		}
 	}
 
+	/* element printing */
 	if (total_elements > 0)
 	{
 	    	if (awsum_mode)
@@ -61,6 +72,27 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 				printf("\n");
 			}
 	    	}
+
+
+		/* print the number of possible words 
+		 * this is obtained by the last function going through the entire word list
+		 * in order to check if the word is matching */
+		printf(BOLD_S"%d possible words"STYLE_END, n_possible_answers);
+
+		if (hidden_msg)
+		{
+			for (int i = 0; i < indenting; i++)
+			{
+				printf("\n");
+			}
+			printf(ANSI_GREY BOLD_S"%d"STYLE_END ANSI_GREY " elements were hidden due to the %d element limit\n"STYLE_END, hidden_elements, element_cap);
+		}
+		else
+		{
+			/* only indent one line if there is no hidden message */
+			printf("\n");
+		}
+
 	}
 }
 
