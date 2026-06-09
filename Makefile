@@ -12,7 +12,7 @@ wordle: bin
 	@$(C) G
 
 base:
-	zig cc $(BCMD) -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
+	zig cc $(BCMD) -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Werror
 	$(C) Z B e
 
 macos: bin

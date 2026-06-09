@@ -213,9 +213,9 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	int mem_needed_output_flags = (int)strlen(flags_string_base);
+	size_t mem_needed_output_flags = strlen(flags_string_base);
 	mem_needed_output_flags++;
-	char flags_string[mem_needed_output_flags];
+	char *flags_string = malloc(mem_needed_output_flags);
 	snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
 
 	/* TODO craft cmd */
@@ -238,14 +238,19 @@ int main(int argc, char *argv[])
 
 	for (int j = 0; j < num_src_files; j++)
 	{
-		int command_size = 1 + cmd_cmp_size[j];
-		char temp_file_path[command_size];
+		size_t command_size = 1 + (size_t)cmd_cmp_size[j];
+
+		char *temp_file_path = malloc(command_size);	/* allocate memory for temp_file_path */
 		snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
 		strcat(full_compilation_path, temp_file_path);
+
+		free(temp_file_path);	/* free after use */
 	}
 
 	/* concatenates the strings with a space in between them */
 	strcat(full_compilation_path, flags_string);
+
+	free(flags_string);	/* free after last flags_string use */
 
 	/* if there are more than 0 flags,
 	 * and verbose if false
