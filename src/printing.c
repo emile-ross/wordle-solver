@@ -11,12 +11,12 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 		{
 			hidden_elements = total_elements - element_cap;
 			total_elements = element_cap;
-		}
 
-		if (hidden_elements > 0)
-		{
-			/* the hidden elements message will be displayed */
-			hidden_msg = true;
+			if (hidden_elements > 0)
+			{
+				/* the hidden elements message will be displayed */
+				hidden_msg = true;
+			}
 		}
 	}
 

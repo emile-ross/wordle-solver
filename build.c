@@ -218,7 +218,6 @@ int main(int argc, char *argv[])
 	char *flags_string = malloc(mem_needed_output_flags);
 	snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
 
-	/* TODO craft cmd */
 	int full_cmp_size = 1; /* for the NULL terminator */
 	int cmd_cmp_size[num_src_files];
 
