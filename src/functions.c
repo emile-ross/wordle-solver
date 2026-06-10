@@ -1,5 +1,7 @@
 #include "header.h"
 
+
+
 char *word_list_text[NUM_WORD_LISTS] =
 {
 	"all french words",
@@ -83,12 +85,16 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 
 	strcpy(command_word_string, command_word_string_temp);
 
-	int list_num = -1;
-	bool match = false;
-	bool french_match = false;
-	bool latin_match = false;
-
+	int num_matches = 0;
 	bool word_list_matches[NUM_WORD_LISTS];
+	char *word_list_names[NUM_WORD_LISTS];
+
+	word_list_names[nyt]	= "New-York Times word list";
+	word_list_names[common]	= "the \"common words\" list";
+	word_list_names[all]	= "\"all words\" list";
+
+	word_list_names[fr_all]	= "french \"all words\" list";
+	word_list_names[la_all]	= "latin \"all words\" list";
 
 	for (int i = 0; i < NUM_WORD_LISTS; i++)
 	{
@@ -97,99 +103,85 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 
 	if (command_word_string != NULL)
 	{
-		list_num++;
-		for (int i = 0; i < NUM_WORDS; i++)
+		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
-			if (strcmp(command_word_string, nyt_words[i]) == 0)
+			char (*ptr)[INDEX_LETTERS_WORD];
+			int num_words = 0;
+			switch (i)
 			{
-				word_list_matches[nyt] = true;
-				match = true;
-				goto match;
-			}
-		}
-		list_num++;
-		for (int i = 0; i < NUM_COMMON_WORDS; i++)
-		{
-			if (strcmp(command_word_string, common_words[i]) == 0)
-			{
-				word_list_matches[common] = true;
-				match = true;
-				goto match;
-			}
-		}
-		list_num++;
-		for (int i = 0; i < NUM_ALL_WORDS; i++)
-		{
-			if (strcmp(command_word_string, all_words[i]) == 0)
-			{
-				word_list_matches[all] = true;
-				match = true;
-				goto match;
-			}
-		}
-	}
+			case nyt:
+				ptr = nyt_words;
+				num_words = NUM_WORDS;
+				break;
+			case common:
+				ptr = common_words;
+				num_words = NUM_COMMON_WORDS;
+				break;
+			case fr_all:
+				ptr = fr_all_words;
+				num_words = NUM_FR_ALL_WORDS;
+				break;
 
-	match:	/* goto is used to go here whenever a word has been matched in any word list */
+			case la_all:
+				ptr = la_all_words;
+				num_words = NUM_LA_ALL_WORDS;
+				break;
+	
+			case all:
+				ptr = all_words;
+				num_words = NUM_ALL_WORDS;
+				break;
+			}
+	
+			for (int j = 0; j < num_words; j++)
+			{
+				if (strcmp(command_word_string, ptr[j]) == 0)
+				{
+					word_list_matches[i] = true;
+					num_matches++;
+					break;
+				}
+			}
+		}
 
-	if (command_word_string != NULL)
-	{
-		for (int i = 0; i < NUM_FR_ALL_WORDS; i++)
-		{
-			if (strcmp(command_word_string, fr_all_words[i]) == 0)
-			{
-				word_list_matches[fr_all] = true;
-				french_match = true;
-			}
-		}
-		for (int i = 0; i < NUM_LA_ALL_WORDS; i++)
-		{
-			if (strcmp(command_word_string, la_all_words[i]) == 0)
-			{
-				word_list_matches[la_all] = true;
-				latin_match = true;
-			}
-		}
 	}
 
 	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
 
-	if (match || french_match)
+	if (num_matches > 0)
 	{
 		printf("was found in the following lists:\n\n");
-
-		if (match)
+		if (word_list_matches[nyt])
 		{
-			switch (list_num)
-			{
-			case 0:
-				printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
-				__attribute__ ((fallthrough));
-			case 1:
-				printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
-				__attribute__ ((fallthrough));
-			case 2:
-				printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
-				break;
-			default:
-				err(UNKNOWN_WORD_LIST);
-			}
+			printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
+		}
+		if (word_list_matches[common])
+		{
+			printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
 		}
 
-		if (french_match)
+		if (word_list_matches[all])
 		{
-			if (match)
+			printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
+		}
+
+		if (word_list_matches[fr_all])
+		{
+			if (word_list_matches[all])
 			{
 				printf("\n");
 			}
-
 			printf(ANSI_GREEN"french \"all words\" list\n"STYLE_END);
 		}
 
-		if (latin_match)
+		if (word_list_matches[la_all])
 		{
-			if (match)
+			if (!word_list_matches[fr_all])
 			{
-				printf("\n");
+				if (word_list_matches[all])
+				{
+					printf("\n");
+				}
 			}
 
 			printf(ANSI_GREEN"latin \"all words\" list\n"STYLE_END);
