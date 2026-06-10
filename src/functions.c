@@ -75,6 +75,7 @@ char to_uppercase(char letter)
 void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 {
 	char command_word_string_temp[INDEX_LETTERS_WORD];
+
 	for (int i = 0; i < NUM_LETTERS_WORD; i++)
 	{
 		command_word_string_temp[i] = to_uppercase(command_word_string[i]);
@@ -85,6 +86,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	int list_num = -1;
 	bool match = false;
 	bool french_match = false;
+	bool latin_match = false;
 
 	bool word_list_matches[NUM_WORD_LISTS];
 
@@ -139,6 +141,14 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 				french_match = true;
 			}
 		}
+		for (int i = 0; i < NUM_LA_ALL_WORDS; i++)
+		{
+			if (strcmp(command_word_string, la_all_words[i]) == 0)
+			{
+				word_list_matches[la_all] = true;
+				latin_match = true;
+			}
+		}
 	}
 
 	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
@@ -173,6 +183,16 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 			}
 
 			printf(ANSI_GREEN"french \"all words\" list\n"STYLE_END);
+		}
+
+		if (latin_match)
+		{
+			if (match)
+			{
+				printf("\n");
+			}
+
+			printf(ANSI_GREEN"latin \"all words\" list\n"STYLE_END);
 		}
 	}
 	else
