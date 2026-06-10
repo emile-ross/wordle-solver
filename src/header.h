@@ -15,6 +15,8 @@
 	#define NUM_ALL_WORDS 14862
 	
 	#define NUM_FR_ALL_WORDS  8065
+	
+	#define NUM_LA_ALL_WORDS 6623
 
 
 #define NUM_LETTERS_WORD 5
@@ -51,6 +53,9 @@
 		extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 	/* french */
 		extern char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
+
+	/* latin */
+		extern char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
 
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
