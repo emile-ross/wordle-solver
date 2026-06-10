@@ -16,7 +16,7 @@
 	
 	#define NUM_FR_ALL_WORDS  8065
 	
-	#define NUM_LA_ALL_WORDS 6623
+	#define NUM_LA_ALL_WORDS 15842
 
 
 #define NUM_LETTERS_WORD 5

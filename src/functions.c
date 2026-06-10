@@ -107,6 +107,8 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 		{
 			char (*ptr)[INDEX_LETTERS_WORD];
 			int num_words = 0;
+			/* TODO: make a single function to do this instead of multiple duplicate switches in parsing.c and here */
+
 			switch (i)
 			{
 			case nyt:

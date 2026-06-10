@@ -1,12 +1,12 @@
 #include "header.h"
 
-void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode)
+void command_parsing(int num_args, int flag_reading_index, char *arguments[], bool *find_match_mode)
 {
 	bool x_pattern = false;
 	bool first_execution = true;
 	bool validate_word_bl = false;
 
-	if (argc >= 2)
+	if (num_args >= 2)
     	{
 		/* set the default word list as the nyt word list */
 		word_list = default_word_list;
@@ -14,7 +14,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 
 		int n_valid_args = 0;
 		int valid_args_index[max_valid_args];
-		for (int i = 0; i < argc; i++)
+		for (int i = 0; i < num_args; i++)
 		{
 			if (strcmp(arguments[i], "--draw") == 0 || strcmp(arguments[i], "-d") == 0)
 			{
@@ -44,7 +44,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 
 				int list_name_index;
 
-				if (argc >= 3)
+				if (num_args >= 3)
 				{
 					list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
 
@@ -106,7 +106,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 
 		if (find_match_mode)
 		{
-			while (flag_reading_index < argc)
+			while (flag_reading_index < num_args)
 			{
 				if (strcmp(arguments[flag_reading_index], "--strict") == 0 || strcmp(arguments[flag_reading_index], "-s") == 0)
     				{
@@ -136,7 +136,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					else 
 					{
 						/* can be improved */
-						invalid_flag(argc, flag_reading_index, arguments);
+						invalid_flag(num_args, flag_reading_index, arguments);
 					}
     				}
     			}
@@ -149,11 +149,11 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 				min_args_draw += 2;
 			}
 
-			if (argc >= min_args_draw)
+			if (num_args >= min_args_draw)
 			{
 				/* match arguments */
 				char command_word_string[INDEX_LETTERS_WORD];
-				for (int flag_temp = 1; flag_temp < argc; flag_temp++)
+				for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
 				{
 					bool arg_found = false;
 					bool unused_arg = true;
@@ -166,7 +166,7 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 						}
 					}
 
-					if (unused_arg && !validate_word_bl && argc > min_args_draw)
+					if (unused_arg && !validate_word_bl && num_args > min_args_draw)
 					{
 						if (strcmp(arguments[flag_temp], "-x") == 0 || strcmp(arguments[flag_temp], "-X") == 0)
 						{
