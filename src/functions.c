@@ -191,16 +191,6 @@ void user_index_validation(int index)
 	}
 }
 
-char *error_msg_base;
 void error_message_init(void)
 {
-	const char *program_name = "wordle";
-	char *base_message_template = "%s: ";
-
-	/* calculate string length */
-	size_t base_message_size = 1 + (size_t)snprintf(NULL, 0, base_message_template, program_name);
-	error_msg_base = malloc(base_message_size);	/* allocate memory for the base error message string */
-
-	/* write to error_msg_base buffer */
-	snprintf(error_msg_base, base_message_size, base_message_template, program_name);
 }

@@ -35,3 +35,6 @@ int command_arguments_context = 4;	/* 4 by default */
 /* this caps the amount of results that can be printed */
 int element_cap = 250;			/* default is 250 */
 bool cap_total_elements = false;	/* default is false */
+
+
+const char *program_name = "wordle";

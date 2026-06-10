@@ -2,9 +2,9 @@
 
 void err(error_codes error_code)
 {
-	error_message_init();
 	bool critical = true;
 
+	char *error_message = NULL;
 	switch (error_code)
     	{
 	case 1:
@@ -12,7 +12,7 @@ void err(error_codes error_code)
 		break;
 		
 	case 5:
-		printf("Index value must be between 1 and 5 (inclusive)");
+		error_message = "Index value must be between 1 and 5 (inclusive)";
 		break;
 		
 	case 7:
@@ -53,6 +53,24 @@ void err(error_codes error_code)
 		critical = false;
 		break;
     	}
+
+
+	if (error_message)
+	{
+		char *full_error_message;
+		char *message_template = "%s: %s";
+
+		/* calculate string length */
+		size_t message_size = 1 + (size_t)snprintf(NULL, 0, message_template, program_name, error_message);
+		full_error_message = malloc(message_size);	/* allocate memory for the base error message string */
+
+		/* write to error_msg_base buffer */
+		snprintf(full_error_message, message_size, message_template, program_name, error_message);
+
+		printf(ANSI_RED"%s"STYLE_END, full_error_message);
+
+		free(full_error_message);
+	}
 
 	for (int i = 0; i < indenting; i++)
     	{

@@ -64,10 +64,6 @@
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
-/* error message base string initialisation */
-	void error_message_init(void);
-	extern char *error_msg_base;
-
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[]);
 void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode);
@@ -96,5 +92,6 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
 	extern int element_cap;
 	extern bool cap_total_elements;
+	extern const char *program_name;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
