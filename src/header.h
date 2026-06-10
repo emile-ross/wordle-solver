@@ -17,6 +17,7 @@
 	#define NUM_FR_ALL_WORDS  8065
 	
 	#define NUM_LA_ALL_WORDS 15842
+	#define NUM_LA_COM_WORDS 197
 
 
 #define NUM_LETTERS_WORD 5
@@ -28,15 +29,15 @@
 #define WORD_LIST_ARG_EXP 2
 
 /* Define colours */
-#define ANSI_GREY	"\x1b[90m"
-#define ANSI_RED	"\x1b[31m"
-#define ANSI_GREEN	"\x1b[32m" 
-#define ANSI_CYAN	"\x1b[36m"
-#define ANSI_LCYAN	"\x1b[96m"
-#define ANSI_YELLOW	"\x1b[33m"
-#define ANSI_LYELLOW	"\x1b[93m"
 #define ANSI_BLUE	"\x1b[34m"
+#define ANSI_CYAN	"\x1b[36m"
+#define ANSI_GREEN	"\x1b[32m" 
+#define ANSI_GREY	"\x1b[90m"
+#define ANSI_LCYAN	"\x1b[96m"
+#define ANSI_LYELLOW	"\x1b[93m"
+#define ANSI_RED	"\x1b[31m"
 #define ANSI_WHITE	"\x1b[97m"
+#define ANSI_YELLOW	"\x1b[33m"
 
 #define BOLD_S		"\x1B[1m" 
 #define UDRL_S  	"\x1B[4m" 
