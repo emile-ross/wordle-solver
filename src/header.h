@@ -64,9 +64,9 @@
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
-/* verbose initialisation */
-	void verbose_init(void);
-	extern char *verbose_base_message;
+/* error message base string initialisation */
+	void error_message_init(void);
+	extern char *error_msg_base;
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[]);

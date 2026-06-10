@@ -2,6 +2,7 @@
 
 void err(error_codes error_code)
 {
+	error_message_init();
 	bool critical = true;
 
 	switch (error_code)

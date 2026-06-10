@@ -7,11 +7,6 @@ ALL_WORD_LISTS word_list;
 
 int main(int argc, char *argv[])
 {
-	if (verbose)
-	{
-		verbose_init();
-	}
-
 	bool find_match_mode = true; /* true by default
 	 * true: finds all possible words matching all criterias
 	 * false: tries to make a pattern with the letter colour */
