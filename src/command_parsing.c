@@ -247,7 +247,11 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[])
 		{
 			printf("%s ", flag[i]);
 		}
-		printf(STYLE_END"\"\n\n");
+		printf(STYLE_END"\"");
+		for (int i = 0; i < indenting; i++)
+		{
+			printf("\n");
+		}
 	}
 	err(CMD_INVALID_ARG);
 }

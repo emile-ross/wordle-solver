@@ -136,6 +136,7 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 	{
 		temp_indenting--;
 	}
+
 	for (int i = 0; i < temp_indenting; i++)
 	{
 		printf("\n");
