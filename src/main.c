@@ -18,14 +18,14 @@ int main(int argc, char *argv[])
 
 	if (argc >= 2)  /* or else there's nothing */
 	{
-	    	int flag_r = ARGS_BEFORE_FLAG_BASE;
-	    	/* execute command parsing and provide the address of find_match_mode
-	    	 * in order to then dereference the address */
-	    	command_parsing(argc, flag_r, argv, &find_match_mode);
+		int flag_r = ARGS_BEFORE_FLAG_BASE;
+		/* execute command parsing and provide the address of find_match_mode
+		 * in order to then dereference the address */
+		command_parsing(argc, flag_r, argv, &find_match_mode);
 	}
 	else
 	{
-	    	err(CMD_MISSING_ARGS);
+		err(CMD_MISSING_ARGS);
 	}
 
 	if (find_match_mode)

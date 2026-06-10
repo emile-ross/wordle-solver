@@ -57,8 +57,10 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				}
 			}
 
+			/* initialise filtered words array */
 			char filtered_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 			char filtered_words_temp[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+
 			int num_answers = 0;
 			for (int j = 0; j < NUM_ALL_WORDS; j++)
 			{
@@ -68,6 +70,8 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 					num_answers++;
 				}
 			}
+
+			/* initialise temp_count (used for matching the count)  */
 			int temp_count = 0;
 
 			for (int word_iteration = 0; word_iteration < num_answers; word_iteration++)
