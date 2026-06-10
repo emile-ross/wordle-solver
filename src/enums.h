@@ -1,6 +1,7 @@
 typedef enum  
 {
 	fr_all,
+	la_all,
 	all,
 	common,
 	nyt,

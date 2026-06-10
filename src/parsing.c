@@ -26,6 +26,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			ptr = fr_all_words;
 			n_pos_arr = NUM_FR_ALL_WORDS;
 			break;
+
+		case la_all:
+			ptr = la_all_words;
+			n_pos_arr = NUM_LA_ALL_WORDS;
+			break;
 	
 		case all:
 			ptr = all_words;
@@ -106,6 +111,9 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				word_list_name = &word_list_text[w_list];
 				break;
 			case all:
+				word_list_name = &word_list_text[w_list];
+				break;
+			case la_all:
 				word_list_name = &word_list_text[w_list];
 				break;
 			case fr_all:

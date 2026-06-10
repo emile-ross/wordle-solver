@@ -60,6 +60,10 @@ void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *
 					{
 						word_list = fr_all;
 					}
+					else if (strcmp(arguments[list_name_index], "la") == 0 || strcmp(arguments[list_name_index], "latin") == 0)
+					{
+						word_list = la_all;
+					}
 					else if (strcmp(arguments[list_name_index], "nyt") == 0 || strcmp(arguments[list_name_index], "NYT") == 0 || strcmp(arguments[list_name_index], "times") == 0)
 					{
 						word_list = nyt;
