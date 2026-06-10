@@ -7,19 +7,19 @@ void err(error_codes error_code)
 	char *error_message = NULL;
 	switch (error_code)
     	{
-	case 1:
-		printf("Missing arguments");
+	case CMD_MISSING_ARGS:
+		error_message = "Missing arguments";
 		break;
 		
-	case 5:
+	case CMD_INDEX_BOUNDS:
 		error_message = "Index value must be between 1 and 5 (inclusive)";
 		break;
 		
-	case 7:
-		printf("This feature hasn't been implemented");
+	case FEAT_NOT_IMPLEMENTED:
+		error_message = "This feature hasn't been implemented";
 		break;
 		
-	case 10:
+	case CMD_INVALID_ARG:
 		printf("The only valid flags are:\n\n");
 		printf(BOLD_S" -e"STYLE_END" (exclude)\n");
 		printf(BOLD_S" -x"STYLE_END" (exclude)\n");
@@ -32,19 +32,19 @@ void err(error_codes error_code)
 		printf(BOLD_S"   --includes"STYLE_END" (the letter \'X\' is in the word)");
 		break;
 		
-	case 15:
-		printf("Unknown word list");
+	case UNKNOWN_WORD_LIST:
+		error_message = "Unknown word list";
 		break;
 		
-	case 20:
+	case NO_POSSIBLE_ANSWERS:
 		printf(BOLD_S"No possible answers.\n"STYLE_END);
 		printf(BOLD_S"Try editing your filters."STYLE_END);
 		break;
 
-	case 21:
+	case WORD_TOO_LONG:
 		printf("Word is too long");
 		break;
-	case 22:
+	case WORD_TOO_SHORT:
 		printf("Word is too short");
 		break;
 	

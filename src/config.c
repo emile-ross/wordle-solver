@@ -36,5 +36,5 @@ int command_arguments_context = 4;	/* 4 by default */
 int element_cap = 250;			/* default is 250 */
 bool cap_total_elements = false;	/* default is false */
 
-
-const char *program_name = "wordle";
+/* Initialise the program_name variable */
+const char *program_name = "wordle";	/* wordle by default */
