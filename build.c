@@ -3,37 +3,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-char *source_files_cmd(size_t *fp_length);
-
-#define compiler_name_len (8)
-char *CLANG_COMPILER_NAME = "clang";
-char *ZIG_COMPILER_NAME = "zig cc";
-char *GCC_COMPILER_NAME = "gcc";
-
-#define fp_size (32)
-#define base_args (1)
-
-#define num_src_files (16)
-char *all_src_files[num_src_files] = 
-{
-	"src/command_parsing",
-	"src/config",
-	"src/drawing",
-	"src/errors",
-	"src/functions",
-	"src/list_matching",
-	"src/main",
-	"src/parsing",
-	"src/printing",
-	"src/validate",
-	"src/word-lists/all_words",
-	"src/word-lists/common_words",
-	"src/word-lists/fr_all_words",
-	"src/word-lists/la_all_words",
-	"src/word-lists/la_com_words",
-	"src/word-lists/nyt_words",
-};
-
 #define num_base_src_files (10)
 const char *source_files_base_path = "src/";
 const char *source_files_ext = ".c";
@@ -64,7 +33,15 @@ char *word_lists[num_word_lists] =
 	"nyt_words",
 };
 
-char *src_file_extention = ".c";
+char *source_files_cmd(size_t *fp_length, size_t *ptr);
+
+#define compiler_name_len (8)
+char *CLANG_COMPILER_NAME = "clang";
+char *ZIG_COMPILER_NAME = "zig cc";
+char *GCC_COMPILER_NAME = "gcc";
+
+#define fp_size (32)
+#define base_args (1)
 
 typedef enum 
 {
@@ -257,7 +234,8 @@ int main(int argc, char *argv[])
 	int full_cmp_size = 1; /* for the NULL terminator */
 
 	size_t command_fp_size = 0;
-	char *command_file_path = source_files_cmd(&command_fp_size);
+	size_t buffer_pointer = 0;	/* a pointer to the command_file_path underlying buffer */
+	char *command_file_path = source_files_cmd(&command_fp_size, &buffer_pointer);
 	full_cmp_size += (int)command_fp_size;
 
 	full_cmp_size += snprintf(NULL, 0, "%s ", compiler);
@@ -267,6 +245,8 @@ int main(int argc, char *argv[])
 	
 	snprintf(full_compilation_path, (size_t)full_cmp_size, "%s ", compiler);
 	strcat(full_compilation_path, command_file_path);
+
+	free((void*)buffer_pointer);	/* free after use */
 
 	/* concatenates the strings with a space in between them */
 	strcat(full_compilation_path, flags_string);
@@ -294,7 +274,7 @@ int main(int argc, char *argv[])
 
 
 
-char *source_files_cmd(size_t *fp_length)
+char *source_files_cmd(size_t *fp_length, size_t *ptr)
 {
 	size_t full_string_size = 0;
 	size_t base_word_list_path_size = strlen(word_lists_base_path);
@@ -320,6 +300,11 @@ char *source_files_cmd(size_t *fp_length)
 	char *full_cmd_string = malloc(full_string_size);
 	*fp_length = full_string_size;
 
+	size_t addr = (size_t)full_cmd_string;
+
+	*ptr = addr;
+
+
 	for (int i = 0; i < num_word_lists; i++)
 	{
 		strcat(full_cmd_string, word_lists_base_path);	/* add file path */
@@ -335,6 +320,7 @@ char *source_files_cmd(size_t *fp_length)
 		strcat(full_cmd_string, source_files_ext);	/* add file extention */
 		strcat(full_cmd_string, " ");	/* add space */
 	}
+
 
 	return full_cmd_string;
 }
