@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-char *source_files_cmd(void);
+char *source_files_cmd(size_t *fp_length);
 
 #define compiler_name_len (8)
 char *CLANG_COMPILER_NAME = "clang";
@@ -249,42 +249,24 @@ int main(int argc, char *argv[])
 	}
 
 
-	/*
-	char *command_file_path = source_files_cmd();
-	*/
-
 	size_t mem_needed_output_flags = strlen(flags_string_base);
 	mem_needed_output_flags++;
 	char *flags_string = malloc(mem_needed_output_flags);
 	snprintf(flags_string, (size_t)mem_needed_output_flags, "%s", flags_string_base);
 
 	int full_cmp_size = 1; /* for the NULL terminator */
-	int cmd_cmp_size[num_src_files];
 
-	for (int i = 0; i < num_src_files; i++)
-	{
-		int temp_size = snprintf(NULL, 0, "%s.c ", all_src_files[i]);
-		full_cmp_size += temp_size;
-		cmd_cmp_size[i] = temp_size;
-	}
+	size_t command_fp_size = 0;
+	char *command_file_path = source_files_cmd(&command_fp_size);
+	full_cmp_size += (int)command_fp_size;
 
 	full_cmp_size += snprintf(NULL, 0, "%s ", compiler);
 	full_cmp_size += snprintf(NULL, 0, "%s %s ", flags_string, all_custom_flags);
 
-	char full_compilation_path[full_cmp_size];
+	char *full_compilation_path = malloc((size_t)full_cmp_size);
 	
 	snprintf(full_compilation_path, (size_t)full_cmp_size, "%s ", compiler);
-
-	for (int j = 0; j < num_src_files; j++)
-	{
-		size_t command_size = 1 + (size_t)cmd_cmp_size[j];
-
-		char *temp_file_path = malloc(command_size);	/* allocate memory for temp_file_path */
-		snprintf(temp_file_path, (size_t)command_size, "%s.c ", all_src_files[j]);
-		strcat(full_compilation_path, temp_file_path);
-
-		free(temp_file_path);	/* free after use */
-	}
+	strcat(full_compilation_path, command_file_path);
 
 	/* concatenates the strings with a space in between them */
 	strcat(full_compilation_path, flags_string);
@@ -312,10 +294,8 @@ int main(int argc, char *argv[])
 
 
 
-char *source_files_cmd(void)
+char *source_files_cmd(size_t *fp_length)
 {
-	int num_total_src_files = num_src_files + num_word_lists;
-
 	size_t full_string_size = 0;
 	size_t base_word_list_path_size = strlen(word_lists_base_path);
 	base_word_list_path_size += strlen(word_lists_file_ext);
@@ -338,6 +318,7 @@ char *source_files_cmd(void)
 	}
 
 	char *full_cmd_string = malloc(full_string_size);
+	*fp_length = full_string_size;
 
 	for (int i = 0; i < num_word_lists; i++)
 	{
@@ -347,7 +328,7 @@ char *source_files_cmd(void)
 		strcat(full_cmd_string, " ");	/* add space */
 	}
 
-	for (int i = 0; i < num_word_lists; i++)
+	for (int i = 0; i < num_base_src_files; i++)
 	{
 		strcat(full_cmd_string, source_files_base_path);	/* add file path */
 		strcat(full_cmd_string, source_files[i]);		/* add file name */
@@ -355,7 +336,5 @@ char *source_files_cmd(void)
 		strcat(full_cmd_string, " ");	/* add space */
 	}
 
-	printf("%s", full_cmd_string);
-
-	return NULL;
+	return full_cmd_string;
 }
