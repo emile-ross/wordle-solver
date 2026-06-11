@@ -48,6 +48,8 @@
 #define max_valid_args (16)
 
 /* Word lists */
+	int list_match(ALL_WORD_LISTS word_list_enum, char (*(*word_list_pointer))[INDEX_LETTERS_WORD]);
+
 	/* english */
 		extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
 		extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];

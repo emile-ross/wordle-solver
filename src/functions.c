@@ -106,34 +106,12 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
 			char (*ptr)[INDEX_LETTERS_WORD];
+
+
 			int num_words = 0;
 			/* TODO: make a single function to do this instead of multiple duplicate switches in parsing.c and here */
 
-			switch (i)
-			{
-			case nyt:
-				ptr = nyt_words;
-				num_words = NUM_WORDS;
-				break;
-			case common:
-				ptr = common_words;
-				num_words = NUM_COMMON_WORDS;
-				break;
-			case fr_all:
-				ptr = fr_all_words;
-				num_words = NUM_FR_ALL_WORDS;
-				break;
-
-			case la_all:
-				ptr = la_all_words;
-				num_words = NUM_LA_ALL_WORDS;
-				break;
-	
-			case all:
-				ptr = all_words;
-				num_words = NUM_ALL_WORDS;
-				break;
-			}
+			num_words = list_match((ALL_WORD_LISTS)i, &ptr);
 	
 			for (int j = 0; j < num_words; j++)
 			{
