@@ -77,8 +77,6 @@ compiler_enum compiler_choice;
 
 int main(int argc, char *argv[])
 {
-	source_files_cmd();
-	return 0;
 	bool Wall_flag = false;
 	bool Wextra_flag = false;
 	bool Wconversion_flag = false;
