@@ -8,7 +8,7 @@
 #include <stdbool.h>
 
 /* number of words for each array */
-#define NUM_WORD_LISTS 5
+#define NUM_WORD_LISTS 6
 
 	#define NUM_WORDS 2337
 	#define NUM_COMMON_WORDS 5700
@@ -17,7 +17,7 @@
 	#define NUM_FR_ALL_WORDS  8065
 	
 	#define NUM_LA_ALL_WORDS 15842
-	#define NUM_LA_COM_WORDS 197
+	#define NUM_LA_COM_WORDS 6662
 
 
 #define NUM_LETTERS_WORD 5
@@ -57,6 +57,7 @@
 
 	/* latin */
 		extern char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
+		extern char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD];
 
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];

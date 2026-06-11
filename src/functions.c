@@ -204,3 +204,4 @@ void user_index_validation(int index)
 	    	err(CMD_INDEX_BOUNDS);
 	}
 }
+

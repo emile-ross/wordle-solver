@@ -32,6 +32,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			n_pos_arr = NUM_LA_ALL_WORDS;
 			break;
 	
+		case la_common:
+			ptr = la_com_words;
+			n_pos_arr = NUM_LA_COM_WORDS;
+			break;
+	
 		case all:
 			ptr = all_words;
 			n_pos_arr = NUM_ALL_WORDS;

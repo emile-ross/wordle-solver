@@ -60,6 +60,10 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 					{
 						word_list = fr_all;
 					}
+					else if (strcmp(arguments[list_name_index], "la-com") == 0 || strcmp(arguments[list_name_index], "latin-common") == 0)
+					{
+						word_list = la_common;
+					}
 					else if (strcmp(arguments[list_name_index], "la") == 0 || strcmp(arguments[list_name_index], "latin") == 0)
 					{
 						word_list = la_all;
