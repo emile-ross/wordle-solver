@@ -13,24 +13,25 @@ char *GCC_COMPILER_NAME = "gcc";
 #define fp_size (32)
 #define base_args (1)
 
-#define num_src_files (15)
+#define num_src_files (16)
 char *all_src_files[num_src_files] = 
 {
-	"src/parsing",
-	"src/config",
-	"src/main",
 	"src/command_parsing",
+	"src/config",
 	"src/drawing",
-	"src/functions",
-	"src/printing",
 	"src/errors",
+	"src/functions",
+	"src/list_matching",
+	"src/main",
+	"src/parsing",
+	"src/printing",
+	"src/validate",
 	"src/word-lists/all_words",
 	"src/word-lists/common_words",
-	"src/word-lists/nyt_words",
 	"src/word-lists/fr_all_words",
 	"src/word-lists/la_all_words",
 	"src/word-lists/la_com_words",
-	"src/list_matching",
+	"src/word-lists/nyt_words",
 };
 
 char *src_file_extention = ".c";
