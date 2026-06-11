@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-
+char *source_files_cmd(void);
 
 #define compiler_name_len (8)
 char *CLANG_COMPILER_NAME = "clang";
@@ -34,6 +34,36 @@ char *all_src_files[num_src_files] =
 	"src/word-lists/nyt_words",
 };
 
+#define num_base_src_files (10)
+const char *source_files_base_path = "src/";
+const char *source_files_ext = ".c";
+char *source_files[num_base_src_files] = 
+{
+	"command_parsing",
+	"config",
+	"drawing",
+	"errors",
+	"functions",
+	"list_matching",
+	"main",
+	"parsing",
+	"printing",
+	"validate",
+};
+
+#define num_word_lists (6)
+const char *word_lists_base_path = "src/word-lists/";
+const char *word_lists_file_ext = ".c";
+char *word_lists[num_word_lists] = 
+{
+	"all_words",
+	"common_words",
+	"fr_all_words",
+	"la_all_words",
+	"la_com_words",
+	"nyt_words",
+};
+
 char *src_file_extention = ".c";
 
 typedef enum 
@@ -47,6 +77,8 @@ compiler_enum compiler_choice;
 
 int main(int argc, char *argv[])
 {
+	source_files_cmd();
+	return 0;
 	bool Wall_flag = false;
 	bool Wextra_flag = false;
 	bool Wconversion_flag = false;
@@ -218,6 +250,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
+
+	/*
+	char *command_file_path = source_files_cmd();
+	*/
+
 	size_t mem_needed_output_flags = strlen(flags_string_base);
 	mem_needed_output_flags++;
 	char *flags_string = malloc(mem_needed_output_flags);
@@ -273,4 +310,54 @@ int main(int argc, char *argv[])
 	system(full_compilation_path);
 
 	return 0;
+}
+
+
+
+char *source_files_cmd(void)
+{
+	int num_total_src_files = num_src_files + num_word_lists;
+
+	size_t full_string_size = 0;
+	size_t base_word_list_path_size = strlen(word_lists_base_path);
+	base_word_list_path_size += strlen(word_lists_file_ext);
+
+	size_t base_src_path_size = strlen(source_files_base_path);
+	base_src_path_size += strlen(source_files_ext);
+
+	for (int i = 0; i < num_word_lists; i++)
+	{
+		size_t temp_path_size = base_word_list_path_size;
+		temp_path_size += strlen(word_lists[i]);
+		full_string_size += temp_path_size + 1; /* 1 is for the space */
+	}
+
+	for (int i = 0; i < num_base_src_files; i++)
+	{
+		size_t temp_path_size = base_src_path_size;
+		temp_path_size += strlen(source_files[i]);
+		full_string_size += temp_path_size + 1; /* 1 is for the space */
+	}
+
+	char *full_cmd_string = malloc(full_string_size);
+
+	for (int i = 0; i < num_word_lists; i++)
+	{
+		strcat(full_cmd_string, word_lists_base_path);	/* add file path */
+		strcat(full_cmd_string, word_lists[i]);		/* add file name */
+		strcat(full_cmd_string, word_lists_file_ext);	/* add file extention */
+		strcat(full_cmd_string, " ");	/* add space */
+	}
+
+	for (int i = 0; i < num_word_lists; i++)
+	{
+		strcat(full_cmd_string, source_files_base_path);	/* add file path */
+		strcat(full_cmd_string, source_files[i]);		/* add file name */
+		strcat(full_cmd_string, source_files_ext);	/* add file extention */
+		strcat(full_cmd_string, " ");	/* add space */
+	}
+
+	printf("%s", full_cmd_string);
+
+	return NULL;
 }
