@@ -3,9 +3,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define compiler_name_len (8)
-#define num_src_files (14)
 
+
+#define compiler_name_len (8)
 char *CLANG_COMPILER_NAME = "clang";
 char *ZIG_COMPILER_NAME = "zig cc";
 char *GCC_COMPILER_NAME = "gcc";
@@ -13,6 +13,7 @@ char *GCC_COMPILER_NAME = "gcc";
 #define fp_size (32)
 #define base_args (1)
 
+#define num_src_files (15)
 char *all_src_files[num_src_files] = 
 {
 	"src/parsing",
@@ -29,6 +30,7 @@ char *all_src_files[num_src_files] =
 	"src/word-lists/fr_all_words",
 	"src/word-lists/la_all_words",
 	"src/word-lists/la_com_words",
+	"src/list_matching",
 };
 
 char *src_file_extention = ".c";
