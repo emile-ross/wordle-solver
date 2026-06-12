@@ -35,7 +35,6 @@ char *word_lists[num_word_lists] =
 
 char *source_files_cmd(size_t *fp_length, size_t *ptr);
 
-#define compiler_name_len (8)
 char *CLANG_COMPILER_NAME = "clang";
 char *ZIG_COMPILER_NAME = "zig cc";
 char *GCC_COMPILER_NAME = "gcc";

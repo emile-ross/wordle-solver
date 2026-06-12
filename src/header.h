@@ -20,13 +20,13 @@
 	#define NUM_LA_COM_WORDS 6662
 
 
-#define NUM_LETTERS_WORD 5
-#define INDEX_LETTERS_WORD 6
+#define NUM_LETTERS_WORD (5)
+#define INDEX_LETTERS_WORD (6)
 
-#define ARGS_BEFORE_FLAG_BASE 1
-#define P_FILTERS_ARG_EXP 3
-#define G_FILTERS_ARG_EXP 2
-#define WORD_LIST_ARG_EXP 2
+#define ARGS_BEFORE_FLAG_BASE (1)
+#define P_FILTERS_ARG_EXP (3)
+#define G_FILTERS_ARG_EXP (2)
+#define WORD_LIST_ARG_EXP (2)
 
 /* Define colours */
 #define ANSI_BLUE	"\x1b[34m"
