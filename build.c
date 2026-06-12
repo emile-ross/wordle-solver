@@ -169,19 +169,22 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	char compiler[compiler_name_len];
+	char *compiler = NULL;
 
 	switch (compiler_choice)
 	{
 	case GCC:
+		compiler = malloc(strlen(GCC_COMPILER_NAME));
 		strcpy(compiler, GCC_COMPILER_NAME);
 		break;
 
 	case CLANG:
+		compiler = malloc(strlen(GCC_COMPILER_NAME));
 		strcpy(compiler, CLANG_COMPILER_NAME);
 		break;
 
 	case ZIG:
+		compiler = malloc(strlen(GCC_COMPILER_NAME));
 		strcpy(compiler, ZIG_COMPILER_NAME);
 		break;
 
@@ -244,6 +247,7 @@ int main(int argc, char *argv[])
 	char *full_compilation_path = malloc((size_t)full_cmp_size);
 	
 	snprintf(full_compilation_path, (size_t)full_cmp_size, "%s ", compiler);
+	free(compiler);		/* free compiler buffer after use */
 	strcat(full_compilation_path, command_file_path);
 
 	free((void*)buffer_pointer);	/* free after use */
