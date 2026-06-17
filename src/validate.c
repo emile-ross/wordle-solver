@@ -31,7 +31,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	{
 		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
-			char (*ptr)[INDEX_LETTERS_WORD];
+			const char (*ptr)[INDEX_LETTERS_WORD];
 
 
 			int num_words = 0;

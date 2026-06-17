@@ -1,7 +1,7 @@
 #include "../header.h"
 
 
-char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD] = 
+const char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD] = 
 {
 	"ABACI",
 	"ABACO",

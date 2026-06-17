@@ -1,6 +1,6 @@
 #include "../header.h"
 
-char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD] = 
+const char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD] = 
 {
 	"ABACK",
 	"ABASE",

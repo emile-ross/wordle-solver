@@ -6,7 +6,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 	
-	char (*ptr)[INDEX_LETTERS_WORD];
+	const char (*ptr)[INDEX_LETTERS_WORD];
 	
 	int n_pos_arr;
 	

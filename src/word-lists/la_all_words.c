@@ -1,6 +1,6 @@
 #include "../header.h"
 
-char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD] = 
+const char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD] = 
 {
 	"ABABA",
 	"ABACI",
