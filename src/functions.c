@@ -1,6 +1,7 @@
 #include "header.h"
 
-
+char *word_list_flag = "-w";
+char *word_list_long_flag = "--word-list";
 
 char *word_list_text[NUM_WORD_LISTS] =
 {

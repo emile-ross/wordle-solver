@@ -84,6 +84,8 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 	extern ALL_WORD_LISTS word_list;
 	extern ALL_WORD_LISTS default_word_list;
 	extern int n_possible_answers;
+	extern char *word_list_flag;
+	extern char *word_list_long_flag;
 
 
 /* General simple functions */
