@@ -23,11 +23,11 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 					warn(draw);
 				}
 		
-				*find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
+				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
-			else if (strcmp(arguments[i], "--word-list") == 0 || strcmp(arguments[i], "-w") == 0)
+			else if (strcmp(arguments[i], word_list_long_flag) == 0 || strcmp(arguments[i], word_list_flag) == 0)
 			{
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
@@ -86,7 +86,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 				else /* missing arguments */
     				{
 					valid_word_list = false;
-					err(1); 
+					err(CMD_MISSING_ARGS); 
     				}
 
 				if (valid_word_list)
@@ -132,7 +132,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
     				{
 					if (word_list_is_specified)
 					{
-						if (strcmp(arguments[flag_reading_index], "--word-list") == 0 || strcmp(arguments[flag_reading_index], "-w") == 0)
+						if (strcmp(arguments[flag_reading_index], word_list_long_flag) == 0 || strcmp(arguments[flag_reading_index], word_list_flag) == 0)
 						{
 							flag_reading_index += WORD_LIST_ARG_EXP;
 						}
@@ -192,13 +192,13 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 							if (NUM_LETTERS_WORD < command_word_string_size)
 							{
 								/* word is too long */
-								err(21);
+								err(WORD_TOO_LONG);
 							}
 							else if (NUM_LETTERS_WORD > command_word_string_size)
 							{
 								/* word is too short 
 								 * error code 22 is for when the word is too short */
-								err(22);
+								err(WORD_TOO_SHORT);
 							}
 							else
 							{
