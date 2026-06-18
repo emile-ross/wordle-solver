@@ -57,55 +57,17 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 
 	if (num_matches > 0)
 	{
+
 		printf("was found in the following lists:\n\n");
-		if (word_list_matches[nyt])
-		{
-			printf(ANSI_GREEN"New-York Times word list\n"STYLE_END);
-		}
-		if (word_list_matches[common])
-		{
-			printf(ANSI_GREEN"the \"common words\" list\n"STYLE_END);
-		}
 
-		if (word_list_matches[all])
+		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
-			printf(ANSI_GREEN"\"all words\" list\n"STYLE_END);
-		}
-
-		if (word_list_matches[fr_all])
-		{
-			if (word_list_matches[all])
+			if (word_list_matches[i])
 			{
-				printf("\n");
+				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_names[i]);
 			}
-			printf(ANSI_GREEN"french \"all words\" list\n"STYLE_END);
 		}
 
-		if (word_list_matches[la_common])
-		{
-			if (!word_list_matches[fr_all])
-			{
-				if (word_list_matches[all])
-				{
-					printf("\n");
-				}
-			}
-
-			printf(ANSI_GREEN"%s\n", word_list_names[la_common]);
-		}
-
-		if (word_list_matches[la_all])
-		{
-			if (!word_list_matches[fr_all])
-			{
-				if (word_list_matches[all])
-				{
-					printf("\n");
-				}
-			}
-
-			printf(ANSI_GREEN"latin \"all words\" list\n"STYLE_END);
-		}
 	}
 	else
 	{
