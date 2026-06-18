@@ -1,11 +1,11 @@
 typedef enum  
 {
-	fr_all,
-	la_all,
-	la_common,
-	all,
-	common,
 	nyt,
+	common,
+	all,
+	fr_all,
+	la_common,
+	la_all,
 } ALL_WORD_LISTS ;
 
 typedef enum 

@@ -19,7 +19,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 	{
 		for (int entry_i = 0; entry_i < NUM_LETTERS_WORD; entry_i++)
 		{
-			char grey_letters[5];
+			char grey_letters[NUM_LETTERS_WORD];
 			char green_letter;
 			int green_letter_index = 0;
 

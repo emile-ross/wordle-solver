@@ -123,8 +123,8 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 	/* add colour to options */
     	if (indexed_letter_value != -1)
     	{
-    	    	indexed_letter_value++; /* in order to make it more user friendly 
-    	    							   because the user inputs a value 1-5 not 0-4 */
+		/* in order to make it more user friendly because the user inputs a value 1-5 not 0-4 */
+    	    	indexed_letter_value++; 
     	    	printf("at index "UDRL_S BOLD_S"%d"STYLE_END" "ANSI_LCYAN, indexed_letter_value);
     	}
 

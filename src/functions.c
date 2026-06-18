@@ -77,7 +77,7 @@ char to_uppercase(char letter)
 
 void user_index_validation(int index)
 {
-	if (index < 0 || index > 5 )
+	if (index < 0 || index > NUM_LETTERS_WORD )
 	{
 	    	/* display error message for invalid value (invalid index into the word) */
 	    	err(CMD_INDEX_BOUNDS);
