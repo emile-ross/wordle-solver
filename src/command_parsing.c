@@ -23,7 +23,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 					warn(draw);
 				}
 		
-				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
+				*find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
@@ -42,7 +42,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 					}
 				}
 
-				int list_name_index;
+				int list_name_index = -1;
 
 				if (num_args >= 3)
 				{
@@ -124,7 +124,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
     				{
 					parsing(&flag_reading_index, word_list, &first_execution, true, false, arguments);
     				}
-    				else if (strcmp(arguments[flag_reading_index], "--absent") == 0 || strcmp(arguments[flag_reading_index], "-a") == 0 || strcmp(arguments[flag_reading_index], "-d") == 0)
+    				else if (strcmp(arguments[flag_reading_index], "--absent") == 0 || strcmp(arguments[flag_reading_index], "-a") == 0)
     				{
 					parsing(&flag_reading_index, word_list, &first_execution, false, false, arguments);
     				}
@@ -156,7 +156,8 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 			if (num_args >= min_args_draw)
 			{
 				/* match arguments */
-				char command_word_string[INDEX_LETTERS_WORD];
+				char *command_word_string = malloc((size_t)INDEX_LETTERS_WORD);
+
 				for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
 				{
 					bool arg_found = false;
@@ -216,6 +217,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 				{
 					drawing(command_word_string, x_pattern);
 				}
+				free(command_word_string);
 			}
 		}
 	}
