@@ -13,7 +13,7 @@ wordle: bin
 
 base:
 	zig cc $(BCMD) -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Werror
-	$(C) Z B e
+	$(C) Z B
 
 macos: bin
 	@$(C) C
@@ -26,6 +26,3 @@ android: bin
 	chmod u+x ~/$(W)
 	@echo "The \"$(W)\" file was copied to your home directory"
 	@echo "execute it with ~/$(W)"
-
-windows: 
-	@$(C) W

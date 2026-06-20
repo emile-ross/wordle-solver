@@ -88,12 +88,6 @@ int main(int argc, char *argv[])
 				compiler_choice = ZIG;
 				compiler_found = true;
 				break;
-			case 'W':
-				/* Windows compilation is not supported. 
-				 * I hardcoded forward slashes everywhere in here */
-				printf("Windows compilation is not supported.\n");
-				return 32;
-				break;
 			default:
 				printf("Missing compiler or unknown compiler\n");
 				printf("%c", compiler_arg_temp);
