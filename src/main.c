@@ -24,9 +24,8 @@ int main(int argc, char *argv[])
 	}
 
 	if (find_match_mode)
-	{
 		print_as_table(table_width, n_possible_answers, awsum_table_mode, filtered_arr);
-	}
+
 	return 0;
 }
 

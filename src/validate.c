@@ -62,22 +62,12 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 			if (word_list_matches[i])
 			{
 				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_names[i]);
-				if (i == la_common || i == la_all)
+
+				if (i == fr_all)
 				{
-					if (word_list_matches[fr_all])
-					{
-						if (i == la_all)
-						{
-							if (!word_list_matches[la_common])
-								printf("\n");
-						}
-						else
-						{
-							printf("\n");
-						}
-
-
-					}
+					int next = i + 1;
+					if (word_list_matches[next] || word_list_matches[next+1])
+						printf("\n");
 				}
 			}
 		}

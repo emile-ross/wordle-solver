@@ -19,9 +19,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 			if (strcmp(arguments[i], "--draw") == 0 || strcmp(arguments[i], "-d") == 0)
 			{
 				if (!ignore_warn)
-				{
 					warn(draw);
-				}
 		
 				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
