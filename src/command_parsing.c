@@ -208,13 +208,10 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 				}
 
 				if (validate_word_bl)
-				{
 					validate_word(command_word_string);
-				}
 				else
-				{
 					drawing(command_word_string, x_pattern);
-				}
+
 				free(command_word_string);
 			}
 		}
@@ -232,10 +229,9 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[])
 	if (num_args_surrounding > 0)
 	{
 		int lower_bound = flag_index - num_args_surrounding;
+
 		if (lower_bound < 0)
-		{
 			lower_bound = 0;
-		}
 
 		int upper_bound = flag_index + num_args_surrounding;
 		if (upper_bound > total_args_index)

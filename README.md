@@ -124,3 +124,11 @@ The ``-w nyt`` flag specifies the ``nyt_words`` list.
 ### all french words
 
 The ``fr_all_words`` list is a list of [all 5 letter french words](https://raw.githubusercontent.com/emile-ross/wordle/refs/heads/main/src/word-lists/fr_all_words.c).  The ``-w fr`` flag specifies the french word list.  
+
+### all latin words
+
+This list is composed of all latin words
+
+### common latin words
+
+This word list is composed of common latin words
