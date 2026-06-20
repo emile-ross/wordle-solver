@@ -142,20 +142,19 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	/* parsing logic is below for all options */
-	char flag_string[24];
+	size_t str_size = 24;
+	char *flag_string = malloc(24);	/* allocate enough memory for the flag_string (24 bytes) */
 	
 	if (letter_indexed_bl)
 	{
 		if (filter_include_bl)
 		{
-			snprintf(flag_string, sizeof(flag_string), "--strict");
+			snprintf(flag_string, str_size, "--strict");
 			bool first_character = false;
 			bool prev_character_found = false;
 		
 			if (word_letter_index == 0)
-			{
 				first_character = true;
-			}
 		
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -166,22 +165,16 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 					temp_count++;
 		
 					if (!prev_character_found && first_character)
-					{
 						prev_character_found = true;
-					}
 				}
 				else
-				{
 					if (prev_character_found)
-					{
 						break;
-					}
-				}
 			}
 		}
 		else
 		{
-			snprintf(flag_string, sizeof(flag_string), "--exclude");
+			snprintf(flag_string, str_size, "--exclude");
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
@@ -197,7 +190,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			snprintf(flag_string, sizeof(flag_string), "--includes");
+			snprintf(flag_string, str_size, "--includes");
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
@@ -214,7 +207,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			snprintf(flag_string, sizeof(flag_string), "--absent");
+			snprintf(flag_string, str_size, "--absent");
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				bool letter_match = false;
@@ -246,21 +239,18 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		strcpy(filtered_arr[k], filtered_arr_temp[k]);
 	}
+
+	/* display verbose message if verbose mode is enabled */
 	if (verbose)
-	{
-	        /* display verbose message */
 	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
-	}
+
+	free(flag_string);	/* free after use */
 	
-	int arg_offset;
+	int arg_offset = 0;
 	if (letter_indexed_bl)
-	{
 	    	arg_offset = P_FILTERS_ARG_EXP;
-	}
 	else
-	{
 	    	arg_offset = G_FILTERS_ARG_EXP;
-	}
 	
 	*(flag_r) += arg_offset;
 	*(f_exec) = false;
