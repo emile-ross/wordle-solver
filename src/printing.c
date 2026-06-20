@@ -59,6 +59,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 				}
 			    	printf("%s ", all_answers_print[i]);
 			}
+
 			/* decrease the indenting by one */
 			int temp_indenting = indenting;
 			if (indenting >= 2)
@@ -110,13 +111,9 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
     	}
 
     	if (letter_is_present)
-    	{
     	    	printf(" with ");
-    	}
     	else
-    	{
     	    	printf(" without ");
-    	}
 
     	printf(UDRL_S BOLD_S"%c"STYLE_END" "ANSI_LCYAN, letter);
 
