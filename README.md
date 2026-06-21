@@ -5,6 +5,7 @@ This is a wordle solver engine
 It finds all words matching your criterias (see [examples](#example-commands))
 
 ## Download and compile
+Supported on :
 [![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)](#)
 [![macOS](https://img.shields.io/badge/macOS-000000?logo=apple&logoColor=F0F0F0)](#)
 [![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)](#)
@@ -69,7 +70,6 @@ This command searches for all words following these characteristics:
 ./wordle -s A 1 -i D -x D 3 -a Z
 ```
 
-
 ## real scenario
 
 Lets say you typed "K I T T Y" as your first guess for the wordle.  If the K in KITTY is green and the Y is yellow, you can narrow the answer to a single word with this information.  
@@ -79,10 +79,7 @@ You can other flags because Y was yellow.  The flag ``-i Y`` combined with ``-x 
 Full command: ``./wordle -s K 1 -i Y -x Y 5``
 
 Command output: 
-```
-KAYAK
-1 possible word
-```
+<img src="assets/showcase.png" alt="Command output" width=400>
 
 ## Word validation
 
