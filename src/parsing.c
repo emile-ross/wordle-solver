@@ -60,7 +60,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			err(20);
 		}
 		/* rename variables */
-		ptr = filtered_arr;
+		ptr = (const char (*)[INDEX_LETTERS_WORD])filtered_arr;
 		n_pos_arr = n_possible_answers;
 	}
 	
