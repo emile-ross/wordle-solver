@@ -48,11 +48,11 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 
 					if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
 					{
-						word_list = common;
+						word_list = en_common;
 					}
 					else if (strcmp(arguments[list_name_index], "all") == 0 || strcmp(arguments[list_name_index], "all-words") == 0)
 					{
-						word_list = all;
+						word_list = en_all;
 					}
 					else if (strcmp(arguments[list_name_index], "fr") == 0 || strcmp(arguments[list_name_index], "french") == 0)
 					{
@@ -68,7 +68,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 					}
 					else if (strcmp(arguments[list_name_index], "nyt") == 0 || strcmp(arguments[list_name_index], "NYT") == 0 || strcmp(arguments[list_name_index], "times") == 0)
 					{
-						word_list = nyt;
+						word_list = en_nyt;
 					}
 					else
 					{

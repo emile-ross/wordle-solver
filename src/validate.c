@@ -15,9 +15,9 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 	bool word_list_matches[NUM_WORD_LISTS];
 	char *word_list_names[NUM_WORD_LISTS];
 
-	word_list_names[nyt]		= "english New-York Times word list";
-	word_list_names[common]		= "english the \"common words\" list";
-	word_list_names[all]		= "english \"all words\" list";
+	word_list_names[en_nyt]		= "english New-York Times word list";
+	word_list_names[en_common]		= "english the \"common words\" list";
+	word_list_names[en_all]		= "english \"all words\" list";
 
 	word_list_names[fr_all]		= "french \"all words\" list";
 	word_list_names[la_common]	= "latin \"common words\" list";

@@ -16,14 +16,19 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		n_pos_arr = list_match(w_list, &ptr);
 		switch (w_list)
 		{
-		case nyt:
+		case en_all:
+			ptr = all_words;
+			n_pos_arr = NUM_ALL_WORDS;
+			break;
+		case en_nyt:
 			ptr = nyt_words;
 			n_pos_arr = NUM_WORDS;
 			break;
-		case common:
+		case en_common:
 			ptr = common_words;
 			n_pos_arr = NUM_COMMON_WORDS;
 			break;
+
 		case fr_all:
 			ptr = fr_all_words;
 			n_pos_arr = NUM_FR_ALL_WORDS;
@@ -38,12 +43,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			ptr = la_com_words;
 			n_pos_arr = NUM_LA_COM_WORDS;
 			break;
-	
-		case all:
-			ptr = all_words;
-			n_pos_arr = NUM_ALL_WORDS;
-			break;
-	
+			
 		default:
 			err(15);
 			break;
@@ -111,13 +111,13 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 			switch (w_list)
 			{
-			case nyt:
+			case en_nyt:
 				word_list_name = &word_list_text[w_list];
 				break;
-			case common:
+			case en_common:
 				word_list_name = &word_list_text[w_list];
 				break;
-			case all:
+			case en_all:
 				word_list_name = &word_list_text[w_list];
 				break;
 			case la_all:

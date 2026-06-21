@@ -1,8 +1,8 @@
 typedef enum  
 {
-	nyt,
-	common,
-	all,
+	en_nyt,
+	en_common,
+	en_all,
 	fr_all,
 	la_common,
 	la_all,

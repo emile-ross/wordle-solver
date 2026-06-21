@@ -23,7 +23,7 @@ bool ignore_warn = false;	/* false by default */
 
 /* Parsing & command options */
 
-ALL_WORD_LISTS default_word_list = nyt;	/* nyt by default (nyt = New York Times word list) */
+ALL_WORD_LISTS default_word_list = en_nyt;	/* nyt by default (nyt = New York Times word list) */
 /* this sets the default word list
  * it is used when no word list is specified in the command */
 

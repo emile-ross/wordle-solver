@@ -5,11 +5,15 @@ int list_match(ALL_WORD_LISTS word_list_enum, const char (*(*word_list_pointer))
 	int number_of_words = 0;
 	switch (word_list_enum)
 	{
-	case nyt:
+	case en_all:
+		*word_list_pointer = all_words;
+		number_of_words = NUM_ALL_WORDS;
+		break;
+	case en_nyt:
 		*word_list_pointer = nyt_words;
 		number_of_words = NUM_WORDS;
 		break;
-	case common:
+	case en_common:
 		*word_list_pointer = common_words;
 		number_of_words = NUM_COMMON_WORDS;
 		break;
@@ -27,12 +31,6 @@ int list_match(ALL_WORD_LISTS word_list_enum, const char (*(*word_list_pointer))
 		*word_list_pointer = la_com_words;
 		number_of_words = NUM_LA_COM_WORDS;
 		break;
-
-	case all:
-		*word_list_pointer = all_words;
-		number_of_words = NUM_ALL_WORDS;
-		break;
-
 	default:
 		/* word list entry is missing in this switch statement */
 		err(UNKNOWN_WORD_LIST);
