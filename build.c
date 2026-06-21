@@ -5,7 +5,7 @@
 
 #define num_base_src_files (10)
 const char *source_files_base_path = "src/";
-const char *source_files_ext = ".c";
+const char *source_files_ext = ".c ";
 
 char *source_files[num_base_src_files] = 
 {
@@ -23,15 +23,15 @@ char *source_files[num_base_src_files] =
 
 #define num_word_lists (6)
 const char *word_lists_base_path = "src/word-lists/";
-const char *word_lists_file_ext = ".c";
+const char *word_lists_file_ext = ".c ";
 char *word_lists[num_word_lists] = 
 {
+	"nyt_words",
 	"all_words",
-	"common_words",
+	"en_common_words",
 	"fr_all_words",
 	"la_all_words",
 	"la_com_words",
-	"nyt_words",
 };
 
 char *source_files_cmd(size_t *fp_length, size_t *ptr);
@@ -285,30 +285,27 @@ char *source_files_cmd(size_t *fp_length, size_t *ptr)
 	{
 		size_t temp_path_size = base_word_list_path_size;
 		temp_path_size += strlen(word_lists[i]);
-		full_string_size += temp_path_size + 1; /* 1 is for the space */
+		full_string_size += temp_path_size;
 	}
 
 	for (int i = 0; i < num_base_src_files; i++)
 	{
 		size_t temp_path_size = base_src_path_size;
 		temp_path_size += strlen(source_files[i]);
-		full_string_size += temp_path_size + 1; /* 1 is for the space */
+		full_string_size += temp_path_size;
 	}
 
 	char *full_cmd_string = malloc(full_string_size);
 	*fp_length = full_string_size;
 
 	size_t addr = (size_t)full_cmd_string;
-
 	*ptr = addr;
-
 
 	for (int i = 0; i < num_word_lists; i++)
 	{
 		strcat(full_cmd_string, word_lists_base_path);	/* add file path */
 		strcat(full_cmd_string, word_lists[i]);		/* add file name */
 		strcat(full_cmd_string, word_lists_file_ext);	/* add file extention */
-		strcat(full_cmd_string, " ");	/* add space */
 	}
 
 	for (int i = 0; i < num_base_src_files; i++)
@@ -316,9 +313,7 @@ char *source_files_cmd(size_t *fp_length, size_t *ptr)
 		strcat(full_cmd_string, source_files_base_path);	/* add file path */
 		strcat(full_cmd_string, source_files[i]);		/* add file name */
 		strcat(full_cmd_string, source_files_ext);	/* add file extention */
-		strcat(full_cmd_string, " ");	/* add space */
 	}
-
 
 	return full_cmd_string;
 }
