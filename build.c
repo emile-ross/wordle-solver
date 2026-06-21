@@ -26,8 +26,8 @@ const char *word_lists_base_path = "src/word-lists/";
 const char *word_lists_file_ext = ".c ";
 char *word_lists[num_word_lists] = 
 {
-	"nyt_words",
-	"all_words",
+	"en_nyt_words",
+	"en_all_words",
 	"en_common_words",
 	"fr_all_words",
 	"la_all_words",
