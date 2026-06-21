@@ -185,8 +185,6 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 						{
 							size_t command_word_string_size = strlen(arguments[flag_temp]);
 
-							printf("%s\n", arguments[flag_temp]);
-
 							if (NUM_LETTERS_WORD < command_word_string_size)
 							{
 								/* word is too long */

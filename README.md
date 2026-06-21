@@ -79,7 +79,8 @@ You can other flags because Y was yellow.  The flag ``-i Y`` combined with ``-x 
 Full command: ``./wordle -s K 1 -i Y -x Y 5``
 
 Command output: 
-<img src="assets/showcase.png" alt="Command output" width=400>
+
+<img src="assets/showcase.png" alt="KAYAK 1 possible words" width=450>
 
 ## Word validation
 
@@ -92,10 +93,11 @@ example command:
 ```sh
 ./wordle -v share
 ```
-This command would check if the word "share" can be found in the New-York Times word list, the common word list and the "all words" list
+This command would check if the word "share" can be found in any word list. 
 
 The program will then display a message for each word list it can be found in.  
-There is no limit to the amount of flags one can use.  
+
+There is no limit to the amount of flags one can use.
 
 ## Drawing
 
