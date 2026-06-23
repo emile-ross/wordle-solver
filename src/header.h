@@ -90,7 +90,6 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
 /* General simple functions */
 	void user_index_validation(int index);
-	char to_uppercase(char letter);		/* a replacement for toupper() since it is hot garbage */
 
 
 /* config file */
