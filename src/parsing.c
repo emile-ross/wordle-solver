@@ -1,5 +1,7 @@
-#include <limits.h>
 #include "header.h"
+
+#include <limits.h>
+
 
 int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[], int num_args)
 {
@@ -7,20 +9,20 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 
-  int letter_arg_index = *flag_r + 1;
-  int number_arg_index = *flag_r + 2;
-
-  /* check if number of arguments given to parse is enough
-   * will return error if not, this prevents segfault */
-  if (letter_arg_index >= num_args) 
-  {
-    err(CMD_MISSING_ARGS);
-  }
-
-  if (letter_indexed_bl && number_arg_index >= num_args)
-  {
-    err(CMD_MISSING_ARGS);
-  }
+	int letter_arg_index = *flag_r + 1;
+	int number_arg_index = *flag_r + 2;
+	
+	/* check if number of arguments given to parse is enough
+	 * will return error if not, this prevents segfault */
+	if (letter_arg_index >= num_args) 
+	{
+		err(CMD_MISSING_ARGS);
+	}
+	
+	if (letter_indexed_bl && number_arg_index >= num_args)
+	{
+	      	err(CMD_MISSING_ARGS);
+	}
 
 	const char (*ptr)[INDEX_LETTERS_WORD];
 	
@@ -96,7 +98,12 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
-		word_letter_index = (int)strtol(arguments[number_arg_index], &endptr, 10);
+		long user_index = strtol(arguments[number_arg_index], &endptr, 10);
+		if (user_index > INT_MAX || user_index < INT_MIN)
+		{
+			err(CMD_INDEX_BOUNDS);
+		}
+		word_letter_index = (int)user_index;
 		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
 								   therefore, we need to convert it from a count to an index */
 		user_index_validation(word_letter_index); /* validate the index the user provided */

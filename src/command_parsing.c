@@ -239,6 +239,7 @@ void invalid_flag(int total_args_index, int flag_index, char *flag[])
 
 		printf("\nHere’s where the command uses an invalid argument:");
 		printf("\n\""BOLD_S);
+
 		for (int i = lower_bound; i < flag_index; i++)
 		{
 			printf("%s ", flag[i]);
