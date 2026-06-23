@@ -1,11 +1,27 @@
+#include <limits.h>
 #include "header.h"
 
-int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[])
+int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[], int num_args)
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
-	
+
+  int letter_arg_index = *flag_r + 1;
+  int number_arg_index = *flag_r + 2;
+
+  /* check if number of arguments given to parse is enough
+   * will return error if not, this prevents segfault */
+  if (letter_arg_index >= num_args) 
+  {
+    err(CMD_MISSING_ARGS);
+  }
+
+  if (letter_indexed_bl && number_arg_index >= num_args)
+  {
+    err(CMD_MISSING_ARGS);
+  }
+
 	const char (*ptr)[INDEX_LETTERS_WORD];
 	
 	int n_pos_arr;
@@ -64,12 +80,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		n_pos_arr = n_possible_answers;
 	}
 	
-	int letter_arg_index = *flag_r;
-	letter_arg_index++;
-	int number_arg_index = letter_arg_index;
-	number_arg_index++;
-	
-	/* word_letter_index is the index of the letter the user is looking for
+   /* word_letter_index is the index of the letter the user is looking for
 	 *
 	 * example 1: you want to find all words with A as the first letter
 	 * 'A' is at index 1
