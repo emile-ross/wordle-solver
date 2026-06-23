@@ -1,7 +1,7 @@
 #include "header.h"
 
 #include <limits.h>
-
+#include <ctype.h>
 
 int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[], int num_args)
 {
@@ -113,7 +113,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		word_letter_index = -1;
 	}
 	
-	char letter_indexed = to_uppercase(arguments[letter_arg_index][0]);
+	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
 	
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
 	int temp_count = 0; /* reset temporary count buffer */

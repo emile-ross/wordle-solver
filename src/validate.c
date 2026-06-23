@@ -1,12 +1,14 @@
 #include "header.h"
 
+#include <ctype.h>
+
 void validate_word(char command_word_string[INDEX_LETTERS_WORD])
 {
 	char command_word_string_temp[INDEX_LETTERS_WORD];
 
 	for (int i = 0; i < NUM_LETTERS_WORD; i++)
 	{
-		command_word_string_temp[i] = to_uppercase(command_word_string[i]);
+		command_word_string_temp[i] = (char)toupper((unsigned char)command_word_string[i]);
 	}
 
 	strcpy(command_word_string, command_word_string_temp);

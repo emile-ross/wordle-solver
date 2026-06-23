@@ -1,12 +1,14 @@
 #include "header.h"
 
+#include <ctype.h>
+
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 {
 	char wordle_answer_temp[INDEX_LETTERS_WORD];
 	for (int i = 0; i < NUM_LETTERS_WORD; i++)
 	{
 		/* convert the wordle answer to uppercase for easier parsing */
-		wordle_answer_temp[i] = (char)to_uppercase(wordle_answer[i]);
+		wordle_answer_temp[i] = (char)toupper((unsigned char)wordle_answer[i]);
 	}
 
 	wordle_answer = wordle_answer_temp;
