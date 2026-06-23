@@ -1,9 +1,8 @@
 #include "header.h"
 
-#include <limits.h>
 #include <ctype.h>
 
-int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[], int num_args)
+int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[], int num_args)
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -63,7 +62,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 			
 		default:
-			err(15);
+			err(UNKNOWN_WORD_LIST);
 			break;
 		}
 	
@@ -99,14 +98,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
 		long user_index = strtol(arguments[number_arg_index], &endptr, 10);
-		if (user_index > INT_MAX || user_index < INT_MIN)
-		{
-			err(CMD_INDEX_BOUNDS);
-		}
-		word_letter_index = (int)user_index;
+		word_letter_index = (int)valid_user_index(user_index);
+
+		word_letter_index = (uint8_t)valid_user_index((long)word_letter_index); /* validate the index the user provided */
 		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
 								   therefore, we need to convert it from a count to an index */
-		user_index_validation(word_letter_index); /* validate the index the user provided */
 	}
 	else
 	{

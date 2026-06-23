@@ -1,6 +1,6 @@
 #include "header.h"
 
-void command_parsing(int num_args, int flag_reading_index, char *arguments[], bool *find_match_mode)
+void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode)
 {
 	bool x_pattern = false;
 	bool first_execution = true;
@@ -216,7 +216,7 @@ void command_parsing(int num_args, int flag_reading_index, char *arguments[], bo
 	}
 }
 
-void invalid_flag(int total_args_index, int flag_index, char *flag[])
+void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 {
 	total_args_index--;
 	/* determine the amount of arguments to print around the value */

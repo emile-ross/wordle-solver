@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /* number of words for each array */
 #define NUM_WORD_LISTS 6
@@ -69,13 +70,13 @@
 /* errors and error codes */
 	void err(error_codes error_code);
 	void warn(warnings warning_type); /* warnings */
-	void invalid_flag(int total_args_index, int flag_index, char *flag[]);
+	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
-int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, char *arguments[], int num_args);
-void command_parsing(int argc, int flag_reading_index, char *arguments[], bool *find_match_mode);
+int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[], int num_args);
+void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
@@ -89,7 +90,7 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
 
 /* General simple functions */
-	void user_index_validation(int index);
+	uint8_t valid_user_index(long index);
 
 
 /* config file */
