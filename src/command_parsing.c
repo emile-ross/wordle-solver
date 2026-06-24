@@ -270,6 +270,16 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	{
 		/* this means that we need to append a message at the end of the program */
 		append_flag_ignore_msg = true;
+
+		*flags_ignored_msg;
+
+		size_t ignored_flags_size = 0;
+		for (int i = flag_index; i < total_args_index; i++)
+		{
+			ignored_flags_size += 1 + strlen(flag[i]);
+		}
+
+		char *flags_ignored_msg = malloc(ignored_flags_size);
 	}
 	else
 	{
