@@ -79,7 +79,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 /* command parsing */
 	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
-	bool arg_match(const char arg, const char long_flag, const char short_flag);
+	bool arg_match(const char *arg, const char *long_flag, const char *short_flag);
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
