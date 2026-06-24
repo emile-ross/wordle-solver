@@ -1,5 +1,6 @@
 #include "header.h"
 bool valid_expression;
+bool append_flag_ignore_msg;
 
 void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode)
 {
@@ -15,6 +16,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 		int n_valid_args = 0;
 		int valid_args_index[max_valid_args];
+		append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
 		for (int i = 0; i < num_args; i++)
 		{
 			
@@ -143,6 +145,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					{
 						/* can be improved */
 						invalid_flag(num_args, flag_reading_index, arguments);
+						break;
 					}
     				}
 				valid_expression = true;
@@ -261,15 +264,16 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 			printf("\n");
 		}
 	}
+	
 
-
-	if (!valid_expression)
+	if (valid_expression && total_args_index - flag_index >= 0)
 	{
-		err(CMD_INVALID_ARG);
+		/* this means that we need to append a message at the end of the program */
+		append_flag_ignore_msg = true;
 	}
 	else
 	{
-		exit(0);
+		err(CMD_INVALID_ARG);
 	}
 }
 
