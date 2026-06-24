@@ -76,7 +76,11 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[], int num_args);
-void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
+
+/* command parsing */
+	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
+	bool arg_match(const char arg, const char long_flag, const char short_flag);
+
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
@@ -106,3 +110,4 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 	extern const char *program_name;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
+

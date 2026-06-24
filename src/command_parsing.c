@@ -258,3 +258,20 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 	err(CMD_INVALID_ARG);
 }
+
+bool arg_match(const char *arg, const char *long_flag, const char *short_flag)
+{
+	/* match the argument to the flags */
+	if (strcmp(arg, long_flag) == 0)
+	{
+		return true;
+	}
+	else if (strcmp(arg, short_flag) == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
