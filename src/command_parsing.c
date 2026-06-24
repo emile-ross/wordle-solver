@@ -1,4 +1,5 @@
 #include "header.h"
+bool valid_expression;
 
 void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode)
 {
@@ -144,6 +145,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 						invalid_flag(num_args, flag_reading_index, arguments);
 					}
     				}
+				valid_expression = true;
     			}
 		}
 		else
@@ -261,13 +263,13 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 
 
-	if (0)
+	if (!valid_expression)
 	{
-		help_message();
+		err(CMD_INVALID_ARG);
 	}
 	else
 	{
-		err(CMD_INVALID_ARG);
+		exit(0);
 	}
 }
 

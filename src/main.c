@@ -7,6 +7,7 @@ ALL_WORD_LISTS word_list;
 
 int main(int argc, const char *argv[])
 {
+	valid_expression = false;
 	bool find_match_mode = true; /* true by default
 	 * true: finds all possible words matching all criterias
 	 * false: tries to make a pattern with the letter colour */

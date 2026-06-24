@@ -93,6 +93,8 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 	extern const char *word_list_flag;
 	extern const char *word_list_long_flag;
 
+	extern bool valid_expression;
+
 
 /* General simple functions */
 	uint8_t valid_user_index(long index);
