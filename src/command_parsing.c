@@ -278,8 +278,13 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 		{
 			ignored_flags_size += 1 + strlen(flag[i]);
 		}
-
 		char *flags_ignored_msg = malloc(ignored_flags_size);
+
+		strcpy(flags_ignored_msg, "Ignored flags: ");
+		for (int i = flag_index; i < total_args_index; i++)
+		{
+			strcat(flags_ignored_msg, flag[i]);
+		}
 	}
 	else
 	{
