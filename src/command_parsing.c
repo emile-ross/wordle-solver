@@ -259,7 +259,16 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 			printf("\n");
 		}
 	}
-	err(CMD_INVALID_ARG);
+
+
+	if (0)
+	{
+		help_message();
+	}
+	else
+	{
+		err(CMD_INVALID_ARG);
+	}
 }
 
 bool arg_match(const char *arg, const char *long_flag, const char *short_flag)

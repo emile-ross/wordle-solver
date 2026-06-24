@@ -20,16 +20,7 @@ void err(error_codes error_code)
 		break;
 		
 	case CMD_INVALID_ARG:
-		printf("The only valid flags are:\n\n");
-		printf(BOLD_S" -e"STYLE_END" (exclude)\n");
-		printf(BOLD_S" -x"STYLE_END" (exclude)\n");
-		printf(BOLD_S"   --excludes"STYLE_END" (the letter \'X\' isn't at position Y)\n");
-		printf(BOLD_S" -s"STYLE_END" (strict)\n");
-		printf(BOLD_S"   --strict"STYLE_END" (the letter \'X\' is at position Y)\n\n");
-		printf(BOLD_S" -a"STYLE_END" (letter is absent)\n");
-		printf(BOLD_S"   --absent"STYLE_END" (the letter \'X\' isn't in the word)\n");
-		printf(BOLD_S" -i"STYLE_END" (includes)\n");
-		printf(BOLD_S"   --includes"STYLE_END" (the letter \'X\' is in the word)");
+		help_message();
 		break;
 		
 	case UNKNOWN_WORD_LIST:
@@ -150,4 +141,19 @@ void warn(warnings warning_type)
 	{
 		printf("\n");
 	}
+}
+
+void help_message(void)
+{
+	printf("The only valid flags are:\n\n");
+	printf(BOLD_S" -e"STYLE_END" (exclude)\n");
+	printf(BOLD_S" -x"STYLE_END" (exclude)\n");
+	printf(BOLD_S"   --excludes"STYLE_END" (the letter \'X\' isn't at position Y)\n");
+	printf(BOLD_S" -s"STYLE_END" (strict)\n");
+	printf(BOLD_S"   --strict"STYLE_END" (the letter \'X\' is at position Y)\n\n");
+	printf(BOLD_S" -a"STYLE_END" (letter is absent)\n");
+	printf(BOLD_S"   --absent"STYLE_END" (the letter \'X\' isn't in the word)\n");
+	printf(BOLD_S" -i"STYLE_END" (includes)\n");
+	printf(BOLD_S"   --includes"STYLE_END" (the letter \'X\' is in the word)");
+	printf(STYLE_END);
 }
