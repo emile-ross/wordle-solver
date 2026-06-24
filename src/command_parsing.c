@@ -21,7 +21,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				if (!ignore_warn)
 					warn(draw);
 		
-				find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
+				*find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
@@ -99,14 +99,14 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			}
 			else if (strcmp(arguments[i], "-v") == 0 || strcmp(arguments[i], "--validate") == 0)
 			{
-				find_match_mode = false; /* We aren't matching words */
+				*find_match_mode = false; /* We aren't matching words */
 				validate_word_bl = true; /* we are validating a word */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
 		}
 
-		if (find_match_mode)
+		if (*find_match_mode)
 		{
 			while (flag_reading_index < num_args)
 			{

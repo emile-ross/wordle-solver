@@ -1,7 +1,5 @@
 #include "header.h"
 
-#include <limits.h>
-
 const char *word_list_flag = "-w";
 const char *word_list_long_flag = "--word-list";
 
@@ -15,13 +13,9 @@ char *word_list_text[NUM_WORD_LISTS] =
 
 uint8_t valid_user_index(long index)
 {
-	if (index > 65535 || index < 0)
-	    	err(CMD_INDEX_BOUNDS);
-
-
-	if (index < 0 || index > NUM_LETTERS_WORD )
+	if (index > 65535 || index < 0 || index > NUM_LETTERS_WORD)
 	{
-	    	/* display error message for invalid value (invalid index into the word) */
+		/* display error message for invalid value (invalid index into the word) */
 	    	err(CMD_INDEX_BOUNDS);
 	}
 	return (uint8_t)index;
