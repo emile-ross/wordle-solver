@@ -271,20 +271,16 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 		/* this means that we need to append a message at the end of the program */
 		append_flag_ignore_msg = true;
 
-		*flags_ignored_msg;
+		const char *ignored_flags_template = BOLD_S"Ignored flags: "ANSI_RED"%s"STYLE_END;
+		
 
-		size_t ignored_flags_size = 0;
-		for (int i = flag_index; i < total_args_index; i++)
-		{
-			ignored_flags_size += 1 + strlen(flag[i]);
-		}
+		size_t ignored_flags_size = 1 + (size_t)snprintf(NULL, 0, ignored_flags_template, flag[flag_index]);
 		char *flags_ignored_msg = malloc(ignored_flags_size);
 
-		strcpy(flags_ignored_msg, "Ignored flags: ");
-		for (int i = flag_index; i < total_args_index; i++)
-		{
-			strcat(flags_ignored_msg, flag[i]);
-		}
+		snprintf(flags_ignored_msg, ignored_flags_size, ignored_flags_template, flag[flag_index]);
+
+		printf("%s\n\n", flags_ignored_msg);
+		free(flags_ignored_msg);
 	}
 	else
 	{
