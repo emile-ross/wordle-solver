@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define num_base_src_files (10)
+#define num_base_src_files (11)
 const char *source_files_base_path = "src/";
 const char *source_files_ext = ".c ";
 
@@ -19,6 +19,7 @@ char *source_files[num_base_src_files] =
 	"parsing",
 	"printing",
 	"validate",
+	"file_reading",
 };
 
 #define num_word_lists (6)
