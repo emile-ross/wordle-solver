@@ -95,7 +95,6 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
 	extern bool valid_expression;
 	extern bool append_flag_ignore_msg;
-	extern char *flags_ignored_msg;
 
 
 /* General simple functions */
