@@ -45,12 +45,10 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					}
 				}
 
-				int list_name_index = -1;
+				int list_name_index = i + 1;
 
-				if (num_args >= 3)
+				if (num_args > list_name_index)
 				{
-					list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
-
 					if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
 					{
 						word_list = en_common;
