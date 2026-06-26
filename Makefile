@@ -1,7 +1,10 @@
-cond := $(wildcard build)
-C = ./build
-W = wordle
-BCMD = build.c -o build
+# chose your compiler
+
+CC := gcc
+# CC := clang
+# CC := zig cc
+
+binary_file = wordle
 
 WORD_DIR := src/word-lists
 w_list_filenames := en_nyt_words en_all_words en_common_words fr_all_words la_all_words la_com_words
@@ -16,30 +19,24 @@ FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
 
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
-OUT = -o wordle
+OUT = -o $(binary_file)
 
-bin:
-ifeq ($(cond),)
-	@gcc $(BCMD)
-endif
+wordle:
+	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT)
+macos: wordle
 
-wordle: bin
-	@$(C) G
+all_flags_cmd = $(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS)
+
+base-e:
+	$(all_flags_cmd)
 
 base:
-	zig cc $(BCMD) $(OUT) $(ALL_FLAGS) -Werror
-	zig cc $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS) -Werror
+	$(all_flags_cmd) -Werror
 
-macos: bin
-	@$(C) C
-
-android: bin
-	@cp -f build ~
-	chmod u+x ~/build
-	@~/build G a
-	cp -f $(W) ~
-	chmod u+x ~/$(W)
-	@echo "The \"$(W)\" file was copied to your home directory"
-	@echo "execute it with ~/$(W)"
+android: wordle
+	cp -f $(binary_file) ~
+	chmod u+x ~/$(binary_file)
+	@echo "The \"$(binary_file)\" file was copied to your home directory"
+	@echo "execute it with ~/$(binary_file)"
 
 
