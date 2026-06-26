@@ -1,7 +1,5 @@
 #include "header.h"
 
-int get_num_lines(char *file_path);
-
 char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 int n_possible_answers;

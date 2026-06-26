@@ -13,7 +13,7 @@ WORD_LIST_FILES := $(addprefix $(WORD_DIR)/, $(w_list_filenames))
 WORD_LISTS := $(addsuffix .c, $(WORD_LIST_FILES))
 
 SOURCE_DIR := src
-src_filenames := command_parsing config drawing errors functions list_matching main parsing printing validate file_reading
+src_filenames := command_parsing config drawing errors functions list_matching main parsing printing validate
 
 FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
