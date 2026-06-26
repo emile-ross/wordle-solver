@@ -99,7 +99,7 @@ void warn(warnings warning_type)
 			break;
 
 		default: 
-			printf("Unknown warning\n");
+			fprintf(stderr, "Unknown warning\n");
 			critical = true;
 			err((error_codes)warning_type);
 			break;
@@ -133,7 +133,7 @@ void warn(warnings warning_type)
 		char warning_message[message_size];
 		snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
 
-		printf("%s\n", warning_message);
+		fprintf(stderr, "%s\n", warning_message);
 	}
 
 	printf("Press any key to continue");
