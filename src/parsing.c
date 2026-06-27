@@ -164,10 +164,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		if (filter_include_bl)
 		{
 			int ret = snprintf(flag_string, str_size, "--strict");
-      if (ret < 0 || ret >= str_size)
-      {
-        err(FORMATTING_ERROR);
-      }
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+      			}
 			bool first_character = false;
 			bool prev_character_found = false;
 		
@@ -193,10 +193,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		else
 		{
 			int ret = snprintf(flag_string, str_size, "--exclude");
-      if (ret < 0 || ret >= str_size)
-      {
-        err(FORMATTING_ERROR);
-      }
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+      			}
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
@@ -213,10 +213,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		if (filter_include_bl)
 		{
 			int ret = snprintf(flag_string, str_size, "--includes");
-      if (ret < 0 || ret >= str_size)
-      {
-        err(FORMATTING_ERROR);
-      }
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+     			}
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
@@ -234,10 +234,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		else
 		{
 			int ret = snprintf(flag_string, str_size, "--absent");
-      if (ret < 0 || ret >= str_size)
-      {
-        err(FORMATTING_ERROR);
-      }
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+      			}
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				bool letter_match = false;
@@ -270,11 +270,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
     size_t size = sizeof(filtered_arr[k]);
 		int ret = snprintf(filtered_arr[k], size, "%s", filtered_arr_temp[k]);
 
-    /* snprintf() error or string truncated */
-    if (ret < 0 || ret >= size)
-    {
-      err(FORMATTING_ERROR);
-    }
+    		/* snprintf() error or string truncated */
+    		if (ret < 0 || ret >= size)
+    		{
+      			err(FORMATTING_ERROR);
+    		}
 
 	}
 

@@ -68,14 +68,14 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			{
 				if (green_letter == all_words[j][entry_i])
 				{
-          size_t size = sizeof(filtered_words_temp[num_answers]);
+          				size_t size = sizeof(filtered_words_temp[num_answers]);
 					int ret = snprintf(filtered_words_temp[num_answers], size, "%s", all_words[j]);
 
-          /* snprintf() error or string truncated */
-          if (ret < 0 || ret >= size)
-          {
-            err(FORMATTING_ERROR);
-          }
+        				/* snprintf() error or string truncated */
+          				if (ret < 0 || ret >= size)
+          				{
+            					err(FORMATTING_ERROR);
+          				}
 					num_answers++;
 				}
 			}
@@ -144,11 +144,11 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
         size_t size = sizeof(all_answers[entry_i][j]);
 				int ret = snprintf(all_answers[entry_i][j], size, "%s", filtered_words[j]);
 
-        /* snprintf() error or string truncated */
-        if (ret < 0 || ret >= size) 
-        {
-          err(FORMATTING_ERROR);
-        }
+        			/* snprintf() error or string truncated */
+        			if (ret < 0 || ret >= size) 
+        			{
+          				err(FORMATTING_ERROR);
+        			}
 			}
 			num_all_answers[entry_i] = num_answers;
 			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
