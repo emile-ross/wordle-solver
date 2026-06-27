@@ -18,6 +18,10 @@ void err(error_codes error_code)
 	case FEAT_NOT_IMPLEMENTED:
 		error_message = "This feature hasn't been implemented";
 		break;
+
+	case NO_SUCH_FILE:
+		error_message = "Failed to open file\nNo such file or directory.";
+		break;
 		
 	case CMD_INVALID_ARG:
 		help_message();
@@ -28,12 +32,11 @@ void err(error_codes error_code)
 		break;
 		
 	case NO_POSSIBLE_ANSWERS:
-		printf(BOLD_S"No possible answers.\n"STYLE_END);
-		printf(BOLD_S"Try editing your filters."STYLE_END);
+		error_message = "No possible answers.\nTry editing your filters.";
 		break;
 
 	case WORD_TOO_LONG:
-		printf("Word is too long");
+		error_message = "Word is too long";
 		break;
 	case WORD_TOO_SHORT:
 		printf("Word is too short");
@@ -96,7 +99,7 @@ void warn(warnings warning_type)
 			break;
 
 		default: 
-			printf("Unknown warning\n");
+			fprintf(stderr, "Unknown warning\n");
 			critical = true;
 			err((error_codes)warning_type);
 			break;
@@ -130,7 +133,7 @@ void warn(warnings warning_type)
 		char warning_message[message_size];
 		snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
 
-		printf("%s\n", warning_message);
+		fprintf(stderr, "%s\n", warning_message);
 	}
 
 	printf("Press any key to continue");
