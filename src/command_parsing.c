@@ -204,8 +204,14 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 							}
 							else
 							{
-								snprintf(command_word_string, (size_t)INDEX_LETTERS_WORD,
+                size_t size = sizeof(command_word_string);
+								int ret = snprintf(command_word_string, size,
 										"%s", arguments[flag_temp]);
+
+                if (ret < 0 || ret >= size)
+                {
+                  err(FORMATTING_ERROR);
+                }
 							}
 						}
 					}
