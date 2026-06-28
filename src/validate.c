@@ -2,16 +2,12 @@
 
 #include <ctype.h>
 
-void validate_word(char command_word_string[INDEX_LETTERS_WORD])
+void validate_word(char *command_word_string)
 {
-	char command_word_string_temp[INDEX_LETTERS_WORD];
-
-	for (int i = 0; i < NUM_LETTERS_WORD; i++)
-	{
-		command_word_string_temp[i] = (char)toupper((unsigned char)command_word_string[i]);
-	}
-
-	strcpy(command_word_string, command_word_string_temp);
+  for (size_t i = 1; i < sizeof(command_word_string); i++) 
+  {
+    command_word_string[i] = (char)toupper((unsigned char)command_word_string[i]);
+  }
 
 	int num_matches = 0;
 	bool word_list_matches[NUM_WORD_LISTS];

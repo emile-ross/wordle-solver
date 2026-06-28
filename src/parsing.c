@@ -156,14 +156,18 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	/* parsing logic is below for all options */
-	size_t str_size = 24;
-	char *flag_string = malloc(24);	/* allocate enough memory for the flag_string (24 bytes) */
+  char flag_string[24] = {0};
+  size_t str_size = sizeof(flag_string);
 	
 	if (letter_indexed_bl)
 	{
 		if (filter_include_bl)
 		{
-			snprintf(flag_string, str_size, "--strict");
+			int ret = snprintf(flag_string, str_size, "--strict");
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+      			}
 			bool first_character = false;
 			bool prev_character_found = false;
 		
@@ -188,7 +192,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			snprintf(flag_string, str_size, "--exclude");
+			int ret = snprintf(flag_string, str_size, "--exclude");
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+      			}
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
@@ -204,7 +212,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			snprintf(flag_string, str_size, "--includes");
+			int ret = snprintf(flag_string, str_size, "--includes");
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+     			}
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
@@ -221,7 +233,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			snprintf(flag_string, str_size, "--absent");
+			int ret = snprintf(flag_string, str_size, "--absent");
+      			if (ret < 0 || ret >= str_size)
+      			{
+        			err(FORMATTING_ERROR);
+      			}
 			for (int j = 0; j < n_pos_arr; j++)
 			{
 				bool letter_match = false;
@@ -251,15 +267,21 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-		strcpy(filtered_arr[k], filtered_arr_temp[k]);
+    size_t size = sizeof(filtered_arr[k]);
+		int ret = snprintf(filtered_arr[k], size, "%s", filtered_arr_temp[k]);
+
+    		/* snprintf() error or string truncated */
+    		if (ret < 0 || ret >= size)
+    		{
+      			err(FORMATTING_ERROR);
+    		}
+
 	}
 
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
 
-	free(flag_string);	/* free after use */
-	
 	int arg_offset = 0;
 	if (letter_indexed_bl)
 	    	arg_offset = P_FILTERS_ARG_EXP;
