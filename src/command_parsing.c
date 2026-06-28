@@ -1,4 +1,5 @@
 #include "header.h"
+
 bool valid_expression;
 bool append_flag_ignore_msg;
 
@@ -209,10 +210,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 								int ret = snprintf(command_word_string, size,
 										"%s", arguments[flag_temp]);
 								
-								if (ret < 0 || ret >= (int)size)
-								{
-									err(FORMATTING_ERROR);
-								}
+								check_buf(ret, (int)size);	/* check buffer for possible truncation  */
 							}
 						}
 					}
@@ -278,15 +276,11 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 
 		const char *ignored_flags_template = BOLD_S"Ignored flags: "ANSI_RED"%s"STYLE_END;
 		
-
 		size_t ignored_flags_size = 1 + (size_t)snprintf(NULL, 0, ignored_flags_template, flag[flag_index]);
 		char *flags_ignored_msg = malloc(ignored_flags_size);
 
 		int ret = snprintf(flags_ignored_msg, ignored_flags_size, ignored_flags_template, flag[flag_index]);
-		if (ret < 0 || ret >= ignored_flags_size)
-		{
-			err(FORMATTING_ERROR);
-		}
+		check_buf(ret, (int)ignored_flags_size);	/* check buffer for possible truncation  */
 
 		printf("%s\n\n", flags_ignored_msg);
 		free(flags_ignored_msg);
