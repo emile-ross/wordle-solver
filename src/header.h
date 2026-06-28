@@ -72,6 +72,7 @@
 	void warn(warnings warning_type); /* warnings */
 	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
 	void help_message(void);
+	void check_buf(int return_value, int size_of_buffer);
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
@@ -83,7 +84,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	bool arg_match(const char *arg, const char *long_flag, const char *short_flag);
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
-void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
+void validate_word(char *command_word_string);
 
 /* Global variables */
 	extern int ARGS_BEFORE_CUR_FLAG;
@@ -95,7 +96,6 @@ void validate_word(char command_word_string[INDEX_LETTERS_WORD]);
 
 	extern bool valid_expression;
 	extern bool append_flag_ignore_msg;
-
 
 /* General simple functions */
 	uint8_t valid_user_index(long index);

@@ -60,10 +60,7 @@ void err(error_codes error_code)
 
 		/* write to error_msg_base buffer */
 		int ret = snprintf(full_error_message, message_size, message_template, program_name, error_message);
-    		if (ret < 0 || ret >= message_size)
-    		{
-      			err(FORMATTING_ERROR);
-    		}
+		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
 		printf(ANSI_RED"%s"STYLE_END, full_error_message);
 
@@ -123,14 +120,12 @@ void warn(warnings warning_type)
 
 		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_template, warning_message_title, message);
 
-		char warning_message[message_size];
+		char *warning_message = malloc(message_size);
 		int ret = snprintf(warning_message, message_size, warning_message_template, warning_message_title, message);
-    		if (ret < 0 || ret >= message_size)
-    		{
-      			err(FORMATTING_ERROR);
-    		}
+		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
-		printf("%s\n", warning_message);
+		fprintf(stderr, "%s\n", warning_message);
+		free(warning_message);
 	}
 	else
 	{
@@ -138,12 +133,9 @@ void warn(warnings warning_type)
 
 		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_s_template, warning_message_title, message, solution);
 
-		char warning_message[message_size];
+		char *warning_message = malloc(message_size);
 		int ret = snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
-   		if (ret < 0 || ret >= message_size)
-    		{
-      			err(FORMATTING_ERROR);
-    		}
+		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
 		fprintf(stderr, "%s\n", warning_message);
 	}
