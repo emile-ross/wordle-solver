@@ -2,23 +2,19 @@
 
 #include <ctype.h>
 
-void validate_word(char command_word_string[INDEX_LETTERS_WORD])
+void validate_word(char *command_word_string)
 {
-	char command_word_string_temp[INDEX_LETTERS_WORD];
-
-	for (int i = 0; i < NUM_LETTERS_WORD; i++)
+	for (size_t i = 1; i < sizeof(command_word_string); i++) 
 	{
-		command_word_string_temp[i] = (char)toupper((unsigned char)command_word_string[i]);
+		command_word_string[i] = (char)toupper((unsigned char)command_word_string[i]);
 	}
-
-	strcpy(command_word_string, command_word_string_temp);
 
 	int num_matches = 0;
 	bool word_list_matches[NUM_WORD_LISTS];
 	char *word_list_names[NUM_WORD_LISTS];
 
 	word_list_names[en_nyt]		= "english New-York Times word list";
-	word_list_names[en_common]		= "english the \"common words\" list";
+	word_list_names[en_common]	= "english the \"common words\" list";
 	word_list_names[en_all]		= "english \"all words\" list";
 
 	word_list_names[fr_all]		= "french \"all words\" list";

@@ -59,7 +59,8 @@ void err(error_codes error_code)
 		full_error_message = malloc(message_size);	/* allocate memory for the base error message string */
 
 		/* write to error_msg_base buffer */
-		snprintf(full_error_message, message_size, message_template, program_name, error_message);
+		int ret = snprintf(full_error_message, message_size, message_template, program_name, error_message);
+		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
 		printf(ANSI_RED"%s"STYLE_END, full_error_message);
 
@@ -99,7 +100,7 @@ void warn(warnings warning_type)
 			break;
 
 		default: 
-			printf("Unknown warning\n");
+			fprintf(stderr, "Unknown warning\n");
 			critical = true;
 			err((error_codes)warning_type);
 			break;
@@ -119,10 +120,12 @@ void warn(warnings warning_type)
 
 		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_template, warning_message_title, message);
 
-		char warning_message[message_size];
-		snprintf(warning_message, message_size, warning_message_template, warning_message_title, message);
+		char *warning_message = malloc(message_size);
+		int ret = snprintf(warning_message, message_size, warning_message_template, warning_message_title, message);
+		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
-		printf("%s\n", warning_message);
+		fprintf(stderr, "%s\n", warning_message);
+		free(warning_message);
 	}
 	else
 	{
@@ -130,10 +133,11 @@ void warn(warnings warning_type)
 
 		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_s_template, warning_message_title, message, solution);
 
-		char warning_message[message_size];
-		snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
+		char *warning_message = malloc(message_size);
+		int ret = snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
+		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
-		printf("%s\n", warning_message);
+		fprintf(stderr, "%s\n", warning_message);
 	}
 
 	printf("Press any key to continue");

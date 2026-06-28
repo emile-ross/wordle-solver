@@ -34,4 +34,5 @@ typedef enum
 	NO_POSSIBLE_ANSWERS = 20,
 	WORD_TOO_LONG = 21,
 	WORD_TOO_SHORT = 22,
+  FORMATTING_ERROR = 23,
 } error_codes;

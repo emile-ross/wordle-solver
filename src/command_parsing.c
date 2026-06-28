@@ -1,4 +1,5 @@
 #include "header.h"
+
 bool valid_expression;
 bool append_flag_ignore_msg;
 
@@ -45,12 +46,10 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					}
 				}
 
-				int list_name_index = -1;
+				int list_name_index = i + 1;
 
-				if (num_args >= 3)
+				if (num_args > list_name_index)
 				{
-					list_name_index = i + 1;  /* read 1 argument ahead of the "-w" flag */
-
 					if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
 					{
 						word_list = en_common;
@@ -206,8 +205,12 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 							}
 							else
 							{
-								snprintf(command_word_string, (size_t)INDEX_LETTERS_WORD,
+								/* use the length of the buffer directly instead of getting the size of the buffer and using that */
+								const size_t size = INDEX_LETTERS_WORD;
+								int ret = snprintf(command_word_string, size,
 										"%s", arguments[flag_temp]);
+								
+								check_buf(ret, (int)size);	/* check buffer for possible truncation  */
 							}
 						}
 					}
@@ -273,11 +276,11 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 
 		const char *ignored_flags_template = BOLD_S"Ignored flags: "ANSI_RED"%s"STYLE_END;
 		
-
 		size_t ignored_flags_size = 1 + (size_t)snprintf(NULL, 0, ignored_flags_template, flag[flag_index]);
 		char *flags_ignored_msg = malloc(ignored_flags_size);
 
-		snprintf(flags_ignored_msg, ignored_flags_size, ignored_flags_template, flag[flag_index]);
+		int ret = snprintf(flags_ignored_msg, ignored_flags_size, ignored_flags_template, flag[flag_index]);
+		check_buf(ret, (int)ignored_flags_size);	/* check buffer for possible truncation  */
 
 		printf("%s\n\n", flags_ignored_msg);
 		free(flags_ignored_msg);
