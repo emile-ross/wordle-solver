@@ -204,14 +204,15 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 							}
 							else
 							{
-                size_t size = sizeof(command_word_string);
+								/* use the length of the buffer directly instead of getting the size of the buffer and using that */
+								const size_t size = INDEX_LETTERS_WORD;
 								int ret = snprintf(command_word_string, size,
 										"%s", arguments[flag_temp]);
-
-                						if (ret < 0 || ret >= size)
-                						{
-                  							err(FORMATTING_ERROR);
-                						}
+								
+								if (ret < 0 || ret >= (int)size)
+								{
+									err(FORMATTING_ERROR);
+								}
 							}
 						}
 					}

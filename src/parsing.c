@@ -156,8 +156,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	/* parsing logic is below for all options */
-  char flag_string[24] = {0};
-  size_t str_size = sizeof(flag_string);
+	char flag_string[24] = {0};
+	size_t str_size = sizeof(flag_string);
 	
 	if (letter_indexed_bl)
 	{
@@ -267,11 +267,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-    size_t size = sizeof(filtered_arr[k]);
-		int ret = snprintf(filtered_arr[k], size, "%s", filtered_arr_temp[k]);
+		int ret = snprintf(filtered_arr[k], INDEX_LETTERS_WORD, "%s", filtered_arr_temp[k]);
 
     		/* snprintf() error or string truncated */
-    		if (ret < 0 || ret >= size)
+    		if (ret < 0 || ret >= INDEX_LETTERS_WORD)
     		{
       			err(FORMATTING_ERROR);
     		}

@@ -21,9 +21,9 @@ SRC_FILES := $(addsuffix .c, $(FILES))
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
 OUT = -o $(binary_file)
 
+macos: wordle
 wordle:
 	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT)
-macos: wordle
 
 all_flags_cmd = $(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS)
 
