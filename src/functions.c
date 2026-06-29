@@ -30,3 +30,9 @@ void check_buf(int return_value, int size_of_buffer)
 		exit(1);
 	}
 }
+
+void buffer_write(char *string, size_t size_of_string, const char *restrict format, ...)
+{
+	int return_value = snprintf(string, size_of_string, format);
+	check_buf(return_value, (int)size_of_string);
+}

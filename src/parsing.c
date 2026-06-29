@@ -80,8 +80,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		ptr = (const char (*)[INDEX_LETTERS_WORD])filtered_arr;
 		n_pos_arr = n_possible_answers;
 	}
-	
-   /* word_letter_index is the index of the letter the user is looking for
+
+	/* word_letter_index is the index of the letter the user is looking for
 	 *
 	 * example 1: you want to find all words with A as the first letter
 	 * 'A' is at index 1
