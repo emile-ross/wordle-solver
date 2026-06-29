@@ -28,7 +28,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 	if (*f_exec)
 	{
-
 		n_pos_arr = list_match(w_list, &ptr);
 		switch (w_list)
 		{
@@ -254,7 +253,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-		buffer_write(filtered_arr[k], INDEX_LETTERS_WORD, "%s", filtered_arr_temp[k]);
+		buffer_write(filtered_arr[k], INDEX_LETTERS_WORD, filtered_arr_temp[k]);
 	}
 
 	/* display verbose message if verbose mode is enabled */
