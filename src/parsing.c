@@ -24,8 +24,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 
 	const char (*ptr)[INDEX_LETTERS_WORD];
-	
-	int n_pos_arr;
+	int n_pos_arr = 0;
 	
 	if (*f_exec)
 	{
@@ -156,14 +155,14 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	/* parsing logic is below for all options */
-	char flag_string[24] = {0};
-	size_t str_size = strlen(flag_string);
+	size_t flag_length = 24;
+	char *flag_string = malloc(flag_length);
 	
 	if (letter_indexed_bl)
 	{
 		if (filter_include_bl)
 		{
-			buffer_write(flag_string, str_size, "--strict");
+			buffer_write(flag_string, flag_length, "--strict");
 
 			bool first_character = false;
 			bool prev_character_found = false;
@@ -189,7 +188,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			buffer_write(flag_string, str_size, "--excludes");
+			buffer_write(flag_string, flag_length, "--excludes");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -206,7 +205,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			buffer_write(flag_string, str_size, "--includes");
+			buffer_write(flag_string, flag_length, "--includes");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -224,8 +223,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			int ret = snprintf(flag_string, str_size, "--absent");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, flag_length, "--absent");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
