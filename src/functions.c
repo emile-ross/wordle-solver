@@ -33,6 +33,12 @@ void check_buf(int return_value, int size_of_buffer)
 
 void buffer_write(char *string, size_t size_of_string, const char *restrict format, ...)
 {
-	int return_value = snprintf(string, size_of_string, format);
-	check_buf(return_value, (int)size_of_string);
+	size_t return_value = (size_t)snprintf(string, size_of_string, format);
+	check_buf((int)return_value, (int)size_of_string);
+
+	/* check if the string was truncated after the use of snprintf */
+	if (return_value >= size_of_string)
+	{
+		err(BUFFER_WRITE_FAIL);
+	}
 }

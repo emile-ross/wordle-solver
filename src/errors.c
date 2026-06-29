@@ -45,6 +45,10 @@ void err(error_codes error_code)
 	case FORMATTING_ERROR:
 		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
 		break;
+
+	case BUFFER_WRITE_FAIL:
+		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
+		break;
 	
 	default:
 		printf("Missing error message\n");
