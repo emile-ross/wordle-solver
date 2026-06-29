@@ -24,8 +24,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 
 	const char (*ptr)[INDEX_LETTERS_WORD];
-	
-	int n_pos_arr;
+	int n_pos_arr = 0;
 	
 	if (*f_exec)
 	{
@@ -74,14 +73,14 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (n_possible_answers == 0)
 		{
-			err(20);
+			err(NO_POSSIBLE_ANSWERS);
 		}
 		/* rename variables */
 		ptr = (const char (*)[INDEX_LETTERS_WORD])filtered_arr;
 		n_pos_arr = n_possible_answers;
 	}
-	
-   /* word_letter_index is the index of the letter the user is looking for
+
+	/* word_letter_index is the index of the letter the user is looking for
 	 *
 	 * example 1: you want to find all words with A as the first letter
 	 * 'A' is at index 1
@@ -156,15 +155,14 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	/* parsing logic is below for all options */
-	char flag_string[24] = {0};
-	size_t str_size = sizeof(flag_string);
+	size_t flag_length = 24;
+	char *flag_string = malloc(flag_length);
 	
 	if (letter_indexed_bl)
 	{
 		if (filter_include_bl)
 		{
-			int ret = snprintf(flag_string, str_size, "--strict");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, flag_length, "--strict");
 
 			bool first_character = false;
 			bool prev_character_found = false;
@@ -190,8 +188,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			int ret = snprintf(flag_string, str_size, "--exclude");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, flag_length, "--excludes");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -208,8 +205,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			int ret = snprintf(flag_string, str_size, "--includes");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, flag_length, "--includes");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -227,8 +223,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			int ret = snprintf(flag_string, str_size, "--absent");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, flag_length, "--absent");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -259,8 +254,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-		int ret = snprintf(filtered_arr[k], INDEX_LETTERS_WORD, "%s", filtered_arr_temp[k]);
-		check_buf(ret, INDEX_LETTERS_WORD);
+		buffer_write(filtered_arr[k], INDEX_LETTERS_WORD, "%s", filtered_arr_temp[k]);
 	}
 
 	/* display verbose message if verbose mode is enabled */

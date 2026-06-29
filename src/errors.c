@@ -38,8 +38,16 @@ void err(error_codes error_code)
 	case WORD_TOO_LONG:
 		error_message = "Word is too long";
 		break;
+
 	case WORD_TOO_SHORT:
 		printf("Word is too short");
+		break;
+	case FORMATTING_ERROR:
+		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
+		break;
+
+	case BUFFER_WRITE_FAIL:
+		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
 		break;
 	
 	default:

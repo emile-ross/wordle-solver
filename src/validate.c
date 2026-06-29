@@ -31,9 +31,9 @@ void validate_word(char *command_word_string)
 		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
 			const char (*ptr)[INDEX_LETTERS_WORD];
-			int num_words = 0;
 			/* TODO: make a single function to do this instead of multiple duplicate switches in parsing.c and here */
 
+			int num_words = 0;
 			num_words = list_match((ALL_WORD_LISTS)i, &ptr);
 	
 			for (int j = 0; j < num_words; j++)
