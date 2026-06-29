@@ -163,8 +163,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			int ret = snprintf(flag_string, str_size, "--strict");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, str_size, "--strict");
 
 			bool first_character = false;
 			bool prev_character_found = false;
@@ -190,8 +189,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			int ret = snprintf(flag_string, str_size, "--exclude");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, str_size, "--excludes");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -208,8 +206,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			int ret = snprintf(flag_string, str_size, "--includes");
-			check_buf(ret, (int)str_size);
+			buffer_write(flag_string, str_size, "--includes");
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -259,8 +256,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-		int ret = snprintf(filtered_arr[k], INDEX_LETTERS_WORD, "%s", filtered_arr_temp[k]);
-		check_buf(ret, INDEX_LETTERS_WORD);
+		buffer_write(filtered_arr[k], INDEX_LETTERS_WORD, "%s", filtered_arr_temp[k]);
 	}
 
 	/* display verbose message if verbose mode is enabled */
