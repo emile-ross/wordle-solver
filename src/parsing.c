@@ -74,7 +74,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (n_possible_answers == 0)
 		{
-			err(20);
+			err(NO_POSSIBLE_ANSWERS);
 		}
 		/* rename variables */
 		ptr = (const char (*)[INDEX_LETTERS_WORD])filtered_arr;
@@ -157,7 +157,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 	/* parsing logic is below for all options */
 	char flag_string[24] = {0};
-	size_t str_size = sizeof(flag_string);
+	size_t str_size = strlen(flag_string);
 	
 	if (letter_indexed_bl)
 	{
