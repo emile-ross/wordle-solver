@@ -153,16 +153,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 	}
 	
-	size_t flag_length = 24;
+	char flag_string[24] = {0};
+  	size_t flag_length = sizeof(flag_string);
+
 	/* parsing logic is below for all options */
 
-	char *flag_string = NULL;
-
-	if (verbose)
-	{
-		flag_string = malloc(flag_length);
-	}
-	
 	if (letter_indexed_bl)
 	{
 		if (filter_include_bl)
@@ -279,10 +274,9 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 
 	/* display verbose message if verbose mode is enabled */
-	if (verbose)
-	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
-
-	free(flag_string);
+	if (verbose) {
+		verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
+	}
 
 	int arg_offset = 0;
 	if (letter_indexed_bl)
