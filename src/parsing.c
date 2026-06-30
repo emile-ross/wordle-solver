@@ -161,6 +161,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
+			/* buffer_write() is safer than using strcpy()
+			 * this copies the last string specified to the flag_string buffer */
 			buffer_write(flag_string, flag_length, "--strict");
 
 			bool first_character = false;
@@ -253,12 +255,15 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	/* Write to filtered array */
 	for (int k = 0; k < n_possible_answers; k++)
 	{
-		buffer_write(filtered_arr[k], INDEX_LETTERS_WORD, filtered_arr_temp[k]);
+		/* call buffer_write as replacement for strcpy() */
+		buffer_write(filtered_arr[k], (size_t)INDEX_LETTERS_WORD, filtered_arr_temp[k]);
 	}
 
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	        verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
+
+	free(flag_string);
 
 	int arg_offset = 0;
 	if (letter_indexed_bl)
