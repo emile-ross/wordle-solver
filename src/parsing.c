@@ -154,7 +154,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	char flag_string[24] = {0};
-  size_t flag_length = sizeof(flag_string);
+  	size_t flag_length = sizeof(flag_string);
 
 	/* parsing logic is below for all options */
 
