@@ -13,25 +13,26 @@ WORD_LIST_FILES := $(addprefix $(WORD_DIR)/, $(w_list_filenames))
 WORD_LISTS := $(addsuffix .c, $(WORD_LIST_FILES))
 
 SOURCE_DIR := src
-src_filenames := command_parsing config drawing errors functions list_matching main parsing printing validate file_reading
+src_filenames := command_parsing config drawing errors functions list_matching main parsing printing validate
 
 FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
 
-ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
+ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -g
 OUT = -o $(binary_file)
 
 macos: wordle
 wordle:
 	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) -O2
 
+# used for the base and base-e recipes
 all_flags_cmd = $(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS)
 
 base-e:
-	$(all_flags_cmd) -g
+	$(all_flags_cmd)
 
 base:
-	$(all_flags_cmd) -Werror -g
+	$(all_flags_cmd) -Werror
 
 android: wordle
 	cp -f $(binary_file) ~
