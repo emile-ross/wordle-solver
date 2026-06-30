@@ -20,7 +20,6 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 		append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
 		for (int i = 0; i < num_args; i++)
 		{
-			
 			if (arg_match(arguments[i], "--draw", "-d"))
 			{
 				if (!ignore_warn)
@@ -48,6 +47,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 				int list_name_index = i + 1;
 
+			
 				if (num_args > list_name_index)
 				{
 					if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
@@ -118,8 +118,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
     				{
 					parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments, num_args);
     				}
-				
-    				else if (arg_match(arguments[flag_reading_index], "--exclude", "-x") || strcmp(arguments[flag_reading_index], "-e") == 0)
+    				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || strcmp(arguments[flag_reading_index], "-e") == 0)
     				{
 					parsing(&flag_reading_index, word_list, &first_execution, false, true, arguments, num_args);
     				}

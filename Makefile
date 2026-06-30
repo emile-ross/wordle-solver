@@ -18,13 +18,14 @@ src_filenames := command_parsing config drawing errors functions list_matching m
 FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
 
-ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow
+ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -g
 OUT = -o $(binary_file)
 
 macos: wordle
 wordle:
-	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT)
+	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) -O2
 
+# used for the base and base-e recipes
 all_flags_cmd = $(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS)
 
 base-e:
