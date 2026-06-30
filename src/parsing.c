@@ -153,9 +153,15 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 	}
 	
-	/* parsing logic is below for all options */
 	size_t flag_length = 24;
-	char *flag_string = malloc(flag_length);
+	/* parsing logic is below for all options */
+
+	char *flag_string = NULL;
+
+	if (verbose)
+	{
+		flag_string = malloc(flag_length);
+	}
 	
 	if (letter_indexed_bl)
 	{
@@ -163,7 +169,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			/* buffer_write() is safer than using strcpy()
 			 * this copies the last string specified to the flag_string buffer */
-			buffer_write(flag_string, flag_length, "--strict");
+			if (verbose)
+			{
+				buffer_write(flag_string, flag_length, "--strict");
+			}
 
 			bool first_character = false;
 			bool prev_character_found = false;
@@ -189,7 +198,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			buffer_write(flag_string, flag_length, "--excludes");
+
+			if (verbose)
+			{
+				buffer_write(flag_string, flag_length, "--excludes");
+			}
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -206,7 +219,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		if (filter_include_bl)
 		{
-			buffer_write(flag_string, flag_length, "--includes");
+			if (verbose)
+			{
+				buffer_write(flag_string, flag_length, "--includes");
+			}
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
@@ -224,7 +240,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			buffer_write(flag_string, flag_length, "--absent");
+			if (verbose)
+			{
+				buffer_write(flag_string, flag_length, "--absent");
+			}
 
 			for (int j = 0; j < n_pos_arr; j++)
 			{
