@@ -23,15 +23,15 @@ OUT = -o $(binary_file)
 
 macos: wordle
 wordle:
-	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT)
+	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) -O2
 
 all_flags_cmd = $(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS)
 
 base-e:
-	$(all_flags_cmd)
+	$(all_flags_cmd) -g
 
 base:
-	$(all_flags_cmd) -Werror
+	$(all_flags_cmd) -Werror -g
 
 android: wordle
 	cp -f $(binary_file) ~

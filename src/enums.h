@@ -26,6 +26,7 @@ typedef enum
 typedef enum
 {
 	CMD_MISSING_ARGS = 1,
+	NEGATIVE_INDEX = 4,
 	CMD_INDEX_BOUNDS = 5,
 	NO_SUCH_FILE = 6,
 	FEAT_NOT_IMPLEMENTED = 7,

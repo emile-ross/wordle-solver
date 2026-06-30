@@ -11,6 +11,11 @@ void err(error_codes error_code)
 		error_message = "Missing arguments";
 		break;
 		
+	case NEGATIVE_INDEX:
+		error_message = "Index value is negative";
+		/* this error message falls through and triggers CMD_INDEX_BOUNDS on purpose because both errors are heavily related */
+		__attribute__((fallthrough));
+
 	case CMD_INDEX_BOUNDS:
 		error_message = "Index value must be between 1 and 5 (inclusive)";
 		break;
