@@ -37,4 +37,5 @@ typedef enum
 	WORD_TOO_SHORT = 22,
 	FORMATTING_ERROR = 31,
 	BUFFER_WRITE_FAIL = 32,
+  MALLOC_ERR = 33,
 } error_codes;
