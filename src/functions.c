@@ -49,3 +49,38 @@ void buffer_write(char *string, size_t size_of_string, const char *restrict form
 		err(BUFFER_WRITE_FAIL);
 	}
 }
+
+char *word_list_filename(const ALL_WORD_LISTS word_list_type)
+{
+	switch(word_list_type)
+	{
+	case en_all:
+		return "en_all_words.txt";
+		break;
+	case en_nyt:
+		return "en_nyt_words.txt";
+		break;
+	case en_common:
+		return "en_common_words.txt";
+		break;
+	case fr_all:
+		return "fr_all_words.txt";
+		break;
+
+	case la_all:
+		return "la_all_words.txt";
+		break;
+
+	case la_common:
+		return "la_com_words.txt";
+		break;
+	case custom:
+		return default_word_list_name;
+		break;
+	default:
+		err(FILENAME_FAIL);
+		break;
+	}
+	err(FILENAME_FAIL);
+	return NULL;
+}

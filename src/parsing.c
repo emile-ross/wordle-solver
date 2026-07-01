@@ -26,12 +26,19 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	char (*ptr)[INDEX_LETTERS_WORD];
 	int n_pos_arr = 0;
 	uint16_t lines = 0;
+
+	/* initialise the filename with zero 
+	 * the filename will be the filename of the word list */
+	char filename[128] = {0};
+	bool standard_word_list = true;
+
 	
 	if (*f_exec)
 	{
 		switch (w_list)
 		{
 		case en_all:
+			buffer_write(filename, 128, )
 			ptr = all_words;
 			n_pos_arr = NUM_ALL_WORDS;
 			break;
@@ -60,6 +67,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 
 		case custom:
+			standard_word_list = false;
 			lines = get_num_lines(&default_word_list_name);
 			ptr = read_words(&default_word_list_name, &lines);
 

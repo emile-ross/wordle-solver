@@ -43,5 +43,3 @@ char *default_word_list_name = "file.txt";	/* this file can be created / modifie
 
 /* Initialise the program_name variable */
 const char *program_name = "wordle";	/* wordle by default */
-
-const size_t max_filename_length = 128;
