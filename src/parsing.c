@@ -23,12 +23,13 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		err(CMD_MISSING_ARGS);
 	}
 
-	const char (*ptr)[INDEX_LETTERS_WORD];
+	char (*ptr)[INDEX_LETTERS_WORD];
 	int n_pos_arr = 0;
+	char *filename = "file.txt";
+	uint16_t lines = 0;
 	
 	if (*f_exec)
 	{
-		n_pos_arr = list_match(w_list, &ptr);
 		switch (w_list)
 		{
 		case en_all:
@@ -58,6 +59,13 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			ptr = la_com_words;
 			n_pos_arr = NUM_LA_COM_WORDS;
 			break;
+
+		case custom:
+			lines = get_num_lines(&filename);
+			ptr = read_words(&filename, &lines);
+
+			n_pos_arr = (int)lines;
+			break;
 			
 		default:
 			err(UNKNOWN_WORD_LIST);
@@ -75,7 +83,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			err(NO_POSSIBLE_ANSWERS);
 		}
 		/* rename variables */
-		ptr = (const char (*)[INDEX_LETTERS_WORD])filtered_arr;
+		ptr = (char (*)[INDEX_LETTERS_WORD])filtered_arr;
 		n_pos_arr = n_possible_answers;
 	}
 
@@ -137,6 +145,9 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				break;
 			case fr_all:
 				word_list_name = &word_list_text[w_list];
+				break;
+			case custom:
+				word_list_name = &filename;
 				break;
 	
 			default:

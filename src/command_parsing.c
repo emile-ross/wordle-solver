@@ -74,6 +74,10 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					{
 						word_list = en_nyt;
 					}
+					else if (strcmp(arguments[list_name_index], "custom") == 0)
+					{
+						word_list = custom;
+					}
 					else
 					{
 						valid_word_list = false;

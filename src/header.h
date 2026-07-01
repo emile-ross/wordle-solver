@@ -49,18 +49,18 @@
 #define max_valid_args (16)
 
 /* Word lists */
-	int list_match(ALL_WORD_LISTS word_list_enum, const char (*(*word_list_pointer))[INDEX_LETTERS_WORD]);
+	int list_match(ALL_WORD_LISTS word_list_enum, char (*(*word_list_pointer))[INDEX_LETTERS_WORD]);
 
 	/* english */
-		extern const char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
-		extern const char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
-		extern const char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+		extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
+		extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
+		extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 	/* french */
-		extern const char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
+		extern char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
 
 	/* latin */
-		extern const char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
-		extern const char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD];
+		extern char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
+		extern char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD];
 
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
@@ -116,3 +116,5 @@ void validate_word(char *command_word_string);
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
 
+char (*read_words(char **file_path, uint16_t *num_words))[6];
+uint16_t get_num_lines(char **file_path);
