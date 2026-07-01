@@ -54,6 +54,11 @@ void err(error_codes error_code)
 	case BUFFER_WRITE_FAIL:
 		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
 		break;
+
+	case MALLOC_ERR:
+		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
+		critical = true;
+		break;
 	
 	default:
 		printf("Missing error message\n");
