@@ -34,7 +34,7 @@ uint16_t get_num_lines(char **file_path)
 	return line_count;
 }
 
-char (*read_words(char **file_path, uint16_t *num_words))[7]
+char (*read_words(char **file_path, uint16_t *num_words))[6]
 {
 
 	/* allocate memory for all words
@@ -43,7 +43,7 @@ char (*read_words(char **file_path, uint16_t *num_words))[7]
 	char (*file_buf)[7] = malloc(file_buffer_size);
 
 	size_t word_list_size = (*num_words * sizeof(char[7]));
-	char (*ptr)[7] = malloc(word_list_size);
+	char (*ptr)[INDEX_LETTERS_WORD] = malloc(word_list_size);
 
 	FILE *file = fopen(*file_path, "r");
 	
@@ -54,24 +54,15 @@ char (*read_words(char **file_path, uint16_t *num_words))[7]
 			break;
 		}
 
-		/* replace last character (before NULL terminator) when it's a newline */
-		size_t len = strlen(file_buf[i]);
-		if (len > 0 && file_buf[i][len - 1] == '\n') 
-		{
-			file_buf[i][len - 1] = '\0';
-		}
-		if (len > 0 && file_buf[i][len - 1] == '\r')
-		{
-			file_buf[i][len - 1] = '\0';
-		}
+		file_buf[i][INDEX_LETTERS_WORD] = '\0';
+		file_buf[i][NUM_LETTERS_WORD] = '\0';
 
-		strncpy();
-
+		strncpy(ptr[i], file_buf[i], 6);
 	}
 	
 	fclose(file);	/* close file after use */
 
 	/* the memory needs to be freed later after use */
-	return file_buf;
+	return ptr;
 }
 
