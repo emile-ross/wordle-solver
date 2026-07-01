@@ -270,7 +270,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			}
 		}
 	}
-	if (w_list == custom)
+
+	if (*f_exec && w_list == custom)
 	{
 		free(ptr);
 	}

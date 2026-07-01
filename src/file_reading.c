@@ -59,6 +59,7 @@ char (*read_words(char **file_path, uint16_t *num_words))[6]
 
 		strncpy(ptr[i], file_buf[i], 6);
 	}
+	free(file_buf);
 	
 	fclose(file);	/* close file after use */
 
