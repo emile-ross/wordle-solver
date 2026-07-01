@@ -1,5 +1,6 @@
 #include "header.h"
 
+/* there's no way there is more than 65535 words (can be changed to 32bit */
 uint16_t get_num_lines(char *file_path)
 {
 	/* open file path in reading mode */
@@ -23,7 +24,8 @@ uint16_t get_num_lines(char *file_path)
 	}
 	
 	fclose(word_file);	/* close file */
-	printf("The file %s has %d lines\n ", file_path, line_count);
-	
+
 	return line_count;
 }
+
+
