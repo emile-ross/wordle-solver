@@ -48,6 +48,8 @@
 
 #define max_valid_args (16)
 
+extern const size_t max_filename_length;
+
 /* Word lists */
 	int list_match(ALL_WORD_LISTS word_list_enum, char (*(*word_list_pointer))[INDEX_LETTERS_WORD]);
 

@@ -293,13 +293,21 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
 	}
 
-	int arg_offset = 0;
+	/* offset the flag_r iterator by the number of arguments we used here 
+	 * ("-s A 1" would count as 3) */
 	if (letter_indexed_bl)
-	    	arg_offset = P_FILTERS_ARG_EXP;
+	{
+		/* the number of arguments expected when no index is specified (2)
+		 * example: "-a Z" (any word without Z) */
+		*(flag_r) += P_FILTERS_ARG_EXP;
+	}
 	else
-	    	arg_offset = G_FILTERS_ARG_EXP;
+	{
+		/* the number of arguments expected when a letter index is specified (3) 
+		 * example: "-s A 1" (any word with A at the first position) */
+	    	*(flag_r) += G_FILTERS_ARG_EXP;
+	}
 	
-	*(flag_r) += arg_offset;
 	*(f_exec) = false;
 	
 	return 0;
