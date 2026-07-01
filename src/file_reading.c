@@ -39,6 +39,9 @@ char (*read_words(char **file_path, uint16_t *num_words))[7]
 
 	/* allocate memory for all words
 	 * multiply the size of 1 word by the number of words to get the total size */
+	size_t file_buffer_size = (*num_words * sizeof(char[7]));	/* for reading from the file directly */
+	char (*file_buf)[7] = malloc(file_buffer_size);
+
 	size_t word_list_size = (*num_words * sizeof(char[7]));
 	char (*ptr)[7] = malloc(word_list_size);
 
@@ -46,27 +49,29 @@ char (*read_words(char **file_path, uint16_t *num_words))[7]
 	
 	for (uint16_t i = 0; i < *num_words; i++) 
 	{
-		if (fgets(ptr[i], 7, file) == NULL) 
+		if (fgets(file_buf[i], 7, file) == NULL) 
 		{
 			break;
 		}
 
 		/* replace last character (before NULL terminator) when it's a newline */
-		size_t len = strlen(ptr[i]);
-		if (len > 0 && ptr[i][len - 1] == '\n') 
+		size_t len = strlen(file_buf[i]);
+		if (len > 0 && file_buf[i][len - 1] == '\n') 
 		{
-			ptr[i][len - 1] = '\0';
+			file_buf[i][len - 1] = '\0';
 		}
-		if (len > 0 && ptr[i][len - 1] == '\r')
+		if (len > 0 && file_buf[i][len - 1] == '\r')
 		{
-			ptr[i][len - 1] = '\0';
+			file_buf[i][len - 1] = '\0';
 		}
+
+		strncpy();
 
 	}
 	
 	fclose(file);	/* close file after use */
 
 	/* the memory needs to be freed later after use */
-	return ptr;
+	return file_buf;
 }
 
