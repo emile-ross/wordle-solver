@@ -6,6 +6,7 @@ typedef enum
 	fr_all,
 	la_common,
 	la_all,
+	custom,
 } ALL_WORD_LISTS ;
 
 typedef enum 

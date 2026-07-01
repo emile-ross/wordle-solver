@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 /* number of words for each array */
-#define NUM_WORD_LISTS 6
+#define NUM_WORD_LISTS 7
 
 	#define NUM_WORDS 2337
 	#define NUM_COMMON_WORDS 5700

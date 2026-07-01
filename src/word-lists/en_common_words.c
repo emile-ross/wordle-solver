@@ -1,6 +1,6 @@
 #include "../header.h"
 
-const char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD] = 
+char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD] = 
 {
 	"AARDE",
 	"ABACK",
