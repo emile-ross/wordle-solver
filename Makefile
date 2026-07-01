@@ -7,10 +7,6 @@ CC := gcc
 binary_file = wordle
 
 WORD_DIR := src/word-lists
-w_list_filenames := en_nyt_words en_all_words en_common_words fr_all_words la_all_words la_com_words
-
-WORD_LIST_FILES := $(addprefix $(WORD_DIR)/, $(w_list_filenames))
-WORD_LISTS := $(addsuffix .c, $(WORD_LIST_FILES))
 
 SOURCE_DIR := src
 src_filenames := command_parsing config drawing errors functions list_matching main parsing printing validate file_reading
@@ -23,10 +19,10 @@ OUT = -o $(binary_file)
 
 macos: wordle
 wordle:
-	$(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) -O2
+	$(CC) $(SRC_FILES) $(OUT) -O2
 
 # used for the base and base-e recipes
-all_flags_cmd = $(CC) $(SRC_FILES) $(WORD_LISTS) $(OUT) $(ALL_FLAGS)
+all_flags_cmd = $(CC) $(SRC_FILES) $(OUT) $(ALL_FLAGS)
 
 base-e:
 	$(all_flags_cmd) -g

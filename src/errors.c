@@ -59,6 +59,11 @@ void err(error_codes error_code)
 		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
 		critical = true;
 		break;
+
+	case FILENAME_FAIL:
+		error_message = "Failed to get the filename for the word list";
+		critical = true;
+		break;
 	
 	default:
 		printf("Missing error message\n");
