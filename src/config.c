@@ -36,5 +36,10 @@ int command_arguments_context = 4;	/* 4 by default */
 int element_cap = 250;			/* default is 250 */
 bool cap_total_elements = false;	/* default is false */
 
+/* Define the default filename for the custom word list */
+char *default_word_list_name = "file.txt";	/* this file can be created / modified in order to parse througha custom word list */
+
+
+
 /* Initialise the program_name variable */
 const char *program_name = "wordle";	/* wordle by default */

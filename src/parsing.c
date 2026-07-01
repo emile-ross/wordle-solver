@@ -25,7 +25,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 	char (*ptr)[INDEX_LETTERS_WORD];
 	int n_pos_arr = 0;
-	char *filename = NULL;
 	uint16_t lines = 0;
 	
 	if (*f_exec)
@@ -61,9 +60,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 
 		case custom:
-			filename = "file.txt";
-			lines = get_num_lines(&filename);
-			ptr = read_words(&filename, &lines);
+			lines = get_num_lines(&default_word_list_name);
+			ptr = read_words(&default_word_list_name, &lines);
 
 			n_pos_arr = (int)lines;
 			break;
@@ -148,7 +146,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				word_list_name = &word_list_text[w_list];
 				break;
 			case custom:
-				word_list_name = &filename;
+				word_list_name = &default_word_list_name;
 				break;
 	
 			default:

@@ -9,6 +9,8 @@ char *word_list_text[NUM_WORD_LISTS] =
 	"all words",
 	"common words",
 	"New-York-Times words",
+	"all latin words",
+	"common latin words",
 };
 
 uint8_t valid_user_index(long index)
