@@ -6,6 +6,14 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	char filename[128] = {0};
 	buffer_write(filename, 128, get_filename(word_list_enum));
+
+	if (standard_word_list)
+	{
+		char *temporary_buffer = prepend_fp(filename);
+		buffer_write(filename, 128, temporary_buffer);
+		free(temporary_buffer);
+	}
+
 	char *word_list_filename(ALL_WORD_LISTS word_list_type);
 
 	switch (word_list_enum)
