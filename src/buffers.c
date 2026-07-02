@@ -57,18 +57,24 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 	return NULL;
 }
 
-char *prepend_fp(char *filename)
+size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 {
+		char *path_to_file = malloc(total_size);
 	/* this function prepends (adds in front) the filename with the directory
 	 * in order for the wordle solver to be able to resolve the file paths correctly */ 
 
-	const char *dir = "src/word-lists";
-	const char *filepath_template = "%s/%s";
-	size_t total_size = 1 + (size_t)snprintf(NULL, 0, filepath_template, dir, filename);
+	if (*filename != '\0')
+	{
+		size_t total_size = 1 + (size_t)snprintf(NULL, 0, filepath_template, dir, filename);
+	}
+	else
+	{
+		const char *dir = "src/word-lists";
+		const char *filepath_template = "%s/%s";
 
-	char *path_to_file = malloc(total_size);
-	/* write to path_to_file buffer */
-	snprintf(path_to_file, total_size, "%s/%s", dir, filename);
+		/* write to path_to_file buffer */
+		snprintf(file_path_dst, dst_size, filepath_template, dir, filename);
+	}
 
 	return path_to_file;
 }
