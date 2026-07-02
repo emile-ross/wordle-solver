@@ -40,4 +40,5 @@ typedef enum
 	BUFFER_WRITE_FAIL = 32,
 	MALLOC_ERR = 33,
 	FILENAME_FAIL = 50,
+	FILEPATH_FAIL = 51,
 } error_codes;

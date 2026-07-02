@@ -64,6 +64,11 @@ void err(error_codes error_code)
 		error_message = "Failed to get the filename for the word list";
 		critical = true;
 		break;
+
+	case FILEPATH_FAIL:
+		error_message =
+			"Failed to get the full filepath to the word list file\nThis is an internal issue, report this bug and use a custom word list in the meantime";
+		critical = true;
 	
 	default:
 		printf("Missing error message\n");
