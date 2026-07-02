@@ -34,7 +34,7 @@ uint16_t get_num_lines(char file_path[max_filename_length])
 	return line_count;
 }
 
-char (*read_words(char file_path[max_filename_length], uint16_t *num_words))[6]
+char (*read_words(char file_path[max_filename_length], uint32_t *num_words))[6]
 {
 
 	/* allocate memory for all words
