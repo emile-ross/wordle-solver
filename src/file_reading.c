@@ -1,8 +1,13 @@
 #include "header.h"
 
 /* there's no way there is more than 65535 words (can be changed to 32bit */
-uint16_t get_num_lines(char file_path[max_filename_length])
+uint16_t get_num_lines(char *file_path)
 {
+	if (verbose)
+	{
+		printf("reading the number of words in : %s\n", file_path);
+	}
+
 	/* open file path in reading mode */
 	FILE *word_file = fopen(file_path, "r");
 
@@ -34,8 +39,12 @@ uint16_t get_num_lines(char file_path[max_filename_length])
 	return line_count;
 }
 
-char (*read_words(char file_path[max_filename_length], uint32_t *num_words))[6]
+char (*read_words(char *file_path, uint32_t *num_words))[6]
 {
+	if (verbose)
+	{
+		printf("reading the word list at : %s\n", file_path);
+	}
 
 	/* allocate memory for all words
 	 * multiply the size of 1 word by the number of words to get the total size */
