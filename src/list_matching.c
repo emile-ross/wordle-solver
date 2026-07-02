@@ -9,9 +9,19 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	if (standard_word_list)
 	{
-		char *temporary_buffer = prepend_fp(filename);
-		buffer_write(filename, 128, temporary_buffer);
-		free(temporary_buffer);
+		size_t full_path_size = prepend_fp(NULL, 0, filename);
+		if (full_path_size > sizeof(filename))
+		{
+			err(FILEPATH_FAIL);
+		}
+
+		char *temp_path_buffer = malloc(full_path_size);
+		prepend_fp(temp_path_buffer, full_path_size, filename);
+
+		/* write to the filename string from the temp_full_path buffer */
+		buffer_write(filename, full_path_size, temp_path_buffer);
+
+		free(temp_path_buffer);
 	}
 
 	char *word_list_filename(ALL_WORD_LISTS word_list_type);
