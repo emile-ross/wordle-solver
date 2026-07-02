@@ -20,6 +20,8 @@
 	#define NUM_LA_ALL_WORDS 15842
 	#define NUM_LA_COM_WORDS 6662
 
+#define max_filename_length (128)
+
 
 #define NUM_LETTERS_WORD (5)
 #define INDEX_LETTERS_WORD (6)
@@ -117,6 +119,7 @@ void validate_word(char *command_word_string);
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
 
-char (*read_words(char *file_path, uint16_t *num_words))[6];
-uint16_t get_num_lines(char **file_path);
+char (*read_words(char file_path[max_filename_length], uint16_t *num_words))[6];
+uint16_t get_num_lines(char file_path[max_filename_length]);
 char *get_filename(ALL_WORD_LISTS word_list_type);
+

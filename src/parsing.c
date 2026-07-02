@@ -36,7 +36,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	if (*f_exec)
 	{
 
-		buffer_write(filename, 128, get_filename(ALL_WORD_LISTS word_list_type));
+		buffer_write(filename, 128, get_filename(w_list));
 		char *word_list_filename(ALL_WORD_LISTS word_list_type);
 
 		switch (w_list)
@@ -65,7 +65,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 		case custom:
 			/* standard_word_list = false; */
-			lines = get_num_lines(&filename[0]);
+			lines = get_num_lines(filename);
 			n_pos_arr = (int)lines;
 			break;
 			
@@ -74,7 +74,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 		}
 
-		ptr = read_words(&filename[0], &n_pos_arr);
+		ptr = read_words(filename, &n_pos_arr);
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
