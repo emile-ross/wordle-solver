@@ -24,20 +24,20 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 
 	char (*ptr)[INDEX_LETTERS_WORD];
-	uint16_t n_pos_arr = 0;
-	uint16_t lines = 0;
+	uint32_t n_pos_arr = 0;
 
-	/* initialise the filename with zero 
-	 * the filename will be the filename of the word list */
-	char filename[128] = {0};
-	/* bool standard_word_list = true; */
 
 	
 	if (*f_exec)
 	{
+		/* initialise the filename with zero 
+		 * the filename will be the filename of the word list */
+		char filename[128] = {0};
+
+		/* bool standard_word_list = true; */
+		uint16_t lines = 0;
 
 		buffer_write(filename, 128, get_filename(w_list));
-		char *word_list_filename(ALL_WORD_LISTS word_list_type);
 
 		switch (w_list)
 		{
@@ -74,7 +74,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 		}
 
-		ptr = read_words(filename, &n_pos_arr);
+		ptr = list_match(w_list, &n_pos_arr);
+
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
@@ -190,7 +191,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			if (word_letter_index == 0)
 				first_character = true;
 		
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				if (letter_indexed == ptr[j][word_letter_index])
@@ -214,7 +215,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				buffer_write(flag_string, flag_length, "--excludes");
 			}
 
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				if (letter_indexed != ptr[j][word_letter_index])
@@ -234,7 +235,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				buffer_write(flag_string, flag_length, "--includes");
 			}
 
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				for (int k = 0; k < NUM_LETTERS_WORD; k++)
@@ -255,7 +256,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				buffer_write(flag_string, flag_length, "--absent");
 			}
 
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				bool letter_match = false;
 				/* compare the specified letter against the words in a loop */

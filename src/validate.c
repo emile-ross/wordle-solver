@@ -30,13 +30,10 @@ void validate_word(char *command_word_string)
 	{
 		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
-			char (*ptr)[INDEX_LETTERS_WORD];
-			/* TODO: make a single function to do this instead of multiple duplicate switches in parsing.c and here */
-
-			int num_words = 0;
-			num_words = list_match((ALL_WORD_LISTS)i, &ptr);
+			uint32_t num_words = 0;
+			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words);
 	
-			for (int j = 0; j < num_words; j++)
+			for (uint32_t j = 0; j < num_words; j++)
 			{
 				if (strcmp(command_word_string, ptr[j]) == 0)
 				{
