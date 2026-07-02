@@ -33,7 +33,7 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		return "en_nyt_words.txt";
 		break;
 	case en_common:
-		return "en_common_words.txt";
+		return "en_com_words.txt";
 		break;
 	case fr_all:
 		return "fr_all_words.txt";
