@@ -66,7 +66,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			uint32_t num_answers = 0;
 			uint32_t number_words_in_list = 0;
 
-			char (*all_words)[INDEX_LETTERS_WORD] = list_match(en_all, &number_words_in_list);
+			char (*all_words)[INDEX_LETTERS_WORD] = list_match(en_all, &number_words_in_list, true);
 
 			for (uint32_t j = 0; j < number_words_in_list; j++)
 			{

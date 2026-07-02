@@ -32,7 +32,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		 * the filename will be the filename of the word list */
 		char filename[128] = {0};
 
-		/* bool standard_word_list = true; */
+		bool standard_word_list = true;
 		buffer_write(filename, 128, get_filename(w_list));
 
 		switch (w_list)
@@ -69,7 +69,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 		}
 
-		ptr = list_match(w_list, &n_pos_arr);
+		ptr = list_match(w_list, &n_pos_arr, standard_word_list);
 
 	
 		/* since this is the first execution, it will parse through the entire array */

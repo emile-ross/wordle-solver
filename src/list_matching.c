@@ -1,6 +1,6 @@
 #include "header.h"
 
-char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words))[6]
+char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
 {
 	uint32_t num_words = 0;
 

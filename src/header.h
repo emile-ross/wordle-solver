@@ -51,7 +51,7 @@
 #define max_valid_args (16)
 
 /* Word lists */
-	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words))[6];
+	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6];
 
 	/* english */
 	/*	DEPRECATED 

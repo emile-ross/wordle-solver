@@ -31,7 +31,7 @@ void validate_word(char *command_word_string)
 		for (int i = 0; i < NUM_WORD_LISTS; i++)
 		{
 			uint32_t num_words = 0;
-			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words);
+			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
 	
 			for (uint32_t j = 0; j < num_words; j++)
 			{
