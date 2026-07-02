@@ -24,53 +24,48 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 
 	char (*ptr)[INDEX_LETTERS_WORD];
-	int n_pos_arr = 0;
+	uint16_t n_pos_arr = 0;
 	uint16_t lines = 0;
 
 	/* initialise the filename with zero 
 	 * the filename will be the filename of the word list */
 	char filename[128] = {0};
-	bool standard_word_list = true;
+	/* bool standard_word_list = true; */
 
 	
 	if (*f_exec)
 	{
+
+		buffer_write(filename, 128, get_filename(ALL_WORD_LISTS word_list_type));
+		char *word_list_filename(ALL_WORD_LISTS word_list_type);
+
 		switch (w_list)
 		{
 		case en_all:
-			buffer_write(filename, 128, )
-			ptr = all_words;
 			n_pos_arr = NUM_ALL_WORDS;
 			break;
 		case en_nyt:
-			ptr = nyt_words;
 			n_pos_arr = NUM_WORDS;
 			break;
 		case en_common:
-			ptr = common_words;
 			n_pos_arr = NUM_COMMON_WORDS;
 			break;
 
 		case fr_all:
-			ptr = fr_all_words;
 			n_pos_arr = NUM_FR_ALL_WORDS;
 			break;
 
 		case la_all:
-			ptr = la_all_words;
 			n_pos_arr = NUM_LA_ALL_WORDS;
 			break;
 	
 		case la_common:
-			ptr = la_com_words;
 			n_pos_arr = NUM_LA_COM_WORDS;
 			break;
 
 		case custom:
-			standard_word_list = false;
-			lines = get_num_lines(&default_word_list_name);
-			ptr = read_words(&default_word_list_name, &lines);
-
+			/* standard_word_list = false; */
+			lines = get_num_lines(&filename[0]);
 			n_pos_arr = (int)lines;
 			break;
 			
@@ -78,6 +73,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			err(UNKNOWN_WORD_LIST);
 			break;
 		}
+
+		ptr = read_words(&filename[0], &n_pos_arr);
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
@@ -91,7 +88,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		/* rename variables */
 		ptr = (char (*)[INDEX_LETTERS_WORD])filtered_arr;
-		n_pos_arr = n_possible_answers;
+		n_pos_arr = (uint16_t)n_possible_answers;
 	}
 
 	/* word_letter_index is the index of the letter the user is looking for

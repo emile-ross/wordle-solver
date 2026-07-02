@@ -34,7 +34,7 @@ uint16_t get_num_lines(char **file_path)
 	return line_count;
 }
 
-char (*read_words(char **file_path, uint16_t *num_words))[6]
+char (*read_words(char *file_path, uint16_t *num_words))[6]
 {
 
 	/* allocate memory for all words
@@ -45,7 +45,7 @@ char (*read_words(char **file_path, uint16_t *num_words))[6]
 	size_t word_list_size = (*num_words * sizeof(char[7]));
 	char (*ptr)[INDEX_LETTERS_WORD] = malloc(word_list_size);
 
-	FILE *file = fopen(*file_path, "r");
+	FILE *file = fopen(file_path, "r");
 	
 	for (uint16_t i = 0; i < *num_words; i++) 
 	{
@@ -66,4 +66,3 @@ char (*read_words(char **file_path, uint16_t *num_words))[6]
 	/* the memory needs to be freed later after use */
 	return ptr;
 }
-

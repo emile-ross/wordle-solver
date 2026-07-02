@@ -50,7 +50,7 @@ void buffer_write(char *string, size_t size_of_string, const char *restrict form
 	}
 }
 
-char *word_list_filename(ALL_WORD_LISTS word_list_type)
+char *get_filename(ALL_WORD_LISTS word_list_type)
 {
 	switch(word_list_type)
 	{
