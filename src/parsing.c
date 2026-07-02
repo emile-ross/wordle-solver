@@ -26,8 +26,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	char (*ptr)[INDEX_LETTERS_WORD];
 	uint32_t n_pos_arr = 0;
 
-
-	
 	if (*f_exec)
 	{
 		/* initialise the filename with zero 
@@ -35,8 +33,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		char filename[128] = {0};
 
 		/* bool standard_word_list = true; */
-		uint16_t lines = 0;
-
 		buffer_write(filename, 128, get_filename(w_list));
 
 		switch (w_list)
@@ -65,8 +61,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 		case custom:
 			/* standard_word_list = false; */
-			lines = get_num_lines(filename);
-			n_pos_arr = (int)lines;
+			n_pos_arr = get_num_lines(filename);
 			break;
 			
 		default:

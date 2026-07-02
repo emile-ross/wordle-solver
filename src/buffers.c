@@ -12,7 +12,7 @@ void check_buf(int return_value, int size_of_buffer)
 
 void buffer_write(char *string, size_t size_of_string, const char *restrict format, ...)
 {
-	int return_value = snprintf(string, size_of_string, format);
+	int return_value = snprintf(string, size_of_string, "%s", format);
 	check_buf(return_value, (int)size_of_string);
 
 	/* check if the string was truncated after the use of snprintf */
@@ -55,4 +55,15 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 	}
 	err(FILENAME_FAIL);
 	return NULL;
+}
+
+char *prepend_fp(char *filename)
+{
+	/* this function prepends (adds in front) the filename with the directory
+	 * in order for the wordle solver to be able to resolve the file paths correctly */ 
+	const char *dir = "src/word-lists";
+	size_t total_size = strlen(filename) + strlen(dir);
+	char *path_to_file = malloc(total_size);
+	snprintf(path_to_file, total_size, "%s/%s", dir, filename);
+	return path_to_file;
 }

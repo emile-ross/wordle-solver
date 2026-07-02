@@ -4,7 +4,6 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words))[6]
 {
 	uint32_t num_words = 0;
 
-	uint16_t lines = 0;
 	char filename[128] = {0};
 	buffer_write(filename, 128, get_filename(word_list_enum));
 	char *word_list_filename(ALL_WORD_LISTS word_list_type);
@@ -35,8 +34,7 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words))[6]
 
 	case custom:
 		/* standard_word_list = false; */
-		lines = get_num_lines(filename);
-		num_words = (int)lines;
+		num_words = get_num_lines(filename);
 		break;
 		
 	default:
