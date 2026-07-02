@@ -9,7 +9,7 @@ binary_file = wordle
 WORD_DIR := src/word-lists
 
 SOURCE_DIR := src
-src_filenames := command_parsing config drawing errors functions list_matching main parsing printing validate file_reading
+src_filenames := buffers command_parsing config drawing errors functions list_matching main parsing printing validate file_reading
 
 FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
