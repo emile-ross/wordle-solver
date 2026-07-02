@@ -63,7 +63,8 @@ char *prepend_fp(char *filename)
 	 * in order for the wordle solver to be able to resolve the file paths correctly */ 
 
 	const char *dir = "src/word-lists";
-	size_t total_size = strlen(filename) + strlen(dir);
+	const char *filepath_template = "%s/%s";
+	size_t total_size = 1 + (size_t)snprintf(NULL, 0, filepath_template, dir, filename);
 
 	char *path_to_file = malloc(total_size);
 	/* write to path_to_file buffer */
