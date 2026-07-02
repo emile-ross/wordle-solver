@@ -15,7 +15,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 
 	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS][NUM_LETTERS_WORD];
 
-	int num_all_answers[NUM_LETTERS_WORD];
+	uint32_t num_all_answers[NUM_LETTERS_WORD];
 
 	if (!x_pattern)
 	{
@@ -63,8 +63,12 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			char filtered_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 			char filtered_words_temp[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-			int num_answers = 0;
-			for (int j = 0; j < NUM_ALL_WORDS; j++)
+			uint32_t num_answers = 0;
+			uint32_t number_words_in_list = 0;
+
+			char (*all_words)[INDEX_LETTERS_WORD] = list_match(en_all, &number_words_in_list);
+
+			for (uint32_t j = 0; j < number_words_in_list; j++)
 			{
 				if (green_letter == all_words[j][entry_i])
 				{
@@ -79,7 +83,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			/* initialise temp_count (used for matching the count)  */
 			int temp_count = 0;
 
-			for (int word_iteration = 0; word_iteration < num_answers; word_iteration++)
+			for (uint32_t word_iteration = 0; word_iteration < num_answers; word_iteration++)
 			{
 				bool all_letters_are_grey = true;
 				/* loop for every letter in the original word (answer) */
@@ -122,7 +126,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 					temp_count++;
 				}
 			}
-			num_answers = temp_count;
+			num_answers = (uint32_t)temp_count;
 			int user_letter_index = entry_i + 1;
 			printf(BOLD_S"\nEntry %d \n"STYLE_END, user_letter_index);
 
@@ -131,7 +135,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				printf("No matches were found\n");
 			}
 
-			for (int j = 0; j < num_answers; j++)
+			for (uint32_t j = 0; j < num_answers; j++)
 			{
 				size_t size = sizeof(all_answers[entry_i][j]);
 				int ret = snprintf(all_answers[entry_i][j], size, "%s", filtered_words[j]);
@@ -139,7 +143,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				check_buf(ret, (int)size);	/* check buffer for possible truncation  */
 			}
 			num_all_answers[entry_i] = num_answers;
-			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
+			print_as_table(table_width, (int)num_answers, awsum_table_mode, filtered_words);
 		}
 	}
 	else

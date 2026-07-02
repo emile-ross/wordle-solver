@@ -27,7 +27,7 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 	    	{
 			int empty_cells = total_elements % width;
 	    		int total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	/* ternary operator to remove garbage data */
-	    		int column_height = total_cells / width;
+	    		int column_height = (total_cells / width);
 	
 	    		for (int base_count = 0; base_count < column_height; base_count++)
 	    		{
