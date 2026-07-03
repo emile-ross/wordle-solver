@@ -55,6 +55,7 @@ void err(error_codes error_code)
 		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
 		break;
 
+
 	case MALLOC_ERR:
 		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
 		critical = true;
@@ -69,6 +70,11 @@ void err(error_codes error_code)
 		error_message =
 			"Failed to get the full filepath to the word list file\nThis is an internal issue, report this bug and use a custom word list in the meantime";
 		critical = true;
+
+	case INPUT_FAIL:
+		error_message = "Failed to parse input from stdin";
+		critical = true;
+		break;
 	
 	default:
 		printf("Missing error message\n");

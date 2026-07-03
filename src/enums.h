@@ -41,4 +41,5 @@ typedef enum
 	MALLOC_ERR = 33,
 	FILENAME_FAIL = 50,
 	FILEPATH_FAIL = 51,
+	INPUT_FAIL = 52,
 } error_codes;

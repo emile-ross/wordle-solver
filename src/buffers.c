@@ -47,7 +47,7 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		return "la_com_words.txt";
 		break;
 	case custom:
-		return default_custom_list_name;
+		return custom_list_name;
 		break;
 	default:
 		err(FILENAME_FAIL);
@@ -104,4 +104,14 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 		}
 	}
 	return 0;
+}
+
+char *get_custom_file(void)
+{
+	char buffer[120];
+	if (fgets(buffer, sizeof(buffer), stdin) == NULL)
+	{
+		err(INPUT_FAIL);
+	}
+	return buffer;
 }
