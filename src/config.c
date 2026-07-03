@@ -37,7 +37,7 @@ int element_cap = 250;			/* default is 250 */
 bool cap_total_elements = false;	/* default is false */
 
 /* Define the default filename for the custom word list */
-char *default_custom_list_name = "file.txt";	/* this file can be created / modified in order to parse througha custom word list */
+char *custom_list_name = "default_custom_list.txt";	/* this file can be created / modified in order to parse througha custom word list */
 /* TODO: compare the default word list to the actual defaut to see if it has been changed
  * if it hasn't, prompt the user for the word list name */
 
