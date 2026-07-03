@@ -114,4 +114,11 @@ char *get_custom_file(void)
 		err(INPUT_FAIL);
 	}
 	return buffer;
+	uint8_t filename_length = (uint8_t)strlen(buffer);
+	
+	char *filename = NULL;
+	memcpy(filename, buffer, filename_length);
+	filename[filename_length] = '\0';
+
+	return filename;
 }

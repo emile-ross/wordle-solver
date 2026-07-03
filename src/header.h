@@ -128,4 +128,6 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, int aff
 char (*read_words(char *file_path, uint32_t *num_words))[6];
 uint16_t get_num_lines(char *file_path);
 char *get_filename(ALL_WORD_LISTS word_list_type);
+char *get_custom_file(void);
+
 size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);
