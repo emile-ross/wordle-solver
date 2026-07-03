@@ -134,3 +134,16 @@ This list is composed of all latin words
 ### common latin words
 
 This word list is composed of common latin words
+
+# contributors
+
+<!-- from zerfithel/pongc -->
+<img src="https://avatars.githubusercontent.com/u/153707128?v=4"
+    alt="emile-ross's avatar"
+    width="50"
+    height="50"
+    style="border-radius:10%;"> <img src="https://avatars.githubusercontent.com/u/224387542?v=4"
+    alt="zerfithel's avatar"
+    width="50"
+    height="50"
+    style="border-radius:10%;">
