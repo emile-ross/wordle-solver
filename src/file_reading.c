@@ -54,7 +54,17 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	size_t word_list_size = (*num_words * sizeof(char[7]));
 	char (*ptr)[INDEX_LETTERS_WORD] = malloc(word_list_size);
 
+	if (ptr == NULL)
+	{
+		err(MALLOC_ERR);
+	}
+
 	FILE *file = fopen(file_path, "r");
+
+	if (file == NULL)
+	{
+		err(NO_SUCH_FILE);
+	}
 	
 	for (uint16_t i = 0; i < *num_words; i++) 
 	{
