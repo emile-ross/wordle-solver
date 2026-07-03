@@ -22,6 +22,13 @@ void buffer_write(char *string, size_t size_of_string, const char *restrict form
 	}
 }
 
+/* this is the default custom name for the word list
+ * this is the name we use by default in the config.c file
+ *
+ * if this matches with the name in the config.c file, this 
+ * means that the user never changed it */
+const char *default_config_list_name = "default_custom_list";	
+
 char *get_filename(ALL_WORD_LISTS word_list_type)
 {
 	switch(word_list_type)
@@ -47,7 +54,17 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		return "la_com_words.txt";
 		break;
 	case custom:
-		return custom_list_name;
+	
+		if (strcmp(default_config_list_name, custom_list_name) == 0)
+		{
+			char buffer[128];
+			return get_custom_file(buffer, sizeof(buffer));
+		}
+		else
+		{
+			return custom_list_name;
+		}
+
 		break;
 	default:
 		err(FILENAME_FAIL);

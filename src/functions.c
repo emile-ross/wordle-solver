@@ -1,12 +1,5 @@
 #include "header.h"
 
-/* this is the default custom name for the word list
- * this is the name we use by default in the config.c file
- *
- * if this matches with the name in the config.c file, this 
- * means that the user never changed it */
-const char *default_config_list_name = "default_custom_list";	
-
 const char *word_list_flag = "-w";
 const char *word_list_long_flag = "--word-list";
 
