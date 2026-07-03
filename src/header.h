@@ -119,7 +119,7 @@ void validate_word(char *command_word_string);
 
 	extern int element_cap;
 	extern bool cap_total_elements;
-	extern char *default_word_list_name;
+	extern char *default_custom_list_name;
 	extern const char *program_name;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);

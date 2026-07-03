@@ -47,7 +47,7 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		return "la_com_words.txt";
 		break;
 	case custom:
-		return default_word_list_name;
+		return default_custom_list_name;
 		break;
 	default:
 		err(FILENAME_FAIL);
