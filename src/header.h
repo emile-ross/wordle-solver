@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 /* number of words for each array */
-#define NUM_WORD_LISTS 6
+#define NUM_WORD_LISTS 7
 
 	#define NUM_WORDS 2337
 	#define NUM_COMMON_WORDS 5700
@@ -19,6 +19,8 @@
 	
 	#define NUM_LA_ALL_WORDS 15842
 	#define NUM_LA_COM_WORDS 6662
+
+#define max_filename_length (128)
 
 
 #define NUM_LETTERS_WORD (5)
@@ -49,23 +51,28 @@
 #define max_valid_args (16)
 
 /* Word lists */
-	int list_match(ALL_WORD_LISTS word_list_enum, const char (*(*word_list_pointer))[INDEX_LETTERS_WORD]);
+	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6];
+	char *word_list_name(ALL_WORD_LISTS word_list_type);	/* returns the name of the word list */
 
 	/* english */
-		extern const char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
-		extern const char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
-		extern const char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+	/*	DEPRECATED 
+		extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
+		extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
+		extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+	*/
 	/* french */
-		extern const char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
+	/*	DEPRECATED 
+		extern char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
+	*/
 
 	/* latin */
-		extern const char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
-		extern const char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD];
+	/*	DEPRECATED 
+		extern char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
+		extern char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD];
+	*/
 
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
-
-	extern char *word_list_text[NUM_WORD_LISTS];
 
 /* errors and error codes */
 	void err(error_codes error_code);
@@ -112,7 +119,15 @@ void validate_word(char *command_word_string);
 
 	extern int element_cap;
 	extern bool cap_total_elements;
+	extern char *custom_list_name;
+	extern const char *default_config_list_name;
 	extern const char *program_name;
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
 
+char (*read_words(char *file_path, uint32_t *num_words))[6];
+uint16_t get_num_lines(char *file_path);
+char *get_filename(ALL_WORD_LISTS word_list_type);
+char *get_custom_file(char *buffer, size_t buffer_size);
+
+size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);

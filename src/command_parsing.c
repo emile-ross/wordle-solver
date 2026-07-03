@@ -74,6 +74,10 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					{
 						word_list = en_nyt;
 					}
+					else if (strcmp(arguments[list_name_index], "custom") == 0)
+					{
+						word_list = custom;
+					}
 					else
 					{
 						valid_word_list = false;
@@ -82,7 +86,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 					if (verbose)
     		    			{
-    		    				printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_text[word_list]);
+    		    				printf(ANSI_LCYAN"using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n"STYLE_END, word_list_name(word_list));
     		    			}
 				}
 				else /* missing arguments */

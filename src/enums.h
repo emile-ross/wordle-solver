@@ -6,6 +6,7 @@ typedef enum
 	fr_all,
 	la_common,
 	la_all,
+	custom,
 } ALL_WORD_LISTS ;
 
 typedef enum 
@@ -37,5 +38,8 @@ typedef enum
 	WORD_TOO_SHORT = 22,
 	FORMATTING_ERROR = 31,
 	BUFFER_WRITE_FAIL = 32,
-  MALLOC_ERR = 33,
+	MALLOC_ERR = 33,
+	FILENAME_FAIL = 50,
+	FILEPATH_FAIL = 51,
+	INPUT_FAIL = 52,
 } error_codes;

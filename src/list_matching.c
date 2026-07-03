@@ -1,41 +1,68 @@
 #include "header.h"
 
-int list_match(ALL_WORD_LISTS word_list_enum, const char (*(*word_list_pointer))[INDEX_LETTERS_WORD])
+char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
 {
-	int number_of_words = 0;
+	uint32_t num_words = 0;
+
+	char filename[128] = {0};
+	buffer_write(filename, 128, get_filename(word_list_enum));
+
+	if (standard_word_list)
+	{
+		size_t full_path_size = prepend_fp(NULL, 0, filename);
+		if (full_path_size > sizeof(filename))
+		{
+			err(FILEPATH_FAIL);
+		}
+
+		char *temp_path_buffer = malloc(full_path_size);
+		prepend_fp(temp_path_buffer, full_path_size, filename);
+
+		/* write to the filename string from the temp_full_path buffer */
+		buffer_write(filename, full_path_size, temp_path_buffer);
+
+		free(temp_path_buffer);
+	}
+
+	char *word_list_filename(ALL_WORD_LISTS word_list_type);
+
 	switch (word_list_enum)
 	{
 	case en_all:
-		*word_list_pointer = all_words;
-		number_of_words = NUM_ALL_WORDS;
+		num_words = NUM_ALL_WORDS;
 		break;
 	case en_nyt:
-		*word_list_pointer = nyt_words;
-		number_of_words = NUM_WORDS;
+		num_words = NUM_WORDS;
 		break;
 	case en_common:
-		*word_list_pointer = common_words;
-		number_of_words = NUM_COMMON_WORDS;
+		num_words = NUM_COMMON_WORDS;
 		break;
+
 	case fr_all:
-		*word_list_pointer = fr_all_words;
-		number_of_words = NUM_FR_ALL_WORDS;
+		num_words = NUM_FR_ALL_WORDS;
 		break;
 
 	case la_all:
-		*word_list_pointer = la_all_words;
-		number_of_words = NUM_LA_ALL_WORDS;
+		num_words = NUM_LA_ALL_WORDS;
+		break;
+	
+	case la_common:
+		num_words = NUM_LA_COM_WORDS;
 		break;
 
-	case la_common:
-		*word_list_pointer = la_com_words;
-		number_of_words = NUM_LA_COM_WORDS;
+	case custom:
+		/* standard_word_list = false; */
+		num_words = get_num_lines(filename);
 		break;
+		
 	default:
-		/* word list entry is missing in this switch statement */
+		/* a word list entry is missing in this switch statement */
 		err(UNKNOWN_WORD_LIST);
 		break;
 	}
 
-	return number_of_words;
+	*(number_of_words) = num_words;
+
+	/* allocate memory for the pointer */
+	return read_words(filename, &num_words);
 }

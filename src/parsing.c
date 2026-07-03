@@ -20,49 +20,57 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 	if (letter_indexed_bl && number_arg_index >= num_args)
 	{
-	      	err(CMD_MISSING_ARGS);
+		err(CMD_MISSING_ARGS);
 	}
 
-	const char (*ptr)[INDEX_LETTERS_WORD];
-	int n_pos_arr = 0;
-	
+	char (*ptr)[INDEX_LETTERS_WORD];
+	uint32_t n_pos_arr = 0;
+
 	if (*f_exec)
 	{
-		n_pos_arr = list_match(w_list, &ptr);
+		/* initialise the filename with zero 
+		 * the filename will be the filename of the word list */
+		char filename[128] = {0};
+
+		bool standard_word_list = true;
+		buffer_write(filename, 128, get_filename(w_list));
+
 		switch (w_list)
 		{
 		case en_all:
-			ptr = all_words;
 			n_pos_arr = NUM_ALL_WORDS;
 			break;
 		case en_nyt:
-			ptr = nyt_words;
 			n_pos_arr = NUM_WORDS;
 			break;
 		case en_common:
-			ptr = common_words;
 			n_pos_arr = NUM_COMMON_WORDS;
 			break;
 
 		case fr_all:
-			ptr = fr_all_words;
 			n_pos_arr = NUM_FR_ALL_WORDS;
 			break;
 
 		case la_all:
-			ptr = la_all_words;
 			n_pos_arr = NUM_LA_ALL_WORDS;
 			break;
 	
 		case la_common:
-			ptr = la_com_words;
 			n_pos_arr = NUM_LA_COM_WORDS;
+			break;
+
+		case custom:
+			/* standard_word_list = false; */
+			n_pos_arr = get_num_lines(filename);
 			break;
 			
 		default:
 			err(UNKNOWN_WORD_LIST);
 			break;
 		}
+
+		ptr = list_match(w_list, &n_pos_arr, standard_word_list);
+
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
@@ -75,8 +83,8 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			err(NO_POSSIBLE_ANSWERS);
 		}
 		/* rename variables */
-		ptr = (const char (*)[INDEX_LETTERS_WORD])filtered_arr;
-		n_pos_arr = n_possible_answers;
+		ptr = (char (*)[INDEX_LETTERS_WORD])filtered_arr;
+		n_pos_arr = (uint16_t)n_possible_answers;
 	}
 
 	/* word_letter_index is the index of the letter the user is looking for
@@ -118,32 +126,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 		if (*f_exec)
 		{
-			char **word_list_name;
-			char *unknown_word_list = "[Unknown word list]";
-	
-			switch (w_list)
-			{
-			case en_nyt:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case en_common:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case en_all:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case la_all:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case fr_all:
-				word_list_name = &word_list_text[w_list];
-				break;
-	
-			default:
-				word_list_name = &unknown_word_list;
-				break;
-			}
-			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", *word_list_name);
+			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list));
 			printf(ANSI_LCYAN"("UDRL_S BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
 		else
@@ -154,7 +137,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	
 	char flag_string[24] = {0};
-  	size_t flag_length = sizeof(flag_string);
+	size_t flag_length = sizeof(flag_string);
 
 	/* parsing logic is below for all options */
 
@@ -175,7 +158,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			if (word_letter_index == 0)
 				first_character = true;
 		
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				if (letter_indexed == ptr[j][word_letter_index])
@@ -199,7 +182,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				buffer_write(flag_string, flag_length, "--excludes");
 			}
 
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				if (letter_indexed != ptr[j][word_letter_index])
@@ -219,7 +202,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				buffer_write(flag_string, flag_length, "--includes");
 			}
 
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				/* compare the specified letter against the words in a loop */
 				for (int k = 0; k < NUM_LETTERS_WORD; k++)
@@ -240,7 +223,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 				buffer_write(flag_string, flag_length, "--absent");
 			}
 
-			for (int j = 0; j < n_pos_arr; j++)
+			for (uint32_t j = 0; j < n_pos_arr; j++)
 			{
 				bool letter_match = false;
 				/* compare the specified letter against the words in a loop */
@@ -260,6 +243,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			}
 		}
 	}
+
+	if (*f_exec)
+	{
+		free(ptr);
+	}
 	
 	/* set the global "n_possible_answers" to "temp_count" local variable 
 	 * this is done in order to prevent breaking the other processes using the global 
@@ -278,13 +266,21 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
 	}
 
-	int arg_offset = 0;
+	/* offset the flag_r iterator by the number of arguments we used here 
+	 * ("-s A 1" would count as 3) */
 	if (letter_indexed_bl)
-	    	arg_offset = P_FILTERS_ARG_EXP;
+	{
+		/* the number of arguments expected when no index is specified (2)
+		 * example: "-a Z" (any word without Z) */
+		*(flag_r) += P_FILTERS_ARG_EXP;
+	}
 	else
-	    	arg_offset = G_FILTERS_ARG_EXP;
+	{
+		/* the number of arguments expected when a letter index is specified (3) 
+		 * example: "-s A 1" (any word with A at the first position) */
+	    	*(flag_r) += G_FILTERS_ARG_EXP;
+	}
 	
-	*(flag_r) += arg_offset;
 	*(f_exec) = false;
 	
 	return 0;
