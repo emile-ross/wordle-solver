@@ -27,7 +27,7 @@ void buffer_write(char *string, size_t size_of_string, const char *restrict form
  *
  * if this matches with the name in the config.c file, this 
  * means that the user never changed it */
-const char *default_config_list_name = "default_custom_list";	
+const char *default_config_list_name = "default_custom_list.txt";	
 
 char *get_filename(ALL_WORD_LISTS word_list_type)
 {
