@@ -106,19 +106,15 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 	return 0;
 }
 
-char *get_custom_file(void)
+char *get_custom_file(char *buffer, size_t buffer_size)
 {
-	char buffer[120];
 	if (fgets(buffer, (int)buffer_size, stdin) == NULL)
 	{
 		err(INPUT_FAIL);
 	}
-	return buffer;
-	uint8_t filename_length = (uint8_t)strlen(buffer);
-	
-	char *filename = NULL;
-	memcpy(filename, buffer, filename_length);
-	filename[filename_length] = '\0';
 
-	return filename;
+	uint8_t name_len = (uint8_t)strcspn(buffer, "\n");
+	buffer[name_len] = '\0';	/* replace \n with \0 to terminate the string */
+
+	return buffer;
 }
