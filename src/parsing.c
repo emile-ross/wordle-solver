@@ -126,35 +126,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 		if (*f_exec)
 		{
-			char **word_list_name;
-			char *unknown_word_list = "[Unknown word list]";
-	
-			switch (w_list)
-			{
-			case en_nyt:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case en_common:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case en_all:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case la_all:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case fr_all:
-				word_list_name = &word_list_text[w_list];
-				break;
-			case custom:
-				word_list_name = &default_word_list_name;
-				break;
-	
-			default:
-				word_list_name = &unknown_word_list;
-				break;
-			}
-			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", *word_list_name);
+			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list));
 			printf(ANSI_LCYAN"("UDRL_S BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
 		else
