@@ -109,7 +109,7 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 char *get_custom_file(void)
 {
 	char buffer[120];
-	if (fgets(buffer, sizeof(buffer), stdin) == NULL)
+	if (fgets(buffer, (int)buffer_size, stdin) == NULL)
 	{
 		err(INPUT_FAIL);
 	}
