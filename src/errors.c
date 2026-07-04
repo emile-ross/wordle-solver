@@ -70,6 +70,7 @@ void err(error_codes error_code)
 		error_message =
 			"Failed to get the full filepath to the word list file\nThis is an internal issue, report this bug and use a custom word list in the meantime";
 		critical = true;
+		break;
 
 	case INPUT_FAIL:
 		error_message = "Failed to parse input from stdin";
@@ -172,6 +173,7 @@ void warn(warnings warning_type)
 		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
 
 		fprintf(stderr, "%s\n", warning_message);
+		free(warning_message);
 	}
 
 	printf("Press any key to continue");
