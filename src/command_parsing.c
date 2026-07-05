@@ -213,7 +213,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 								int ret = snprintf(command_word_string, size,
 										"%s", arguments[flag_temp]);
 								
-								check_buf(ret, (int)size);	/* check buffer for possible truncation  */
+								check_buf(ret, (int)size, (void*)command_word_string);	/* check buffer for possible truncation  */
 							}
 						}
 					}
@@ -283,7 +283,7 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 		char *flags_ignored_msg = malloc(ignored_flags_size);
 
 		int ret = snprintf(flags_ignored_msg, ignored_flags_size, ignored_flags_template, flag[flag_index]);
-		check_buf(ret, (int)ignored_flags_size);	/* check buffer for possible truncation  */
+		check_buf(ret, (int)ignored_flags_size, (void*)flags_ignored_msg);	/* check buffer for possible truncation  */
 
 		printf("%s\n\n", flags_ignored_msg);
 		free(flags_ignored_msg);

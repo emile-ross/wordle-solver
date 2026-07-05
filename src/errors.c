@@ -101,7 +101,7 @@ void err(error_codes error_code)
 
 		/* write to error_msg_base buffer */
 		int ret = snprintf(full_error_message, message_size, message_template, program_name, error_message);
-		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
+		check_buf(ret, (int)message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
 
 		printf(ANSI_RED"%s"STYLE_END, full_error_message);
 
@@ -163,7 +163,7 @@ void warn(warnings warning_type)
 
 		char *warning_message = malloc(message_size);
 		int ret = snprintf(warning_message, message_size, warning_message_template, warning_message_title, message);
-		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
+		check_buf(ret, (int)message_size, (void*)warning_message);	/* check buffer for possible truncation  */
 
 		fprintf(stderr, "%s\n", warning_message);
 		free(warning_message);
@@ -176,7 +176,7 @@ void warn(warnings warning_type)
 
 		char *warning_message = malloc(message_size);
 		int ret = snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
-		check_buf(ret, (int)message_size);	/* check buffer for possible truncation  */
+		check_buf(ret, (int)message_size, (void*)warning_message);	/* check buffer for possible truncation  */
 
 		fprintf(stderr, "%s\n", warning_message);
 		free(warning_message);

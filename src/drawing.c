@@ -75,7 +75,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
           				size_t size = sizeof(filtered_words_temp[num_answers]);
 					int ret = snprintf(filtered_words_temp[num_answers], size, "%s", all_words[j]);
 
-					check_buf(ret, (int)size);	/* check buffer for possible truncation  */
+					check_buf(ret, (int)size, NULL);	/* check buffer for possible truncation  */
 					num_answers++;
 				}
 			}
@@ -122,7 +122,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 					size_t size = sizeof(filtered_words[temp_count]);
 					int ret = snprintf(filtered_words[temp_count], size, "%s", filtered_words_temp[word_iteration]);
 
-					check_buf(ret, (int)size);	/* check buffer for possible truncation  */
+					check_buf(ret, (int)size, NULL);	/* check buffer for possible truncation  */
 					temp_count++;
 				}
 			}
@@ -140,7 +140,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 				size_t size = sizeof(all_answers[entry_i][j]);
 				int ret = snprintf(all_answers[entry_i][j], size, "%s", filtered_words[j]);
 
-				check_buf(ret, (int)size);	/* check buffer for possible truncation  */
+				check_buf(ret, (int)size, NULL);	/* check buffer for possible truncation  */
 			}
 			num_all_answers[entry_i] = num_answers;
 			print_as_table(table_width, (int)num_answers, awsum_table_mode, filtered_words);

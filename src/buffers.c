@@ -1,10 +1,14 @@
 #include "header.h"
 
-void check_buf(int return_value, int size_of_buffer)
+void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
 {
 	/* check if the string was truncated after the use of snprintf */
 	if (return_value < 0 || return_value >= size_of_buffer)
 	{
+		if (buf_to_free != NULL)
+		{
+			free(buf_to_free);
+		}
 		err(FORMATTING_ERROR);
 		exit(1);
 	}
@@ -13,7 +17,7 @@ void check_buf(int return_value, int size_of_buffer)
 void buffer_write(char *string, size_t size_of_string, const char *restrict format, ...)
 {
 	int return_value = snprintf(string, size_of_string, "%s", format);
-	check_buf(return_value, (int)size_of_string);
+	check_buf(return_value, (int)size_of_string, NULL);
 
 	/* check if the string was truncated after the use of snprintf */
 	if ((size_t)return_value >= size_of_string)
