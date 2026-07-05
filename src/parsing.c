@@ -109,6 +109,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			/* the strings are matching, therefore no valid characters were found */
 
 			/* TODO add error message for this specific case */
+			free(ptr);
 			err(INVALID_INDEX);
 		}
 		if (endptr != NULL)
@@ -116,6 +117,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			/* there was at least one invalid character */
 
 			/* TODO add error message for this specific case */
+			free(ptr);
 			err(INVALID_INDEX);
 		}
 
@@ -125,11 +127,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
 								   therefore, we need to convert it from a count to an index */
 	}
-	else
-	{
-		err(INVALID_INDEX);
-	}
-	
+
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
 	
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
@@ -191,7 +189,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-
 			if (verbose)
 			{
 				buffer_write(flag_string, flag_length, "--excludes");
