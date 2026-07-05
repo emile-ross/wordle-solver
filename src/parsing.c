@@ -71,6 +71,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 		ptr = list_match(w_list, &n_pos_arr, standard_word_list);
 
+		if (ptr == NULL)
+		{
+			err(MALLOC_ERR);
+		}
+
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
