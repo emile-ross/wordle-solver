@@ -138,10 +138,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 
 			for (uint32_t j = 0; j < num_answers; j++)
 			{
-				size_t size = sizeof(all_answers[entry_i][j]);
-				int ret = snprintf(all_answers[entry_i][j], size, "%s", filtered_words[j]);
-
-				check_buf(ret, (int)size, NULL);	/* check buffer for possible truncation  */
+				buffer_write(all_answers[entry_i][j], sizeof(all_answers[entry_i][j]), filtered_words[j]);
 			}
 			num_all_answers[entry_i] = num_answers;
 			print_as_table(table_width, (int)num_answers, awsum_table_mode, filtered_words);

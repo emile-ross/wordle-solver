@@ -76,10 +76,10 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 		file_buf[i][INDEX_LETTERS_WORD] = '\0';
 		file_buf[i][NUM_LETTERS_WORD] = '\0';
 
-		strncpy(ptr[i], file_buf[i], 6);
+		buffer_write(ptr[i], INDEX_LETTERS_WORD, file_buf[i]);
 	}
+
 	free(file_buf);
-	
 	fclose(file);	/* close file after use */
 
 	/* the memory needs to be freed later after use */
