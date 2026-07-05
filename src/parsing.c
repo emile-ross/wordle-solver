@@ -104,6 +104,21 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
 		long user_index = strtol(arguments[number_arg_index], &endptr, 10);
+		if (strcmp(endptr, arguments[number_arg_index]) == 0)
+		{
+			/* the strings are matching, therefore no valid characters were found */
+
+			/* TODO add error message for this specific case */
+			err(INVALID_INDEX);
+		}
+		if (endptr != NULL)
+		{
+			/* there was at least one invalid character */
+
+			/* TODO add error message for this specific case */
+			err(INVALID_INDEX);
+		}
+
 		word_letter_index = (int)valid_user_index(user_index);
 
 		word_letter_index = (uint8_t)valid_user_index((long)word_letter_index); /* validate the index the user provided */
