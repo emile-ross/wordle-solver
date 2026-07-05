@@ -5,10 +5,7 @@ void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
 	/* check if the string was truncated after the use of snprintf */
 	if (return_value < 0 || return_value >= size_of_buffer)
 	{
-		if (buf_to_free != NULL)
-		{
-			free(buf_to_free);
-		}
+		free(buf_to_free);
 		err(FORMATTING_ERROR);
 		exit(1);
 	}
@@ -39,26 +36,17 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 	{
 	case en_all:
 		return "en_all_words.txt";
-		break;
 	case en_nyt:
 		return "en_nyt_words.txt";
-		break;
 	case en_common:
 		return "en_com_words.txt";
-		break;
 	case fr_all:
 		return "fr_all_words.txt";
-		break;
-
 	case la_all:
 		return "la_all_words.txt";
-		break;
-
 	case la_common:
 		return "la_com_words.txt";
-		break;
 	case custom:
-	
 		if (strcmp(default_config_list_name, custom_list_name) == 0)
 		{
 			char buffer[128];
@@ -68,7 +56,6 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		{
 			return custom_list_name;
 		}
-
 		break;
 	default:
 		err(FILENAME_FAIL);
