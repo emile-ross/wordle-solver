@@ -71,11 +71,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 		ptr = list_match(w_list, &n_pos_arr, standard_word_list);
 
-		if (ptr == NULL)
-		{
-			err(MALLOC_ERR);
-		}
-
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
@@ -117,7 +112,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	}
 	else
 	{
-		word_letter_index = -1;
+		err(INVALID_INDEX);
 	}
 	
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
