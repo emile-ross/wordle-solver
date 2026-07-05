@@ -42,4 +42,5 @@ typedef enum
 	FILENAME_FAIL = 50,
 	FILEPATH_FAIL = 51,
 	INPUT_FAIL = 52,
+	INVALID_INDEX = 55,
 } error_codes;

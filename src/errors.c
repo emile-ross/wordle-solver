@@ -77,6 +77,11 @@ void err(error_codes error_code)
 		error_message = "Failed to parse input from stdin";
 		critical = true;
 		break;
+
+	case INVALID_INDEX:
+		error_message = "The index into the word is invalid";
+		critical = true;
+		break;
 	
 	default:
 		printf("Missing error message\n");
