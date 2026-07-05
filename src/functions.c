@@ -11,9 +11,9 @@ uint8_t valid_user_index(long index)
 		/* display error message for invalid value (invalid index into the word) */
 	    	err(CMD_INDEX_BOUNDS);
 	}
-	else if (index < 0)
+	else if (index <= 0)
 	{
-		err(NEGATIVE_INDEX);
+		err(INVALID_INDEX);
 	}
 	return (uint8_t)index;
 }

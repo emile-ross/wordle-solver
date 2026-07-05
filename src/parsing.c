@@ -120,9 +120,9 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			err(INVALID_INDEX);
 		}
 
-		word_letter_index = (int)valid_user_index(user_index);
+		word_letter_index = (int)valid_user_index(user_index, (void*)ptr);
 
-		word_letter_index = (uint8_t)valid_user_index((long)word_letter_index); /* validate the index the user provided */
+		word_letter_index = (uint8_t)valid_user_index((long)word_letter_index, (void*)ptr); /* validate the index the user provided */
 		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
 								   therefore, we need to convert it from a count to an index */
 		if (word_letter_index < 0)
@@ -185,11 +185,17 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 					temp_count++;
 		
 					if (!prev_character_found && first_character)
+					{
 						prev_character_found = true;
+					}
 				}
 				else
+				{
 					if (prev_character_found)
+					{
 						break;
+					}
+				}
 			}
 		}
 		else
