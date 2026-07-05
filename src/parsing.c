@@ -70,7 +70,6 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 
 		ptr = list_match(w_list, &n_pos_arr, standard_word_list);
-
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
@@ -112,7 +111,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			free(ptr);
 			err(INVALID_INDEX);
 		}
-		if (endptr != NULL)
+		if (*endptr != '\0')
 		{
 			/* there was at least one invalid character */
 
@@ -126,6 +125,12 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		word_letter_index = (uint8_t)valid_user_index((long)word_letter_index); /* validate the index the user provided */
 		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
 								   therefore, we need to convert it from a count to an index */
+		if (word_letter_index < 0)
+		{
+			/* this is just an invalid index */
+			free(ptr);
+			err(INVALID_INDEX);
+		}
 	}
 
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);

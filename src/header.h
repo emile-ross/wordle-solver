@@ -106,7 +106,7 @@ void validate_word(char *command_word_string);
 	extern bool append_flag_ignore_msg;
 
 /* General simple functions */
-	uint8_t valid_user_index(long index);
+	uint8_t valid_user_index(long index, void *ptr_to_free);
 
 
 /* config file */
