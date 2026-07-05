@@ -79,6 +79,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 					num_answers++;
 				}
 			}
+			free(all_words);
 
 			/* initialise temp_count (used for matching the count)  */
 			int temp_count = 0;
