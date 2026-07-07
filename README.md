@@ -108,6 +108,10 @@ It will provide the user with every word they can use in order to make a stairca
 ## word lists
 This program includes several word lists:
 
+You can use a custom word list with the ``-w custom`` flag
+
+Make sure your word list is sorted in alphabetical order before using it
+
 ### all words
 
 The ``all_words`` list includes a list of [all english words](https://raw.githubusercontent.com/emile-ross/wordle/refs/heads/main/src/word-lists/all_words.c) including some that may be valid only in certain parts of the world.  
