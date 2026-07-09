@@ -1,5 +1,7 @@
 #include "header.h"
 
+#include <ctype.h>
+
 bool valid_expression;
 bool append_flag_ignore_msg;
 
@@ -209,11 +211,13 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 							else
 							{
 								/* use the length of the buffer directly instead of getting the size of the buffer and using that */
-								const size_t size = INDEX_LETTERS_WORD;
-								int ret = snprintf(command_word_string, size,
-										"%s", arguments[flag_temp]);
-								
-								check_buf(ret, (int)size, (void*)command_word_string);	/* check buffer for possible truncation  */
+								for (uint8_t i = 0; i < INDEX_LETTERS_WORD; i++)
+								{
+									command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
+								}
+
+								/* ensure the string is null terminated */
+								command_word_string[INDEX_LETTERS_WORD] = '\0';
 							}
 						}
 					}
