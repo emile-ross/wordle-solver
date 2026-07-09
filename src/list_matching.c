@@ -7,7 +7,7 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 	char filename[128] = {0};
 	buffer_write(filename, 128, get_filename(word_list_enum));
 
-	if (word_list_enum == custom)
+	if (word_list_enum == custom_list)
 	{
 		standard_word_list = false;
 	}
@@ -55,7 +55,7 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 		num_words = NUM_LA_COM_WORDS;
 		break;
 
-	case custom:
+	case custom_list:
 		/* standard_word_list = false; */
 		num_words = get_num_lines(filename);
 		break;

@@ -59,7 +59,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			n_pos_arr = NUM_LA_COM_WORDS;
 			break;
 
-		case custom:
+		case custom_list:
 			/* standard_word_list = false; */
 			n_pos_arr = get_num_lines(filename);
 			break;

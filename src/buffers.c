@@ -46,7 +46,7 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		return "la_all_words.txt";
 	case la_common:
 		return "la_com_words.txt";
-	case custom:
+	case custom_list:
 		if (strcmp(default_config_list_name, custom_list_name) == 0)
 		{
 			char buffer[128];

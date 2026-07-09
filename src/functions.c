@@ -42,7 +42,7 @@ char *word_list_name(ALL_WORD_LISTS word_list_type)
 		return "all latin words";
 	case la_common:
 		return "common latin words";
-	case custom:
+	case custom_list:
 		return "custom word list";
 	default:
 		err(UNKNOWN_WORD_LIST);

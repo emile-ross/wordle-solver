@@ -7,7 +7,7 @@ typedef enum
 	fr_all = 4,
 	la_common = 5,
 	la_all = 6,
-	custom = 7,
+	custom_list,
 	undefined_list,
 } ALL_WORD_LISTS ;
 
@@ -44,4 +44,5 @@ typedef enum
 	FILEPATH_FAIL = 51,
 	INPUT_FAIL = 52,
 	INVALID_INDEX = 55,
+	INVALID_WORD = 56,
 } error_codes;

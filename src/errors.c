@@ -78,6 +78,11 @@ void err(error_codes error_code)
 		critical = true;
 		break;
 
+	case INVALID_WORD:
+		error_message = "The word provided is invalid and it has been";
+		critical = true;
+		break;
+	
 	case INVALID_INDEX:
 		error_message = "The index into the word is invalid";
 		critical = true;
