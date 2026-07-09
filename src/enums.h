@@ -1,12 +1,12 @@
 typedef enum  
 {
-	en_nyt,
-	en_common,
-	en_all,
-	fr_all,
-	la_common,
-	la_all,
-	custom,
+	en_nyt = 1,
+	en_common = 2,
+	en_all = 3,
+	fr_all = 4,
+	la_common = 5,
+	la_all = 6,
+	custom = 7,
 } ALL_WORD_LISTS ;
 
 typedef enum 

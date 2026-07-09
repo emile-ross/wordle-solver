@@ -118,6 +118,7 @@ char *get_custom_file(char *buffer, size_t buffer_size)
 {
 	printf(ANSI_GREY"Edit the "BOLD_S"custom_list_name"STYLE_END ANSI_GREY" word list name in the "BOLD_S"src/config.c \n"STYLE_END ANSI_GREY
 			"configuration file in order to avoid typing the file path each time\n"STYLE_END);
+
 	printf("Type the path to your word list: ");
 	if (fgets(buffer, (int)buffer_size, stdin) == NULL)
 	{
