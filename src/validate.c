@@ -11,15 +11,6 @@ void validate_word(char *command_word_string)
 
 	int num_matches = 0;
 	bool word_list_matches[NUM_WORD_LISTS];
-	char *word_list_names[NUM_WORD_LISTS];
-
-	word_list_names[en_nyt]		= "english New-York Times word list";
-	word_list_names[en_common]	= "english the \"common words\" list";
-	word_list_names[en_all]		= "english \"all words\" list";
-
-	word_list_names[fr_all]		= "french \"all words\" list";
-	word_list_names[la_common]	= "latin \"common words\" list";
-	word_list_names[la_all]		= "latin \"all words\" list";
 
 	for (int i = 0; i < NUM_WORD_LISTS; i++)
 	{
@@ -56,7 +47,7 @@ void validate_word(char *command_word_string)
 		{
 			if (word_list_matches[i])
 			{
-				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_names[i]);
+				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_name(i));
 
 				if (i == fr_all)
 				{
