@@ -1,14 +1,7 @@
 #include "header.h"
 
-#include <ctype.h>
-
 void validate_word(char *command_word_string)
 {
-	for (size_t i = 1; i < sizeof(command_word_string); i++) 
-	{
-		command_word_string[i] = (char)toupper((unsigned char)command_word_string[i]);
-	}
-
 	int num_matches = 0;
 	bool word_list_matches[NUM_WORD_LISTS];
 

@@ -4,15 +4,6 @@
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 {
-	char wordle_answer_temp[INDEX_LETTERS_WORD];
-	for (int i = 0; i < NUM_LETTERS_WORD; i++)
-	{
-		/* convert the wordle answer to uppercase for easier parsing */
-		wordle_answer_temp[i] = (char)toupper((unsigned char)wordle_answer[i]);
-	}
-
-	wordle_answer = wordle_answer_temp;
-
 	char all_answers[INDEX_LETTERS_WORD][NUM_ALL_WORDS][NUM_LETTERS_WORD];
 
 	uint32_t num_all_answers[NUM_LETTERS_WORD];
