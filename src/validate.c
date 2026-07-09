@@ -40,7 +40,7 @@ void validate_word(char *command_word_string)
 		{
 			if (word_list_matches[i])
 			{
-				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_name(i));
+				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_name((ALL_WORD_LISTS)i));
 
 				if (i == fr_all)
 				{

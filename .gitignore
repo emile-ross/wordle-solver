@@ -4,3 +4,4 @@ src/*.o
 *_SECRET.asc
 ID_RSA
 id_rsa
+.gitconfig
