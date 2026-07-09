@@ -62,6 +62,5 @@ void validate_word(char *command_word_string)
 	{
 		printf("was not found in any word list\n");
 	}
-	exit(0);
 }
 

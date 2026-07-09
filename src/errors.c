@@ -57,7 +57,7 @@ void err(error_codes error_code)
 		break;
 
 
-	case MALLOC_ERR:
+	case MALLOC_FAIL:
 		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
 		critical = true;
 		break;
@@ -85,6 +85,11 @@ void err(error_codes error_code)
 	
 	case INVALID_INDEX:
 		error_message = "The index into the word is invalid";
+		critical = true;
+		break;
+
+	case VERBOSE_FAIL:
+		error_message = "Failed to write the verbose message\nReport this error in github.com/emile-ross/wordle";
 		critical = true;
 		break;
 	

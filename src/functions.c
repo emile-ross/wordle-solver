@@ -1,5 +1,7 @@
 #include "header.h"
 
+#include <stdarg.h>
+
 const char *word_list_flag = "-w";
 const char *word_list_long_flag = "--word-list";
 
@@ -48,4 +50,33 @@ char *word_list_name(ALL_WORD_LISTS word_list_type)
 		err(UNKNOWN_WORD_LIST);
 		return NULL;
 	}
+}
+
+void verbose_print(const char *restrict format, ...)
+{
+	va_list args, copy;
+	va_start(args, format);
+	va_copy(copy, args);
+
+	/* calculate the length of the verbose message */
+	size_t msg_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
+	va_end(copy);
+
+	/* allocate memory for the verbose message */
+	char *verbose_msg = malloc(msg_size);
+	if (verbose_msg == NULL)
+	{
+		err(MALLOC_FAIL);
+	}
+	size_t ret = (size_t)vsnprintf(verbose_msg, msg_size, format, args);
+	va_end(args);
+
+	if (ret > msg_size)
+	{
+		err(VERBOSE_FAIL);
+	}
+
+	printf(ANSI_LCYAN"%s\n"STYLE_END, verbose_msg);
+	
+	free(verbose_msg);
 }
