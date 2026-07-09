@@ -1,5 +1,6 @@
 typedef enum  
 {
+	no_word_list = 0,
 	en_nyt = 1,
 	en_common = 2,
 	en_all = 3,
@@ -7,6 +8,7 @@ typedef enum
 	la_common = 5,
 	la_all = 6,
 	custom = 7,
+	undefined_list,
 } ALL_WORD_LISTS ;
 
 typedef enum 
@@ -22,7 +24,6 @@ typedef enum
 	matching_mode,
 	validating_mode,
 } parsing_modes;
-
 
 typedef enum
 {

@@ -3,7 +3,7 @@
 void validate_word(char *command_word_string)
 {
 	int num_matches = 0;
-	bool word_list_matches[NUM_WORD_LISTS];
+	bool word_list_matches[NUM_WORD_LISTS + 1];
 
 	for (int i = 0; i < NUM_WORD_LISTS; i++)
 	{
@@ -12,7 +12,7 @@ void validate_word(char *command_word_string)
 
 	if (command_word_string != NULL)
 	{
-		for (int i = 1; i < NUM_WORD_LISTS; i++)
+		for (int i = 1; i != undefined_list; i++)
 		{
 			uint32_t num_words = 0;
 			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
