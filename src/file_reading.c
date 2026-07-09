@@ -10,7 +10,6 @@ uint16_t get_num_lines(char *file_path)
 
 	/* open file path in reading mode */
 	FILE *word_file = fopen(file_path, "r");
-
 	uint16_t line_count = 0; /* max size of 65535 (65535 lines) */
 
 	/* checks if the file can be opened and if it exists */

@@ -7,6 +7,11 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 	char filename[128] = {0};
 	buffer_write(filename, 128, get_filename(word_list_enum));
 
+	if (word_list_enum == custom)
+	{
+		standard_word_list = false;
+	}
+
 	if (standard_word_list)
 	{
 		size_t full_path_size = prepend_fp(NULL, 0, filename);
