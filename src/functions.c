@@ -5,6 +5,8 @@
 const char *word_list_flag = "-w";
 const char *word_list_long_flag = "--word-list";
 
+uint8_t NUM_WORD_LISTS = la_all;
+
 uint8_t valid_user_index(long index, void *ptr_to_free)
 {
 	/* return a valid uint8_t variable */

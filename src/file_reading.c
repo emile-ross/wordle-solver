@@ -49,13 +49,16 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	 * multiply the size of 1 word by the number of words to get the total size */
 	size_t file_buffer_size = (*num_words * sizeof(char[7]));	/* for reading from the file directly */
 	char (*file_buf)[7] = malloc(file_buffer_size);
+	if (file_buf == NULL)
+	{
+		err(MALLOC_FAIL);
+	}
 
 	size_t word_list_size = (*num_words * sizeof(char[7]));
 	char (*ptr)[INDEX_LETTERS_WORD] = malloc(word_list_size);
-
 	if (ptr == NULL)
 	{
-		err(MALLOC_ERR);
+		err(MALLOC_FAIL);
 	}
 
 	FILE *file = fopen(file_path, "r");

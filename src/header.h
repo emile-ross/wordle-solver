@@ -9,8 +9,6 @@
 #include <stdint.h>
 
 /* number of words for each array */
-#define NUM_WORD_LISTS 7
-
 	#define NUM_WORDS 2337
 	#define NUM_COMMON_WORDS 5700
 	#define NUM_ALL_WORDS 14862
@@ -53,23 +51,7 @@
 /* Word lists */
 	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6];
 	char *word_list_name(ALL_WORD_LISTS word_list_type);	/* returns the name of the word list */
-
-	/* english */
-	/*	DEPRECATED 
-		extern char nyt_words[NUM_WORDS][INDEX_LETTERS_WORD];
-		extern char common_words[NUM_COMMON_WORDS][INDEX_LETTERS_WORD];
-		extern char all_words[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
-	*/
-	/* french */
-	/*	DEPRECATED 
-		extern char fr_all_words[NUM_FR_ALL_WORDS][INDEX_LETTERS_WORD];
-	*/
-
-	/* latin */
-	/*	DEPRECATED 
-		extern char la_all_words[NUM_LA_ALL_WORDS][INDEX_LETTERS_WORD];
-		extern char la_com_words[NUM_LA_COM_WORDS][INDEX_LETTERS_WORD];
-	*/
+	extern uint8_t NUM_WORD_LISTS;
 
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
