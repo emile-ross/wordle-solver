@@ -69,13 +69,16 @@ void verbose_print(const char *restrict format, ...)
 	if (verbose_msg == NULL)
 	{
 		err(MALLOC_FAIL);
+		exit(1);
 	}
 	size_t ret = (size_t)vsnprintf(verbose_msg, msg_size, format, args);
 	va_end(args);
 
 	if (ret > msg_size)
 	{
+		free(verbose_msg);
 		err(VERBOSE_FAIL);
+		exit(1);
 	}
 
 	printf(ANSI_LCYAN"%s\n"STYLE_END, verbose_msg);
