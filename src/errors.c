@@ -2,7 +2,7 @@
 
 void err(error_codes error_code)
 {
-	bool critical = true;
+	bool report_issue = false;
 
 	char *error_message = NULL;
 	switch (error_code)
@@ -55,51 +55,43 @@ void err(error_codes error_code)
 
 	case MALLOC_FAIL:
 		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
-		critical = true;
 		break;
 
 	case FILENAME_FAIL:
 		error_message = "Failed to get the filename for the word list";
-		critical = true;
 		break;
 
 	case FILEPATH_FAIL:
 		error_message =
 			"Failed to get the full filepath to the word list file\nThis is an internal issue, report this bug and use a custom word list in the meantime";
-		/* report this */
-		critical = true;
+		report_issue = true;
 		break;
 
 	case INPUT_FAIL:
 		error_message = "Failed to parse input from stdin";
-		critical = true;
 		break;
 
 	case INVALID_WORD:
 		error_message = "The word provided is invalid and it has been";
-		critical = true;
 		break;
 	
 	case INVALID_INDEX:
 		error_message = "The index into the word is invalid";
-		critical = true;
 		break;
 
 	case VERBOSE_FAIL:
 		error_message = "Failed to write the verbose message\nReport this error in github.com/emile-ross/wordle";
-		/* report this */
-		critical = true;
+		report_issue = true;
 		break;
 
 	case BUFFER_WRITE_FAIL:
 		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
-		/* report this */
+		report_issue = true;
 		break;
 
 	
 	default:
 		printf("Missing error message\n");
-		critical = false;
 		break;
     	}
 
@@ -122,15 +114,19 @@ void err(error_codes error_code)
 		free(full_error_message);
 	}
 
+	if (report_issue)
+	{
+		fprintf(stderr, "Report this issue\nhttps://github.com/emile-ross/wordle/issues\n");
+		fprintf(stderr, "You can create an issue.\n");
+		fprintf(stderr, "Provide your full log, file structure and valgrind log if needed\n");
+	}
+
 	for (int i = 0; i < indenting; i++)
     	{
     	        printf("\n");
     	}
 
-	if (critical)
-	{
-		exit((int)error_code);
-	}
+	exit((int)error_code);
 }
 
 void warn(warnings warning_type)
