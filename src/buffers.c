@@ -19,9 +19,12 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	/* check if the string was truncated after the use of snprintf */
 	if ((size_t)return_value >= size_of_string)
 	{
-		for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
+		if (buf_to_free != NULL)
 		{
-			free(buf_to_free[i]);
+			for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
+			{
+				free(buf_to_free[i]);
+			}
 		}
 		err(BUFFER_WRITE_FAIL);
 		exit(1);
