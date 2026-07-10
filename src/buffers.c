@@ -11,7 +11,7 @@ void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
 	}
 }
 
-void buffer_write(char *string, size_t size_of_string, const char *restrict format, ...)
+void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...)
 {
 	int return_value = snprintf(string, size_of_string, "%s", format);
 	check_buf(return_value, (int)size_of_string, NULL);
@@ -19,7 +19,12 @@ void buffer_write(char *string, size_t size_of_string, const char *restrict form
 	/* check if the string was truncated after the use of snprintf */
 	if ((size_t)return_value >= size_of_string)
 	{
+		for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
+		{
+			free(buf_to_free[i]);
+		}
 		err(BUFFER_WRITE_FAIL);
+		exit(1);
 	}
 }
 

@@ -33,7 +33,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		char filename[128] = {0};
 
 		bool standard_word_list = true;
-		buffer_write(filename, 128, get_filename(w_list));
+		buffer_write(NULL, filename, 128, get_filename(w_list));
 
 		switch (w_list)
 		{
@@ -169,7 +169,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			 * this copies the last string specified to the flag_string buffer */
 			if (verbose)
 			{
-				buffer_write(flag_string, flag_length, "--strict");
+				buffer_write(NULL, flag_string, flag_length, "--strict");
 			}
 
 			bool first_character = false;
@@ -204,7 +204,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			if (verbose)
 			{
-				buffer_write(flag_string, flag_length, "--excludes");
+				buffer_write(NULL, flag_string, flag_length, "--excludes");
 			}
 
 			for (uint32_t j = 0; j < n_pos_arr; j++)
@@ -224,7 +224,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			if (verbose)
 			{
-				buffer_write(flag_string, flag_length, "--includes");
+				buffer_write(NULL, flag_string, flag_length, "--includes");
 			}
 
 			for (uint32_t j = 0; j < n_pos_arr; j++)
@@ -245,7 +245,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			if (verbose)
 			{
-				buffer_write(flag_string, flag_length, "--absent");
+				buffer_write(NULL, flag_string, flag_length, "--absent");
 			}
 
 			for (uint32_t j = 0; j < n_pos_arr; j++)
@@ -283,7 +283,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	for (int k = 0; k < n_possible_answers; k++)
 	{
 		/* call buffer_write as replacement for strcpy() */
-		buffer_write(filtered_arr[k], (size_t)INDEX_LETTERS_WORD, filtered_arr_temp[k]);
+		buffer_write(NULL, filtered_arr[k], (size_t)INDEX_LETTERS_WORD, filtered_arr_temp[k]);
 	}
 
 	/* display verbose message if verbose mode is enabled */

@@ -58,6 +58,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	char (*ptr)[INDEX_LETTERS_WORD] = malloc(word_list_size);
 	if (ptr == NULL)
 	{
+		free(file_buf);
 		err(MALLOC_FAIL);
 	}
 
@@ -78,7 +79,14 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 		file_buf[i][INDEX_LETTERS_WORD] = '\0';
 		file_buf[i][NUM_LETTERS_WORD] = '\0';
 
-		buffer_write(ptr[i], INDEX_LETTERS_WORD, file_buf[i]);
+		void *buf_to_free[3] = 
+		{
+			file_buf,
+			ptr,
+			NULL
+		};
+
+		buffer_write(buf_to_free, ptr[i], INDEX_LETTERS_WORD, file_buf[i]);
 	}
 
 	free(file_buf);

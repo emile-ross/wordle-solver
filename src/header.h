@@ -62,7 +62,7 @@
 	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
 	void help_message(void);
 	void check_buf(int return_value, int size_of_buffer, void *buf_to_free);
-	void buffer_write(char *string, size_t size_of_string, const char *restrict format, ...);
+	void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...);
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
