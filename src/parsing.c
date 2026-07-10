@@ -144,13 +144,14 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 		if (*f_exec)
 		{
-			printf(ANSI_LCYAN UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list));
-			printf(ANSI_LCYAN"("UDRL_S BOLD_S"first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+			verbose_print(UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list));
+			verbose_print("("UDRL_S BOLD_S"first");
+			verbose_print(" filter)\n");
 		}
 		else
 		{
-			printf(ANSI_LCYAN UDRL_S BOLD_S"the filtered array"STYLE_END" ");
-			printf(ANSI_LCYAN"("UDRL_S BOLD_S"not first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+			verbose_print(UDRL_S BOLD_S"the filtered array"STYLE_END" ");
+			verbose_print("("UDRL_S BOLD_S"not first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
 		}
 	}
 	
