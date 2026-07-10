@@ -81,7 +81,7 @@ void verbose_print(const char *restrict format, ...)
 		exit(1);
 	}
 
-	printf(ANSI_LCYAN"%s\n"STYLE_END, verbose_msg);
+	printf(ANSI_LCYAN"%s"STYLE_END, verbose_msg);
 	
 	free(verbose_msg);
 }
