@@ -5,7 +5,7 @@ uint16_t get_num_lines(char *file_path)
 {
 	if (verbose)
 	{
-		printf("reading the number of words in : %s\n", file_path);
+		verbose_print("reading the number of words in : %s\n", file_path);
 	}
 
 	/* open file path in reading mode */
@@ -42,7 +42,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 {
 	if (verbose)
 	{
-		printf("reading the word list at : %s\n", file_path);
+		verbose_print("reading the word list at : %s\n", file_path);
 	}
 
 	/* allocate memory for all words
@@ -52,6 +52,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	if (file_buf == NULL)
 	{
 		err(MALLOC_FAIL);
+		exit(1);
 	}
 
 	size_t word_list_size = (*num_words * sizeof(char[7]));
@@ -60,13 +61,17 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	{
 		free(file_buf);
 		err(MALLOC_FAIL);
+		exit(1);
 	}
 
 	FILE *file = fopen(file_path, "r");
 
 	if (file == NULL)
 	{
+		free(file_buf);
+		free(ptr);
 		err(NO_SUCH_FILE);
+		exit(1);
 	}
 	
 	for (uint16_t i = 0; i < *num_words; i++) 

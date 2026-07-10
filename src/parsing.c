@@ -140,7 +140,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 	if (verbose)
 	{
-		printf(ANSI_LCYAN"Parsing through "STYLE_END);
+		verbose_print(ANSI_LCYAN"Parsing through "STYLE_END);
 	
 		if (*f_exec)
 		{
