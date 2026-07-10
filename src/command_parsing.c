@@ -84,6 +84,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					{
 						valid_word_list = false;
 						err(UNKNOWN_WORD_LIST);
+						exit(1);
 					}
 
 					if (verbose)
@@ -200,12 +201,14 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 							if (NUM_LETTERS_WORD < command_word_string_size)
 							{
 								/* word is too long */
+								free(command_word_string);
 								err(WORD_TOO_LONG);
 							}
 							else if (NUM_LETTERS_WORD > command_word_string_size)
 							{
 								/* word is too short 
 								 * error code 22 is for when the word is too short */
+								free(command_word_string);
 								err(WORD_TOO_SHORT);
 							}
 							else

@@ -52,10 +52,6 @@ void err(error_codes error_code)
 		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
 		break;
 
-	case BUFFER_WRITE_FAIL:
-		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
-		break;
-
 
 	case MALLOC_FAIL:
 		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
@@ -70,6 +66,7 @@ void err(error_codes error_code)
 	case FILEPATH_FAIL:
 		error_message =
 			"Failed to get the full filepath to the word list file\nThis is an internal issue, report this bug and use a custom word list in the meantime";
+		/* report this */
 		critical = true;
 		break;
 
@@ -90,8 +87,15 @@ void err(error_codes error_code)
 
 	case VERBOSE_FAIL:
 		error_message = "Failed to write the verbose message\nReport this error in github.com/emile-ross/wordle";
+		/* report this */
 		critical = true;
 		break;
+
+	case BUFFER_WRITE_FAIL:
+		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
+		/* report this */
+		break;
+
 	
 	default:
 		printf("Missing error message\n");
