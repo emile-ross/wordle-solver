@@ -5,3 +5,4 @@ src/*.o
 ID_RSA
 id_rsa
 .gitconfig
+*.txt
