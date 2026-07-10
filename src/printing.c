@@ -100,32 +100,35 @@ void print_as_table(int width, int total_elements, bool awsum_mode, char all_ans
 void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present)
 {
 	/* add colour to options */
-	printf(BOLD_S ANSI_LCYAN"%s"STYLE_END ANSI_LCYAN" flag caused "UDRL_S BOLD_S "%d"STYLE_END ANSI_LCYAN" word", flag, affected_words);
+	verbose_print(BOLD_S"%s", flag);
+	verbose_print(" flag caused ");
+	verbose_print(UDRL_S BOLD_S"%d", affected_words);
+	verbose_print(" word");
 
 	/* craft sentence with appropriate words
 	 * make sure it is grammatically correct (plural and negative statements) */
 
 	if (affected_words != 1)
     	{
-		printf("s");
+		verbose_print("s");
     	}
 
     	if (letter_is_present)
-    	    	printf(" with ");
+    	    	verbose_print(" with ");
     	else
-    	    	printf(" without ");
+    	    	verbose_print(" without ");
 
-    	printf(UDRL_S BOLD_S"%c"STYLE_END" "ANSI_LCYAN, letter);
+    	verbose_print(UDRL_S BOLD_S"%c"STYLE_END" ", letter);
 
 	/* add colour to options */
     	if (indexed_letter_value != -1)
     	{
 		/* in order to make it more user friendly because the user inputs a value 1-5 not 0-4 */
     	    	indexed_letter_value++; 
-    	    	printf("at index "UDRL_S BOLD_S"%d"STYLE_END" "ANSI_LCYAN, indexed_letter_value);
+    	    	verbose_print("at index "UDRL_S BOLD_S"%d", indexed_letter_value);
     	}
 
-	printf("to be moved to the filtered array"STYLE_END);
+	verbose_print(" to be moved to the filtered array");
 
 	/* decrease the indenting by one */
 	int temp_indenting = indenting;

@@ -150,8 +150,9 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 		else
 		{
-			verbose_print(UDRL_S BOLD_S"the filtered array"STYLE_END" ");
-			verbose_print("("UDRL_S BOLD_S"not first"STYLE_END ANSI_LCYAN" filter)\n"STYLE_END);
+			verbose_print(UDRL_S BOLD_S"the filtered array");
+			verbose_print(" ("UDRL_S BOLD_S"not first");
+			verbose_print(" filter)\n");
 		}
 	}
 	
