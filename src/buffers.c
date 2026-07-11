@@ -64,7 +64,6 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 		{
 			return custom_list_name;
 		}
-		break;
 	default:
 		err(FILENAME_FAIL);
 		break;

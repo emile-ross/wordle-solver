@@ -24,7 +24,7 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 		prepend_fp(temp_path_buffer, full_path_size, filename);
 
 		/* write to the filename string from the temp_full_path buffer */
-		buffer_write(NULL, filename, full_path_size, temp_path_buffer);
+		buffer_write(temp_path_buffer, filename, full_path_size, temp_path_buffer);
 
 		free(temp_path_buffer);
 	}
