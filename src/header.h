@@ -50,7 +50,7 @@
 
 /* Word lists */
 	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6];
-	char *word_list_name(ALL_WORD_LISTS word_list_type);	/* returns the name of the word list */
+	char *word_list_name(ALL_WORD_LISTS word_list_type, void *buf);	/* returns the name of the word list */
 	extern uint8_t NUM_WORD_LISTS;
 
 /* filtered array used to store filtered words and it is also used for printing results */
