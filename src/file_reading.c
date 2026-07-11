@@ -91,7 +91,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 			NULL
 		};
 
-		void *arr = { buf_to_free };
+		void *arr[2] = { buf_to_free, NULL };
 		buffer_write(arr, ptr[i], INDEX_LETTERS_WORD, file_buf[i]);
 	}
 
