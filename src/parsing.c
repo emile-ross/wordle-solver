@@ -133,7 +133,17 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 	}
 
+
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
+	if (isalpha(letter_indexed))
+	{
+		if (*f_exec)
+		{
+			free(ptr);
+		}
+		err(INVALID_LETTER);
+		exit(1);
+	}
 	
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
 	int temp_count = 0; /* reset temporary count buffer */
