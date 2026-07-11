@@ -88,9 +88,9 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					}
 
 					if (verbose)
-    		    			{
-						verbose_print("using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n", word_list_name(word_list));
-    		    			}
+					{
+						verbose_print("using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n", word_list_name(word_list, NULL));
+					}
 				}
 				else /* missing arguments */
     				{

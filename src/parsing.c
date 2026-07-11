@@ -144,7 +144,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 		if (*f_exec)
 		{
-			verbose_print(UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list));
+			verbose_print(UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list, (void*)ptr));
 			verbose_print("("UDRL_S BOLD_S"first");
 			verbose_print(" filter)\n");
 		}
