@@ -75,6 +75,10 @@ void err(error_codes error_code)
 		error_message = "The word provided is invalid and it has been";
 		break;
 	
+	case INVALID_LETTER:
+		error_message = "The letter you provided isn't valid (it isn't a letter)";
+		break;
+
 	case INVALID_INDEX:
 		error_message = "The index into the word is invalid";
 		break;
