@@ -68,6 +68,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 
 	if (file == NULL)
 	{
+		/* fopen failed */
 		free(file_buf);
 		free(ptr);
 		err(NO_SUCH_FILE);

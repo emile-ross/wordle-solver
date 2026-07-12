@@ -35,6 +35,7 @@ void err(error_codes error_code)
 		break;
 		
 	case CMD_INVALID_ARG:
+		error_message = "You provided an invalid argument, here is a list of all possible arguments:";
 		help_message();
 		break;
 		
@@ -56,6 +57,7 @@ void err(error_codes error_code)
 
 	case FORMATTING_ERROR:
 		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
+		report_issue = true;
 		break;
 
 	case MALLOC_FAIL:
@@ -68,7 +70,7 @@ void err(error_codes error_code)
 
 	case FILEPATH_FAIL:
 		error_message =
-			"Failed to get the full filepath to the word list file\nThis is an internal issue, report this bug and use a custom word list in the meantime";
+			"Failed to get the full filepath to the word list file\nReport this bug, use a custom word list in the meantime";
 		report_issue = true;
 		break;
 
@@ -77,19 +79,22 @@ void err(error_codes error_code)
 		break;
 
 	case INVALID_WORD:
-		error_message = "The word provided is invalid and it has been";
+		/* User is at fault */
+		error_message = "The word provided is invalid";
 		break;
 	
 	case INVALID_LETTER:
+		/* User is at fault */
 		error_message = "The letter you provided isn't valid (it isn't a letter)";
 		break;
 
 	case INVALID_INDEX:
+		/* User is at fault */
 		error_message = "The index into the word is invalid";
 		break;
 
 	case VERBOSE_FAIL:
-		error_message = "Failed to write the verbose message\nReport this error in github.com/emile-ross/wordle";
+		error_message = "Failed to write the verbose message\n";
 		report_issue = true;
 		break;
 
@@ -138,9 +143,8 @@ void err(error_codes error_code)
 
 	if (report_issue)
 	{
-		fprintf(stderr, "Report this issue\nhttps://github.com/emile-ross/wordle/issues\n");
-		fprintf(stderr, "You can create an issue.\n");
-		fprintf(stderr, "Provide your full log, file structure and valgrind log if needed\n");
+		fprintf(stderr, "Report this issue at: https://github.com/emile-ross/wordle/issues\n");
+		fprintf(stderr, "Create an issue, provide your full log, file hierarchy and valgrind log if needed\n");
 	}
 
 	for (int i = 0; i < indenting; i++)
