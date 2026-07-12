@@ -1,5 +1,6 @@
 #include "header.h"
 
+#include <stdarg.h>
 void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
 {
 	/* check if the string was truncated after the use of snprintf */
@@ -13,6 +14,11 @@ void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
 
 void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...)
 {
+	va_list args, copy;
+	va_start(args, format);
+	va_copy(copy, args);
+
+	size_t format_str_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
 	int return_value = snprintf(string, size_of_string, "%s", format);
 	check_buf(return_value, (int)size_of_string, NULL);
 
