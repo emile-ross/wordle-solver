@@ -2,14 +2,17 @@
 
 #include <stdarg.h>
 
-void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
+void check_buf(int return_value, int size_of_buffer, void *buf_to_free[])
 {
 	/* check if the string was truncated after the use of snprintf */
 	if (return_value < 0 || return_value >= size_of_buffer)
 	{
 		if (buf_to_free != NULL)
 		{
-			free(buf_to_free);
+			for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
+			{
+				free(buf_to_free[i]);
+			}
 		}
 		err(FORMATTING_ERROR);
 		exit(1);
