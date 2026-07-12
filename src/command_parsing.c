@@ -216,6 +216,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 								/* use the length of the buffer directly instead of getting the size of the buffer and using that */
 								for (uint8_t i = 0; i < INDEX_LETTERS_WORD; i++)
 								{
+									/* check if the letter indexed is actually a letter */
 									if (!(isalpha(arguments[flag_temp][i])))
 									{
 										free(command_word_string);

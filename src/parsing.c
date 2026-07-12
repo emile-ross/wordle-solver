@@ -135,7 +135,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
-	if (isalpha(letter_indexed))
+	if (!(isalpha(letter_indexed)))
 	{
 		if (*f_exec)
 		{
