@@ -30,16 +30,16 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	va_end(copy);
 
 	/* allocate memory for the warning message */
-	char *format_str = malloc(format_str_size);
+	char *format_str = malloc((size_t)format_str_size);
 	if (format_str == NULL)
 	{
 		err(MALLOC_FAIL);
 	}
 
-	int ret = vsnprintf(format_str, format_str_size, format, args);
+	int ret = vsnprintf(format_str, (size_t)format_str_size, format, args);
 	va_end(args);
 
-	void* arr = { format_str, NULL };
+	void* arr[2] = { format_str, NULL };
 	check_buf(ret, format_str_size, arr);
 
 
