@@ -19,6 +19,9 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	va_copy(copy, args);
 
 	size_t format_str_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
+	va_end(copy);
+	va_end(args);
+	check_buf(ret, (int)format_str_size, NULL);
 	int return_value = snprintf(string, size_of_string, "%s", format);
 	check_buf(return_value, (int)size_of_string, NULL);
 

@@ -102,12 +102,11 @@ void err(error_codes error_code)
 
 	if (error_message)
 	{
-		char *full_error_message;
 		char *message_template = "%s: %s";
 
 		/* calculate string length */
 		size_t message_size = 1 + (size_t)snprintf(NULL, 0, message_template, program_name, error_message);
-		full_error_message = malloc(message_size);	/* allocate memory for the base error message string */
+		char *full_error_message = malloc(message_size);	/* allocate memory for the base error message string */
 
 		/* write to error_msg_base buffer */
 		int ret = snprintf(full_error_message, message_size, message_template, program_name, error_message);
