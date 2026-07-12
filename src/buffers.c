@@ -1,12 +1,16 @@
 #include "header.h"
 
 #include <stdarg.h>
+
 void check_buf(int return_value, int size_of_buffer, void *buf_to_free)
 {
 	/* check if the string was truncated after the use of snprintf */
 	if (return_value < 0 || return_value >= size_of_buffer)
 	{
-		free(buf_to_free);
+		if (buf_to_free != NULL)
+		{
+			free(buf_to_free);
+		}
 		err(FORMATTING_ERROR);
 		exit(1);
 	}
@@ -31,9 +35,14 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 
 	size_t ret = (size_t)vsnprintf(format_str, format_str_size, format, args);
 	va_end(args);
+
 	check_buf(ret, (int)format_str_size, NULL);
+
+
+
+
 	int return_value = snprintf(string, size_of_string, "%s", format);
-	check_buf(return_value, (int)size_of_string, NULL);
+	check_buf(return_value, (int)size_of_string, buf_to_free);
 
 	/* check if the string was truncated after the use of snprintf */
 	if ((size_t)return_value >= size_of_string)
@@ -59,7 +68,7 @@ const char *default_config_list_name = "default_custom_list.txt";
 
 char *get_filename(ALL_WORD_LISTS word_list_type)
 {
-	switch(word_list_type)
+	switch (word_list_type)
 	{
 	case en_all:
 		return "en_all_words.txt";
