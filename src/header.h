@@ -65,8 +65,10 @@
 	void check_buf(int return_value, int size_of_buffer, void *buf_to_free[]);
 	void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...);
 
-	extern int64_t err_upper_bound;
-	extern int64_t err_lower_bound;
+	/* used in err() in order to show; 
+	 * the write size (in bytes) and the buffer size (in bytes) */
+	extern int64_t err_buffer_size;
+	extern int64_t err_buffer_write;
 
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 

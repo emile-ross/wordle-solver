@@ -1,5 +1,6 @@
 #include "header.h"
 
+#define init_var_value (-255)
 
 int64_t err_buffer_size = -1;
 int64_t err_buffer_write = -1;
@@ -57,7 +58,6 @@ void err(error_codes error_code)
 		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
 		break;
 
-
 	case MALLOC_FAIL:
 		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
 		break;
@@ -96,11 +96,14 @@ void err(error_codes error_code)
 	case BUFFER_WRITE_FAIL:
 		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
 		report_issue = true;
+		/* buffer_related = true;
+		 * make sure the variable is initialised before un commenting this line */
 		break;
 
 	case ZERO_SIZED_BUF:
 		error_message = "A zero-sized buffer can't be written into (zero-sized buffer)\n";
 		report_issue = true;
+		buffer_related = true;
 		break;
 	
 	default:
@@ -110,7 +113,10 @@ void err(error_codes error_code)
 
 	if (buffer_related)
 	{
-		fprintf(stderr, "Writing %ld bytes into a buffer of size %ld", err_buffer_write, err_buffer_size);
+		if (err_buffer_write != init_var_value && err_buffer_size != init_var_value)
+		{
+			fprintf(stderr, "Writing %ld bytes into a buffer of size %ld", err_buffer_write, err_buffer_size);
+		}
 	}
 
 	if (error_message)
