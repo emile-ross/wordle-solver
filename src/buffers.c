@@ -23,7 +23,7 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	va_copy(copy, args);
 
 	/* calculate the length of the message */
-	size_t format_str_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
+	int format_str_size = 1 + vsnprintf(NULL, 0, format, copy);
 	va_end(copy);
 
 	/* allocate memory for the warning message */
@@ -33,12 +33,11 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 		err(MALLOC_FAIL);
 	}
 
-	size_t ret = (size_t)vsnprintf(format_str, format_str_size, format, args);
+	int ret = vsnprintf(format_str, format_str_size, format, args);
 	va_end(args);
 
-	check_buf(ret, (int)format_str_size, NULL);
-
-
+	void* arr = { format_str, NULL };
+	check_buf(ret, format_str_size, arr);
 
 
 	int return_value = snprintf(string, size_of_string, "%s", format);
