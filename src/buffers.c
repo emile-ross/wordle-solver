@@ -14,6 +14,12 @@ void check_buf(int return_value, int size_of_buffer, void *buf_to_free[])
 				free(buf_to_free[i]);
 			}
 		}
+
+		if (return_value == 0)
+		{
+			err(ZERO_SIZED_BUF);
+		}
+
 		err(FORMATTING_ERROR);
 		exit(1);
 	}

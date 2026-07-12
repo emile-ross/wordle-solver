@@ -47,4 +47,5 @@ typedef enum
 	INVALID_LETTER = 56,
 	INVALID_WORD = 60,
 	VERBOSE_FAIL = 61,
+	ZERO_SIZED_BUF = 62,
 } error_codes;

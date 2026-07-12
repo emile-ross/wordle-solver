@@ -93,6 +93,10 @@ void err(error_codes error_code)
 		report_issue = true;
 		break;
 
+	case ZERO_SIZED_BUF:
+		error_message = "A zero-sized buffer can't be written into (zero-sized buffer)\n";
+		report_issue = true;
+		break;
 	
 	default:
 		printf("Missing error message\n");
