@@ -49,7 +49,7 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	check_buf(ret, format_str_size, arr);
 
 
-	int return_value = snprintf(string, size_of_string, "%s", format);
+	int return_value = snprintf(string, size_of_string, "%s", format_str);
 	check_buf(return_value, (int)size_of_string, buf_to_free);
 
 	/* check if the string was truncated after the use of snprintf */

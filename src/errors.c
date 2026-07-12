@@ -1,8 +1,13 @@
 #include "header.h"
 
+
+int64_t err_buffer_size = -1;
+int64_t err_buffer_write = -1;
+
 void err(error_codes error_code)
 {
 	bool report_issue = false;
+	bool buffer_related = false;
 
 	char *error_message = NULL;
 	switch (error_code)
@@ -103,6 +108,10 @@ void err(error_codes error_code)
 		break;
     	}
 
+	if (buffer_related)
+	{
+		fprintf(stderr, "Writing %ld bytes into a buffer of size %ld", err_buffer_write, err_buffer_size);
+	}
 
 	if (error_message)
 	{
