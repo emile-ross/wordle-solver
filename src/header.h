@@ -47,7 +47,7 @@
 /* reset styling */
 #define STYLE_END	"\x1B[0m" 
 
-#define max_valid_args (16)
+#define max_valid_args (48)
 
 /* Word lists */
 	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6];
