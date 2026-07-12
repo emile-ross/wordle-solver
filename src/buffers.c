@@ -49,20 +49,28 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	int ret = vsnprintf(format_str, (size_t)format_str_size, format, args);
 	va_end(args);
 
-	void* arr[max_valid_args] = { format_str, NULL };
 
-	uint16_t i = 0;
-	for (i = 0; buf_to_free[i] != NULL; i++)
+	if (buf_to_free != NULL)
 	{
-		arr[i] = buf_to_free[i];
+		void* arr[max_valid_args];
+		uint16_t i = 0;
+		for (i = 0; buf_to_free[i] != NULL; i++)
+		{
+			arr[i] = buf_to_free[i];
+		}
+		i++;
+		arr[i] = format_str;
+		i++;
+		arr[i] = NULL;
+		check_buf(ret, format_str_size, arr);
 	}
-	i++;
-	arr[i] = format_str;
-	i++;
-	arr[i] = NULL;
-	check_buf(ret, format_str_size, arr);
+	else
+	{
+		check_buf(ret, format_str_size, NULL);
+	}
 
 	int return_value = snprintf(string, size_of_string, "%s", format_str);
+	free(format_str);
 	check_buf(return_value, (int)size_of_string, buf_to_free);
 
 	/* check if the string was truncated after the use of snprintf */
@@ -70,9 +78,9 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	{
 		if (buf_to_free != NULL)
 		{
-			for (uint8_t j = 0; buf_to_free[j] != NULL; j++)
+			for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
 			{
-				free(buf_to_free[j]);
+				free(buf_to_free[i]);
 			}
 		}
 		err(BUFFER_WRITE_FAIL);
