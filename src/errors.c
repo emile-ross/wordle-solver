@@ -49,14 +49,17 @@ void err(error_codes error_code)
 
 	case WORD_TOO_LONG:
 		error_message = "Word is too long";
+		buffer_related = true;
 		break;
 
 	case WORD_TOO_SHORT:
 		error_message = "Word is too short";
+		buffer_related = true;
 		break;
 
 	case FORMATTING_ERROR:
 		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
+		buffer_related = true;
 		report_issue = true;
 		break;
 

@@ -1,7 +1,7 @@
 # chose your compiler
 
-CC := gcc
-# CC := clang
+# CC := gcc
+CC := clang
 # CC := zig cc
 
 binary_file = wordle
