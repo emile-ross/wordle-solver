@@ -2,10 +2,9 @@
 
 char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
 {
-	uint32_t num_words = 0;
 
-	char filename[128] = {0};
-	buffer_write(NULL, filename, 128, get_filename(word_list_enum));
+	char filename[max_filename_length] = {0};
+	buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum));
 
 	if (word_list_enum == custom_list)
 	{
@@ -36,6 +35,7 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	char *word_list_filename(ALL_WORD_LISTS word_list_type);
 
+	uint32_t num_words = 0;
 	switch (word_list_enum)
 	{
 	case en_all:

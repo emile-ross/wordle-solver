@@ -198,6 +198,9 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 						{
 							size_t command_word_string_size = strlen(arguments[flag_temp]);
 
+							err_buffer_size = NUM_LETTERS_WORD;
+							err_buffer_write = (int64_t)command_word_string_size;
+
 							if (NUM_LETTERS_WORD < command_word_string_size)
 							{
 								/* word is too long */

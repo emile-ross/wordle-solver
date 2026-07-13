@@ -12,7 +12,7 @@ void validate_word(char *command_word_string)
 
 	if (command_word_string != NULL)
 	{
-		for (int i = 1; i != custom_list; i++)
+		for (int i = en_nyt; i != custom_list; i++)
 		{
 			uint32_t num_words = 0;
 			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
@@ -32,6 +32,7 @@ void validate_word(char *command_word_string)
 	}
 	else
 	{
+		/* word is NULL therefore it can't be used */
 		err(INVALID_WORD);
 	}
 

@@ -88,7 +88,7 @@ void err(error_codes error_code)
 	
 	case INVALID_LETTER:
 		/* User is at fault */
-		error_message = "The letter you provided isn't valid (it isn't a letter)";
+		error_message = "The letter you provided isn't valid (it isn't composed of letters)";
 		break;
 
 	case INVALID_INDEX:

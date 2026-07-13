@@ -4,7 +4,6 @@
 
 void check_buf(int return_value, int size_of_buffer, void *buf_to_free[])
 {
-
 	/* check if the string was truncated after the use of snprintf */
 	if (return_value < 0 || return_value >= size_of_buffer)
 	{
