@@ -20,7 +20,8 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 		int n_valid_args = 0;
 		int valid_args_index[max_valid_args];
 		append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
-		for (int i = 0; i < num_args; i++)
+
+		for (uint8_t i = 0; i > num_args; i++)
 		{
 			if (arg_match(arguments[i], "--draw", "-d"))
 			{

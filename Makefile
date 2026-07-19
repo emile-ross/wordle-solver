@@ -14,7 +14,7 @@ src_filenames := buffers command_parsing config drawing errors functions list_ma
 FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
 
-ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -g
+ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -g 
 OUT = -o $(binary_file)
 
 macos: wordle

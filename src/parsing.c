@@ -23,7 +23,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		err(CMD_MISSING_ARGS);
 	}
 
-	char (*ptr)[INDEX_LETTERS_WORD];
+	char (*ptr)[INDEX_LETTERS_WORD] = NULL;
 	uint32_t n_pos_arr = 0;
 
 	if (*f_exec)
@@ -133,6 +133,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 	}
 
+
+	if (arguments[letter_arg_index][0] == '\0')
+	{
+		err(INVALID_LETTER);
+	}
 
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
 	if (!(isalpha(letter_indexed)))
