@@ -23,6 +23,7 @@ int main(int argc, const char *argv[])
 	else
 	{
 		err(CMD_MISSING_ARGS);
+		return 1;
 	}
 
 	if (find_match_mode)

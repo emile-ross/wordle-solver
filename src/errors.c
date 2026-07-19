@@ -211,11 +211,11 @@ void warn(warnings warning_type)
 	{
 		const char *warning_message_s_template = BOLD_S ANSI_RED"%s"STYLE_END ANSI_RED" %s,\n%s"STYLE_END;
 
-		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_s_template, warning_message_title, message, solution);
+		int message_size = 1 + snprintf(NULL, 0, warning_message_s_template, warning_message_title, message, solution);
 
-		char *warning_message = malloc(message_size);
-		int ret = snprintf(warning_message, message_size, warning_message_s_template, warning_message_title, message, solution);
-		check_buf(ret, (int)message_size, (void*)warning_message);	/* check buffer for possible truncation  */
+		char *warning_message = malloc((size_t)message_size);
+		int ret = snprintf(warning_message, (size_t)message_size, warning_message_s_template, warning_message_title, message, solution);
+		check_buf(ret, message_size, (void*)warning_message);	/* check buffer for possible truncation  */
 
 		fprintf(stderr, "%s\n", warning_message);
 		free(warning_message);

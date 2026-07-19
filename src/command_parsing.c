@@ -244,6 +244,10 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			}
 		}
 	}
+	else
+	{
+		err(CMD_MISSING_ARGS);
+	}
 }
 
 void invalid_flag(int total_args_index, int flag_index, const char *flag[])
