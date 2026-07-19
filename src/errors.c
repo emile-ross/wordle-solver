@@ -132,12 +132,12 @@ void err(error_codes error_code)
 		char *message_template = "%s: %s";
 
 		/* calculate string length */
-		size_t message_size = 1 + (size_t)snprintf(NULL, 0, message_template, program_name, error_message);
-		char *full_error_message = malloc(message_size);	/* allocate memory for the base error message string */
+		int message_size = 1 + snprintf(NULL, 0, message_template, program_name, error_message);
+		char *full_error_message = malloc((size_t)message_size);	/* allocate memory for the base error message string */
 
 		/* write to error_msg_base buffer */
-		int ret = snprintf(full_error_message, message_size, message_template, program_name, error_message);
-		check_buf(ret, (int)message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
+		int ret = snprintf(full_error_message, (size_t)message_size, message_template, program_name, error_message);
+		check_buf(ret, message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
 
 		printf(ANSI_RED"%s"STYLE_END, full_error_message);
 
@@ -198,11 +198,11 @@ void warn(warnings warning_type)
 	{
 		const char *warning_message_template = BOLD_S ANSI_RED"%s"STYLE_END ANSI_RED" %s"STYLE_END;
 
-		size_t message_size = 1 + (size_t)snprintf(NULL, 0, warning_message_template, warning_message_title, message);
+		int message_size = 1 + snprintf(NULL, 0, warning_message_template, warning_message_title, message);
 
-		char *warning_message = malloc(message_size);
-		int ret = snprintf(warning_message, message_size, warning_message_template, warning_message_title, message);
-		check_buf(ret, (int)message_size, (void*)warning_message);	/* check buffer for possible truncation  */
+		char *warning_message = malloc((size_t)message_size);
+		int ret = snprintf(warning_message, (size_t)message_size, warning_message_template, warning_message_title, message);
+		check_buf(ret, message_size, (void*)warning_message);	/* check buffer for possible truncation  */
 
 		fprintf(stderr, "%s\n", warning_message);
 		free(warning_message);
