@@ -43,7 +43,7 @@ void validate_word(char *command_word_string)
 		printf("was found in the following lists:\n\n");
 
 		/* print matching word lists */
-		for (int i = 0; i < NUM_WORD_LISTS; i++)
+		for (uint16_t i = 0; i < NUM_WORD_LISTS; i++)
 		{
 			if (word_list_matches[i])
 			{
@@ -51,7 +51,7 @@ void validate_word(char *command_word_string)
 
 				if (i == fr_all)
 				{
-					int next = i + 1;
+					uint16_t next = i + 1;
 					if (word_list_matches[next] || word_list_matches[next+1])
 						printf("\n");
 				}

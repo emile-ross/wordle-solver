@@ -63,10 +63,10 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			{
 				if (green_letter == all_words[j][entry_i])
 				{
-          				size_t size = sizeof(filtered_words_temp[num_answers]);
-					int ret = snprintf(filtered_words_temp[num_answers], size, "%s", all_words[j]);
+          				int size = sizeof(filtered_words_temp[num_answers]);
+					int ret = snprintf(filtered_words_temp[num_answers], (size_t)size, "%s", all_words[j]);
 
-					check_buf(ret, (int)size, NULL);	/* check buffer for possible truncation  */
+					check_buf(ret, size, NULL);	/* check buffer for possible truncation  */
 					num_answers++;
 				}
 			}
