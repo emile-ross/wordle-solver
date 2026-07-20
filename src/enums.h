@@ -49,3 +49,11 @@ typedef enum
 	VERBOSE_FAIL = 61,
 	ZERO_SIZED_BUF = 62,
 } error_codes;
+
+struct prs_args
+{
+	int *flag_r;
+	ALL_WORD_LISTS w_list;
+	int num_args;
+	bool *first_exec;
+};

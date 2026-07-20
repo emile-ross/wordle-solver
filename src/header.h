@@ -1,13 +1,13 @@
 #define HEADER_DOT_H
 #define _POSIX_C_SOURCE 200809L
 
-#include "enums.h"
-
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
+
+#include "enums.h"
 
 /* number of words for each array */
 	#define NUM_WORDS 2337
@@ -72,14 +72,6 @@
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
-
-struct prs_args
-{
-	int *flag_r;
-	ALL_WORD_LISTS w_list;
-	int num_args;
-	bool *first_exec;
-};
 
 int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[]);
 
