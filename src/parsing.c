@@ -2,7 +2,7 @@
 
 #include <ctype.h>
 
-int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[], int num_args)
+int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[])
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -13,12 +13,12 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	
 	/* check if number of arguments given to parse is enough
 	 * will return error if not, this prevents segfault */
-	if (letter_arg_index >= num_args) 
+	if (letter_arg_index >= parsing_args.num_args) 
 	{
 		err(CMD_MISSING_ARGS);
 	}
 	
-	if (letter_indexed_bl && number_arg_index >= num_args)
+	if (letter_indexed_bl && number_arg_index >= parsing_args.num_args)
 	{
 		err(CMD_MISSING_ARGS);
 	}
@@ -26,7 +26,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	char (*ptr)[INDEX_LETTERS_WORD] = NULL;
 	uint32_t n_pos_arr = 0;
 
-	if (*f_exec)
+	if (*(parsing_args.first_exec))
 	{
 		/* initialise the filename with zero 
 		 * the filename will be the filename of the word list */
@@ -34,12 +34,12 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 
 		bool standard_word_list = true;
 
-		if (0 != buffer_write(NULL, filename, 128, get_filename(w_list)))
+		if (0 != buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)))
 		{
 			err(BUFFER_WRITE_FAIL);
 		}
 
-		switch (w_list)
+		switch (parsing_args.w_list)
 		{
 		case en_all:
 			n_pos_arr = NUM_ALL_WORDS;
@@ -73,7 +73,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			break;
 		}
 
-		ptr = list_match(w_list, &n_pos_arr, standard_word_list);
+		ptr = list_match(parsing_args.w_list, &n_pos_arr, standard_word_list);
 	
 		/* since this is the first execution, it will parse through the entire array */
 		n_possible_answers = 0;	
@@ -146,7 +146,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
 	if (!(isalpha(letter_indexed)))
 	{
-		if (*f_exec)
+		if (*(parsing_args.first_exec))
 		{
 			free(ptr);
 		}
@@ -161,9 +161,9 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	{
 		verbose_print(ANSI_LCYAN"Parsing through "STYLE_END);
 	
-		if (*f_exec)
+		if (*(parsing_args.first_exec))
 		{
-			verbose_print(UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(w_list, (void*)ptr));
+			verbose_print(UDRL_S BOLD_S"%s"STYLE_END " ", word_list_name(parsing_args.w_list, (void*)ptr));
 			verbose_print("("UDRL_S BOLD_S"first");
 			verbose_print(" filter)\n");
 		}
@@ -301,7 +301,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		}
 	}
 
-	if (*f_exec)
+	if (*(parsing_args.first_exec))
 	{
 		free(ptr);
 	}
@@ -338,7 +338,7 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 	    	*(flag_r) += G_FILTERS_ARG_EXP;
 	}
 	
-	*(f_exec) = false;
+	*(parsing_args.first_exec) = false;
 	
 	return 0;
 }
