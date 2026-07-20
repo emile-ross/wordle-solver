@@ -111,10 +111,10 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 			
 				if (all_letters_are_grey)
 				{
-					size_t size = sizeof(filtered_words[temp_count]);
-					int ret = snprintf(filtered_words[temp_count], size, "%s", filtered_words_temp[word_iteration]);
+					int size = sizeof(filtered_words[temp_count]);
+					int ret = snprintf(filtered_words[temp_count], (size_t)size, "%s", filtered_words_temp[word_iteration]);
 
-					check_buf(ret, (int)size, NULL);	/* check buffer for possible truncation  */
+					check_buf(ret, size, NULL);	/* check buffer for possible truncation  */
 					temp_count++;
 				}
 			}
