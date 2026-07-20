@@ -72,7 +72,16 @@
 void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
-int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[], int num_args);
+
+struct prs_args
+{
+	int *flag_r;
+	ALL_WORD_LISTS w_list;
+	int num_args;
+	bool *first_exec;
+};
+
+int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[]);
 
 /* command parsing */
 	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
