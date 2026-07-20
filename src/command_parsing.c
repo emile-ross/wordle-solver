@@ -178,6 +178,11 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				/* match arguments */
 				char *command_word_string = malloc((size_t)INDEX_LETTERS_WORD);
 
+				if (command_word_string == NULL)
+				{
+					err(MALLOC_FAIL);
+				}
+
 				for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
 				{
 					bool arg_found = false;

@@ -140,6 +140,10 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 
 	if (arguments[letter_arg_index][0] == '\0')
 	{
+		if (*(parsing_args.first_exec))
+		{
+			free(ptr);
+		}
 		err(INVALID_LETTER);
 	}
 
@@ -190,6 +194,10 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 			{
 				if (0 != buffer_write(NULL, flag_string, flag_length, "--strict"))
 				{
+					if (*(parsing_args.first_exec))
+					{
+						free(ptr);
+					}
 					err(BUFFER_WRITE_FAIL);
 				}
 			}
@@ -229,6 +237,10 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 
 				if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
 				{
+					if (*(parsing_args.first_exec))
+					{
+						free(ptr);
+					}
 					err(BUFFER_WRITE_FAIL);
 				}
 			}
