@@ -21,7 +21,6 @@
 
 #define max_filename_length (128)
 
-
 #define NUM_LETTERS_WORD (5)
 #define INDEX_LETTERS_WORD (6)
 
@@ -63,7 +62,7 @@
 	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
 	void help_message(void);
 	void check_buf(int return_value, int size_of_buffer, void *buf_to_free[]);
-	void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...);
+	int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...);
 
 	/* used in err() in order to show; 
 	 * the write size (in bytes) and the buffer size (in bytes) */
@@ -95,7 +94,6 @@ void validate_word(char *command_word_string);
 
 /* General simple functions */
 	uint8_t valid_user_index(long index, void *ptr_to_free);
-
 
 /* config file */
 	extern bool awsum_table_mode;

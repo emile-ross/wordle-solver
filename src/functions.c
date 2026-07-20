@@ -68,12 +68,23 @@ void verbose_print(const char *restrict format, ...)
 
 	/* allocate memory for the verbose message */
 	char *verbose_msg = malloc(msg_size);
+
+	void *arr[2] = 
+	{
+		verbose_msg,
+		NULL
+	};
+
 	if (verbose_msg == NULL)
 	{
 		err(MALLOC_FAIL);
 		exit(1);
 	}
 	size_t ret = (size_t)vsnprintf(verbose_msg, msg_size, format, args);
+
+	check_buf((int)ret, (int)msg_size, arr);
+
+
 	va_end(args);
 
 	if (ret > msg_size)
