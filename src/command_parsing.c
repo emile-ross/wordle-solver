@@ -131,23 +131,23 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			while (flag_reading_index < num_args)
 			{
 				if (arg_match(arguments[flag_reading_index], "--strict", "-s"))
-    				{
+				{
 					parsing(parsing_arguments, true, true, arguments);
-    				}
-    				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || strcmp(arguments[flag_reading_index], "-e") == 0)
-    				{
+				}
+				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || strcmp(arguments[flag_reading_index], "-e") == 0)
+				{
 					parsing(parsing_arguments, false, true, arguments);
-    				}
-    				else if (arg_match(arguments[flag_reading_index], "--includes", "-i"))
-    				{
+				}
+				else if (arg_match(arguments[flag_reading_index], "--includes", "-i"))
+				{
 					parsing(parsing_arguments, true, false, arguments);
-    				}
-    				else if (arg_match(arguments[flag_reading_index], "--absent", "-a"))
-    				{
+				}
+				else if (arg_match(arguments[flag_reading_index], "--absent", "-a"))
+				{
 					parsing(parsing_arguments, false, false, arguments);
-    				}
-    				else
-    				{
+				}
+				else
+				{
 					if (word_list_is_specified)
 					{
 						if (strcmp(arguments[flag_reading_index], word_list_long_flag) == 0 || strcmp(arguments[flag_reading_index], word_list_flag) == 0)
@@ -161,7 +161,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 						invalid_flag(num_args, flag_reading_index, arguments);
 						break;
 					}
-    				}
+				}
 				valid_expression = true;
     			}
 		}

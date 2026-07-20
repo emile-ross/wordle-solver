@@ -8,8 +8,8 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 
-	int letter_arg_index = *flag_r + 1;
-	int number_arg_index = *flag_r + 2;
+	int letter_arg_index = *(parsing_args.flag_r) + 1;
+	int number_arg_index = *(parsing_args.flag_r) + 2;
 	
 	/* check if number of arguments given to parse is enough
 	 * will return error if not, this prevents segfault */
@@ -329,13 +329,13 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	{
 		/* the number of arguments expected when no index is specified (2)
 		 * example: "-a Z" (any word without Z) */
-		*(flag_r) += P_FILTERS_ARG_EXP;
+		*(parsing_args.flag_r) += P_FILTERS_ARG_EXP;
 	}
 	else
 	{
 		/* the number of arguments expected when a letter index is specified (3) 
 		 * example: "-s A 1" (any word with A at the first position) */
-	    	*(flag_r) += G_FILTERS_ARG_EXP;
+	    	*(parsing_args.flag_r) += G_FILTERS_ARG_EXP;
 	}
 	
 	*(parsing_args.first_exec) = false;
