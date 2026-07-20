@@ -28,7 +28,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				if (!ignore_warn)
 					warn(draw);
 		
-				*find_match_mode = false; /* we are making a cool pattern/drawing. We aren't matching words */
+				*(find_match_mode) = false; /* we are making a cool pattern/drawing. We aren't matching words */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
@@ -110,7 +110,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			}
 			else if (arg_match(arguments[i], "-v", "--validate"))
 			{
-				*find_match_mode = false; /* We aren't matching words */
+				*(find_match_mode) = false; /* We aren't matching words */
 				validate_word_bl = true; /* we are validating a word */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
@@ -175,7 +175,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			if (num_args >= min_args_draw)
 			{
 				/* match arguments */
-				char *command_word_string = malloc((size_t)INDEX_LETTERS_WORD);
+				char *command_word_string = malloc(INDEX_LETTERS_WORD);
 
 				if (command_word_string == NULL)
 				{
@@ -242,7 +242,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 								}
 
 								/* ensure the string is null terminated */
-								command_word_string[INDEX_LETTERS_WORD] = '\0';
+								command_word_string[5] = '\0';
 							}
 						}
 					}
