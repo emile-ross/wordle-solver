@@ -64,8 +64,8 @@ void err(error_codes error_code)
 		break;
 
 	case MALLOC_FAIL:
-		error_message = "Failed to allocate memory\nThe call to malloc() failed and returned NULL";
-		break;
+		fprintf(stderr, "Failed to allocate memory\nThe call to malloc() failed and returned NULL");
+		exit(1);
 
 	case FILENAME_FAIL:
 		error_message = "Failed to get the filename for the word list";
@@ -134,6 +134,11 @@ void err(error_codes error_code)
 		/* calculate string length */
 		int message_size = 1 + snprintf(NULL, 0, message_template, program_name, error_message);
 		char *full_error_message = malloc((size_t)message_size);	/* allocate memory for the base error message string */
+		if (full_error_message == NULL)
+		{
+			fprintf(stderr, "Failed to allocate memory\nThe call to malloc() failed and returned NULL");
+			exit(1);
+		}
 
 		/* write to error_msg_base buffer */
 		int ret = snprintf(full_error_message, (size_t)message_size, message_template, program_name, error_message);
@@ -222,7 +227,6 @@ void warn(warnings warning_type)
 	}
 
 	printf("Press any key to continue");
-
 	getchar();
 
 	for (int i = 0; i < indenting; i++)
