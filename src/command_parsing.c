@@ -21,7 +21,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 		int valid_args_index[max_valid_args];
 		append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
 
-		for (uint8_t i = 0; i > num_args; i++)
+		for (uint8_t i = 0; i < num_args; i++)
 		{
 			if (arg_match(arguments[i], "--draw", "-d"))
 			{
@@ -32,7 +32,6 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
-
 			else if (arg_match(arguments[i], word_list_long_flag, word_list_flag))
 			{
 				valid_args_index[n_valid_args] = i;
@@ -118,7 +117,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			}
 		}
 
-		if (*find_match_mode)
+		if (*(find_match_mode))
 		{
 			struct prs_args parsing_arguments = 
 			{
@@ -231,7 +230,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 							else
 							{
 								/* use the length of the buffer directly instead of getting the size of the buffer and using that */
-								for (uint8_t i = 0; i < INDEX_LETTERS_WORD; i++)
+								for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
 								{
 									/* check if the letter indexed is actually a letter */
 									if (!(isalpha(arguments[flag_temp][i])))
