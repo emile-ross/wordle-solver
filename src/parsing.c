@@ -33,7 +33,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		char filename[128] = {0};
 
 		bool standard_word_list = true;
-		buffer_write(NULL, filename, 128, get_filename(w_list));
+
+		if (0 != buffer_write(NULL, filename, 128, get_filename(w_list)))
+		{
+			err(BUFFER_WRITE_FAIL);
+		}
 
 		switch (w_list)
 		{
@@ -184,7 +188,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 			 * this copies the last string specified to the flag_string buffer */
 			if (verbose)
 			{
-				buffer_write(NULL, flag_string, flag_length, "--strict");
+				if (0 != buffer_write(NULL, flag_string, flag_length, "--strict"))
+				{
+					err(BUFFER_WRITE_FAIL);
+				}
 			}
 
 			bool first_character = false;
@@ -219,7 +226,11 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			if (verbose)
 			{
-				buffer_write(NULL, flag_string, flag_length, "--excludes");
+
+				if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
+				{
+					err(BUFFER_WRITE_FAIL);
+				}
 			}
 
 			for (uint32_t j = 0; j < n_pos_arr; j++)
@@ -239,7 +250,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			if (verbose)
 			{
-				buffer_write(NULL, flag_string, flag_length, "--includes");
+				if (buffer_write(NULL, flag_string, flag_length, "--includes") != 0)
+				{
+					err(BUFFER_WRITE_FAIL);
+				}
 			}
 
 			for (uint32_t j = 0; j < n_pos_arr; j++)
@@ -260,7 +274,10 @@ int parsing(int *flag_r, ALL_WORD_LISTS w_list, bool *f_exec, bool filter_includ
 		{
 			if (verbose)
 			{
-				buffer_write(NULL, flag_string, flag_length, "--absent");
+				if (buffer_write(NULL, flag_string, flag_length, "--absent") != 0)
+				{
+					err(BUFFER_WRITE_FAIL);
+				}
 			}
 
 			for (uint32_t j = 0; j < n_pos_arr; j++)

@@ -28,7 +28,7 @@ void check_buf(int return_value, int size_of_buffer, void *buf_to_free[])
 	}
 }
 
-void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...)
+int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...)
 {
 	va_list args, copy;
 	va_start(args, format);
@@ -43,6 +43,7 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	if (format_str == NULL)
 	{
 		err(MALLOC_FAIL);
+		return 1;
 	}
 
 	int ret = vsnprintf(format_str, (size_t)format_str_size, format, args);
@@ -57,10 +58,8 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 		{
 			arr[i] = buf_to_free[i];
 		}
-		i++;
-		arr[i] = format_str;
-		i++;
-		arr[i] = NULL;
+		i++; arr[i] = format_str;
+		i++; arr[i] = NULL;
 		check_buf(ret, format_str_size, arr);
 	}
 	else
@@ -77,14 +76,14 @@ void buffer_write(void *buf_to_free[], char *string, size_t size_of_string, cons
 	{
 		if (buf_to_free != NULL)
 		{
-			for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
+			for (uint16_t i = 0; buf_to_free[i] != NULL; i++)
 			{
 				free(buf_to_free[i]);
 			}
 		}
-		err(BUFFER_WRITE_FAIL);
-		exit(1);
+		return 1;
 	}
+	return 0;
 }
 
 /* this is the default custom name for the word list

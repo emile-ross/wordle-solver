@@ -4,7 +4,10 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 {
 
 	char filename[max_filename_length] = {0};
-	buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum));
+	if (buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum)) != 0)
+	{
+		err(BUFFER_WRITE_FAIL);
+	}
 
 	if (word_list_enum == custom_list)
 	{
@@ -29,7 +32,10 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 		/* write to the filename string from the temp_full_path buffer */
 		void *arr[2] = { temp_path_buffer, NULL };
-		buffer_write(arr, filename, full_path_size, temp_path_buffer);
+		if (buffer_write(arr, filename, full_path_size, temp_path_buffer) != 0)
+		{
+			err(BUFFER_WRITE_FAIL);
+		}
 
 		free(temp_path_buffer);
 	}
