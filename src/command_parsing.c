@@ -120,23 +120,31 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 		if (*find_match_mode)
 		{
+			struct prs_args parsing_arguments = 
+			{
+				&flag_reading_index,
+				word_list,
+				num_args,
+				&first_execution
+			};
+
 			while (flag_reading_index < num_args)
 			{
 				if (arg_match(arguments[flag_reading_index], "--strict", "-s"))
     				{
-					parsing(&flag_reading_index, word_list, &first_execution, true, true, arguments, num_args);
+					parsing(parsing_arguments, true, true, arguments);
     				}
     				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || strcmp(arguments[flag_reading_index], "-e") == 0)
     				{
-					parsing(&flag_reading_index, word_list, &first_execution, false, true, arguments, num_args);
+					parsing(parsing_arguments, false, true, arguments);
     				}
     				else if (arg_match(arguments[flag_reading_index], "--includes", "-i"))
     				{
-					parsing(&flag_reading_index, word_list, &first_execution, true, false, arguments, num_args);
+					parsing(parsing_arguments, true, false, arguments);
     				}
     				else if (arg_match(arguments[flag_reading_index], "--absent", "-a"))
     				{
-					parsing(&flag_reading_index, word_list, &first_execution, false, false, arguments, num_args);
+					parsing(parsing_arguments, false, false, arguments);
     				}
     				else
     				{
