@@ -327,7 +327,7 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	for (int k = 0; k < n_possible_answers; k++)
 	{
 		/* call buffer_write as replacement for strcpy() */
-		buffer_write(NULL, filtered_arr[k], (size_t)INDEX_LETTERS_WORD, filtered_arr_temp[k]);
+		buffer_write(NULL, filtered_arr[k], INDEX_LETTERS_WORD, filtered_arr_temp[k]);
 	}
 
 	/* display verbose message if verbose mode is enabled */

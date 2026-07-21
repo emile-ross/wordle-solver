@@ -98,13 +98,13 @@ void validate_word(char *command_word_string);
 
 /* config file */
 	extern bool awsum_table_mode;
-	extern int table_width;
+	extern uint16_t table_width;
 	extern const bool verbose;
 	extern const uint16_t indenting;
 	extern bool ignore_warn;
 	extern int command_arguments_context;
 
-	extern int element_cap;
+	extern uint64_t element_cap;
 	extern bool cap_total_elements;
 	extern char *custom_list_name;
 	extern const char *default_config_list_name;

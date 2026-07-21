@@ -6,7 +6,7 @@ bool awsum_table_mode = false;	/* false by default */
 /* if true, print items in columns and then go to the next column
  * if false, print items from left to right and then go to next row(down) */
 
-int table_width = 6;		/* 6 by default */
+uint16_t table_width = 6;		/* 6 by default */
 /* this is the width of the table (the number of words displayed on the x axis */
 
 const uint16_t indenting = 2;	/* 2 by default */
@@ -33,7 +33,7 @@ int command_arguments_context = 4;	/* 4 by default */
  * it helps to provide context to the user whenever they make a mistake */
 
 /* this caps the amount of results that can be printed */
-int element_cap = 250;			/* default is 250 */
+uint64_t element_cap = 250;			/* default is 250 */
 bool cap_total_elements = false;	/* default is false */
 
 /* Define the default filename for the custom word list */
