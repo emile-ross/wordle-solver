@@ -1,6 +1,6 @@
 #include "header.h"
 
-void print_as_table(int width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
+void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {
 	/* hide elements */
 	int hidden_elements = 0;

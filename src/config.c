@@ -9,7 +9,7 @@ bool awsum_table_mode = false;	/* false by default */
 uint16_t table_width = 6;		/* 6 by default */
 /* this is the width of the table (the number of words displayed on the x axis */
 
-const uint16_t indenting = 2;	/* 2 by default */
+const uint8_t indenting = 2;	/* 2 by default */
 /* this is the default indenting value 
  * (the number of lines being skipped in order to seperate different elements) */
 
