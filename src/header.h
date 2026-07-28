@@ -100,7 +100,7 @@ void validate_word(char *command_word_string);
 	extern bool awsum_table_mode;
 	extern uint16_t table_width;
 	extern const bool verbose;
-	extern const uint16_t indenting;
+	extern const uint8_t indenting;
 	extern bool ignore_warn;
 	extern int command_arguments_context;
 

@@ -3,7 +3,7 @@
 void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {
 	/* hide elements */
-	int hidden_elements = 0;
+	uint64_t hidden_elements = 0;
 	bool hidden_msg = false;
 	if (cap_total_elements)
 	{
@@ -25,16 +25,16 @@ void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, cha
 	{
 	    	if (awsum_mode)
 	    	{
-			int empty_cells = total_elements % width;
-	    		int total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	/* ternary operator to remove garbage data */
-	    		int column_height = (total_cells / width);
+			uint64_t empty_cells = total_elements % width;
+	    		uint64_t total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	/* ternary operator to remove garbage data */
+	    		uint64_t column_height = (total_cells / width);
 	
-	    		for (int base_count = 0; base_count < column_height; base_count++)
+	    		for (uint64_t base_count = 0; base_count < column_height; base_count++)
 	    		{
 	    		    	for (int j = 0; j < width; j++)
 	    		    	{
-			    		int base_offset = j * column_height;
-			    		int index = base_count + base_offset;
+			    		uint64_t base_offset = j * column_height;
+			    		uint64_t index = base_count + base_offset;
 	
 			    		/* bounds checking (avoids printing garbage data */
 			    		if (index < total_elements)
@@ -47,7 +47,7 @@ void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, cha
 	    	}
 	    	else
 	    	{
-			for (int i = 0; i < total_elements; i++)
+			for (uint64_t i = 0; i < total_elements; i++)
 			{
 			    	if (i % width == 0)
 				{
@@ -61,14 +61,14 @@ void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, cha
 			}
 
 			/* decrease the indenting by one */
-			int temp_indenting = indenting;
+			uint64_t temp_indenting = indenting;
 			if (indenting >= 2)
 			{
 				temp_indenting--;
 			}
 
 			/* add newline when the whole list is done printing */
-			for (int i = 0; i < temp_indenting; i++)
+			for (uint8_t i = 0; i < temp_indenting; i++)
 			{
 				printf("\n");
 			}
@@ -82,7 +82,7 @@ void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, cha
 
 		if (hidden_msg)
 		{
-			for (int i = 0; i < indenting; i++)
+			for (uint8_t i = 0; i < indenting; i++)
 			{
 				printf("\n");
 			}
