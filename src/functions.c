@@ -7,27 +7,6 @@ const char *word_list_long_flag = "--word-list";
 
 uint8_t NUM_WORD_LISTS = la_all;
 
-uint8_t valid_user_index(long index, void *ptr_to_free)
-{
-	/* return a valid uint8_t variable */
-	if (index > NUM_LETTERS_WORD || index > 65535 )
-	{
-		/* display error message for invalid value (invalid index into the word) */
-		free(ptr_to_free);
-	    	err(CMD_INDEX_BOUNDS);
-		exit(1);
-	}
-	else if (index <= 0)
-	{
-		free(ptr_to_free);
-		err(INVALID_INDEX);
-		exit(1);
-	}
-	else
-	{
-		return (uint8_t)index;
-	}
-}
 /* BTW: functions related to buffers were moved to src/buffers.c */
 
 char *word_list_name(ALL_WORD_LISTS word_list_type, void *buf)
