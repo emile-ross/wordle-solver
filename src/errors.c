@@ -113,6 +113,10 @@ void err(error_codes error_code)
 		report_issue = true;
 		buffer_related = true;
 		break;
+
+	case INVALID_CONFIG:
+		error_message = "Fix the errors in the src/config.c file\n";
+		break;
 	
 	default:
 		printf("Missing error message\n");

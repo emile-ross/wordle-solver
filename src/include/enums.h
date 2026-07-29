@@ -48,6 +48,7 @@ typedef enum
 	INVALID_WORD = 60,
 	VERBOSE_FAIL = 61,
 	ZERO_SIZED_BUF = 62,
+	INVALID_CONFIG = 70
 } error_codes;
 
 struct prs_args
