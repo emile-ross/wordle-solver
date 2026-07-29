@@ -3,6 +3,16 @@
 char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
 {
 	char filename[max_filename_length] = {0};
+
+	if (word_list_enum == custom_list)
+	{
+		if (buffer_write(NULL, filename, max_filename_length, custom_filename) != 0)
+		{
+			err(BUFFER_WRITE_FAIL);
+		}
+	}
+
+
 	if (buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum)) != 0)
 	{
 		err(BUFFER_WRITE_FAIL);
