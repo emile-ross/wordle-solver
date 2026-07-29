@@ -122,6 +122,10 @@ char *get_custom_file(char *buffer, size_t buffer_size)
 	}
 
 	uint8_t name_len = (uint8_t)strcspn(buffer, "\n");
+	if (verbose)
+	{
+		verbose_print("buffer_size = %zu\nname_len (valid characters in filename) = %u\n", buffer_size, name_len);
+	}
 	buffer[name_len] = '\0';	/* replace \n with \0 to terminate the string */
 
 	return buffer;
