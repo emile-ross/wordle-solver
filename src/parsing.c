@@ -131,6 +131,8 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 
 			/* TODO add error message for this specific case */
 			free(ptr);
+			fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
+					arguments[number_arg_index], endptr);
 			err(INVALID_INDEX);
 		}
 

@@ -69,6 +69,12 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 		/* standard_word_list = false; */
 		num_words = get_num_lines(filename);
 		break;
+
+	case undefined_list:
+		err(UNDEFINED_LIST);
+
+	case no_word_list:
+		err(NO_WORD_LIST);
 		
 	default:
 		/* a word list entry is missing in this switch statement */
