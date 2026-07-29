@@ -2,7 +2,6 @@
 
 char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
 {
-
 	char filename[max_filename_length] = {0};
 	if (buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum)) != 0)
 	{
@@ -109,7 +108,8 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 	case custom_list:
 		if (strcmp(default_config_list_name, custom_list_name) == 0)
 		{
-			char buffer[128];
+			char *buffer = malloc(128);
+			custom_filename = buffer;
 			return get_custom_file(buffer, sizeof(buffer));
 		}
 		else

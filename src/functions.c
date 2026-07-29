@@ -10,6 +10,8 @@ const char *path_to_lists = "word_list_files";
 
 uint8_t NUM_WORD_LISTS = la_all;
 
+char *custom_filename = NULL;
+
 /* BTW: functions related to buffers were moved to src/buffers.c */
 
 char *word_list_name(ALL_WORD_LISTS word_list_type, void *buf)
