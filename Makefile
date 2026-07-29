@@ -1,7 +1,7 @@
 # chose your compiler
 
 # CC := gcc
-CC := clang
+CC := gcc
 # CC := zig cc
 
 binary_file = wordle
@@ -25,7 +25,7 @@ wordle:
 all_flags_cmd = $(CC) $(SRC_FILES) $(OUT) $(ALL_FLAGS)
 
 base-e:
-	$(all_flags_cmd) -g
+	$(all_flags_cmd)
 
 base:
 	$(all_flags_cmd) -Werror -g
