@@ -22,6 +22,10 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 	}
 }
 
+void check_config(void)
+{
+}
+
 void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[])
 {
 	/* check if the string was truncated after the use of snprintf */
