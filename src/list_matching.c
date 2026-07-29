@@ -25,7 +25,6 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 		char *temp_path_buffer = malloc(full_path_size);
 		if (temp_path_buffer == NULL)
 		{
-			free(temp_path_buffer);
 			err(MALLOC_FAIL);
 		}
 		prepend_fp(temp_path_buffer, full_path_size, filename);

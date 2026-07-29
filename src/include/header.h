@@ -23,7 +23,7 @@
 	void warn(warnings warning_type); /* warnings */
 	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
 	void help_message(void);
-	void check_buf(int return_value, int size_of_buffer, void *buf_to_free[]);
+	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
 	int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...);
 
 	/* used in err() in order to show; 
@@ -80,4 +80,4 @@ uint16_t get_num_lines(char *file_path);
 char *get_filename(ALL_WORD_LISTS word_list_type);
 char *get_custom_file(char *buffer, size_t buffer_size);
 
-size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);
+size_t prepend_fp(int *file_path_dst, size_t dst_size, char *filename);
