@@ -83,3 +83,44 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 	/* allocate memory for the pointer */
 	return read_words(filename, &num_words);
 }
+
+/* this is the default custom name for the word list
+ * this is the name we use by default in the config.c file
+ *
+ * if this matches with the name in the config.c file, this 
+ * means that the user never changed it */
+const char *default_config_list_name = "default_custom_list.txt";	
+
+char *get_filename(ALL_WORD_LISTS word_list_type)
+{
+	switch (word_list_type)
+	{
+	case en_all:
+		return "en_all_words.txt";
+	case en_nyt:
+		return "en_nyt_words.txt";
+	case en_common:
+		return "en_com_words.txt";
+	case fr_all:
+		return "fr_all_words.txt";
+	case la_all:
+		return "la_all_words.txt";
+	case la_common:
+		return "la_com_words.txt";
+	case custom_list:
+		if (strcmp(default_config_list_name, custom_list_name) == 0)
+		{
+			char buffer[128];
+			return get_custom_file(buffer, sizeof(buffer));
+		}
+		else
+		{
+			return custom_list_name;
+		}
+	default:
+		err(FILENAME_FAIL);
+		break;
+	}
+	err(FILENAME_FAIL);
+	return NULL;
+}

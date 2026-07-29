@@ -2,31 +2,7 @@
 
 #include <stdarg.h>
 
-void check_buf(int return_value, int size_of_buffer, void *buf_to_free[])
-{
-	/* check if the string was truncated after the use of snprintf */
-	if (return_value < 0 || return_value >= size_of_buffer)
-	{
-		err_buffer_size = size_of_buffer;
-		err_buffer_write = return_value;
-
-		if (buf_to_free != NULL)
-		{
-			for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
-			{
-				free(buf_to_free[i]);
-			}
-		}
-
-		if (return_value == 0)
-		{
-			err(ZERO_SIZED_BUF);
-		}
-
-		err(FORMATTING_ERROR);
-		exit(1);
-	}
-}
+/* check_buf() is in checks.c */
 
 int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...)
 {
@@ -86,54 +62,12 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 	return 0;
 }
 
-/* this is the default custom name for the word list
- * this is the name we use by default in the config.c file
- *
- * if this matches with the name in the config.c file, this 
- * means that the user never changed it */
-const char *default_config_list_name = "default_custom_list.txt";	
-
-char *get_filename(ALL_WORD_LISTS word_list_type)
-{
-	switch (word_list_type)
-	{
-	case en_all:
-		return "en_all_words.txt";
-	case en_nyt:
-		return "en_nyt_words.txt";
-	case en_common:
-		return "en_com_words.txt";
-	case fr_all:
-		return "fr_all_words.txt";
-	case la_all:
-		return "la_all_words.txt";
-	case la_common:
-		return "la_com_words.txt";
-	case custom_list:
-		if (strcmp(default_config_list_name, custom_list_name) == 0)
-		{
-			char buffer[128];
-			return get_custom_file(buffer, sizeof(buffer));
-		}
-		else
-		{
-			return custom_list_name;
-		}
-	default:
-		err(FILENAME_FAIL);
-		break;
-	}
-	err(FILENAME_FAIL);
-	return NULL;
-}
-
 size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 {
 	/* this function prepends (adds in front) the filename with the directory
 	 * in order for the wordle solver to be able to resolve the file paths correctly */ 
 
 	const char *filepath_template = "%s/%s";
-	const char *dir = "src/word-lists";
 
 	size_t total_size = 0;
 	if (filename != NULL)

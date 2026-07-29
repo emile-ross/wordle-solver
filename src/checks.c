@@ -22,3 +22,29 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 	}
 }
 
+void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[])
+{
+	/* check if the string was truncated after the use of snprintf */
+	if (return_value < 0 || return_value >= size_of_buffer)
+	{
+		err_buffer_size = size_of_buffer;
+		err_buffer_write = return_value;
+
+		if (buf_to_free != NULL)
+		{
+			for (uint8_t i = 0; buf_to_free[i] != NULL; i++)
+			{
+				free(buf_to_free[i]);
+			}
+		}
+
+		if (return_value == 0)
+		{
+			err(ZERO_SIZED_BUF);
+		}
+
+		err(FORMATTING_ERROR);
+		exit(1);
+	}
+}
+
