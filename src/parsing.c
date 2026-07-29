@@ -34,9 +34,19 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 
 		bool standard_word_list = true;
 
-		if (0 != buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)))
+		if (custom_list == parsing_args.w_list)
 		{
-			err(BUFFER_WRITE_FAIL);
+			if (0 != buffer_write(NULL, filename, 128, custom_filename))
+			{
+				err(BUFFER_WRITE_FAIL);
+			}
+		}
+		else
+		{
+			if (0 != buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)))
+			{
+				err(BUFFER_WRITE_FAIL);
+			}
 		}
 
 		switch (parsing_args.w_list)
