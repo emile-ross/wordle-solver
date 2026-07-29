@@ -135,9 +135,10 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 	case custom_list:
 		if (strcmp(default_config_list_name, custom_list_name) == 0)
 		{
-			char *buffer = malloc(128);
+			size_t buffer_size = 128;
+			char *buffer = malloc(buffer_size);
 			custom_filename = buffer;
-			return get_custom_file(buffer, sizeof(buffer));
+			return get_custom_file(buffer, buffer_size);
 		}
 		else
 		{
