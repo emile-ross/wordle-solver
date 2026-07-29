@@ -1,4 +1,4 @@
-#include "header.h"
+#include "include/header.h"
 
 void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {

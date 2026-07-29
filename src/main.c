@@ -1,5 +1,4 @@
-#include "header.h"
-
+#include "include/header.h"
 
 char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 

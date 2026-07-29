@@ -1,4 +1,4 @@
-#include "header.h"
+#include "include/header.h"
 
 void validate_word(char *command_word_string)
 {
