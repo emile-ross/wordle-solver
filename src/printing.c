@@ -86,7 +86,7 @@ void print_as_table(uint8_t width, uint64_t total_elements, bool awsum_mode, cha
 			{
 				printf("\n");
 			}
-			printf(ANSI_GREY BOLD_S"%d"STYLE_END ANSI_GREY " elements were hidden due to the %lu element limit\n"STYLE_END, hidden_elements, element_cap);
+			printf(ANSI_GREY BOLD_S"%lu"STYLE_END ANSI_GREY " elements were hidden due to the %lu element limit\n"STYLE_END, hidden_elements, element_cap);
 		}
 		else
 		{

@@ -136,7 +136,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern)
 
 			}
 			num_all_answers[entry_i] = num_answers;
-			print_as_table(table_width, (int)num_answers, awsum_table_mode, filtered_words);
+			print_as_table(table_width, num_answers, awsum_table_mode, filtered_words);
 		}
 	}
 	else
