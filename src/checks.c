@@ -22,6 +22,7 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 	}
 }
 
+/*
 void check_config(void)
 {
 	bool valid_config = true;
@@ -45,6 +46,7 @@ void check_config(void)
 		err(INVALID_CONFIG);
 	}
 }
+*/
 
 void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[])
 {

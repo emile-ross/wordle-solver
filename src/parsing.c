@@ -40,7 +40,6 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 			exit(1);
 		}
 		
-
 		switch (parsing_args.w_list)
 		{
 		case en_all:
@@ -69,6 +68,16 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 			/* standard_word_list = false; */
 			n_pos_arr = get_num_lines(filename);
 			break;
+
+		case undefined_list:
+			fprintf(stderr, "error in get_filename()\n");
+			err(UNDEFINED_LIST);
+			exit(1);
+
+		case no_word_list:
+			fprintf(stderr, "error in get_filename()\n");
+			err(NO_WORD_LIST);
+			exit(1);
 			
 		default:
 			err(UNKNOWN_WORD_LIST);
