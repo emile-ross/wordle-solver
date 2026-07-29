@@ -37,3 +37,10 @@
 
 #define max_valid_args (48)
 
+
+#define UINT8MAX (255)
+#define UINT16MAX (65535)
+#define INT16MAX (32767)
+#define UINT16MAX (32)
+#define INT32MAX (2147483647)
+#define UINT32MAX (4294967295)
