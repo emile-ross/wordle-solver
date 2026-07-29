@@ -1,4 +1,5 @@
 wordle
+wordle-solver
 *.o
 src/*.o
 *_SECRET.asc
