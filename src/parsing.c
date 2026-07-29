@@ -159,7 +159,7 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	}
 	
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
-	int temp_count = 0; /* reset temporary count buffer */
+	uint32_t temp_count = 0; /* reset temporary count buffer */
 	
 	if (verbose)
 	{

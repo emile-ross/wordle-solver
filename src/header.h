@@ -69,7 +69,7 @@
 	extern int64_t err_buffer_size;
 	extern int64_t err_buffer_write;
 
-void print_as_table(uint8_t width, uint32_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
+void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 
@@ -86,7 +86,7 @@ void validate_word(char *command_word_string);
 	extern int ARGS_BEFORE_CUR_FLAG;
 	extern ALL_WORD_LISTS word_list;
 	extern ALL_WORD_LISTS default_word_list;
-	extern int n_possible_answers;
+	extern uint32_t n_possible_answers;
 	extern const char *word_list_flag;
 	extern const char *word_list_long_flag;
 
