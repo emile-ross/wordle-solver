@@ -97,7 +97,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	}
 }
 
-void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present)
+void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present)
 {
 	/* add colour to options */
 	verbose_print(BOLD_S"%s", flag);

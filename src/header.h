@@ -110,7 +110,7 @@ void validate_word(char *command_word_string);
 	extern const char *default_config_list_name;
 	extern const char *program_name;
 
-void verbose_printing(char *flag, char letter, int indexed_letter_value, int affected_words, bool letter_is_present);
+void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present);
 void verbose_print(const char *restrict format, ...);
 
 char (*read_words(char *file_path, uint32_t *num_words))[6];
