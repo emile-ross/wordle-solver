@@ -38,8 +38,11 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 		{
 			if (0 != buffer_write(NULL, filename, 128, custom_filename))
 			{
+				free(custom_filename);
 				err(BUFFER_WRITE_FAIL);
+				exit(1);
 			}
+			free(custom_filename);
 		}
 		else
 		{
@@ -125,11 +128,10 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 			free(ptr);
 			err(INVALID_INDEX);
 		}
+
 		if (*endptr != '\0')
 		{
 			/* there was at least one invalid character */
-
-			/* TODO add error message for this specific case */
 			free(ptr);
 			fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
 					arguments[number_arg_index], endptr);

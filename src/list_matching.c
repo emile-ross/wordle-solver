@@ -72,9 +72,11 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	case undefined_list:
 		err(UNDEFINED_LIST);
+		exit(1);
 
 	case no_word_list:
 		err(NO_WORD_LIST);
+		exit(1);
 		
 	default:
 		/* a word list entry is missing in this switch statement */
