@@ -6,16 +6,23 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	if (word_list_enum == custom_list)
 	{
+		if (custom_filename == NULL)
+		{
+			fprintf(stderr, "error: custom_filename is NULL (it hasn't been allocated yet)\n");
+			exit(1);
+		}
+
 		if (buffer_write(NULL, filename, max_filename_length, custom_filename) != 0)
 		{
 			err(BUFFER_WRITE_FAIL);
 		}
 	}
-
-
-	if (buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum)) != 0)
+	else 
 	{
-		err(BUFFER_WRITE_FAIL);
+		if (buffer_write(NULL, filename, max_filename_length, get_filename(word_list_enum)) != 0)
+		{
+			err(BUFFER_WRITE_FAIL);
+		}
 	}
 
 	if (word_list_enum == custom_list)
