@@ -28,7 +28,6 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 		return (uint8_t)index;
 	}
 }
-
 /* BTW: functions related to buffers were moved to src/buffers.c */
 
 char *word_list_name(ALL_WORD_LISTS word_list_type, void *buf)
