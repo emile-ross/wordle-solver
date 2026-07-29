@@ -73,7 +73,7 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 	if (filename != NULL)
 	{
 		/* calculate the size of the possible output */
-		total_size = 1 + (size_t)snprintf(NULL, 0, filepath_template, dir, filename);
+		total_size = 1 + (size_t)snprintf(NULL, 0, filepath_template, path_to_lists, filename);
 	}
 	else
 	{
@@ -86,7 +86,7 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 		if (dst_size >= total_size)
 		{
 			/* write to path_to_file buffer */
-			snprintf(file_path_dst, dst_size, filepath_template, dir, filename);
+			snprintf(file_path_dst, dst_size, filepath_template, path_to_lists, filename);
 			return 0;
 		}
 		else

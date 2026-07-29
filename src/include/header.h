@@ -75,9 +75,12 @@ void validate_word(char *command_word_string);
 void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present);
 void verbose_print(const char *restrict format, ...);
 
-char (*read_words(char *file_path, uint32_t *num_words))[6];
-uint16_t get_num_lines(char *file_path);
-char *get_filename(ALL_WORD_LISTS word_list_type);
-char *get_custom_file(char *buffer, size_t buffer_size);
 
-size_t prepend_fp(int *file_path_dst, size_t dst_size, char *filename);
+/* file related */
+	extern const char *path_to_lists;	/* defined in functions.c */
+	char (*read_words(char *file_path, uint32_t *num_words))[6];
+	uint16_t get_num_lines(char *file_path);
+	char *get_filename(ALL_WORD_LISTS word_list_type);
+	char *get_custom_file(char *buffer, size_t buffer_size);
+
+size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);

@@ -5,6 +5,9 @@
 const char *word_list_flag = "-w";
 const char *word_list_long_flag = "--word-list";
 
+/* the path to the word lists included with the program */
+const char *path_to_lists = "word_list_files";
+
 uint8_t NUM_WORD_LISTS = la_all;
 
 /* BTW: functions related to buffers were moved to src/buffers.c */
