@@ -14,7 +14,6 @@ typedef enum
 typedef enum 
 {
 	draw,
-	strict,
 	xdraw,
 } warnings;
 
@@ -48,7 +47,9 @@ typedef enum
 	INVALID_WORD = 60,
 	VERBOSE_FAIL = 61,
 	ZERO_SIZED_BUF = 62,
-	INVALID_CONFIG = 70
+	INVALID_CONFIG = 70,
+	UNDEFINED_LIST = 71,
+	NO_WORD_LIST = 72
 } error_codes;
 
 struct prs_args

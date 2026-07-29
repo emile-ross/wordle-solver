@@ -117,6 +117,16 @@ void err(error_codes error_code)
 	case INVALID_CONFIG:
 		error_message = "Fix the errors in the src/config.c file\n";
 		break;
+
+	case UNDEFINED_LIST:
+		error_message = "The word list was never defined\n";
+		report_issue = true;
+		break;
+
+	case NO_WORD_LIST:
+		error_message = "The word list is not a word list (no_word_list)\n";
+		report_issue = true;
+		break;
 	
 	default:
 		printf("Missing error message\n");
