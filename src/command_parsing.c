@@ -13,11 +13,33 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 	if (num_args >= 2)
     	{
-		/* if the command to execute the program isn't ./wordle 
-		 * default is true */
-		if (!(strcmp(arguments[0], "./wordle") == 0))
+
+		char *user_command = arguments[0];
+		/* default is true */
+		if (strcmp(arguments[0], "wordle-solver") == 0)
+		{
+			installed_package = true;
+		}
+		else if (strcmp(arguments[0], "wordle") == 0)
+		{
+			installed_package = true;
+		}
+		else if (strcmp(arguments[0], "./wordle") == 0)
 		{
 			installed_package = false;
+		}
+		else if (strcmp(arguments[0], "./wordle-solver") == 0)
+		{
+			installed_package = false;
+		}
+		else
+		{
+			if (strlen(user_command) > 2)
+			{
+				if ((user_command[0] == '.') && (user_command[1] == '/'))
+				{
+				}
+			}
 		}
 
 		/* set the default word list as the nyt word list */
