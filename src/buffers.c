@@ -73,7 +73,16 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 	if (filename != NULL)
 	{
 		/* calculate the size of the possible output */
-		total_size = 1 + (size_t)snprintf(NULL, 0, filepath_template, path_to_lists, filename);
+		if (installed_package)
+		{
+			total_size = (size_t)snprintf(NULL, 0, filepath_template, LIST_SHARE_PATH, filename);
+		}
+		else
+		{
+			total_size = (size_t)snprintf(NULL, 0, filepath_template, path_to_lists, filename);
+		}
+		/* account for null terminator */
+		total_size++;
 	}
 	else
 	{
