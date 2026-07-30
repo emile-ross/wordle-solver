@@ -21,6 +21,9 @@ macos: wordle
 wordle:
 	$(CC) $(SRC_FILES) $(OUT) -O2
 
+install: wordle
+	sudo cp -f $(binary_file) /usr/bin/
+
 # used for the base and base-e recipes
 all_flags_cmd = $(CC) $(SRC_FILES) $(OUT) $(ALL_FLAGS)
 
@@ -35,5 +38,3 @@ android: wordle
 	chmod u+x ~/$(binary_file)
 	@echo "The \"$(binary_file)\" file was copied to your home directory"
 	@echo "execute it with ~/$(binary_file)"
-
-
