@@ -1,4 +1,4 @@
-pkgname=wordle-solver
+pkgname=wordle-solver-git
 pkgver=\1.\2.2fc3052
 pkgrel=1
 pkgdesc="A fast wordle solver written in C99"
@@ -9,6 +9,8 @@ depends=()
 makedepends=('make' 'gcc' 'git')
 source=("git+https://github.com/emile-ross/wordle.git")
 sha256sums=('SKIP')
+provides=("wordle-solver=$pkgver")
+conflicts=('wordle-solver')
 
 pkgver() {
 	cd "${srcdir}/wordle"
