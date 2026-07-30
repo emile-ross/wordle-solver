@@ -1,0 +1,14 @@
+pkgbase = wordle-solver
+	pkgdesc = A fast wordle solver written in C99
+	pkgver = 1.2.2fc3052
+	pkgrel = 1
+	url = https://github.com/emile-ross/wordle
+	arch = x86_64
+	license = GPL-2.0-only
+	makedepends = make
+	makedepends = gcc
+	makedepends = git
+	source = git+https://github.com/emile-ross/wordle.git
+	sha256sums = SKIP
+
+pkgname = wordle-solver
