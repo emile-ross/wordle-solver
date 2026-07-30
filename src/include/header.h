@@ -77,11 +77,12 @@ void verbose_print(const char *restrict format, ...);
 
 
 /* file related */
-	extern const char *path_to_lists;	/* defined in functions.c */
 	char (*read_words(char *file_path, uint32_t *num_words))[6];
 	uint16_t get_num_lines(char *file_path);
 	char *get_filename(ALL_WORD_LISTS word_list_type);
 	char *get_custom_file(char *buffer, size_t buffer_size);
 	extern char *custom_filename;	/* defined in functions.c */
+
+	bool installed_package;
 
 size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);

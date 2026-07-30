@@ -13,6 +13,13 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 	if (num_args >= 2)
     	{
+		/* if the command to execute the program isn't ./wordle 
+		 * default is true */
+		if (!(strcmp(arguments[0], "./wordle") == 0))
+		{
+			installed_package = false;
+		}
+
 		/* set the default word list as the nyt word list */
 		word_list = default_word_list;
 		bool word_list_is_specified = false;
