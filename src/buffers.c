@@ -86,7 +86,14 @@ size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
 		if (dst_size >= total_size)
 		{
 			/* write to path_to_file buffer */
-			snprintf(file_path_dst, dst_size, filepath_template, path_to_lists, filename);
+			if (installed_package)
+			{
+				snprintf(file_path_dst, dst_size, filepath_template, LIST_SHARE_PATH, filename);
+			}
+			else
+			{
+				snprintf(file_path_dst, dst_size, filepath_template, path_to_lists, filename);
+			}
 			return 0;
 		}
 		else

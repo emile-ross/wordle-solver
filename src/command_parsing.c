@@ -14,7 +14,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 	if (num_args >= 2)
     	{
 
-		char *user_command = arguments[0];
+		const char *user_command = arguments[0];
 		/* default is true */
 		if (strcmp(arguments[0], "wordle-solver") == 0)
 		{
@@ -38,6 +38,11 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			{
 				if ((user_command[0] == '.') && (user_command[1] == '/'))
 				{
+					installed_package = false;
+				}
+				else
+				{
+					installed_package = true;
 				}
 			}
 		}

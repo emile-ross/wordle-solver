@@ -44,6 +44,6 @@
 #define UINT32MAX	(4294967295)
 
 /* used for defining the path to the word lists whenever the program is installed (from the AUR) */
-#define LIST_SHARE_PATH	"/usr/share/wordle-solver/"
+#define LIST_SHARE_PATH	"/usr/share/wordle-solver/word_list_files"
 #define path_to_lists	"word_list_files"
 
