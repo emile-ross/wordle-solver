@@ -1,5 +1,8 @@
+# Maintainer: emile-ross <emileross@proton.me>
+# Contributor: zerfithel <hazetlab@proton.me>
+
 pkgname=wordle-solver-git
-pkgver=\1.\2.2fc3052
+pkgver=1.2.11.2ad59a3-1
 pkgrel=1
 pkgdesc="A fast wordle solver written in C99"
 arch=('x86_64')
