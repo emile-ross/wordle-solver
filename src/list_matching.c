@@ -55,8 +55,6 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 		free(temp_path_buffer);
 	}
 
-	char *word_list_filename(ALL_WORD_LISTS word_list_type);
-
 	uint32_t num_words = 0;
 	switch (word_list_enum)
 	{

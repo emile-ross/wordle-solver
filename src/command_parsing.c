@@ -40,6 +40,10 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				{
 					installed_package = false;
 				}
+				else if (user_command[0] == '~')
+				{
+					installed_package = false;
+				}
 				else
 				{
 					installed_package = true;
