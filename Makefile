@@ -1,7 +1,7 @@
 # chose your compiler
 
-# CC := gcc
 CC := gcc
+# CC := clang
 # CC := zig cc
 
 binary_file = wordle
@@ -17,7 +17,6 @@ SRC_FILES := $(addsuffix .c, $(FILES))
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enum
 OUT = -o $(binary_file)
 
-macos: wordle
 wordle:
 	$(CC) $(SRC_FILES) $(OUT) -O2
 
