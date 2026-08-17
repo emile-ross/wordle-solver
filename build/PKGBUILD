@@ -2,7 +2,7 @@
 # Contributor: zerfithel <hazetlab@proton.me>
 
 pkgname=wordle-solver-git
-pkgver=1.2.11.2ad59a3-1
+pkgver=1.2.12.6fbb2bb
 pkgrel=1
 pkgdesc="A fast wordle solver written in C99"
 arch=('x86_64')
@@ -19,7 +19,7 @@ pkgver() {
 	cd "${srcdir}/wordle"
 	git describe --tags --always \
 	  | sed -E 's/^v//' \
-	  | sed -E 's/^(.+)-([0-9]+)-g/\\1.\\2./' \
+	  | sed -E 's/^(.+)-([0-9]+)-g/\1.\2./' \
 	  | sed -E 's/-/./g'
 }
 build() {
