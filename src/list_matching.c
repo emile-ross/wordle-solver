@@ -1,5 +1,10 @@
 #include "include/header.h"
 
+#define setwords(wordList) \
+		num_words = wordList; \
+		break;
+
+
 char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
 {
 	char filename[max_filename_length] = {0};
@@ -56,34 +61,24 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 	}
 
 	uint32_t num_words = 0;
+	/* set the number of words in the list using the setwords macro */
 	switch (word_list_enum)
 	{
 	case en_all:
-		num_words = NUM_ALL_WORDS;
-		break;
+		setwords(NUM_ALL_WORDS);
 	case en_nyt:
-		num_words = NUM_WORDS;
-		break;
+		setwords(NUM_WORDS);
 	case en_common:
-		num_words = NUM_COMMON_WORDS;
-		break;
-
+		setwords(NUM_COMMON_WORDS);
 	case fr_all:
-		num_words = NUM_FR_ALL_WORDS;
-		break;
-
+		setwords(NUM_FR_ALL_WORDS);
 	case la_all:
-		num_words = NUM_LA_ALL_WORDS;
-		break;
-	
+		setwords(NUM_LA_ALL_WORDS);
 	case la_common:
-		num_words = NUM_LA_COM_WORDS;
-		break;
-
+		setwords(NUM_LA_COM_WORDS);
 	case custom_list:
 		/* standard_word_list = false; */
-		num_words = get_num_lines(filename);
-		break;
+		setwords(get_num_lines(filename));
 
 	case undefined_list:
 		fprintf(stderr, "error in list_match()\n");
