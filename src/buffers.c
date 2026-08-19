@@ -11,20 +11,19 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 	va_copy(copy, args);
 
 	/* calculate the length of the message */
-	int format_str_size = 1 + vsnprintf(NULL, 0, format, copy);
+	size_t format_str_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
 	va_end(copy);
 
 	/* allocate memory for the warning message */
-	char *format_str = malloc((size_t)format_str_size);
+	char *format_str = malloc(format_str_size);
 	if (format_str == NULL)
 	{
 		err(MALLOC_FAIL);
 		return 1;
 	}
 
-	int ret = vsnprintf(format_str, (size_t)format_str_size, format, args);
+	int ret = vsnprintf(format_str, format_str_size, format, args);
 	va_end(args);
-
 
 	if (buf_to_free != NULL)
 	{
@@ -36,11 +35,11 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 		}
 		i++; arr[i] = format_str;
 		i++; arr[i] = NULL;
-		check_buf(ret, format_str_size, arr);
+		check_buf(ret, (int)format_str_size, arr);
 	}
 	else
 	{
-		check_buf(ret, format_str_size, NULL);
+		check_buf(ret, (int)format_str_size, NULL);
 	}
 
 	int return_value = snprintf(string, size_of_string, "%s", format_str);

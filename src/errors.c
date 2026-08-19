@@ -150,6 +150,7 @@ void err(error_codes error_code)
 		char *full_error_message = malloc((size_t)message_size);	/* allocate memory for the base error message string */
 		if (full_error_message == NULL)
 		{
+			/* do not call err(MALLOC_FAIL); in order to avoid recursion and a possible stack overflow */
 			fprintf(stderr, "Failed to allocate memory\nThe call to malloc() failed and returned NULL");
 			exit(1);
 		}

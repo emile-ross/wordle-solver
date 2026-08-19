@@ -173,7 +173,6 @@ void verbose_print(const char *restrict format, ...)
 
 	check_buf((int)ret, (int)msg_size, arr);
 
-
 	va_end(args);
 
 	if (ret > msg_size)
