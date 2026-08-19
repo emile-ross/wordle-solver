@@ -13,7 +13,6 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 
 	if (num_args >= 2)
     	{
-
 		const char *user_command = arguments[0];
 		/* default is true */
 		if (strcmp(user_command, "wordle-solver") == 0)
@@ -90,27 +89,27 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 			
 				if (num_args > list_name_index)
 				{
-					if (strcmp(arguments[list_name_index], "common") == 0 || strcmp(arguments[list_name_index], "common-words") == 0)
+					if (arg_match(arguments[list_name_index], "common", "common-words"))
 					{
 						word_list = en_common;
 					}
-					else if (strcmp(arguments[list_name_index], "all") == 0 || strcmp(arguments[list_name_index], "all-words") == 0)
+					else if (arg_match(arguments[list_name_index], "all", "all-words"))
 					{
 						word_list = en_all;
 					}
-					else if (strcmp(arguments[list_name_index], "fr") == 0 || strcmp(arguments[list_name_index], "french") == 0)
+					else if (arg_match(arguments[list_name_index], "fr", "french"))
 					{
 						word_list = fr_all;
 					}
-					else if (strcmp(arguments[list_name_index], "la-com") == 0 || strcmp(arguments[list_name_index], "latin-common") == 0)
+					else if (arg_match(arguments[list_name_index], "la-com", "latin-common"))
 					{
 						word_list = la_common;
 					}
-					else if (strcmp(arguments[list_name_index], "la") == 0 || strcmp(arguments[list_name_index], "latin") == 0)
+					else if (arg_match(arguments[list_name_index], "la", "latin"))
 					{
 						word_list = la_all;
 					}
-					else if (strcmp(arguments[list_name_index], "nyt") == 0 || strcmp(arguments[list_name_index], "NYT") == 0 || strcmp(arguments[list_name_index], "times") == 0)
+					else if (arg_match(arguments[list_name_index], "nyt", "NYT") || strcmp(arguments[list_name_index], "times") == 0)
 					{
 						word_list = en_nyt;
 					}
