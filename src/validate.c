@@ -65,3 +65,8 @@ void validate_word(char *command_word_string)
 	}
 }
 
+int middle(int lb, int ub)
+{
+	int dif = ub - lb;
+	return (dif / 2);
+}
