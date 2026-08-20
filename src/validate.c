@@ -116,12 +116,12 @@ int middle(int lb, int ub)
 	int dif = ub - lb;
 	if (dif == 0)
 	{
-		return 0;
+		return lb;
 	}
 	else if (dif < 0)
 	{
 		fprintf(stderr, "Invalid bounds, lower bound \"%d\" lb is greater than upper bound \"%d\"\n", lb, ub);
 		exit(1);
 	}
-	return (dif / 2);
+	return (lb + (dif / 2));
 }
