@@ -109,11 +109,11 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 					{
 						word_list = la_all;
 					}
-					else if (arg_match(arguments[list_name_index], "nyt", "NYT") || strcmp(arguments[list_name_index], "times") == 0)
+					else if (arg_match(arguments[list_name_index], "nyt", "NYT") || cmp(arguments[list_name_index], "times"))
 					{
 						word_list = en_nyt;
 					}
-					else if (strcmp(arguments[list_name_index], "custom") == 0)
+					else if (cmp(arguments[list_name_index], "custom"))
 					{
 						word_list = custom_list;
 					}
@@ -170,7 +170,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				{
 					parsing(parsing_arguments, true, true, arguments);
 				}
-				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || strcmp(arguments[flag_reading_index], "-e") == 0)
+				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || cmp(arguments[flag_reading_index], "-e"))
 				{
 					parsing(parsing_arguments, false, true, arguments);
 				}
@@ -186,7 +186,7 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				{
 					if (word_list_is_specified)
 					{
-						if (strcmp(arguments[flag_reading_index], word_list_long_flag) == 0 || strcmp(arguments[flag_reading_index], word_list_flag) == 0)
+						if (arg_match(arguments[flag_reading_index], word_list_long_flag, word_list_flag))
 						{
 							flag_reading_index += WORD_LIST_ARG_EXP;
 						}
