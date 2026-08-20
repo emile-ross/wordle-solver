@@ -18,7 +18,7 @@ void validate_word(char *command_word_string)
 			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
 	
 			int lb = 0;
-			int ub = num_words - 1;
+			int ub = (int)num_words - 1;
 
 			int mid = middle(0, (int)num_words - 1);
 			int ret = strcmp(command_word_string, ptr[mid]);
@@ -30,22 +30,25 @@ void validate_word(char *command_word_string)
 			}
 			else
 			{
-				int range = ub - lb
+				int range = ub - lb;
 				while (range > 0)
 				{
+					ret = strcmp(command_word_string, ptr[mid]);
+
 					if (ret < 0)
 					{
-						ub = middle - 1;
+						ub = mid - 1;
 					}
 					else if (ret > 0)
 					{
-						lb = middle + 1;
+						lb = mid + 1;
 					}
 					else 
 					{
 						break;
 					}
 
+					mid = middle(lb, ub);
 					range = ub - lb;
 				}
 			}
