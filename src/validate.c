@@ -2,6 +2,7 @@
 
 void validate_word(char *command_word_string)
 {
+	int o = 0;
 	bool word_matches = false;
 	bool word_list_matches[NUM_WORD_LISTS + 1];
 
@@ -31,9 +32,17 @@ void validate_word(char *command_word_string)
 			else
 			{
 				int range = ub - lb;
-				while (range > 0)
+				while (range > -1 && o < 1024)
 				{
+					if ((mid >= (int)num_words) || (mid < 0))
+					{
+						fprintf(stderr, "Invalid index to word (out of bounds)\n");
+						fprintf(stderr, "lower bound: %d\nupper bounds: %d\nindex: %d\n", lb, ub, mid);
+						exit(1);
+					}
+
 					ret = strcmp(command_word_string, ptr[mid]);
+					o++;
 
 					if (ret < 0)
 					{
@@ -50,6 +59,17 @@ void validate_word(char *command_word_string)
 
 					mid = middle(lb, ub);
 					range = ub - lb;
+				}
+
+				if (ret == 0)
+				{
+					word_list_matches[i] = true;
+					word_matches = true;
+				}
+
+				if (o >= 1024)
+				{
+					fprintf(stderr, "Failed checking after %d operations\n", o);
 				}
 			}
 			free(ptr);
