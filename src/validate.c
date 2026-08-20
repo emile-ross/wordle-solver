@@ -17,20 +17,17 @@ void validate_word(char *command_word_string)
 			uint32_t num_words = 0;
 			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
 	
-			int mid = middle(0, num_words - 1);
+			int mid = middle(0, (int)num_words - 1);
 			int ret = strcmp(command_word_string, ptr[mid]);
 
-
-			for (uint32_t j = 0; j < num_words; j++)
+			if (ret == 0)
 			{
-				if (strcmp(command_word_string, ptr[j]) == 0)
-				{
-					word_list_matches[i] = true;
-					word_matches = true;
-					break;
-				}
+				word_list_matches[i] = true;
+				word_matches = true;
 			}
-
+			else
+			{
+			}
 			free(ptr);
 		}
 	}
