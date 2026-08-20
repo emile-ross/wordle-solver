@@ -2,7 +2,7 @@
 
 void validate_word(char *command_word_string)
 {
-	int num_matches = 0;
+	bool word_matches = false;
 	bool word_list_matches[NUM_WORD_LISTS + 1];
 
 	for (int i = 0; i < NUM_WORD_LISTS; i++)
@@ -26,7 +26,7 @@ void validate_word(char *command_word_string)
 				if (strcmp(command_word_string, ptr[j]) == 0)
 				{
 					word_list_matches[i] = true;
-					num_matches++;
+					word_matches = true;
 					break;
 				}
 			}
@@ -42,7 +42,7 @@ void validate_word(char *command_word_string)
 
 	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
 
-	if (num_matches > 0)
+	if (word_matches)
 	{
 		printf("was found in the following lists:\n\n");
 
