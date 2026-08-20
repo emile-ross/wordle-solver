@@ -2,6 +2,7 @@
 
 void validate_word(char *command_word_string)
 {
+	int o = 0;
 	bool word_matches = false;
 	bool word_list_matches[NUM_WORD_LISTS + 1];
 
@@ -17,20 +18,60 @@ void validate_word(char *command_word_string)
 			uint32_t num_words = 0;
 			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
 	
-			int mid = middle(0, num_words - 1);
+			int lb = 0;
+			int ub = (int)num_words - 1;
+
+			int mid = middle(0, (int)num_words - 1);
 			int ret = strcmp(command_word_string, ptr[mid]);
 
-
-			for (uint32_t j = 0; j < num_words; j++)
+			if (ret == 0)
 			{
-				if (strcmp(command_word_string, ptr[j]) == 0)
+				word_list_matches[i] = true;
+				word_matches = true;
+			}
+			else
+			{
+				int range = ub - lb;
+				while (range > -1 && o < 1024)
+				{
+					if ((mid >= (int)num_words) || (mid < 0))
+					{
+						fprintf(stderr, "Invalid index to word (out of bounds)\n");
+						fprintf(stderr, "lower bound: %d\nupper bounds: %d\nindex: %d\n", lb, ub, mid);
+						exit(1);
+					}
+
+					ret = strcmp(command_word_string, ptr[mid]);
+					o++;
+
+					if (ret < 0)
+					{
+						ub = mid - 1;
+					}
+					else if (ret > 0)
+					{
+						lb = mid + 1;
+					}
+					else 
+					{
+						break;
+					}
+
+					mid = middle(lb, ub);
+					range = ub - lb;
+				}
+
+				if (ret == 0)
 				{
 					word_list_matches[i] = true;
 					word_matches = true;
-					break;
+				}
+
+				if (o >= 1024)
+				{
+					fprintf(stderr, "Failed checking after %d operations\n", o);
 				}
 			}
-
 			free(ptr);
 		}
 	}
@@ -73,5 +114,14 @@ void validate_word(char *command_word_string)
 int middle(int lb, int ub)
 {
 	int dif = ub - lb;
-	return (dif / 2);
+	if (dif == 0)
+	{
+		return lb;
+	}
+	else if (dif < 0)
+	{
+		fprintf(stderr, "Invalid bounds, lower bound \"%d\" lb is greater than upper bound \"%d\"\n", lb, ub);
+		exit(1);
+	}
+	return (lb + (dif / 2));
 }
