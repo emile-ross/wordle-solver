@@ -44,7 +44,11 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
-void validate_word(char *command_word_string);
+
+/* validate.c */
+	void validate_word(char *command_word_string);
+	int middle(int lb, int ub);
+
 
 /* Global variables */
 	extern int ARGS_BEFORE_CUR_FLAG;
