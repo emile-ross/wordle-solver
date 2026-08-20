@@ -22,6 +22,10 @@ void err(error_codes error_code)
 		/* this error message falls through and triggers CMD_INDEX_BOUNDS on purpose because both errors are heavily related */
 		__attribute__((fallthrough));
 
+	case INTEGER_BOUNDS:
+		error_message = "Integer is out of bounds";
+		break;
+
 	case CMD_INDEX_BOUNDS:
 		error_message = "Index value must be between 1 and 5 (inclusive)";
 		break;
