@@ -33,6 +33,19 @@ void validate_word(char *command_word_string)
 				int range = ub - lb
 				while (range > 0)
 				{
+					if (ret < 0)
+					{
+						ub = middle - 1;
+					}
+					else if (ret > 0)
+					{
+						lb = middle + 1;
+					}
+					else 
+					{
+						break;
+					}
+
 					range = ub - lb;
 				}
 			}
