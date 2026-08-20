@@ -383,4 +383,13 @@ bool arg_match(const char *arg, const char *long_flag, const char *short_flag)
 
 bool cmp(const char *arg, const char *str)
 {
+	/* match the argument to the string */
+	if (strcmp(arg, str) == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
