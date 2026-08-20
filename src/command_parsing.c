@@ -5,7 +5,7 @@
 bool valid_expression;
 bool append_flag_ignore_msg;
 
-void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode)
+void command_parsing(int num_args, int arg_r, const char *arguments[], bool *find_match_mode)
 {
 	bool x_pattern = false;
 	bool first_execution = true;
@@ -158,27 +158,27 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 		{
 			struct prs_args parsing_arguments = 
 			{
-				&flag_reading_index,
+				&arg_r,
 				word_list,
 				num_args,
 				&first_execution
 			};
 
-			while (flag_reading_index < num_args)
+			while (arg_r < num_args)
 			{
-				if (arg_match(arguments[flag_reading_index], "--strict", "-s"))
+				if (arg_match(arguments[arg_r], "--strict", "-s"))
 				{
 					parsing(parsing_arguments, true, true, arguments);
 				}
-				else if (arg_match(arguments[flag_reading_index], "--excludes", "-x") || cmp(arguments[flag_reading_index], "-e"))
+				else if (arg_match(arguments[arg_r], "--excludes", "-x") || cmp(arguments[arg_r], "-e"))
 				{
 					parsing(parsing_arguments, false, true, arguments);
 				}
-				else if (arg_match(arguments[flag_reading_index], "--includes", "-i"))
+				else if (arg_match(arguments[arg_r], "--includes", "-i"))
 				{
 					parsing(parsing_arguments, true, false, arguments);
 				}
-				else if (arg_match(arguments[flag_reading_index], "--absent", "-a"))
+				else if (arg_match(arguments[arg_r], "--absent", "-a"))
 				{
 					parsing(parsing_arguments, false, false, arguments);
 				}
@@ -186,15 +186,15 @@ void command_parsing(int num_args, int flag_reading_index, const char *arguments
 				{
 					if (word_list_is_specified)
 					{
-						if (arg_match(arguments[flag_reading_index], word_list_long_flag, word_list_flag))
+						if (arg_match(arguments[arg_r], word_list_long_flag, word_list_flag))
 						{
-							flag_reading_index += WORD_LIST_ARG_EXP;
+							arg_r += WORD_LIST_ARG_EXP;
 						}
 					}
 					else 
 					{
 						/* can be improved */
-						invalid_flag(num_args, flag_reading_index, arguments);
+						invalid_flag(num_args, arg_r, arguments);
 						break;
 					}
 				}
