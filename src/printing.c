@@ -74,8 +74,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 			{
 				printf("\n");
 			}
-	    	}
-
+		}
 
 		/* print the number of possible words 
 		 * this is obtained by the last function going through the entire word list

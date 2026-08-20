@@ -380,3 +380,4 @@ bool arg_match(const char *arg, const char *long_flag, const char *short_flag)
 		return false;
 	}
 }
+
