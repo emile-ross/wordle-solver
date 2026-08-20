@@ -234,7 +234,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 					if (unused_arg && !validate_word_bl && num_args > min_args_draw)
 					{
-						if (strcmp(arguments[flag_temp], "-x") == 0 || strcmp(arguments[flag_temp], "-X") == 0)
+						if (arg_match(arguments[flag_temp], "-x", "-X"))
 						{
 							arg_found = true;
 							x_pattern = true;
@@ -279,7 +279,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 								}
 
 								/* ensure the string is null terminated */
-								command_word_string[5] = '\0';
+								command_word_string[NUM_LETTERS_WORD] = '\0';
 							}
 						}
 					}
