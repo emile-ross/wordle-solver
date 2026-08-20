@@ -40,6 +40,8 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 /* command parsing */
 	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
 	bool arg_match(const char *arg, const char *long_flag, const char *short_flag);
+	bool cmp(const char *arg, const char *str);
+
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 void validate_word(char *command_word_string);
