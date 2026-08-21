@@ -113,6 +113,10 @@ void validate_word(char *command_word_string)
 /* TODO take in int64_t and add error checking for possibly invalid values */
 int middle(int64_t lb, int64_t ub)
 {
+	if (ub > INT32MAX)
+	{
+		fprintf(stderr, "%ld is outside the integer range (from %d to %d)\n", ub, (0-INT32MAX-1), INT32MAX);
+	}
 	int64_t dif = ub - lb;
 	if (dif == 0)
 	{
