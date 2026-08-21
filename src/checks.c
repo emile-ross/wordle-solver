@@ -12,7 +12,11 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 	}
 	else if (index <= 0)
 	{
-		free(ptr_to_free);
+		if (ptr_to_free != NULL)
+		{
+			free(ptr_to_free);
+		}
+
 		err(INVALID_INDEX);
 		exit(1);
 	}
