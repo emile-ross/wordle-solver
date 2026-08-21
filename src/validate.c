@@ -117,10 +117,11 @@ int middle(int64_t lb, int64_t ub)
 	{
 		fprintf(stderr, "%ld is outside the integer range (from %d to %d)\n", ub, (0-INT32MAX-1), INT32MAX);
 	}
+
 	int64_t dif = ub - lb;
 	if (dif == 0)
 	{
-		return lb;
+		return (int)lb;
 	}
 	else if (dif < 0)
 	{
