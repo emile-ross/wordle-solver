@@ -47,7 +47,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 
 /* validate.c */
 	void validate_word(char *command_word_string);
-	int middle(int lb, int ub);
+	int middle(int64_t lb, int64_t ub);
 
 
 /* Global variables */
