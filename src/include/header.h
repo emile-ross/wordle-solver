@@ -66,7 +66,8 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 
 /* config file */
 	extern bool awsum_table_mode;
-	extern uint16_t table_width;
+	extern const bool config_warnings;
+	extern const uint16_t table_width;
 	extern const bool verbose;
 	extern const uint8_t indenting;
 	extern bool ignore_warn;

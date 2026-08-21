@@ -44,7 +44,7 @@ void check_config(void)
 		valid_config = false;
 	}
 	
-	if (!valid_config)
+	if (!valid_config && config_warnings)
 	{
 		err(INVALID_CONFIG);
 	}
