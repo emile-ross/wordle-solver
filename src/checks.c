@@ -30,14 +30,14 @@ void check_config(void)
 
 	const char *config_name = "src/config.c";
 
-	if (table_width > UINT16MAX)
+	if (table_width > 32)
 	{
 		fprintf(stderr, "%s error: \"table_width\" is out of bounds\n", config_name);
 		fprintf(stderr, "%u is greater than the upper limit: %u\n", table_width, UINT16MAX);
 		valid_config = false;
 	}
 
-	if (indenting > UINT8MAX)
+	if (indenting > 45)
 	{
 		fprintf(stderr, "%s error: \"indenting\" integer is out of bounds\n", config_name);
 		fprintf(stderr, "%u is greater than the upper limit: %u\n", table_width, UINT8MAX);
