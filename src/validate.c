@@ -2,7 +2,6 @@
 
 void validate_word(char *command_word_string)
 {
-	int o = 0;
 	bool word_matches = false;
 	bool word_list_matches[NUM_WORD_LISTS + 1];
 
@@ -15,6 +14,7 @@ void validate_word(char *command_word_string)
 	{
 		for (int i = en_nyt; i != custom_list; i++)
 		{
+			int o = 0;
 			uint32_t num_words = 0;
 			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
 	
