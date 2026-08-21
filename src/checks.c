@@ -23,20 +23,23 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 }
 
 /*
+*/
 void check_config(void)
 {
 	bool valid_config = true;
 
+	const char *config_name = "src/config.c";
+
 	if (table_width > UINT16MAX)
 	{
-		fprintf(stderr, "src/config.c error: \"table_width\" is out of bounds\n");
+		fprintf(stderr, "%s error: \"table_width\" is out of bounds\n", config_name);
 		fprintf(stderr, "%u is greater than the upper limit: %u\n", table_width, UINT16MAX);
 		valid_config = false;
 	}
 
 	if (indenting > UINT8MAX)
 	{
-		fprintf(stderr, "src/config.c error: \"indenting\" integer is out of bounds\n");
+		fprintf(stderr, "%s error: \"indenting\" integer is out of bounds\n", config_name);
 		fprintf(stderr, "%u is greater than the upper limit: %u\n", table_width, UINT8MAX);
 		valid_config = false;
 	}
@@ -46,7 +49,6 @@ void check_config(void)
 		err(INVALID_CONFIG);
 	}
 }
-*/
 
 void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[])
 {
