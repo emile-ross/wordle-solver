@@ -81,12 +81,12 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 		setwords(get_num_lines(filename));
 
 	case undefined_list:
-		fprintf(stderr, "error in list_match()\n");
+		fprintf(stderr, "error in list_match() (undefined list)\n");
 		err(UNDEFINED_LIST);
 		exit(1);
 
 	case no_word_list:
-		fprintf(stderr, "error in list_match()\n");
+		fprintf(stderr, "error in list_match() (no word list)\n");
 		err(NO_WORD_LIST);
 		exit(1);
 		
