@@ -111,17 +111,17 @@ void validate_word(char *command_word_string)
 }
 
 /* TODO take in int64_t and add error checking for possibly invalid values */
-int middle(int lb, int ub)
+int middle(int64_t lb, int64_t ub)
 {
-	int dif = ub - lb;
+	int64_t dif = ub - lb;
 	if (dif == 0)
 	{
 		return lb;
 	}
 	else if (dif < 0)
 	{
-		fprintf(stderr, "Invalid bounds, lower bound \"%d\" lb is greater than upper bound \"%d\"\n", lb, ub);
+		fprintf(stderr, "Invalid bounds, lower bound \"%ld\" lb is greater than upper bound \"%ld\"\n", lb, ub);
 		exit(1);
 	}
-	return (lb + (dif / 2));
+	return (int)(lb + (dif / 2));
 }
