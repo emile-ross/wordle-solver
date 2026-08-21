@@ -6,7 +6,10 @@ bool awsum_table_mode = false;	/* false by default */
 /* if true, print items in columns and then go to the next column
  * if false, print items from left to right and then go to next row(down) */
 
-uint16_t table_width = 6;		/* 6 by default */
+const bool config_warnings = true;	/* true by default */
+/* will warn the user when the settings in the config.c file might be invalid */
+
+const uint16_t table_width = 6;		/* 6 by default */
 /* this is the width of the table (the number of words displayed on the x axis */
 
 const uint8_t indenting = 2;	/* 2 by default */
