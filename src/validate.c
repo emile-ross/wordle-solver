@@ -10,78 +10,75 @@ void validate_word(char *command_word_string)
 		word_list_matches[i] = false;
 	}
 
-	if (command_word_string != NULL)
+	if (command_word_string == NULL)
 	{
-		for (int i = en_nyt; i != custom_list; i++)
-		{
-			int o = 0;
-			uint32_t num_words = 0;
-			char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
-	
-			int lb = 0;
-			int ub = (int)num_words - 1;
+		/* word is NULL therefore it can't be used */
+		err(INVALID_WORD);
+		exit(1);
+	}
 
-			int mid = middle(0, (int)num_words - 1);
-			int ret = strcmp(command_word_string, ptr[mid]);
+	for (int i = en_nyt; i != custom_list; i++)
+	{
+		int o = 0;
+		uint32_t num_words = 0;
+		char (*ptr)[INDEX_LETTERS_WORD] = list_match((ALL_WORD_LISTS)i, &num_words, true);
+	
+		int lb = 0;
+		int ub = (int)num_words - 1;
+
+		int mid = middle(0, (int)num_words - 1);
+		int ret = strcmp(command_word_string, ptr[mid]);
+
+		if (ret == 0)
+		{
+			word_list_matches[i] = true;
+			word_matches = true;
+		}
+		else
+		{
+			int range = ub - lb;
+			while (range > -1 && o < 1024)
+			{
+				if ((mid >= (int)num_words) || (mid < 0))
+				{
+					fprintf(stderr, "Invalid index to word (out of bounds)\n");
+					fprintf(stderr, "lower bound: %d\nupper bounds: %d\nindex: %d\n", lb, ub, mid);
+					exit(1);
+				}
+
+				ret = strcmp(command_word_string, ptr[mid]);
+				o++;
+
+				if (ret < 0)
+				{
+					ub = mid - 1;
+				}
+				else if (ret > 0)
+				{
+					lb = mid + 1;
+				}
+				else 
+				{
+					break;
+				}
+
+				mid = middle(lb, ub);
+				range = ub - lb;
+			}
 
 			if (ret == 0)
 			{
 				word_list_matches[i] = true;
 				word_matches = true;
 			}
-			else
+
+			if (o >= 1024)
 			{
-				int range = ub - lb;
-				while (range > -1 && o < 1024)
-				{
-					if ((mid >= (int)num_words) || (mid < 0))
-					{
-						fprintf(stderr, "Invalid index to word (out of bounds)\n");
-						fprintf(stderr, "lower bound: %d\nupper bounds: %d\nindex: %d\n", lb, ub, mid);
-						exit(1);
-					}
-
-					ret = strcmp(command_word_string, ptr[mid]);
-					o++;
-
-					if (ret < 0)
-					{
-						ub = mid - 1;
-					}
-					else if (ret > 0)
-					{
-						lb = mid + 1;
-					}
-					else 
-					{
-						break;
-					}
-
-					mid = middle(lb, ub);
-					range = ub - lb;
-				}
-
-				if (ret == 0)
-				{
-					word_list_matches[i] = true;
-					word_matches = true;
-				}
-
-				if (o >= 1024)
-				{
-					fprintf(stderr, "Failed checking after %d operations\n", o);
-				}
+				fprintf(stderr, "Failed checking after %d operations\n", o);
 			}
-			free(ptr);
 		}
+		free(ptr);
 	}
-	else
-	{
-		/* word is NULL therefore it can't be used */
-		err(INVALID_WORD);
-	}
-
-	printf(BOLD_S"\nThe word: "UDRL_S"%s\n"STYLE_END, command_word_string);
 
 	if (word_matches)
 	{
