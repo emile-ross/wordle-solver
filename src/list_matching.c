@@ -138,12 +138,12 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 			return custom_list_name;
 		}
 	case undefined_list:
-		fprintf(stderr, "error in get_filename()\n");
+		fprintf(stderr, "error in get_filename() (undefined list)\n");
 		err(UNDEFINED_LIST);
 		exit(1);
 
 	case no_word_list:
-		fprintf(stderr, "error in get_filename()\n");
+		fprintf(stderr, "error in get_filename() (no word list)\n");
 		err(NO_WORD_LIST);
 		exit(1);
 

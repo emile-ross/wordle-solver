@@ -8,10 +8,9 @@ binary_file = wordle
 
 WORD_DIR := src/word-lists
 
-SOURCE_DIR := src
 src_filenames := buffers command_parsing config drawing errors functions list_matching main parsing checks printing validate file_reading
 
-FILES := $(addprefix $(SOURCE_DIR)/, $(src_filenames))
+FILES := $(addprefix src/, $(src_filenames))
 SRC_FILES := $(addsuffix .c, $(FILES))
 
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enum
