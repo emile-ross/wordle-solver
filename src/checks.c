@@ -26,8 +26,6 @@ uint8_t valid_user_index(long index, void *ptr_to_free)
 	}
 }
 
-/*
-*/
 void check_config(void)
 {
 	bool valid_config = true;
