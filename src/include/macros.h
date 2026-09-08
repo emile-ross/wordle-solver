@@ -26,7 +26,6 @@
 #define ANSI_LCYAN	"\x1b[96m"
 #define ANSI_LYELLOW	"\x1b[93m"
 #define ANSI_RED	"\x1b[31m"
-#define STYLE_END	"\x1B[0m" 
 #define ANSI_WHITE	"\x1b[97m"
 #define ANSI_YELLOW	"\x1b[33m"
 

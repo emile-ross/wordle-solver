@@ -36,16 +36,16 @@ void validate_word(char *command_word_string)
 		}
 		else
 		{
-			while (1)
+			while (lb <= ub && o < 1024)
 			{
+				mid = middle(lb, ub);
+
 				if ((mid >= (int)num_words) || (mid < 0))
 				{
 					fprintf(stderr, "Invalid index to word (out of bounds)\n");
 					fprintf(stderr, "lower bound: %d\nupper bound: %d\nindex: %d\n", lb, ub, mid);
 					exit(1);
 				}
-				if (lb > ub)
-					break;
 
 				ret = strcmp(command_word_string, ptr[mid]);
 				o++;
@@ -62,8 +62,6 @@ void validate_word(char *command_word_string)
 				{
 					break;
 				}
-
-				mid = middle(lb, ub);
 			}
 
 			if (ret == 0)
@@ -99,6 +97,8 @@ void validate_word(char *command_word_string)
 				}
 			}
 		}
+
+		printf(STYLE_END);
 
 	}
 	else
