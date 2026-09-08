@@ -72,9 +72,11 @@ This command searches for all words following these characteristics:
 
 ## real scenario
 
-Lets say you typed "K I T T Y" as your first guess for the wordle.  If the K in KITTY is green and the Y is yellow, you can narrow the answer to a single word with this information.  
+Lets say you typed "K I T T Y" as your first guess for the wordle.  If the K in KITTY is green and the Y is yellow, the answer can be narrowed down to a single word.
+
+
 Since K was green and it was the first letter, you can use the flag ``-s K 1`` 
-You can other flags because Y was yellow.  The flag ``-i Y`` combined with ``-x Y 5`` narrows down the answer to all words with a Y but no Y as the last letter.  
+You can use the ``-i`` & ``-x`` flags because Y was yellow.  The flag ``-i Y`` combined with ``-x Y 5`` narrows down the answer to all words with a Y but no Y as the last letter.  
 
 Full command: ``./wordle -s K 1 -i Y -x Y 5``
 
