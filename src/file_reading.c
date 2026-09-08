@@ -64,7 +64,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 		exit(1);
 	}
 
-	FILE *file = fopen(file_path, "r");
+	FILE *file = fopen(file_path, "r");	/* open file in reading mode */
 
 	if (file == NULL)
 	{
