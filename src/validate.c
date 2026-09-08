@@ -80,14 +80,14 @@ void validate_word(char *command_word_string)
 
 	if (word_matches)
 	{
-		printf("was found in the following lists: \n\n");
+		printf(ANSI_GREEN"was found in the following lists: \n\n");
 
 		/* print matching word lists */
 		for (uint16_t i = 0; i < NUM_WORD_LISTS; i++)
 		{
 			if (word_list_matches[i])
 			{
-				printf(ANSI_GREEN"%s\n"STYLE_END, word_list_name((ALL_WORD_LISTS)i, NULL));
+				printf("%s \n", word_list_name((ALL_WORD_LISTS)i, NULL));
 
 				if (i == fr_all)
 				{
@@ -97,9 +97,7 @@ void validate_word(char *command_word_string)
 				}
 			}
 		}
-
 		printf(STYLE_END);
-
 	}
 	else
 	{
