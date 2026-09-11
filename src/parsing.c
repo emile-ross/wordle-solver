@@ -18,7 +18,13 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		err(CMD_MISSING_ARGS);
 	}
 	
-	if (letter_indexed_bl && number_arg_index >= parsing_args.num_args)
+	bool letter_is_indexed = false;
+	if (type == strict || type == exclude)
+	{
+		letter_is_indexed = true;
+	}
+
+	if (letter_is_indexed && number_arg_index >= parsing_args.num_args)
 	{
 		err(CMD_MISSING_ARGS);
 	}
