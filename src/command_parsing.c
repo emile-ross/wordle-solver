@@ -151,19 +151,19 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		{
 			if (cmp(arguments[arg_r], "--strict", "-s"))
 			{
-				parsing(parsing_arguments, true, true, arguments);
+				parsing(parsing_arguments, strict, arguments);
 			}
 			else if (cmp(arguments[arg_r], "--excludes", "-x") || scmp(arguments[arg_r], "-e"))
 			{
-				parsing(parsing_arguments, false, true, arguments);
+				parsing(parsing_arguments, exclude, arguments);
 			}
 			else if (cmp(arguments[arg_r], "--includes", "-i"))
 			{
-				parsing(parsing_arguments, true, false, arguments);
+				parsing(parsing_arguments, include, arguments);
 			}
 			else if (cmp(arguments[arg_r], "--absent", "-a"))
 			{
-				parsing(parsing_arguments, false, false, arguments);
+				parsing(parsing_arguments, absent, arguments);
 			}
 			else
 			{

@@ -35,7 +35,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 
-int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[]);
+int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[]);
 
 /* command parsing */
 	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);

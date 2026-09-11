@@ -2,7 +2,7 @@
 
 #include <ctype.h>
 
-int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_indexed_bl, const char *arguments[])
+int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -113,7 +113,7 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	
 	char *endptr = NULL;
 	int word_letter_index;
-	if (letter_indexed_bl)
+	if (type == strict || type == exclude)
 	{
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
@@ -246,7 +246,6 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 		{
 			if (verbose)
 			{
-
 				if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
 				{
 					if (*(parsing_args.first_exec))
