@@ -16,19 +16,19 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 	const char *user_command = arguments[0];
 	/* default is true */
-	if (cmp(user_command, "wordle-solver"))
+	if (scmp(user_command, "wordle-solver"))
 	{
 		installed_package = true;
 	}
-	else if (cmp(user_command, "wordle"))
+	else if (scmp(user_command, "wordle"))
 	{
 		installed_package = true;
 	}
-	else if (cmp(user_command, "./wordle"))
+	else if (scmp(user_command, "./wordle"))
 	{
 		installed_package = false;
 	}
-	else if (cmp(user_command, "./wordle-solver"))
+	else if (scmp(user_command, "./wordle-solver"))
 	{
 		installed_package = false;
 	}
@@ -62,7 +62,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 	for (uint8_t i = 0; i < num_args; i++)
 	{
 		/* compare argument against word list (-w flag) */
-		if (arg_match(arguments[i], word_list_long_flag, word_list_flag))
+		if (cmp(arguments[i], word_list_long_flag, word_list_flag))
 		{
 			valid_args_index[n_valid_args] = i;
 			n_valid_args++;
@@ -81,31 +81,31 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		
 			if (num_args > next_index)
 			{
-				if (arg_match(arguments[next_index], "common", "common-words"))
+				if (cmp(arguments[next_index], "common", "common-words"))
 				{
 					word_list = en_common;
 				}
-				else if (arg_match(arguments[next_index], "all", "all-words"))
+				else if (cmp(arguments[next_index], "all", "all-words"))
 				{
 					word_list = en_all;
 				}
-				else if (arg_match(arguments[next_index], "fr", "french"))
+				else if (cmp(arguments[next_index], "fr", "french"))
 				{
 					word_list = fr_all;
 				}
-				else if (arg_match(arguments[next_index], "la-com", "latin-common"))
+				else if (cmp(arguments[next_index], "la-com", "latin-common"))
 				{
 					word_list = la_common;
 				}
-				else if (arg_match(arguments[next_index], "la", "latin"))
+				else if (cmp(arguments[next_index], "la", "latin"))
 				{
 					word_list = la_all;
 				}
-				else if (arg_match(arguments[next_index], "nyt", "NYT") || cmp(arguments[next_index], "times"))
+				else if (cmp(arguments[next_index], "nyt", "NYT") || scmp(arguments[next_index], "times"))
 				{
 					word_list = en_nyt;
 				}
-				else if (cmp(arguments[next_index], "custom"))
+				else if (scmp(arguments[next_index], "custom"))
 				{
 					word_list = custom_list;
 				}
@@ -137,7 +137,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 				 * Valid word list argument: (-w all or something like that) */
 			}
 		}
-		else if (arg_match(arguments[i], "-v", "--validate"))
+		else if (cmp(arguments[i], "-v", "--validate"))
 		{
 			*(find_match_mode) = false; /* We aren't matching words */
 			valid_args_index[n_valid_args] = i;
@@ -157,19 +157,19 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 		while (arg_r < num_args)
 		{
-			if (arg_match(arguments[arg_r], "--strict", "-s"))
+			if (cmp(arguments[arg_r], "--strict", "-s"))
 			{
 				parsing(parsing_arguments, true, true, arguments);
 			}
-			else if (arg_match(arguments[arg_r], "--excludes", "-x") || cmp(arguments[arg_r], "-e"))
+			else if (cmp(arguments[arg_r], "--excludes", "-x") || scmp(arguments[arg_r], "-e"))
 			{
 				parsing(parsing_arguments, false, true, arguments);
 			}
-			else if (arg_match(arguments[arg_r], "--includes", "-i"))
+			else if (cmp(arguments[arg_r], "--includes", "-i"))
 			{
 				parsing(parsing_arguments, true, false, arguments);
 			}
-			else if (arg_match(arguments[arg_r], "--absent", "-a"))
+			else if (cmp(arguments[arg_r], "--absent", "-a"))
 			{
 				parsing(parsing_arguments, false, false, arguments);
 			}
@@ -177,7 +177,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			{
 				if (word_list_is_specified)
 				{
-					if (arg_match(arguments[arg_r], word_list_long_flag, word_list_flag))
+					if (cmp(arguments[arg_r], word_list_long_flag, word_list_flag))
 					{
 						arg_r += WORD_LIST_ARG_EXP;
 					}
@@ -335,7 +335,7 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 }
 
-bool arg_match(const char *arg, const char *long_flag, const char *short_flag)
+bool cmp(const char *arg, const char *long_flag, const char *short_flag)
 {
 	/* match the argument to the flags */
 	if (strcmp(arg, long_flag) == 0)
@@ -352,7 +352,7 @@ bool arg_match(const char *arg, const char *long_flag, const char *short_flag)
 	}
 }
 
-bool cmp(const char *arg, const char *str)
+bool scmp(const char *arg, const char *str)
 {
 	/* match the argument to the string */
 	if (strcmp(arg, str) == 0)
