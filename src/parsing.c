@@ -111,7 +111,7 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	 * 'T' would be at index 3 
 	 * "AFTER" would work */
 	
-	char *endptr;
+	char *endptr = NULL;
 	int word_letter_index;
 	if (letter_indexed_bl)
 	{
@@ -121,9 +121,8 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 		if (strcmp(endptr, arguments[number_arg_index]) == 0)
 		{
 			/* the strings are matching, therefore no valid characters were found */
-
-			/* TODO add error message for this specific case */
 			free(ptr);
+			fprintf(stderr, "Invalid index, '%s' is supposed to be an number (index)\n", endptr);
 			err(INVALID_INDEX);
 		}
 
@@ -143,8 +142,9 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 								   therefore, we need to convert it from a count to an index */
 		if (word_letter_index < 0)
 		{
-			/* this is just an invalid index */
+			/* index cannot be negative */
 			free(ptr);
+			fprintf(stderr, "Index must be a positive integer\n");
 			err(INVALID_INDEX);
 		}
 	}
@@ -343,7 +343,8 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 	}
 
 	/* display verbose message if verbose mode is enabled */
-	if (verbose) {
+	if (verbose)
+	{
 		verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
 	}
 
