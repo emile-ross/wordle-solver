@@ -16,19 +16,11 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 	const char *user_command = arguments[0];
 	/* default is true */
-	if (scmp(user_command, "wordle-solver"))
+	if (cmp(user_command, "wordle-solver", "wordle"))
 	{
 		installed_package = true;
 	}
-	else if (scmp(user_command, "wordle"))
-	{
-		installed_package = true;
-	}
-	else if (scmp(user_command, "./wordle"))
-	{
-		installed_package = false;
-	}
-	else if (scmp(user_command, "./wordle-solver"))
+	else if (cmp(user_command, "./wordle-solver", "./wordle"))
 	{
 		installed_package = false;
 	}
