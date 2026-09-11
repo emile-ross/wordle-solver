@@ -202,74 +202,71 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 
 	/* parsing logic is below for all options */
 
-	if (letter_indexed_bl)
+	if (type == strict)
 	{
-		if (filter_include_bl)
+		/* buffer_write() is safer than using strcpy()
+		 * this copies the last string specified to the flag_string buffer */
+		if (verbose)
 		{
-			/* buffer_write() is safer than using strcpy()
-			 * this copies the last string specified to the flag_string buffer */
-			if (verbose)
+			if (0 != buffer_write(NULL, flag_string, flag_length, "--strict"))
 			{
-				if (0 != buffer_write(NULL, flag_string, flag_length, "--strict"))
+				if (*(parsing_args.first_exec))
 				{
-					if (*(parsing_args.first_exec))
-					{
-						free(ptr);
-					}
-					err(BUFFER_WRITE_FAIL);
+					free(ptr);
+				}
+				err(BUFFER_WRITE_FAIL);
+			}
+		}
+
+		bool first_character = false;
+		bool prev_character_found = false;
+	
+		if (word_letter_index == 0)
+			first_character = true;
+	
+		for (uint32_t j = 0; j < n_pos_arr; j++)
+		{
+			/* compare the specified letter against the words in a loop */
+			if (letter_indexed == ptr[j][word_letter_index])
+			{
+				memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+				temp_count++;
+	
+				if (!prev_character_found && first_character)
+				{
+					prev_character_found = true;
 				}
 			}
-
-			bool first_character = false;
-			bool prev_character_found = false;
-		
-			if (word_letter_index == 0)
-				first_character = true;
-		
-			for (uint32_t j = 0; j < n_pos_arr; j++)
+			else
 			{
-				/* compare the specified letter against the words in a loop */
-				if (letter_indexed == ptr[j][word_letter_index])
+				if (prev_character_found)
 				{
-					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-					temp_count++;
-		
-					if (!prev_character_found && first_character)
-					{
-						prev_character_found = true;
-					}
-				}
-				else
-				{
-					if (prev_character_found)
-					{
-						break;
-					}
+					break;
 				}
 			}
 		}
-		else
+	}
+	else if (type == exclude)
+	{
+		if (verbose)
 		{
-			if (verbose)
+			if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
 			{
-				if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
+				if (*(parsing_args.first_exec))
 				{
-					if (*(parsing_args.first_exec))
-					{
-						free(ptr);
-					}
-					err(BUFFER_WRITE_FAIL);
+					free(ptr);
 				}
+				err(BUFFER_WRITE_FAIL);
 			}
+		}
 
-			for (uint32_t j = 0; j < n_pos_arr; j++)
+		for (uint32_t j = 0; j < n_pos_arr; j++)
+		{
+			/* compare the specified letter against the words in a loop */
+			if (letter_indexed != ptr[j][word_letter_index])
 			{
-				/* compare the specified letter against the words in a loop */
-				if (letter_indexed != ptr[j][word_letter_index])
-				{
-					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-					temp_count++;
-				}
+				memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+				temp_count++;
 			}
 		}
 	}
