@@ -60,3 +60,11 @@ struct prs_args
 	int num_args;
 	bool *first_exec;
 };
+
+enum parsing_type
+{
+	strict,
+	exclude,
+	include,
+	absent
+};
