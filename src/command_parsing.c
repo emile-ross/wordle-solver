@@ -60,16 +60,8 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 		for (uint8_t i = 0; i < num_args; i++)
 		{
-			if (arg_match(arguments[i], "--draw", "-d"))
-			{
-				if (!ignore_warn)
-					warn(draw);
-		
-				*(find_match_mode) = false; /* we are making a cool pattern/drawing. We aren't matching words */
-				valid_args_index[n_valid_args] = i;
-				n_valid_args++;
-			}
-			else if (arg_match(arguments[i], word_list_long_flag, word_list_flag))
+			/* compare argument against word list (-w flag) */
+			if (arg_match(arguments[i], word_list_long_flag, word_list_flag))
 			{
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
