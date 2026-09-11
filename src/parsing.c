@@ -127,7 +127,7 @@ int parsing(struct prs_args parsing_args, bool filter_include_bl, bool letter_in
 			err(INVALID_INDEX);
 		}
 
-		if (*endptr != '\0')
+		if (*(endptr) != '\0')
 		{
 			/* there was at least one invalid character */
 			free(ptr);

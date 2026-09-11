@@ -76,35 +76,35 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 					}
 				}
 
-				int list_name_index = i + 1;
+				int next_index = i + 1;
 			
-				if (num_args > list_name_index)
+				if (num_args > next_index)
 				{
-					if (arg_match(arguments[list_name_index], "common", "common-words"))
+					if (arg_match(arguments[next_index], "common", "common-words"))
 					{
 						word_list = en_common;
 					}
-					else if (arg_match(arguments[list_name_index], "all", "all-words"))
+					else if (arg_match(arguments[next_index], "all", "all-words"))
 					{
 						word_list = en_all;
 					}
-					else if (arg_match(arguments[list_name_index], "fr", "french"))
+					else if (arg_match(arguments[next_index], "fr", "french"))
 					{
 						word_list = fr_all;
 					}
-					else if (arg_match(arguments[list_name_index], "la-com", "latin-common"))
+					else if (arg_match(arguments[next_index], "la-com", "latin-common"))
 					{
 						word_list = la_common;
 					}
-					else if (arg_match(arguments[list_name_index], "la", "latin"))
+					else if (arg_match(arguments[next_index], "la", "latin"))
 					{
 						word_list = la_all;
 					}
-					else if (arg_match(arguments[list_name_index], "nyt", "NYT") || cmp(arguments[list_name_index], "times"))
+					else if (arg_match(arguments[next_index], "nyt", "NYT") || cmp(arguments[next_index], "times"))
 					{
 						word_list = en_nyt;
 					}
-					else if (cmp(arguments[list_name_index], "custom"))
+					else if (cmp(arguments[next_index], "custom"))
 					{
 						word_list = custom_list;
 					}
@@ -128,7 +128,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 				if (valid_word_list)
 				{
-					valid_args_index[n_valid_args] = list_name_index;
+					valid_args_index[n_valid_args] = next_index;
 					n_valid_args++;
 					word_list_is_specified = true;
 					/* break out of the flag checking loop 

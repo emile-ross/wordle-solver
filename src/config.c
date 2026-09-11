@@ -45,6 +45,5 @@ char *custom_list_name = "default_custom_list.txt";	/* this file can be created 
  * if it hasn't, prompt the user for the word list name */
 
 
-
 /* Initialise the program_name variable */
 const char *program_name = "wordle";	/* wordle by default */
