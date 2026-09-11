@@ -7,9 +7,7 @@ bool append_flag_ignore_msg;
 
 void command_parsing(int num_args, int arg_r, const char *arguments[], bool *find_match_mode)
 {
-	bool x_pattern = false;
 	bool first_execution = true;
-	bool validate_word_bl = false;
 
 	if (num_args >= 2)
     	{
@@ -139,7 +137,6 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			else if (arg_match(arguments[i], "-v", "--validate"))
 			{
 				*(find_match_mode) = false; /* We aren't matching words */
-				validate_word_bl = true; /* we are validating a word */
 				valid_args_index[n_valid_args] = i;
 				n_valid_args++;
 			}
@@ -222,65 +219,48 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 							break;
 						}
 					}
-
-					if (unused_arg && !validate_word_bl && num_args > min_args_draw)
-					{
-						if (arg_match(arguments[flag_temp], "-x", "-X"))
-						{
-							arg_found = true;
-							x_pattern = true;
-						}
-						/* if it's not -x flag it's probably an invalid or unused argument */
-					}
 					
-					if (!arg_found)
+					if (!arg_found && unused_arg)
 					{
-						if (unused_arg)
+						size_t command_word_string_size = strlen(arguments[flag_temp]);
+
+						err_buffer_size = NUM_LETTERS_WORD;
+						err_buffer_write = (int64_t)command_word_string_size;
+
+						if (NUM_LETTERS_WORD < command_word_string_size)
 						{
-							size_t command_word_string_size = strlen(arguments[flag_temp]);
-
-							err_buffer_size = NUM_LETTERS_WORD;
-							err_buffer_write = (int64_t)command_word_string_size;
-
-							if (NUM_LETTERS_WORD < command_word_string_size)
+							/* word is too long */
+							free(command_word_string);
+							err(WORD_TOO_LONG);
+						}
+						else if (NUM_LETTERS_WORD > command_word_string_size)
+						{
+							/* word is too short 
+							 * error code 22 is for when the word is too short */
+							free(command_word_string);
+							err(WORD_TOO_SHORT);
+						}
+						else
+						{
+							/* use the length of the buffer directly instead of getting the size of the buffer and using that */
+							for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
 							{
-								/* word is too long */
-								free(command_word_string);
-								err(WORD_TOO_LONG);
-							}
-							else if (NUM_LETTERS_WORD > command_word_string_size)
-							{
-								/* word is too short 
-								 * error code 22 is for when the word is too short */
-								free(command_word_string);
-								err(WORD_TOO_SHORT);
-							}
-							else
-							{
-								/* use the length of the buffer directly instead of getting the size of the buffer and using that */
-								for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
+								/* check if the letter indexed is actually a letter */
+								if (!(isalpha(arguments[flag_temp][i])))
 								{
-									/* check if the letter indexed is actually a letter */
-									if (!(isalpha(arguments[flag_temp][i])))
-									{
-										free(command_word_string);
-										err(INVALID_LETTER);
-									}
-									command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
+									free(command_word_string);
+									err(INVALID_LETTER);
 								}
-
-								/* ensure the string is null terminated */
-								command_word_string[NUM_LETTERS_WORD] = '\0';
+								command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
 							}
+
+							/* ensure the string is null terminated */
+							command_word_string[NUM_LETTERS_WORD] = '\0';
 						}
 					}
 				}
 
-				if (validate_word_bl)
-					validate_word(command_word_string);
-				else
-					drawing(command_word_string, x_pattern);
-
+				validate_word(command_word_string);
 				free(command_word_string);
 			}
 		}
