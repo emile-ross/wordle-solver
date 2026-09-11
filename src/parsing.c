@@ -270,59 +270,56 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 			}
 		}
 	}
-	else
+	else if (type == include)
 	{
-		if (filter_include_bl)
+		if (verbose)
 		{
-			if (verbose)
+			if (buffer_write(NULL, flag_string, flag_length, "--includes") != 0)
 			{
-				if (buffer_write(NULL, flag_string, flag_length, "--includes") != 0)
-				{
-					err(BUFFER_WRITE_FAIL);
-				}
-			}
-
-			for (uint32_t j = 0; j < n_pos_arr; j++)
-			{
-				/* compare the specified letter against the words in a loop */
-				for (int k = 0; k < NUM_LETTERS_WORD; k++)
-				{
-					if (letter_indexed == ptr[j][k])
-					{
-						memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
-						temp_count++;
-						break;
-					}
-				}
+				err(BUFFER_WRITE_FAIL);
 			}
 		}
-		else
-		{
-			if (verbose)
-			{
-				if (buffer_write(NULL, flag_string, flag_length, "--absent") != 0)
-				{
-					err(BUFFER_WRITE_FAIL);
-				}
-			}
 
-			for (uint32_t j = 0; j < n_pos_arr; j++)
+		for (uint32_t j = 0; j < n_pos_arr; j++)
+		{
+			/* compare the specified letter against the words in a loop */
+			for (int k = 0; k < NUM_LETTERS_WORD; k++)
 			{
-				bool letter_match = false;
-				/* compare the specified letter against the words in a loop */
-				for (int k = 0; k < NUM_LETTERS_WORD; k++)
-				{
-					if (letter_indexed == ptr[j][k])
-					{
-						letter_match = true;
-						break;
-					}
-				}
-				if (!letter_match)
+				if (letter_indexed == ptr[j][k])
 				{
 					memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
 					temp_count++;
+					break;
 				}
+			}
+		}
+	}
+	else if (type == absent)
+	{
+		if (verbose)
+		{
+			if (buffer_write(NULL, flag_string, flag_length, "--absent") != 0)
+			{
+				err(BUFFER_WRITE_FAIL);
+			}
+		}
+
+		for (uint32_t j = 0; j < n_pos_arr; j++)
+		{
+			bool letter_match = false;
+			/* compare the specified letter against the words in a loop */
+			for (int k = 0; k < NUM_LETTERS_WORD; k++)
+			{
+				if (letter_indexed == ptr[j][k])
+				{
+					letter_match = true;
+					break;
+				}
+			}
+			if (!letter_match)
+			{
+				memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
+				temp_count++;
 			}
 		}
 	}
