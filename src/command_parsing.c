@@ -194,78 +194,80 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 	}
 	else
 	{
-		int min_args_draw = 3;
+		int min_args = 3;
 		if (word_list_is_specified)
 		{
-			min_args_draw += 2;
+			min_args += 2;
 		}
 
-		if (num_args >= min_args_draw)
+		if (num_args < min_args)
 		{
-			/* match arguments */
-			char *command_word_string = malloc(INDEX_LETTERS_WORD);
-
-			if (command_word_string == NULL)
-			{
-				err(MALLOC_FAIL);
-			}
-
-			for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
-			{
-				bool arg_found = false;
-				bool unused_arg = true;
-				for (int j = 0; j < n_valid_args; j++)
-				{
-					if (flag_temp == valid_args_index[j])
-					{
-						unused_arg = false;
-						break;
-					}
-				}
-				
-				if (!arg_found && unused_arg)
-				{
-					size_t command_word_string_size = strlen(arguments[flag_temp]);
-
-					err_buffer_size = NUM_LETTERS_WORD;
-					err_buffer_write = (int64_t)command_word_string_size;
-
-					if (NUM_LETTERS_WORD < command_word_string_size)
-					{
-						/* word is too long */
-						free(command_word_string);
-						err(WORD_TOO_LONG);
-					}
-					else if (NUM_LETTERS_WORD > command_word_string_size)
-					{
-						/* word is too short 
-						 * error code 22 is for when the word is too short */
-						free(command_word_string);
-						err(WORD_TOO_SHORT);
-					}
-					else
-					{
-						/* use the length of the buffer directly instead of getting the size of the buffer and using that */
-						for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
-						{
-							/* check if the letter indexed is actually a letter */
-							if (!(isalpha(arguments[flag_temp][i])))
-							{
-								free(command_word_string);
-								err(INVALID_LETTER);
-							}
-							command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
-						}
-
-						/* ensure the string is null terminated */
-						command_word_string[NUM_LETTERS_WORD] = '\0';
-					}
-				}
-			}
-
-			validate_word(command_word_string);
-			free(command_word_string);
+			err(CMD_MISSING_ARGS);
 		}
+
+		/* match arguments */
+		char *command_word_string = malloc(INDEX_LETTERS_WORD);
+
+		if (command_word_string == NULL)
+		{
+			err(MALLOC_FAIL);
+		}
+
+		for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
+		{
+			bool arg_found = false;
+			bool unused_arg = true;
+			for (int j = 0; j < n_valid_args; j++)
+			{
+				if (flag_temp == valid_args_index[j])
+				{
+					unused_arg = false;
+					break;
+				}
+			}
+			
+			if (!arg_found && unused_arg)
+			{
+				size_t command_word_string_size = strlen(arguments[flag_temp]);
+
+				err_buffer_size = NUM_LETTERS_WORD;
+				err_buffer_write = (int64_t)command_word_string_size;
+
+				if (NUM_LETTERS_WORD < command_word_string_size)
+				{
+					/* word is too long */
+					free(command_word_string);
+					err(WORD_TOO_LONG);
+				}
+				else if (NUM_LETTERS_WORD > command_word_string_size)
+				{
+					/* word is too short 
+					 * error code 22 is for when the word is too short */
+					free(command_word_string);
+					err(WORD_TOO_SHORT);
+				}
+				else
+				{
+					/* use the length of the buffer directly instead of getting the size of the buffer and using that */
+					for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
+					{
+						/* check if the letter indexed is actually a letter */
+						if (!(isalpha(arguments[flag_temp][i])))
+						{
+							free(command_word_string);
+							err(INVALID_LETTER);
+						}
+						command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
+					}
+
+					/* ensure the string is null terminated */
+					command_word_string[NUM_LETTERS_WORD] = '\0';
+				}
+			}
+		}
+
+		validate_word(command_word_string);
+		free(command_word_string);
 	}
 }
 
