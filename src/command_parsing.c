@@ -9,265 +9,263 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 {
 	bool first_execution = true;
 
-	if (num_args >= 2)
-    	{
-		const char *user_command = arguments[0];
-		/* default is true */
-		if (cmp(user_command, "wordle-solver"))
+	if (num_args < 2)
+	{
+		err(CMD_MISSING_ARGS);
+	}
+
+	const char *user_command = arguments[0];
+	/* default is true */
+	if (cmp(user_command, "wordle-solver"))
+	{
+		installed_package = true;
+	}
+	else if (cmp(user_command, "wordle"))
+	{
+		installed_package = true;
+	}
+	else if (cmp(user_command, "./wordle"))
+	{
+		installed_package = false;
+	}
+	else if (cmp(user_command, "./wordle-solver"))
+	{
+		installed_package = false;
+	}
+	else
+	{
+		if (strlen(user_command) > 2)
 		{
-			installed_package = true;
-		}
-		else if (cmp(user_command, "wordle"))
-		{
-			installed_package = true;
-		}
-		else if (cmp(user_command, "./wordle"))
-		{
-			installed_package = false;
-		}
-		else if (cmp(user_command, "./wordle-solver"))
-		{
-			installed_package = false;
-		}
-		else
-		{
-			if (strlen(user_command) > 2)
+			if ((user_command[0] == '.') && (user_command[1] == '/'))
 			{
-				if ((user_command[0] == '.') && (user_command[1] == '/'))
+				installed_package = false;
+			}
+			else if (user_command[0] == '~')
+			{
+				installed_package = false;
+			}
+			else
+			{
+				installed_package = true;
+			}
+		}
+	}
+
+	/* set the default word list as the nyt word list */
+	word_list = default_word_list;
+	bool word_list_is_specified = false;
+
+	int n_valid_args = 0;
+	int valid_args_index[max_valid_args];
+	append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
+
+	for (uint8_t i = 0; i < num_args; i++)
+	{
+		/* compare argument against word list (-w flag) */
+		if (arg_match(arguments[i], word_list_long_flag, word_list_flag))
+		{
+			valid_args_index[n_valid_args] = i;
+			n_valid_args++;
+
+			bool valid_word_list = true;
+			if (!first_execution)	/* print error message if -w comes after words have been filtered */
+			{
+				valid_word_list = false;
+				if (!ignore_warn)
 				{
-					installed_package = false;
+					err(UNKNOWN_WORD_LIST);
 				}
-				else if (user_command[0] == '~')
+			}
+
+			int next_index = i + 1;
+		
+			if (num_args > next_index)
+			{
+				if (arg_match(arguments[next_index], "common", "common-words"))
 				{
-					installed_package = false;
+					word_list = en_common;
+				}
+				else if (arg_match(arguments[next_index], "all", "all-words"))
+				{
+					word_list = en_all;
+				}
+				else if (arg_match(arguments[next_index], "fr", "french"))
+				{
+					word_list = fr_all;
+				}
+				else if (arg_match(arguments[next_index], "la-com", "latin-common"))
+				{
+					word_list = la_common;
+				}
+				else if (arg_match(arguments[next_index], "la", "latin"))
+				{
+					word_list = la_all;
+				}
+				else if (arg_match(arguments[next_index], "nyt", "NYT") || cmp(arguments[next_index], "times"))
+				{
+					word_list = en_nyt;
+				}
+				else if (cmp(arguments[next_index], "custom"))
+				{
+					word_list = custom_list;
 				}
 				else
 				{
-					installed_package = true;
-				}
-			}
-		}
-
-		/* set the default word list as the nyt word list */
-		word_list = default_word_list;
-		bool word_list_is_specified = false;
-
-		int n_valid_args = 0;
-		int valid_args_index[max_valid_args];
-		append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
-
-		for (uint8_t i = 0; i < num_args; i++)
-		{
-			/* compare argument against word list (-w flag) */
-			if (arg_match(arguments[i], word_list_long_flag, word_list_flag))
-			{
-				valid_args_index[n_valid_args] = i;
-				n_valid_args++;
-
-				bool valid_word_list = true;
-				if (!first_execution)	/* print error message if -w comes after words have been filtered */
-				{
 					valid_word_list = false;
-					if (!ignore_warn)
-					{
-						err(UNKNOWN_WORD_LIST);
-					}
+					err(UNKNOWN_WORD_LIST);
+					exit(1);
 				}
 
-				int next_index = i + 1;
-			
-				if (num_args > next_index)
+				if (verbose)
 				{
-					if (arg_match(arguments[next_index], "common", "common-words"))
-					{
-						word_list = en_common;
-					}
-					else if (arg_match(arguments[next_index], "all", "all-words"))
-					{
-						word_list = en_all;
-					}
-					else if (arg_match(arguments[next_index], "fr", "french"))
-					{
-						word_list = fr_all;
-					}
-					else if (arg_match(arguments[next_index], "la-com", "latin-common"))
-					{
-						word_list = la_common;
-					}
-					else if (arg_match(arguments[next_index], "la", "latin"))
-					{
-						word_list = la_all;
-					}
-					else if (arg_match(arguments[next_index], "nyt", "NYT") || cmp(arguments[next_index], "times"))
-					{
-						word_list = en_nyt;
-					}
-					else if (cmp(arguments[next_index], "custom"))
-					{
-						word_list = custom_list;
-					}
-					else
-					{
-						valid_word_list = false;
-						err(UNKNOWN_WORD_LIST);
-						exit(1);
-					}
-
-					if (verbose)
-					{
-						verbose_print("using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n", word_list_name(word_list, NULL));
-					}
-				}
-				else /* missing arguments */
-    				{
-					valid_word_list = false;
-					err(CMD_MISSING_ARGS); 
-    				}
-
-				if (valid_word_list)
-				{
-					valid_args_index[n_valid_args] = next_index;
-					n_valid_args++;
-					word_list_is_specified = true;
-					/* break out of the flag checking loop 
-					 * because a valid word list argument was provided 
-					 * Valid word list argument: (-w all or something like that) */
+					verbose_print("using the "BOLD_S"%s"STYLE_END ANSI_LCYAN" word list\n", word_list_name(word_list, NULL));
 				}
 			}
-			else if (arg_match(arguments[i], "-v", "--validate"))
+			else /* missing arguments */
 			{
-				*(find_match_mode) = false; /* We aren't matching words */
-				valid_args_index[n_valid_args] = i;
+				valid_word_list = false;
+				err(CMD_MISSING_ARGS); 
+			}
+
+			if (valid_word_list)
+			{
+				valid_args_index[n_valid_args] = next_index;
 				n_valid_args++;
+				word_list_is_specified = true;
+				/* break out of the flag checking loop 
+				 * because a valid word list argument was provided 
+				 * Valid word list argument: (-w all or something like that) */
 			}
 		}
-
-		if (*(find_match_mode))
+		else if (arg_match(arguments[i], "-v", "--validate"))
 		{
-			struct prs_args parsing_arguments = 
-			{
-				&arg_r,
-				word_list,
-				num_args,
-				&first_execution
-			};
-
-			while (arg_r < num_args)
-			{
-				if (arg_match(arguments[arg_r], "--strict", "-s"))
-				{
-					parsing(parsing_arguments, true, true, arguments);
-				}
-				else if (arg_match(arguments[arg_r], "--excludes", "-x") || cmp(arguments[arg_r], "-e"))
-				{
-					parsing(parsing_arguments, false, true, arguments);
-				}
-				else if (arg_match(arguments[arg_r], "--includes", "-i"))
-				{
-					parsing(parsing_arguments, true, false, arguments);
-				}
-				else if (arg_match(arguments[arg_r], "--absent", "-a"))
-				{
-					parsing(parsing_arguments, false, false, arguments);
-				}
-				else
-				{
-					if (word_list_is_specified)
-					{
-						if (arg_match(arguments[arg_r], word_list_long_flag, word_list_flag))
-						{
-							arg_r += WORD_LIST_ARG_EXP;
-						}
-					}
-					else 
-					{
-						/* can be improved */
-						invalid_flag(num_args, arg_r, arguments);
-						break;
-					}
-				}
-				valid_expression = true;
-    			}
+			*(find_match_mode) = false; /* We aren't matching words */
+			valid_args_index[n_valid_args] = i;
+			n_valid_args++;
 		}
-		else
+	}
+
+	if (*(find_match_mode))
+	{
+		struct prs_args parsing_arguments = 
 		{
-			int min_args_draw = 3;
-			if (word_list_is_specified)
+			&arg_r,
+			word_list,
+			num_args,
+			&first_execution
+		};
+
+		while (arg_r < num_args)
+		{
+			if (arg_match(arguments[arg_r], "--strict", "-s"))
 			{
-				min_args_draw += 2;
+				parsing(parsing_arguments, true, true, arguments);
 			}
-
-			if (num_args >= min_args_draw)
+			else if (arg_match(arguments[arg_r], "--excludes", "-x") || cmp(arguments[arg_r], "-e"))
 			{
-				/* match arguments */
-				char *command_word_string = malloc(INDEX_LETTERS_WORD);
-
-				if (command_word_string == NULL)
+				parsing(parsing_arguments, false, true, arguments);
+			}
+			else if (arg_match(arguments[arg_r], "--includes", "-i"))
+			{
+				parsing(parsing_arguments, true, false, arguments);
+			}
+			else if (arg_match(arguments[arg_r], "--absent", "-a"))
+			{
+				parsing(parsing_arguments, false, false, arguments);
+			}
+			else
+			{
+				if (word_list_is_specified)
 				{
-					err(MALLOC_FAIL);
-				}
-
-				for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
-				{
-					bool arg_found = false;
-					bool unused_arg = true;
-					for (int j = 0; j < n_valid_args; j++)
+					if (arg_match(arguments[arg_r], word_list_long_flag, word_list_flag))
 					{
-						if (flag_temp == valid_args_index[j])
-						{
-							unused_arg = false;
-							break;
-						}
-					}
-					
-					if (!arg_found && unused_arg)
-					{
-						size_t command_word_string_size = strlen(arguments[flag_temp]);
-
-						err_buffer_size = NUM_LETTERS_WORD;
-						err_buffer_write = (int64_t)command_word_string_size;
-
-						if (NUM_LETTERS_WORD < command_word_string_size)
-						{
-							/* word is too long */
-							free(command_word_string);
-							err(WORD_TOO_LONG);
-						}
-						else if (NUM_LETTERS_WORD > command_word_string_size)
-						{
-							/* word is too short 
-							 * error code 22 is for when the word is too short */
-							free(command_word_string);
-							err(WORD_TOO_SHORT);
-						}
-						else
-						{
-							/* use the length of the buffer directly instead of getting the size of the buffer and using that */
-							for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
-							{
-								/* check if the letter indexed is actually a letter */
-								if (!(isalpha(arguments[flag_temp][i])))
-								{
-									free(command_word_string);
-									err(INVALID_LETTER);
-								}
-								command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
-							}
-
-							/* ensure the string is null terminated */
-							command_word_string[NUM_LETTERS_WORD] = '\0';
-						}
+						arg_r += WORD_LIST_ARG_EXP;
 					}
 				}
-
-				validate_word(command_word_string);
-				free(command_word_string);
+				else 
+				{
+					/* can be improved */
+					invalid_flag(num_args, arg_r, arguments);
+					break;
+				}
 			}
+			valid_expression = true;
 		}
 	}
 	else
 	{
-		err(CMD_MISSING_ARGS);
+		int min_args_draw = 3;
+		if (word_list_is_specified)
+		{
+			min_args_draw += 2;
+		}
+
+		if (num_args >= min_args_draw)
+		{
+			/* match arguments */
+			char *command_word_string = malloc(INDEX_LETTERS_WORD);
+
+			if (command_word_string == NULL)
+			{
+				err(MALLOC_FAIL);
+			}
+
+			for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
+			{
+				bool arg_found = false;
+				bool unused_arg = true;
+				for (int j = 0; j < n_valid_args; j++)
+				{
+					if (flag_temp == valid_args_index[j])
+					{
+						unused_arg = false;
+						break;
+					}
+				}
+				
+				if (!arg_found && unused_arg)
+				{
+					size_t command_word_string_size = strlen(arguments[flag_temp]);
+
+					err_buffer_size = NUM_LETTERS_WORD;
+					err_buffer_write = (int64_t)command_word_string_size;
+
+					if (NUM_LETTERS_WORD < command_word_string_size)
+					{
+						/* word is too long */
+						free(command_word_string);
+						err(WORD_TOO_LONG);
+					}
+					else if (NUM_LETTERS_WORD > command_word_string_size)
+					{
+						/* word is too short 
+						 * error code 22 is for when the word is too short */
+						free(command_word_string);
+						err(WORD_TOO_SHORT);
+					}
+					else
+					{
+						/* use the length of the buffer directly instead of getting the size of the buffer and using that */
+						for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
+						{
+							/* check if the letter indexed is actually a letter */
+							if (!(isalpha(arguments[flag_temp][i])))
+							{
+								free(command_word_string);
+								err(INVALID_LETTER);
+							}
+							command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
+						}
+
+						/* ensure the string is null terminated */
+						command_word_string[NUM_LETTERS_WORD] = '\0';
+					}
+				}
+			}
+
+			validate_word(command_word_string);
+			free(command_word_string);
+		}
 	}
 }
 
