@@ -119,7 +119,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	
 	char *endptr = NULL;
 	int word_letter_index;
-	if (type == strict || type == exclude)
+	if (letter_is_indexed)
 	{
 		/* convert the string containing the index to the letter
 		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
@@ -201,7 +201,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	size_t flag_length = sizeof(flag_string);
 
 	/* parsing logic is below for all options */
-
 	if (type == strict)
 	{
 		/* buffer_write() is safer than using strcpy()
@@ -349,7 +348,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 
 	/* offset the flag_r iterator by the number of arguments we used here 
 	 * ("-s A 1" would count as 3) */
-	if (letter_indexed_bl)
+	if (letter_is_indexed)
 	{
 		/* the number of arguments expected when no index is specified (2)
 		 * example: "-a Z" (any word without Z) */
