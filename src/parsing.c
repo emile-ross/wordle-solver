@@ -2,6 +2,10 @@
 
 #include <ctype.h>
 
+#define setwords(number_of_words) \
+	n_pos_arr = number_of_words; \
+	break;
+
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
 {
 	/* this is the way this interprets characters
@@ -40,7 +44,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 
 		bool standard_word_list = true;
 
-		if (0 != buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)))
+		if (buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)) != 0)
 		{
 			err(BUFFER_WRITE_FAIL);
 			exit(1);
