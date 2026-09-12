@@ -201,8 +201,9 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	size_t flag_length = sizeof(flag_string);
 
 	/* parsing logic is below for all options */
-	if (type == strict)
+	switch (type)
 	{
+	case strict:
 		/* buffer_write() is safer than using strcpy()
 		 * this copies the last string specified to the flag_string buffer */
 		if (verbose)
@@ -244,9 +245,8 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 				}
 			}
 		}
-	}
-	else if (type == exclude)
-	{
+		break;
+	case exclude:
 		if (verbose)
 		{
 			if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
@@ -268,9 +268,8 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 				temp_count++;
 			}
 		}
-	}
-	else if (type == include)
-	{
+		break;
+	case include:
 		if (verbose)
 		{
 			if (buffer_write(NULL, flag_string, flag_length, "--includes") != 0)
@@ -292,9 +291,8 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 				}
 			}
 		}
-	}
-	else if (type == absent)
-	{
+		break;
+	case absent:
 		if (verbose)
 		{
 			if (buffer_write(NULL, flag_string, flag_length, "--absent") != 0)
@@ -321,6 +319,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 				temp_count++;
 			}
 		}
+		break;
 	}
 
 	if (*(parsing_args.first_exec))
