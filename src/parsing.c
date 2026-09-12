@@ -205,10 +205,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		{
 			if (0 != buffer_write(NULL, flag_string, flag_length, "--strict"))
 			{
-				if (*(parsing_args.first_exec))
-				{
-					free(ptr);
-				}
 				err(BUFFER_WRITE_FAIL);
 			}
 		}
@@ -246,10 +242,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		{
 			if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
 			{
-				if (*(parsing_args.first_exec))
-				{
-					free(ptr);
-				}
 				err(BUFFER_WRITE_FAIL);
 			}
 		}
