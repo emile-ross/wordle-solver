@@ -53,31 +53,24 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		switch (parsing_args.w_list)
 		{
 		case en_all:
-			n_pos_arr = NUM_ALL_WORDS;
-			break;
+			setwords(NUM_ALL_WORDS);
 		case en_nyt:
-			n_pos_arr = NUM_WORDS;
-			break;
+			setwords(NUM_WORDS);
 		case en_common:
-			n_pos_arr = NUM_COMMON_WORDS;
-			break;
+			setwords(NUM_COMMON_WORDS);
 
 		case fr_all:
-			n_pos_arr = NUM_FR_ALL_WORDS;
-			break;
+			setwords(NUM_FR_ALL_WORDS);
 
 		case la_all:
-			n_pos_arr = NUM_LA_ALL_WORDS;
-			break;
+			setwords(NUM_LA_ALL_WORDS);
 	
 		case la_common:
-			n_pos_arr = NUM_LA_COM_WORDS;
-			break;
+			setwords(NUM_LA_COM_WORDS);
 
 		case custom_list:
 			/* standard_word_list = false; */
-			n_pos_arr = get_num_lines(filename);
-			break;
+			setwords(get_num_lines(filename));
 
 		case undefined_list:
 			fprintf(stderr, "error in get_filename()\n");
