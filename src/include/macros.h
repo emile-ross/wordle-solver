@@ -1,5 +1,5 @@
 /* number of words for each array */
-	#define NUM_WORDS 2337
+	#define NUM_WORDS 2335
 	#define NUM_COMMON_WORDS 5700
 	#define NUM_ALL_WORDS 14862
 	
