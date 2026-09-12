@@ -223,6 +223,15 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		if (word_letter_index == 0)
 			first_character = true;
 	
+		if (n_possible_answers == 0)
+		{
+			/* free ptr before exiting */
+			if (ptr != NULL)
+			{
+				free(ptr);
+			}
+			err(NO_POSSIBLE_ANSWERS);
+		}
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			/* compare the specified letter against the words in a loop */

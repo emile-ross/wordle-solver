@@ -270,6 +270,6 @@ void help_message(void)
 	printf(BOLD_S" -a"STYLE_END" (letter is absent)\n");
 	printf(BOLD_S"   --absent"STYLE_END" (the letter \'X\' isn't in the word)\n");
 	printf(BOLD_S" -i"STYLE_END" (includes)\n");
-	printf(BOLD_S"   --includes"STYLE_END" (the letter \'X\' is in the word)");
+	printf(BOLD_S"   --includes"STYLE_END" (the letter \'X\' is in the word)\n");
 	printf(STYLE_END);
 }
