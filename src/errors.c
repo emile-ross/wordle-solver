@@ -141,7 +141,12 @@ void err(error_codes error_code)
 	{
 		if ((err_buffer_write != init_var_value) && (err_buffer_size != init_var_value))
 		{
-			fprintf(stderr, "Writing %ld bytes into a buffer of size %ld", err_buffer_write, err_buffer_size);
+			fprintf(stderr, ANSI_RED"Writing %ld bytes into a buffer of size %ld\n"STYLE_END, err_buffer_write, err_buffer_size);
+
+			if (err_buffer_write < err_buffer_size)
+			{
+				fprintf(stderr, ANSI_RED"(expected %ld characters)\n"STYLE_END, err_buffer_size);
+			}
 		}
 	}
 
