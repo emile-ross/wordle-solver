@@ -97,10 +97,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	}
 	else
 	{
-		if (n_possible_answers == 0)
-		{
-			err(NO_POSSIBLE_ANSWERS);
-		}
 		/* rename variables */
 		ptr = (char (*)[INDEX_LETTERS_WORD])filtered_arr;
 		n_pos_arr = (uint16_t)n_possible_answers;
@@ -334,9 +330,12 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	if (n_possible_answers == 0)
 	{
 		/* free ptr before exiting */
-		if (ptr != NULL)
+		if (*(parsing_args.first_exec))
 		{
-			free(ptr);
+			if (ptr != NULL)
+			{
+				free(ptr);
+			}
 		}
 		err(NO_POSSIBLE_ANSWERS);
 	}
