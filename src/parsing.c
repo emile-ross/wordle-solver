@@ -54,8 +54,10 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		{
 		case en_all:
 			setwords(NUM_ALL_WORDS);
+
 		case en_nyt:
 			setwords(NUM_WORDS);
+
 		case en_common:
 			setwords(NUM_COMMON_WORDS);
 

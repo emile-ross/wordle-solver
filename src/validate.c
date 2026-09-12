@@ -5,7 +5,9 @@ void validate_word(char *command_word_string)
 	bool word_matches = false;
 	bool word_list_matches[NUM_WORD_LISTS + 1];
 
-	for (int i = 0; i < NUM_WORD_LISTS; i++)
+	/* loop one more time with <= in order to set the next 
+	 * bool to false (avoids uninitialised condition) */
+	for (int i = 0; i <= NUM_WORD_LISTS; i++)
 	{
 		word_list_matches[i] = false;
 	}
@@ -101,7 +103,7 @@ void validate_word(char *command_word_string)
 	}
 	else
 	{
-		printf("was not found in any word list\n");
+		printf("The word \"%s\" was "BOLD_S"not found"STYLE_END" in any word list\n", command_word_string);
 	}
 }
 
