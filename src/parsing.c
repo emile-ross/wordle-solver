@@ -17,6 +17,13 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	int letter_arg_index = *(parsing_args.flag_r) + 1;
 	int number_arg_index = *(parsing_args.flag_r) + 2;
 	
+	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
+	if (!(isalpha(letter_indexed)))
+	{
+		err(INVALID_LETTER);
+		exit(1);
+	}
+	
 	/* check if number of arguments given to parse is enough
 	 * will return error if not, this prevents segfault */
 	if (letter_arg_index >= parsing_args.num_args) 
@@ -163,17 +170,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		err(INVALID_LETTER);
 	}
 
-	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
-	if (!(isalpha(letter_indexed)))
-	{
-		if (*(parsing_args.first_exec))
-		{
-			free(ptr);
-		}
-		err(INVALID_LETTER);
-		exit(1);
-	}
-	
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
 	uint32_t temp_count = 0; /* reset temporary count buffer */
 	
