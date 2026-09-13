@@ -21,9 +21,7 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 		char format_str[format_str_size] = { 0 };
 
 		int ret = vsnprintf(format_str, format_str_size, format, args);
-		va_end(args);
 	}
-
 	else
 	{
 		char *format_str = malloc(format_str_size);
@@ -35,28 +33,13 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 		}
 
 		int ret = vsnprintf(format_str, format_str_size, format, args);
-		va_end(args);
+		free(format_str);
 	}
+	va_end(args);
 
-	if (buf_to_free != NULL)
-	{
-		void* arr[max_valid_args];
-		uint16_t i = 0;
-		for (i = 0; buf_to_free[i] != NULL; i++)
-		{
-			arr[i] = buf_to_free[i];
-		}
-		i++; arr[i] = format_str;
-		i++; arr[i] = NULL;
-		check_buf(ret, (int)format_str_size, arr);
-	}
-	else
-	{
-		check_buf(ret, (int)format_str_size, NULL);
-	}
+	check_buf(ret, (int)format_str_size, buf_to_free);
 
 	int return_value = snprintf(string, size_of_string, "%s", format_str);
-	free(format_str);
 	check_buf(return_value, (int)size_of_string, buf_to_free);
 
 	/* check if the string was truncated after the use of snprintf */
