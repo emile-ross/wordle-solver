@@ -15,12 +15,11 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 	va_end(copy);
 
 	/* allocate memory for the warning message */
-	bool heap = true;
+	int ret = 0;
 	if (format_str_size < 128)
 	{
-		char format_str[format_str_size] = { 0 };
-
-		int ret = vsnprintf(format_str, format_str_size, format, args);
+		char format_str[format_str_size];
+		ret = vsnprintf(format_str, format_str_size, format, args);
 	}
 	else
 	{
@@ -32,11 +31,10 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 			return 1;
 		}
 
-		int ret = vsnprintf(format_str, format_str_size, format, args);
+		ret = vsnprintf(format_str, format_str_size, format, args);
 		free(format_str);
 	}
 	va_end(args);
-
 	check_buf(ret, (int)format_str_size, buf_to_free);
 
 	int return_value = snprintf(string, size_of_string, "%s", format_str);
