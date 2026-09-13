@@ -330,11 +330,11 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 bool cmp(const char *arg, const char *long_flag, const char *short_flag)
 {
 	/* match the argument to the flags */
-	if (strcmp(arg, long_flag) == 0)
+	if (scmp(arg, short_flag))
 	{
 		return true;
 	}
-	else if (strcmp(arg, short_flag) == 0)
+	else if (scmp(arg, long_flag))
 	{
 		return true;
 	}
@@ -348,7 +348,7 @@ bool scmp(const char *arg, const char *str)
 {
 	/* match the argument to the string */
 	size_t i = 0;
-	while (arg[i] != NULL && str[i] != NULL)
+	while (arg[i] != '\0' && str[i] != '\0')
 	{
 		if (arg[i] != str[i])
 		{
