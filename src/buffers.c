@@ -12,6 +12,12 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 
 	/* calculate the length of the message */
 	size_t format_str_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
+	if (format_str_size > size_of_string)
+	{
+		fprintf(stderr, "Insufficient memory allocated for the string\n");
+		err(BUFFER_WRITE_FAIL);
+		return 1;
+	}
 	va_end(copy);
 
 	/* allocate memory for the warning message */
@@ -19,6 +25,7 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 	ret = vsnprintf(string, format_str_size, format, args);
 	va_end(args);
 
+	check_buf(ret, (int)format_str_size, buf_to_free);
 	return 0;
 }
 
