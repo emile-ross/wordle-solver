@@ -90,6 +90,7 @@ void verbose_print(const char *restrict format, ...);
 	char *get_custom_file(char *buffer, size_t buffer_size);
 	extern char *custom_filename;	/* defined in functions.c */
 	extern bool installed_package;
+	extern uint32_t initial_words;
 
 
 size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);

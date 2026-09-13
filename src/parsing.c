@@ -1,9 +1,11 @@
 #include "include/header.h"
 
 #include <ctype.h>
+uint32_t initial_words = 0;
 
 #define setwords(number_of_words) \
 	n_pos_arr = number_of_words; \
+	initial_words = number_of_words \
 	break;
 
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
