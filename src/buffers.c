@@ -4,7 +4,7 @@
 
 /* check_buf() is in checks.c */
 
-int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const char *restrict format, ...)
+int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...)
 {
 	va_list args, copy;
 	va_start(args, format);
@@ -12,6 +12,8 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 
 	/* calculate the length of the message */
 	size_t format_str_size = 1 + (size_t)vsnprintf(NULL, 0, format, copy);
+
+	/* compare the buffer size to the string length (error checking) */
 	if (format_str_size > size_of_string)
 	{
 		fprintf(stderr, "Insufficient memory allocated for the string\n");
@@ -20,9 +22,8 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 	}
 	va_end(copy);
 
-	/* allocate memory for the warning message */
-	int ret = 0;
-	ret = vsnprintf(string, format_str_size, format, args);
+	/* write the contents of format, args to the 'str' string */
+	int ret = vsnprintf(str, format_str_size, format, args);
 	va_end(args);
 
 	check_buf(ret, (int)format_str_size, buf_to_free);
