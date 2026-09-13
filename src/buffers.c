@@ -15,15 +15,28 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 	va_end(copy);
 
 	/* allocate memory for the warning message */
-	char *format_str = malloc(format_str_size);
-	if (format_str == NULL)
+	bool heap = true;
+	if (format_str_size < 128)
 	{
-		err(MALLOC_FAIL);
-		return 1;
+		char format_str[format_str_size] = { 0 };
+
+		int ret = vsnprintf(format_str, format_str_size, format, args);
+		va_end(args);
 	}
 
-	int ret = vsnprintf(format_str, format_str_size, format, args);
-	va_end(args);
+	else
+	{
+		char *format_str = malloc(format_str_size);
+
+		if (format_str == NULL)
+		{
+			err(MALLOC_FAIL);
+			return 1;
+		}
+
+		int ret = vsnprintf(format_str, format_str_size, format, args);
+		va_end(args);
+	}
 
 	if (buf_to_free != NULL)
 	{
