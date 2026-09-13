@@ -16,42 +16,9 @@ int buffer_write(void *buf_to_free[], char *string, size_t size_of_string, const
 
 	/* allocate memory for the warning message */
 	int ret = 0;
-	if (format_str_size < 128)
-	{
-		char format_str[format_str_size];
-		ret = vsnprintf(format_str, format_str_size, format, args);
-	}
-	else
-	{
-		char *format_str = malloc(format_str_size);
-
-		if (format_str == NULL)
-		{
-			err(MALLOC_FAIL);
-			return 1;
-		}
-
-		ret = vsnprintf(format_str, format_str_size, format, args);
-		free(format_str);
-	}
+	ret = vsnprintf(string, format_str_size, format, args);
 	va_end(args);
-	check_buf(ret, (int)format_str_size, buf_to_free);
 
-	int return_value = snprintf(string, size_of_string, "%s", format_str);
-	check_buf(return_value, (int)size_of_string, buf_to_free);
-
-	/* check if the string was truncated after the use of snprintf */
-	if ((size_t)return_value >= size_of_string)
-	{
-		if (buf_to_free != NULL)
-		{
-			for (uint16_t i = 0; buf_to_free[i] != NULL; i++)
-			{
-				free(buf_to_free[i]);
-			}
-		}
-		return 1;
-	}
 	return 0;
 }
 
