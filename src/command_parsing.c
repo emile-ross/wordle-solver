@@ -347,12 +347,14 @@ bool cmp(const char *arg, const char *long_flag, const char *short_flag)
 bool scmp(const char *arg, const char *str)
 {
 	/* match the argument to the string */
-	if (strcmp(arg, str) == 0)
+	size_t i = 0;
+	while (arg[i] != NULL && str[i] != NULL)
 	{
-		return true;
+		if (arg[i] != str[i])
+		{
+			return false;
+		}
+		i++;
 	}
-	else
-	{
-		return false;
-	}
+	return true;
 }
