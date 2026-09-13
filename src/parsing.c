@@ -5,7 +5,7 @@ uint32_t initial_words = 0;
 
 #define setwords(number_of_words) \
 	n_pos_arr = number_of_words; \
-	initial_words = number_of_words \
+	initial_words = number_of_words; \
 	break;
 
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
@@ -24,6 +24,8 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		err(CMD_MISSING_ARGS);
 	}
 	
+	/* in cases where the parsing type is 
+	 * "strict" or "exclude", an index must be specified */
 	bool letter_is_indexed = false;
 	if (type == strict || type == exclude)
 	{
@@ -44,14 +46,13 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		 * the filename will be the filename of the word list */
 		char filename[128] = {0};
 
-		bool standard_word_list = true;
-
 		if (buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)) != 0)
 		{
 			err(BUFFER_WRITE_FAIL);
 			exit(1);
 		}
 		
+		bool standard_word_list = true;
 		switch (parsing_args.w_list)
 		{
 		case en_all:
