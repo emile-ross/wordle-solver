@@ -81,6 +81,9 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 		 * in order to check if the word is matching */
 		printf(BOLD_S"%d possible words"STYLE_END, n_possible_answers);
 
+		/* initial_words is initialised in src/parsing.c in the parsing() fn */
+		printf("(Narrowed down from %d possible words)\n", initial_words);
+
 		if (hidden_msg)
 		{
 			for (uint8_t i = 0; i < indenting; i++)
