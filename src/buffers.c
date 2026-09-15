@@ -115,15 +115,20 @@ char *get_custom_file(char *buffer, size_t buffer_size)
 	return buffer;
 }
 
-char *safe_write(const char *restrict fmt, ...)
+char *safe_write(size_t *buffer_size, const char *restrict fmt, ...)
 {
-	int ret = 1 + vsnprintf(percent, size, fmt, remaining_percent);
-	if (ret > (signed)size)
+	va_list args, copy;
+
+	va_start(args);
+	va_copy(copy, args);
+	
+	int ret = 1 + vsnprintf(percent, *(buffer_size), fmt, remaining_percent);
+	if (ret > (signed)(*(buffer_size)))
 	{
 		if (ret < 0)
 			err(ZERO_SIZED_BUF);
 
 		percent = realloc(percent, (unsigned)ret);
-		size = (unsigned)ret;
+		*(buffer_size) = (unsigned)ret;
 	}
 }
