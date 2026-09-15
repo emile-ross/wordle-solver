@@ -101,11 +101,6 @@ The program will then display a message for each word list it can be found in.
 
 There is no limit to the amount of flags one can use.
 
-## Drawing
-
-For drawing you can use the ``-d`` flag
-It will provide the user with every word they can use in order to make a staircase with valid (green) letters
-
 
 ## word lists
 This program includes several word lists:
