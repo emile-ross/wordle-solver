@@ -114,3 +114,16 @@ char *get_custom_file(char *buffer, size_t buffer_size)
 
 	return buffer;
 }
+
+char *safe_write(const char *restrict fmt, ...)
+{
+	int ret = 1 + vsnprintf(percent, size, fmt, remaining_percent);
+	if (ret > (signed)size)
+	{
+		if (ret < 0)
+			err(ZERO_SIZED_BUF);
+
+		percent = realloc(percent, (unsigned)ret);
+		size = (unsigned)ret;
+	}
+}
