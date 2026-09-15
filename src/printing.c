@@ -82,9 +82,15 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 
 		float remaining_percent = 0.00F;
 
+		size_t size = 24;
+		char *percent = malloc(size);
+
 		if (n_possible_answers != 0)
 		{
 			remaining_percent = (float)(((double)n_possible_answers / (double)initial_words) * 100);
+
+			if (remaining_percent > 0.05F)
+				snprintf(percent, size, "%.4f", remaining_percent);
 		}
 
 		printf(BOLD_S"%d possible words (%f%% of initial words)\n"STYLE_END, n_possible_answers, remaining_percent);
