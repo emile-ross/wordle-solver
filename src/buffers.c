@@ -115,28 +115,30 @@ char *get_custom_file(char *buffer, size_t buffer_size)
 	return buffer;
 }
 
-char *safe_write(size_t *buffer_size, const char *restrict fmt, ...)
+char *safe_write(char *str, size_t *buffer_size, const char *restrict fmt, ...)
 {
 	va_list args, copy;
 
-	va_start(args);
+	va_start(args, fmt);
 	va_copy(copy, args);
 	
-	int ret = 1 + vsnprintf(percent, *(buffer_size), fmt, copy);
+	int ret = 1 + vsnprintf(str, *(buffer_size), fmt, copy);
 	va_end(copy);	/* copy was used */
 
 	if (ret > (signed)(*(buffer_size)))
 	{
+		if (verbose)
+			verbose_print("Prevented truncation (buffer size from %zu bytes to %zu bytes)\n", *(buffer_size), ret);
+
 		if (ret < 0)
 		{
 			err(ZERO_SIZED_BUF);
 			return NULL;
 		}
 
-		percent = realloc(percent, (unsigned)ret);
+		str = realloc(str, (unsigned)ret);
 		*(buffer_size) = (unsigned)ret;
-
-		/* retry */
+		vsnprintf(str, (unsigned)ret, fmt, args);
 	}
 
 	va_end(args);
