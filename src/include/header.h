@@ -26,6 +26,9 @@
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
 	int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...);
 
+/* buffers.c */
+	char *safe_write(size_t *buffer_size, const char *restrict fmt, ...);
+
 	/* used in err() in order to show; 
 	 * the write size (in bytes) and the buffer size (in bytes) */
 	extern int64_t err_buffer_size;

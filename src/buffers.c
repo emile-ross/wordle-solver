@@ -122,13 +122,23 @@ char *safe_write(size_t *buffer_size, const char *restrict fmt, ...)
 	va_start(args);
 	va_copy(copy, args);
 	
-	int ret = 1 + vsnprintf(percent, *(buffer_size), fmt, remaining_percent);
+	int ret = 1 + vsnprintf(percent, *(buffer_size), fmt, copy);
+	va_end(copy);	/* copy was used */
+
 	if (ret > (signed)(*(buffer_size)))
 	{
 		if (ret < 0)
+		{
 			err(ZERO_SIZED_BUF);
+			return NULL;
+		}
 
 		percent = realloc(percent, (unsigned)ret);
 		*(buffer_size) = (unsigned)ret;
+
+		/* retry */
 	}
+
+	va_end(args);
+	return str;
 }
