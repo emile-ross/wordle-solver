@@ -79,11 +79,16 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 		/* print the number of possible words 
 		 * this is obtained by the last function going through the entire word list
 		 * in order to check if the word is matching */
-		printf(BOLD_S"%d possible words"STYLE_END, n_possible_answers);
+
 		float remaining_percent = 0.00F;
 
 		if (n_possible_answers != 0)
+		{
 			remaining_percent = initial_words / n_possible_answers;
+		}
+
+		printf(BOLD_S"%d possible words\n"STYLE_END, n_possible_answers);
+
 		/* initial_words is initialised in src/parsing.c in the parsing() fn */
 		printf("(Narrowed down from %d possible words)\n", initial_words);
 
