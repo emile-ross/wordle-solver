@@ -84,10 +84,10 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 
 		if (n_possible_answers != 0)
 		{
-			remaining_percent = initial_words / n_possible_answers;
+			remaining_percent = (float)(((double)n_possible_answers / (double)initial_words) * 100);
 		}
 
-		printf(BOLD_S"%d possible words\n"STYLE_END, n_possible_answers);
+		printf(BOLD_S"%d possible words (%f%% of initial words)\n"STYLE_END, n_possible_answers, remaining_percent);
 
 		/* initial_words is initialised in src/parsing.c in the parsing() fn */
 		printf("(Narrowed down from %d possible words)\n", initial_words);
