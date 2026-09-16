@@ -276,7 +276,9 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 		int lower_bound = flag_index - num_args_surrounding;
 
 		if (lower_bound < 0)
+		{
 			lower_bound = 0;
+		}
 
 		int upper_bound = flag_index + num_args_surrounding;
 		if (upper_bound > total_args_index)
@@ -295,6 +297,7 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 		printf(ANSI_RED"%s "STYLE_END BOLD_S, flag[flag_index]);
 		for (int i = flag_index + 1; i < upper_bound; i++)
 		{
+			/* print arguments one at a time */
 			printf("%s ", flag[i]);
 		}
 		printf(STYLE_END"\"");
