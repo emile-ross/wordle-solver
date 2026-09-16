@@ -87,11 +87,15 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 		{
 			remaining_percent = (float)(((double)n_possible_answers / (double)initial_words) * 100);
 
-			if (remaining_percent < 0.05F)
+			if (remaining_percent < 0.25F)
 			{
 				percent = safe_write(percent, &size, "%.4f", remaining_percent);
 			}
-			else if (remaining_percent < 0.25F)
+			else if (remaining_percent < 2.5F)
+			{
+				percent = safe_write(percent, &size, "%.3f", remaining_percent);
+			}
+			else if (remaining_percent < 25.0F)
 			{
 				percent = safe_write(percent, &size, "%.2f", remaining_percent);
 			}
