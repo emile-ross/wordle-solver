@@ -23,30 +23,30 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	/* element printing */
 	if (total_elements > 0)
 	{
-	    	if (awsum_mode)
-	    	{
+		if (awsum_mode)
+		{
 			uint64_t empty_cells = total_elements % width;
-	    		uint64_t total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	/* ternary operator to remove garbage data */
-	    		uint64_t column_height = (total_cells / width);
-	
-	    		for (uint64_t base_count = 0; base_count < column_height; base_count++)
-	    		{
-	    		    	for (uint16_t j = 0; j < width; j++)
-	    		    	{
-			    		uint64_t base_offset = j * column_height;
-			    		uint64_t index = base_count + base_offset;
-	
-			    		/* bounds checking (avoids printing garbage data */
-			    		if (index < total_elements)
-			    		{
-			    			printf("%s ", all_answers_print[index]);
-			    		}
-	    		    	}
-	    		    	printf("\n");
-	    		}
-	    	}
-	    	else
-	    	{
+			uint64_t total_cells = total_elements + (empty_cells == 0 ? 0 : width - empty_cells);	/* ternary operator to remove garbage data */
+			uint64_t column_height = (total_cells / width);
+			
+			for (uint64_t base_count = 0; base_count < column_height; base_count++)
+			{
+				for (uint16_t j = 0; j < width; j++)
+				{
+					uint64_t base_offset = j * column_height;
+					uint64_t index = base_count + base_offset;
+				
+					/* bounds checking (avoids printing garbage data */
+					if (index < total_elements)
+					{
+						printf("%s ", all_answers_print[index]);
+					}
+				}
+				printf("\n");
+			}
+		}
+		else
+		{
 			for (uint64_t i = 0; i < total_elements; i++)
 			{
 			    	if (i % width == 0)
@@ -59,14 +59,14 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 				}
 			    	printf("%s ", all_answers_print[i]);
 			}
-
+		
 			/* decrease the indenting by one */
 			uint64_t temp_indenting = indenting;
 			if (indenting >= 2)
 			{
 				temp_indenting--;
 			}
-
+		
 			/* add newline when the whole list is done printing */
 			for (uint8_t i = 0; i < temp_indenting; i++)
 			{
