@@ -128,7 +128,9 @@ char *safe_write(char *str, size_t *buffer_size, const char *restrict fmt, ...)
 	if (ret > (signed)(*(buffer_size)))
 	{
 		if (verbose)
-			verbose_print("Prevented truncation (buffer size from %zu bytes to %zu bytes)\n", *(buffer_size), ret);
+		{
+			verbose_print("safe_write() prevented truncation (buffer size from %zu bytes to %zu bytes)\n", *(buffer_size), ret);
+		}
 
 		if (ret < 0)
 		{
