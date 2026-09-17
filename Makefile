@@ -8,10 +8,14 @@ binary_file = wordle
 
 WORD_DIR := src/word-lists
 
-src_filenames := buffers command_parsing config ctype compare errors functions list_matching main parsing checks printing validate file_reading table_printing
+mem_src_filenames := buffers checks
+
+src_filenames := command_parsing config ctype compare errors functions list_matching main parsing printing validate file_reading table_printing
+
+MEMORY := $(addprefix src/memory/, $(mem_src_filenames))
 
 FILES := $(addprefix src/, $(src_filenames))
-SRC_FILES := $(addsuffix .c, $(FILES))
+SRC_FILES := $(addsuffix .c, $(FILES)) $(addsuffix .c, $(MEMORY))
 
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enum
 OUT = -o $(binary_file)
