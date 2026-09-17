@@ -91,6 +91,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 
 /* printing/ directory */
 	char *mode_to_text(enum parsing_type type);
+	void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present);
 	void verbose_print(const char *restrict format, ...);
 
 
