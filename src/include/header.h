@@ -49,7 +49,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	bool scmp(const char *arg, const char *str);
 
 /* ctype.c */
-	bool is_letter(const char restrict ch);
+	bool is_letter(const char ch);
 
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
