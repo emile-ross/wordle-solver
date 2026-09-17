@@ -11,10 +11,10 @@ WORD_DIR := src/word-lists
 # found at /src/memory/*
 mem_src_filenames := buffers checks
 # found at /src/printing/*
-printing_filenames := verbose table_printing
+printing_filenames := table verbose 
 
 # found at /src/*.c
-src_filenames := command_parsing config ctype compare errors functions list_matching main parsing validate file_reading 
+src_filenames := command_parsing compare config ctype errors file_reading functions list_matching main parsing validate
 
 MEMORY := $(addprefix src/memory/, $(mem_src_filenames))
 PRINTING := $(addprefix src/printing/, $(printing_filenames))
@@ -32,13 +32,14 @@ install: wordle
 	sudo cp -f $(binary_file) /usr/bin/
 
 # used for the base and base-e recipes
-all_flags_cmd = $(CC) $(SRC_FILES) $(OUT) $(ALL_FLAGS)
+all_flags_cmd = $(CC) $(OUT) $(ALL_FLAGS)
 
 base-e:
-	$(all_flags_cmd)
+	$(all_flags_cmd) $(SRC_FILES) 
 
 base:
-	$(all_flags_cmd) -Werror -g
+	$(all_flags_cmd) $(SRC_FILES)  -Werror -g
+
 
 android: wordle
 	cp -f $(binary_file) ~
