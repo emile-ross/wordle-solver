@@ -192,23 +192,10 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		}
 	}
 	
-	char flag_string[24] = {0};
-	size_t flag_length = sizeof(flag_string);
-
 	/* parsing logic is below for all options */
 	switch (type)
 	{
 	case strict:
-		/* buffer_write() is safer than using strcpy()
-		 * this copies the last string specified to the flag_string buffer */
-		if (verbose)
-		{
-			if (0 != buffer_write(NULL, flag_string, flag_length, "--strict"))
-			{
-				err(BUFFER_WRITE_FAIL);
-			}
-		}
-
 		bool first_character = false;
 		bool prev_character_found = false;
 	
@@ -238,14 +225,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		}
 		break;
 	case exclude:
-		if (verbose)
-		{
-			if (buffer_write(NULL, flag_string, flag_length, "--excludes") != 0)
-			{
-				err(BUFFER_WRITE_FAIL);
-			}
-		}
-
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			/* compare the specified letter against the words in a loop */
@@ -257,14 +236,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		}
 		break;
 	case include:
-		if (verbose)
-		{
-			if (buffer_write(NULL, flag_string, flag_length, "--includes") != 0)
-			{
-				err(BUFFER_WRITE_FAIL);
-			}
-		}
-
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			/* compare the specified letter against the words in a loop */
@@ -280,14 +251,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		}
 		break;
 	case absent:
-		if (verbose)
-		{
-			if (buffer_write(NULL, flag_string, flag_length, "--absent") != 0)
-			{
-				err(BUFFER_WRITE_FAIL);
-			}
-		}
-
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			bool letter_match = false;
@@ -342,7 +305,8 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	{
-		verbose_printing(flag_string, letter_indexed, word_letter_index, n_possible_answers, true);
+
+		verbose_printing(mode_to_text(type), letter_indexed, word_letter_index, n_possible_answers, true);
 	}
 
 	/* offset the flag_r iterator by the number of arguments we used here 
