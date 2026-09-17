@@ -1,4 +1,4 @@
-#include "include/header.h"
+#include "../include/header.h"
 
 bool cmp(const char *arg, const char *long_flag, const char *short_flag)
 {

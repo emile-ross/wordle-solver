@@ -1,4 +1,4 @@
-#include "include/header.h"
+#include "../include/header.h"
 
 bool is_letter(const char ch)
 {

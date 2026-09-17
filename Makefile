@@ -1,5 +1,3 @@
-# chose your compiler
-
 CC := gcc
 # CC := clang
 # CC := zig cc
@@ -10,12 +8,18 @@ WORD_DIR := src/word-lists
 
 # printing
 # found at /src/printing/*
+libs_filenames := ctype compare 
+LIBS := $(addprefix src/libs/, $(libs_filenames))
+LIBS_FP := $(addsuffix .c, $(LIBS))
+
+# printing
+# found at /src/printing/*
 printing_filenames := table verbose 
 PRINTING := $(addprefix src/printing/, $(printing_filenames))
 PRINTING_FP := $(addsuffix .c, $(PRINTING))
 
 # found at /src/*.c
-src_filenames := command_parsing compare config ctype errors file_reading functions list_matching main parsing validate
+src_filenames := command_parsing config errors file_reading functions list_matching main parsing validate
 
 # memory management
 # found at /src/memory/*
@@ -28,7 +32,7 @@ MEMORY_FP := $(addsuffix .c, $(MEMORY))
 FILES := $(addprefix src/, $(src_filenames))
 SRC_FP := $(addsuffix .c, $(FILES)) 
 
-ALL_FP = $(SRC_FP) $(PRINTING_FP) $(MEMORY_FP)
+ALL_FP = $(SRC_FP) $(PRINTING_FP) $(MEMORY_FP) $(LIBS_FP)
 
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enum
 OUT = -o $(binary_file)
