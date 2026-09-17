@@ -249,7 +249,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 							free(command_word_string);
 							err(INVALID_LETTER);
 						}
-						command_word_string[i] = (char)toupper(arguments[flag_temp][i]);
+						command_word_string[i] = up_letter(arguments[flag_temp][i]);
 					}
 
 					/* ensure the string is null terminated */

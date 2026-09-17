@@ -50,6 +50,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 
 /* ctype.c */
 	bool is_letter(const char ch);
+	char up_letter(int ch);
 
 
 void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
