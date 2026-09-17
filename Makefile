@@ -1,32 +1,40 @@
 # chose your compiler
 
-CC := gcc
+# CC := gcc
 # CC := clang
-# CC := zig cc
+ CC := zig cc
 
 binary_file = wordle
 
 WORD_DIR := src/word-lists
 
 # found at /src/memory/*
-mem_src_filenames := buffers checks
+mem_filenames := buffers checks
 # found at /src/printing/*
 printing_filenames := table verbose 
 
 # found at /src/*.c
 src_filenames := command_parsing compare config ctype errors file_reading functions list_matching main parsing validate
 
-MEMORY := $(addprefix src/memory/, $(mem_src_filenames))
-PRINTING := $(addprefix src/printing/, $(printing_filenames))
+# memory management
+MEMORY := $(addprefix src/memory/, $(mem_filenames))
+MEMORY_FP := $(addsuffix .c, $(MEMORY))
 
+# printing
+PRINTING := $(addprefix src/printing/, $(printing_filenames))
+PRINTING_FP := $(addsuffix .c, $(PRINTING))
+
+# files under src/ (directly no recursive)
 FILES := $(addprefix src/, $(src_filenames))
-SRC_FILES := $(addsuffix .c, $(FILES)) $(addsuffix .c, $(MEMORY)) $(addsuffix .c, $(PRINTING))
+SRC_FP := $(addsuffix .c, $(FILES)) 
+
+all_file_paths = $(SRC_FP) $(PRINTING_FP) $(MEMORY_FP)
 
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enum
 OUT = -o $(binary_file)
 
 wordle:
-	$(CC) $(SRC_FILES) $(OUT) -O2
+	$(CC) $(SRC_FP) $(OUT) -O2
 
 install: wordle
 	sudo cp -f $(binary_file) /usr/bin/
@@ -35,11 +43,16 @@ install: wordle
 all_flags_cmd = $(CC) $(OUT) $(ALL_FLAGS)
 
 base-e:
-	$(all_flags_cmd) $(SRC_FILES) 
+	$(all_flags_cmd) $(all_file_paths) 
 
 base:
-	$(all_flags_cmd) $(SRC_FILES)  -Werror -g
+	$(all_flags_cmd) $(all_file_paths)  -Werror -g
 
+print:
+	$(all_flags_cmd) $(PRINTING_FP)
+
+mem:
+	$(all_flags_cmd) $(MEMORY_FP)
 
 android: wordle
 	cp -f $(binary_file) ~
