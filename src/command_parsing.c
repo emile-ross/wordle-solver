@@ -346,6 +346,11 @@ int get_letters(const char *restrict letters, enum parsing_type mode_type)
 			fprintf(stderr, "Too many letters in after");
 		}
 	}
+	/* TODO add memory allocation and return the string to parsing() fn 
+	 * the parsing fn will use this string in order to loop on it (probably a for loop) 
+	 * this will be used in order to parse the word lists with 1 letter at a time
+	 * (adds support for multiple letters following an argument)
+	 * example: "./wordle -x eaf 1 -a zyx -s a 2 */
 
 	return (int)str_len;	 /* returns the number of letters found */
 }

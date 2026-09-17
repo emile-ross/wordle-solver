@@ -18,17 +18,18 @@
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-/* errors and error codes */
+/* errors and error codes 
+ * errors.c */
 	void err(error_codes error_code);
 	void warn(warnings warning_type); /* warnings */
 	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
 	void help_message(void);
 
-/* buffers.c */
+/* memory/buffers.c */
 	void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...);
 	int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...);
 
-/* checks.c */
+/* memory/checks.c */
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
 
 
@@ -43,10 +44,13 @@ void direct_parsing(char letter_indexed, int word_letter_index, bool filter_incl
 
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[]);
 
-/* command parsing */
-	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
+/* libs/compare.c */
 	bool cmp(const char *arg, const char *long_flag, const char *short_flag);
 	bool scmp(const char *arg, const char *str);
+
+/* command_parsing.c */
+	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
+	int get_letters(const char *restrict letters, enum parsing_type mode_type);
 
 /* ctype.c */
 	bool is_letter(const char ch);
