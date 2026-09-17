@@ -25,7 +25,7 @@
 	void help_message(void);
 
 /* buffers.c */
-	char *safe_write(char *str, size_t *buffer_size, const char *restrict fmt, ...);
+	void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...);
 	int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...);
 
 /* checks.c */

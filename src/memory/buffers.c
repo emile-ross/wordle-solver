@@ -115,7 +115,7 @@ char *get_custom_file(char *buffer, size_t buffer_size)
 	return buffer;
 }
 
-char *safe_write(char *str, size_t *buffer_size, const char *restrict fmt, ...)
+void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...)
 {
 	va_list args, copy;
 
@@ -135,7 +135,7 @@ char *safe_write(char *str, size_t *buffer_size, const char *restrict fmt, ...)
 		if (ret < 0)
 		{
 			err(ZERO_SIZED_BUF);
-			return NULL;
+			return;
 		}
 
 		str = realloc(str, (unsigned)ret);
@@ -144,5 +144,4 @@ char *safe_write(char *str, size_t *buffer_size, const char *restrict fmt, ...)
 	}
 
 	va_end(args);
-	return str;
 }
