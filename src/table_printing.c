@@ -5,18 +5,15 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	/* hide elements */
 	uint64_t hidden_elements = 0;
 	bool hidden_msg = false;
-	if (cap_total_elements)
+	if (cap_total_elements && element_cap < total_elements)
 	{
-		if (element_cap < total_elements)
-		{
-			hidden_elements = total_elements - element_cap;
-			total_elements = element_cap;
+		hidden_elements = total_elements - element_cap;
+		total_elements = element_cap;
 
-			if (hidden_elements > 0)
-			{
-				/* the hidden elements message will be displayed */
-				hidden_msg = true;
-			}
+		if (hidden_elements > 0)
+		{
+			/* the hidden elements message will be displayed */
+			hidden_msg = true;
 		}
 	}
 
