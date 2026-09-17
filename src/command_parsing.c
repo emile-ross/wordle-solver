@@ -244,7 +244,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 					for (uint8_t i = 0; i < NUM_LETTERS_WORD; i++)
 					{
 						/* check if the letter indexed is actually a letter */
-						if (!(isalpha(arguments[flag_temp][i])))
+						if (!(is_letter(arguments[flag_temp][i])))
 						{
 							free(command_word_string);
 							err(INVALID_LETTER);
