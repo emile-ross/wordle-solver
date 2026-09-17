@@ -122,7 +122,7 @@ void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...)
 	va_start(args, fmt);
 	va_copy(copy, args);
 	
-	int ret = 1 + vsnprintf(str, *(buffer_size), fmt, copy);
+	int ret = 1 + vsnprintf(*(str), *(buffer_size), fmt, copy);
 	va_end(copy);	/* copy was used */
 
 	if (ret > (signed)(*(buffer_size)))
@@ -138,9 +138,9 @@ void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...)
 			return;
 		}
 
-		str = realloc(str, (unsigned)ret);
+		*(str) = realloc(*(str), (unsigned)ret);
 		*(buffer_size) = (unsigned)ret;
-		vsnprintf(str, (unsigned)ret, fmt, args);
+		vsnprintf(*(str), (unsigned)ret, fmt, args);
 	}
 
 	va_end(args);
