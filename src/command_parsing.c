@@ -336,6 +336,11 @@ int get_letters(const char *restrict letters, enum parsing_type mode_type)
 
 	if (str_len > 1)
 	{
+		if (mode_type == strict || mode_type == exclude)
+		{
+			err(MULTI_LET_SUPPORT);
+		}
+
 		if (str_len > 26)
 		{
 			fprintf(stderr, "Too many letters in after");

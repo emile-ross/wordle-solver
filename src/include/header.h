@@ -89,8 +89,9 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 	extern const char *default_config_list_name;
 	extern const char *program_name;
 
-void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present);
-void verbose_print(const char *restrict format, ...);
+/* printing/ directory */
+	char *mode_to_text(enum parsing_type type);
+	void verbose_print(const char *restrict format, ...);
 
 
 /* file related */

@@ -50,6 +50,7 @@ typedef enum
 	ZERO_SIZED_BUF = 62,
 	INVALID_CONFIG = 70,
 	UNDEFINED_LIST = 71,
+	MULTI_LET_SUPPORT = 80,
 	NO_WORD_LIST = 72
 } error_codes;
 

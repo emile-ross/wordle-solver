@@ -10,7 +10,7 @@ void err(error_codes error_code)
 	bool report_issue = false;
 	bool buffer_related = false;
 
-	char *error_message = NULL;
+	char *error_message = malloc(128);
 	switch (error_code)
     	{
 	case CMD_MISSING_ARGS:
@@ -126,6 +126,9 @@ void err(error_codes error_code)
 		error_message = "The word list was never defined\n";
 		report_issue = true;
 		break;
+	case MULTI_LET_SUPPORT:
+		error_message = "The exclude & strict modes do not support mutiple letter\n";
+		break;
 
 	case NO_WORD_LIST:
 		error_message = "The word list is not a word list (no_word_list)\n";
@@ -150,7 +153,7 @@ void err(error_codes error_code)
 		}
 	}
 
-	if (error_message)
+	if (error_message != NULL)
 	{
 		char *message_template = "%s: %s";
 
@@ -166,6 +169,8 @@ void err(error_codes error_code)
 
 		/* write to error_msg_base buffer */
 		int ret = snprintf(full_error_message, (size_t)message_size, message_template, program_name, error_message);
+		free(error_message);
+
 		check_buf(ret, message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
 
 		printf(ANSI_RED"%s"STYLE_END, full_error_message);
