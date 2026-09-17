@@ -17,8 +17,9 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	int letter_arg_index = *(parsing_args.flag_r) + 1;
 	int number_arg_index = *(parsing_args.flag_r) + 2;
 	
-	char letter_indexed = (char)toupper((unsigned char)arguments[letter_arg_index][0]);
-	if (!(isalpha(letter_indexed)))
+	char letter_indexed = (char)up_letter((unsigned char)arguments[letter_arg_index][0]);
+
+	if (!(is_letter(letter_indexed)))
 	{
 		err(INVALID_LETTER);
 		exit(1);

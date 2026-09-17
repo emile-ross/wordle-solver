@@ -329,3 +329,10 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 		err(CMD_INVALID_ARG);
 	}
 }
+
+int get_letters(int arg_i, const char *restrict args)
+{
+
+
+	return str_len;	/* returns the number of letters found */
+}
