@@ -14,7 +14,7 @@ LIBS_FP := $(addsuffix .c, $(LIBS))
 
 # printing
 # found at /src/printing/*
-printing_filenames := table verbose 
+printing_filenames := table texts verbose
 PRINTING := $(addprefix src/printing/, $(printing_filenames))
 PRINTING_FP := $(addsuffix .c, $(PRINTING))
 

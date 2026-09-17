@@ -330,9 +330,17 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 }
 
-int get_letters(int arg_i, const char *restrict args)
+int get_letters(const char *restrict letters, enum parsing_type mode_type)
 {
+	size_t str_len = strlen(letters);
 
+	if (str_len > 1)
+	{
+		if (str_len > 26)
+		{
+			fprintf(stderr, "Too many letters in after");
+		}
+	}
 
-	return str_len;	/* returns the number of letters found */
+	return (int)str_len;	 /* returns the number of letters found */
 }
