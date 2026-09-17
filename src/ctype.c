@@ -10,3 +10,9 @@ bool is_letter(const char ch)
 	}
 	return false;
 }
+
+char up_letter(int ch)
+{
+	char ret = (char)(ch - 32);
+	return ret;
+}
