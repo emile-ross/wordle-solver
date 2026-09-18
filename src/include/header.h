@@ -1,6 +1,8 @@
 #define HEADER_DOT_H
 #define _POSIX_C_SOURCE 200809L
 
+#define VERSION "v1.4"
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>

@@ -135,6 +135,17 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			valid_args_index[n_valid_args] = i;
 			n_valid_args++;
 		}
+		else if (cmp(arguments[i], "--release", "--version"))
+		{
+			printf("Current version : %s\n", VERSION);
+
+			if (scmp(user_command, "wordle-solver"))
+			{
+				printf("wordle-solver-git package for Arch Linux (via AUR)\n");
+			}
+			/* done after printing */
+			exit(0);
+		}
 	}
 
 	if (*(find_match_mode))
