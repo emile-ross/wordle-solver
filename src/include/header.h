@@ -1,7 +1,7 @@
 #define HEADER_DOT_H
 #define _POSIX_C_SOURCE 200809L
 
-#define VERSION "v1.4"
+#define VERSION "v1.3.47"
 
 #include <string.h>
 #include <stdio.h>
