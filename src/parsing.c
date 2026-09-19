@@ -1,6 +1,5 @@
 #include "include/header.h"
 
-#include <ctype.h>
 uint32_t initial_words = 0;
 
 #define setwords(number_of_words) \
@@ -305,7 +304,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	{
-
 		verbose_printing(mode_to_text(type), letter_indexed, word_letter_index, n_possible_answers, true);
 	}
 
