@@ -63,6 +63,9 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		
 		bool standard_word_list = true;
 
+
+		set_length(parsing_args.w_list, &n_pos_arr, filename);
+
 		ptr = list_match(parsing_args.w_list, &n_pos_arr, standard_word_list);
 	
 		/* since this is the first execution, it will parse through the entire array */
@@ -291,7 +294,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	return 0;
 }
 
-uint32_t set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[filename_len])
+void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[])
 {
 	switch (word_list_type)
 	{
@@ -331,7 +334,4 @@ uint32_t set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), 
 		err(UNKNOWN_WORD_LIST);
 		break;
 	}
-
-	return *number_of_words;
-
 }

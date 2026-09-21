@@ -45,6 +45,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
 
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[]);
+void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[]);
 
 /* libs/compare.c */
 	bool cmp(const char *arg, const char *long_flag, const char *short_flag);
