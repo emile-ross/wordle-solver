@@ -2,9 +2,11 @@
 
 uint32_t initial_words = 0;
 
-#define setwords(number_of_words) \
-	number_of_words = number_of_words; \
-	initial_words = number_of_words; \
+#define filename_len 128
+
+#define setwords(num_w) \
+	initial_words = num_w; \
+	*(number_of_words) = num_w; \
 	break;
 
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
@@ -51,9 +53,9 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	{
 		/* initialise the filename with zero 
 		 * the filename will be the filename of the word list */
-		char filename[128] = {0};
+		char filename[filename_len] = {0};
 
-		if (buffer_write(NULL, filename, 128, get_filename(parsing_args.w_list)) != 0)
+		if (buffer_write(NULL, filename, filename_len, get_filename(parsing_args.w_list)) != 0)
 		{
 			err(BUFFER_WRITE_FAIL);
 			exit(1);
@@ -289,7 +291,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	return 0;
 }
 
-uint32_t set_length(ALL_WORD_LISTS word_list_type, uint32_t number_of_words, char filename[filename_len])
+uint32_t set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[filename_len])
 {
 	switch (word_list_type)
 	{
@@ -329,5 +331,7 @@ uint32_t set_length(ALL_WORD_LISTS word_list_type, uint32_t number_of_words, cha
 		err(UNKNOWN_WORD_LIST);
 		break;
 	}
+
+	return *number_of_words;
 
 }
