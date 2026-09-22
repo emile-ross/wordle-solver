@@ -30,6 +30,7 @@
 /* memory/buffers.c */
 	void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...);
 	int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...);
+	void *smalloc(size_t size);
 
 /* memory/checks.c */
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);

@@ -145,3 +145,9 @@ void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...)
 
 	va_end(args);
 }
+
+void *smalloc(size_t size)
+{
+	void *str = malloc(size);
+	return str;
+}

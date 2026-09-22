@@ -76,7 +76,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	float remaining_percent = 0.00F;
 
 	size_t size = 24;
-	char *percent = malloc(size);
+	char *percent = smalloc(size);
 
 	if (n_possible_answers != 0)
 	{
@@ -102,6 +102,9 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	}
 
 	printf(BOLD_S"%d possible words (%s%% of initial words)\n"STYLE_END, n_possible_answers, percent);
+	if (percent != NULL)
+		free(percent);
+
 
 	/* initial_words is initialised in src/parsing.c in the parsing() fn */
 	printf("( "BOLD_S"%d / %d"STYLE_END" possible words)\n", n_possible_answers, initial_words);
