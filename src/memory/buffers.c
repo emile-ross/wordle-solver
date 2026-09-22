@@ -148,6 +148,17 @@ void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...)
 
 void *smalloc(size_t size)
 {
-	void *str = malloc(size);
+	void *str = NULL;
+	if (size <= 0)
+	{
+		fprintf(stderr, "error in smalloc() fn\n");
+		err(ZERO_SIZED_BUF);
+	}
+
+	str = malloc(size);
+	if (str == NULL)
+		err(MALLOC_FAIL);
+
 	return str;
 }
+
