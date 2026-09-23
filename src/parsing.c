@@ -4,11 +4,6 @@ uint32_t initial_words = 0;
 
 #define filename_len 128
 
-#define setwords(num_w) \
-	initial_words = num_w; \
-	*(number_of_words) = num_w; \
-	break;
-
 int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
 {
 	/* this is the way this interprets characters
@@ -292,46 +287,4 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	*(parsing_args.first_exec) = false;
 	
 	return 0;
-}
-
-void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[])
-{
-	switch (word_list_type)
-	{
-	case en_all:
-		setwords(NUM_ALL_WORDS);
-
-	case en_nyt:
-		setwords(NUM_WORDS);
-
-	case en_common:
-		setwords(NUM_COMMON_WORDS);
-
-	case fr_all:
-		setwords(NUM_FR_ALL_WORDS);
-
-	case la_all:
-		setwords(NUM_LA_ALL_WORDS);
-
-	case la_common:
-		setwords(NUM_LA_COM_WORDS);
-
-	case custom_list:
-		/* standard_word_list = false; */
-		setwords(get_num_lines(filename));
-
-	case undefined_list:
-		fprintf(stderr, "error in get_filename()\n");
-		err(UNDEFINED_LIST);
-		exit(1);
-
-	case no_word_list:
-		fprintf(stderr, "error in get_filename()\n");
-		err(NO_WORD_LIST);
-		exit(1);
-		
-	default:
-		err(UNKNOWN_WORD_LIST);
-		break;
-	}
 }
