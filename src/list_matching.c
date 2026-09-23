@@ -1,9 +1,10 @@
 #include "include/header.h"
 
-/*
-#define setwords(wordList) \
-		num_words = wordList; \
-		break;
+
+#define setwords(num_w) \
+	initial_words = num_w; \
+	*(number_of_words) = num_w; \
+	break;
 
 
 char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6]
