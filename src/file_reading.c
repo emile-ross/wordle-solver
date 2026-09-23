@@ -14,9 +14,7 @@ uint16_t get_num_lines(char *file_path)
 
 	/* checks if the file can be opened and if it exists */
 	if (word_file == NULL)
-	{
 		err(NO_SUCH_FILE);
-	}
 
 	char char_read = '\0';
 	for (char_read = (char)fgetc(word_file); char_read != EOF; char_read = (char)fgetc(word_file))

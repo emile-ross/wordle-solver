@@ -64,39 +64,8 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	uint32_t num_words = 0;
 	/* set the number of words in the list using the setwords macro */
-	switch (word_list_enum)
-	{
-	case en_all:
-		setwords(NUM_ALL_WORDS);
-	case en_nyt:
-		setwords(NUM_WORDS);
-	case en_common:
-		setwords(NUM_COMMON_WORDS);
-	case fr_all:
-		setwords(NUM_FR_ALL_WORDS);
-	case la_all:
-		setwords(NUM_LA_ALL_WORDS);
-	case la_common:
-		setwords(NUM_LA_COM_WORDS);
-	case custom_list:
-		/* standard_word_list = false; */
-		setwords(get_num_lines(filename));
 
-	case undefined_list:
-		fprintf(stderr, "error in list_match() (undefined list)\n");
-		err(UNDEFINED_LIST);
-		exit(1);
-
-	case no_word_list:
-		fprintf(stderr, "error in list_match() (no word list)\n");
-		err(NO_WORD_LIST);
-		exit(1);
-		
-	default:
-		/* a word list entry is missing in this switch statement */
-		err(UNKNOWN_WORD_LIST);
-		break;
-	}
+	set_length(word_list_enum, &num_words, filename);
 
 	*(number_of_words) = num_words;
 
