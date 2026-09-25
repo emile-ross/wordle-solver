@@ -15,6 +15,7 @@ LIBS_FP := $(addsuffix .c, $(LIBS))
 lists_filenames := name list_matching
 LISTS := $(addprefix src/lists/, $(lists_filenames))
 LISTS_FP := $(addsuffix .c, $(LISTS))
+
 # printing
 # found at /src/printing/*
 printing_filenames := table texts verbose
@@ -22,7 +23,7 @@ PRINTING := $(addprefix src/printing/, $(printing_filenames))
 PRINTING_FP := $(addsuffix .c, $(PRINTING))
 
 # found at /src/*.c
-src_filenames := command_parsing config errors file_reading functions list_matching main parsing validate
+src_filenames := command_parsing config errors file_reading functions main parsing validate
 
 # memory management
 # found at /src/memory/*
@@ -61,6 +62,9 @@ print:
 
 mem:
 	$(all_flags_cmd) $(MEMORY_FP)
+
+lists:
+	$(all_flags_cmd) $(LISTS_FP)
 
 android: wordle
 	cp -f $(binary_file) ~
