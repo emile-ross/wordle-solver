@@ -47,7 +47,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 	word_list = default_word_list;
 	bool word_list_is_specified = false;
 
-	int n_valid_args = 0;
+	uint8_t n_valid_args = 0;
 	int valid_args_index[max_valid_args];
 	append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
 
