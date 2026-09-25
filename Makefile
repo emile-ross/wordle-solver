@@ -12,6 +12,9 @@ libs_filenames := ctype compare
 LIBS := $(addprefix src/libs/, $(libs_filenames))
 LIBS_FP := $(addsuffix .c, $(LIBS))
 
+lists_filenames := name list_matching
+LISTS := $(addprefix src/lists/, $(lists_filenames))
+LISTS_FP := $(addsuffix .c, $(LISTS))
 # printing
 # found at /src/printing/*
 printing_filenames := table texts verbose
@@ -32,7 +35,7 @@ MEMORY_FP := $(addsuffix .c, $(MEMORY))
 FILES := $(addprefix src/, $(src_filenames))
 SRC_FP := $(addsuffix .c, $(FILES)) 
 
-ALL_FP = $(SRC_FP) $(PRINTING_FP) $(MEMORY_FP) $(LIBS_FP)
+ALL_FP = $(SRC_FP) $(PRINTING_FP) $(MEMORY_FP) $(LISTS_FP) $(LIBS_FP)
 
 ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enum
 OUT = -o $(binary_file)
