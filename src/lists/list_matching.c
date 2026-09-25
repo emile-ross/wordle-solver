@@ -1,5 +1,4 @@
-#include "include/header.h"
-
+#include "../include/header.h"
 
 #define setwords(num_w) \
 	initial_words = num_w; \
