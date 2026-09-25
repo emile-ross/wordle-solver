@@ -35,17 +35,14 @@
 /* memory/checks.c */
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
 
-
 	/* used in err() in order to show; 
 	 * the write size (in bytes) and the buffer size (in bytes) */
 	extern int64_t err_buffer_size;
 	extern int64_t err_buffer_write;
 
-void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
+/* parsing.c */
+	int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[]);
 
-void direct_parsing(char letter_indexed, int word_letter_index, bool filter_include_bl, bool letter_indexed_bl, bool *f_exec);
-
-int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[]);
 void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[]);
 
 /* libs/compare.c */
@@ -66,7 +63,6 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 /* validate.c */
 	void validate_word(char *command_word_string);
 	int middle(int64_t lb, int64_t ub);
-
 
 /* Global variables */
 	extern int ARGS_BEFORE_CUR_FLAG;
@@ -101,6 +97,7 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 	char *mode_to_text(enum parsing_type type);
 	void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present);
 	void verbose_print(const char *restrict format, ...);
+	void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 
 /* file related */

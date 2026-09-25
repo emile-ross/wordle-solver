@@ -1,7 +1,5 @@
 #include "include/header.h"
 
-#include <stdarg.h>
-
 const char *word_list_flag = "-w";
 const char *word_list_long_flag = "--word-list";
 
