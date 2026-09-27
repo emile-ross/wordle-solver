@@ -341,34 +341,34 @@ int get_letters(const char *restrict letters, enum parsing_type mode_type)
 	return (int)str_len;	 /* returns the number of letters found */
 }
 
-bool check_pkg_cmd(char *cmd)
+bool check_for_pkg(char *cmd)
 {
 	/* default is true */
-	if (cmp(user_command, "wordle-solver", "wordle"))
+	if (cmp(cmd, "wordle-solver", "wordle"))
 	{
-		installed_package = true;
+		return true;
 	}
-	else if (cmp(user_command, "./wordle-solver", "./wordle"))
+	else if (cmp(cmd, "./wordle-solver", "./wordle"))
 	{
-		installed_package = false;
+		return false;
 	}
 	else
 	{
-		if (strlen(user_command) > 2)
+		if (strlen(cmd) > 2)
 		{
-			if ((user_command[0] == '.') && (user_command[1] == '/'))
+			if ((cmd[0] == '.') && (cmd[1] == '/'))
 			{
-				installed_package = false;
+				return false;
 			}
-			else if (user_command[0] == '~')
+			else if (cmd[0] == '~')
 			{
-				installed_package = false;
+				return false;
 			}
 			else
 			{
-				installed_package = true;
+				return true;
 			}
 		}
 	}
-
+	return false;
 }
