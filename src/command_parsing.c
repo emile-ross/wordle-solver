@@ -15,33 +15,8 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 	}
 
 	const char *user_command = arguments[0];
-	/* default is true */
-	if (cmp(user_command, "wordle-solver", "wordle"))
-	{
-		installed_package = true;
-	}
-	else if (cmp(user_command, "./wordle-solver", "./wordle"))
-	{
-		installed_package = false;
-	}
-	else
-	{
-		if (strlen(user_command) > 2)
-		{
-			if ((user_command[0] == '.') && (user_command[1] == '/'))
-			{
-				installed_package = false;
-			}
-			else if (user_command[0] == '~')
-			{
-				installed_package = false;
-			}
-			else
-			{
-				installed_package = true;
-			}
-		}
-	}
+
+
 
 	/* set the default word list as the nyt word list */
 	word_list = default_word_list;
@@ -364,4 +339,36 @@ int get_letters(const char *restrict letters, enum parsing_type mode_type)
 	 * example: "./wordle -x eaf 1 -a zyx -s a 2 */
 
 	return (int)str_len;	 /* returns the number of letters found */
+}
+
+bool check_pkg_cmd(char *cmd)
+{
+	/* default is true */
+	if (cmp(user_command, "wordle-solver", "wordle"))
+	{
+		installed_package = true;
+	}
+	else if (cmp(user_command, "./wordle-solver", "./wordle"))
+	{
+		installed_package = false;
+	}
+	else
+	{
+		if (strlen(user_command) > 2)
+		{
+			if ((user_command[0] == '.') && (user_command[1] == '/'))
+			{
+				installed_package = false;
+			}
+			else if (user_command[0] == '~')
+			{
+				installed_package = false;
+			}
+			else
+			{
+				installed_package = true;
+			}
+		}
+	}
+
 }
