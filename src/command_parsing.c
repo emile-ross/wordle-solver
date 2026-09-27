@@ -14,9 +14,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		err(CMD_MISSING_ARGS);
 	}
 
-	const char *user_command = arguments[0];
-
-
+	installed_package = check_for_pkg(arguments[0]);
 
 	/* set the default word list as the nyt word list */
 	word_list = default_word_list;
@@ -114,7 +112,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		{
 			printf("Current version : %s\n", VERSION);
 
-			if (scmp(user_command, "wordle-solver"))
+			if (scmp(arguments[0], "wordle-solver"))
 			{
 				printf("wordle-solver-git package for Arch Linux (via AUR)\n");
 			}
@@ -341,7 +339,7 @@ int get_letters(const char *restrict letters, enum parsing_type mode_type)
 	return (int)str_len;	 /* returns the number of letters found */
 }
 
-bool check_for_pkg(char *cmd)
+bool check_for_pkg(const char *restrict cmd)
 {
 	/* default is true */
 	if (cmp(cmd, "wordle-solver", "wordle"))
