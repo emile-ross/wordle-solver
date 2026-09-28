@@ -1,7 +1,7 @@
 #define HEADER_DOT_H
 #define _POSIX_C_SOURCE 200809L
 
-#define VERSION "v1.3.47"
+#define VERSION "v1.3.68"
 
 #include <string.h>
 #include <stdio.h>
@@ -31,6 +31,7 @@
 	void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...);
 	int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...);
 	void *smalloc(size_t size);
+	size_t prepend_fp(const char *file_path_dst, size_t dst_size, char *filename);
 
 /* memory/checks.c */
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
@@ -57,9 +58,6 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 /* ctype.c */
 	bool is_letter(const char ch);
 	char up_letter(int ch);
-
-
-void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 
 /* validate.c */
 	void validate_word(char *command_word_string);
@@ -111,4 +109,3 @@ void drawing(char wordle_answer[INDEX_LETTERS_WORD], bool x_pattern);
 	extern uint32_t initial_words;
 
 
-size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename);
