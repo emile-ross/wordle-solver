@@ -13,6 +13,8 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	int number_arg_index = *(parsing_args.flag_r) + 2;
 	
 	char letter_indexed = parsing_args.letter_indexed;
+	printf("%c is indexed\n", letter_indexed);
+
 
 	if (!(is_letter(letter_indexed)))
 	{

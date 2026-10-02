@@ -151,10 +151,10 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			{
 				char *letter_str = get_letters(arguments[arg_r + 1], exclude);
 				int i = 0;
-
 				do
 				{
 					parsing_arguments.letter_indexed = letter_str[i];
+
 					parsing(parsing_arguments, exclude, arguments);
 					i++;
 				} while (letter_str[i] != '\0');
@@ -200,12 +200,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		}
 
 		/* match arguments */
-		char *command_word_string = malloc(INDEX_LETTERS_WORD);
-
-		if (command_word_string == NULL)
-		{
-			err(MALLOC_FAIL);
-		}
+		char *command_word_string = smalloc(INDEX_LETTERS_WORD);
 
 		for (int flag_temp = 1; flag_temp < num_args; flag_temp++)
 		{
@@ -332,9 +327,31 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 }
 
-char *get_letters(const char *restrict letters, enum parsing_type mode_type)
+char *get_letters(const char *restrict letters, const char *restrict index, enum parsing_type mode_type)
 {
+	printf("letters: %s\n", letters);
 	size_t str_len = strlen(letters);
+	if (mode_type == strict || mode_type == exclude)
+	{
+		char *endptr = NULL;
+		long user_index = strtol(index, &endptr, 10);
+		if (scmp(endptr, index))
+		{
+			/* the strings are matching, therefore no valid characters were found */
+			fprintf(stderr, "Invalid index, '%s' is supposed to be an number (index)\n", endptr);
+			err(INVALID_INDEX);
+		}
+
+		if (*(endptr) != '\0')
+		{
+			/* there was at least one invalid character */
+			free(ptr);
+			fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
+					index_str, endptr);
+			err(INVALID_INDEX);
+		}
+	}
+
 
 	if (str_len > 1)
 	{
@@ -355,7 +372,7 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 		strncpy(str, letters, 2);
 		return str;
 	}
-	char *letters_string = smalloc(str_len);
+	char *letters_string = smalloc(str_len + 1);
 
 	size_t letter_entry = 0;
 	for (int i = 0; i < (signed)str_len; i++)
@@ -368,6 +385,7 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 		/* otherwise it isn't a letter and it cannot be parsed */
 	}
 
+	printf("string: %s\n", letters_string);
 	return letters_string;	 /* returns a pointer to the string */
 }
 
