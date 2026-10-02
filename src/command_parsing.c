@@ -322,19 +322,36 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 	{
 		if (mode_type == strict || mode_type == exclude)
 		{
+			/* TODO free all buffers (prevent memory leak) */
 			err(MULTI_LET_SUPPORT);
 		}
 
 		if (str_len > 26)
 		{
-			fprintf(stderr, "Too many letters in after");
+			fprintf(stderr, "Too many letters following the parsing flag\n");
 		}
+	}
+	else
+	{
+		return bmalloc("%c", letters[0]);
 	}
 	/* TODO add memory allocation and return the string to parsing() fn 
 	 * the parsing fn will use this string in order to loop on it (probably a for loop) 
 	 * this will be used in order to parse the word lists with 1 letter at a time
 	 * (adds support for multiple letters following an argument)
 	 * example: "./wordle -x eaf 1 -a zyx -s a 2 */
+	char *letters_string = smalloc(str_len);
+
+	size_t letter_entry = 0;
+	for (int i = 0; i < str_len; i++)
+	{
+		if (isalpha(letters[i]))
+		{
+			letters_string[letter_entry] = isalpha(letters[i]);
+			letter_entry++;
+		}
+		/* otherwise it isn't a letter and it cannot be parsed */
+	}
 
 	return letters_string;	 /* returns a pointer to the string */
 }
