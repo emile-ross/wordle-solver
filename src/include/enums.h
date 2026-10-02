@@ -61,6 +61,7 @@ struct prs_args
 	int num_args;
 	bool *first_exec;
 	char letter_indexed;
+	int index;
 };
 
 enum parsing_type

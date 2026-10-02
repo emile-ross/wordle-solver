@@ -129,15 +129,15 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			word_list,
 			num_args,
 			&first_execution,
-			'\0'
+			'\0',
+			0
 		};
 
 		while (arg_r < num_args)
 		{
-
 			if (cmp(arguments[arg_r], "--strict", "-s"))
 			{
-				char *letter_str = get_letters(arguments[arg_r + 1], exclude);
+				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], strict);
 				int i = 0;
 
 				do
@@ -149,7 +149,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			}
 			else if (cmp(arguments[arg_r], "--excludes", "-x") || scmp(arguments[arg_r], "-e"))
 			{
-				char *letter_str = get_letters(arguments[arg_r + 1], exclude);
+				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], exclude);
 				int i = 0;
 				do
 				{
@@ -161,11 +161,27 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			}
 			else if (cmp(arguments[arg_r], "--includes", "-i"))
 			{
-				parsing(parsing_arguments, include, arguments);
+				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], include);
+				int i = 0;
+				do
+				{
+					parsing_arguments.letter_indexed = letter_str[i];
+
+					parsing(parsing_arguments, include, arguments);
+					i++;
+				} while (letter_str[i] != '\0');
 			}
 			else if (cmp(arguments[arg_r], "--absent", "-a"))
 			{
-				parsing(parsing_arguments, absent, arguments);
+				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], absent);
+				int i = 0;
+				do
+				{
+					parsing_arguments.letter_indexed = letter_str[i];
+
+					parsing(parsing_arguments, absent, arguments);
+					i++;
+				} while (letter_str[i] != '\0');
 			}
 			else
 			{
@@ -327,15 +343,18 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 }
 
-char *get_letters(const char *restrict letters, const char *restrict index, enum parsing_type mode_type)
+char *get_letters(const char *restrict letters, const char *restrict index_str, enum parsing_type mode_type)
 {
 	printf("letters: %s\n", letters);
 	size_t str_len = strlen(letters);
+
+	/* convert the string to an index into the word (user_index) 
+	 * only required to do this if the user is in exclude mode or strict mode */
 	if (mode_type == strict || mode_type == exclude)
 	{
 		char *endptr = NULL;
-		long user_index = strtol(index, &endptr, 10);
-		if (scmp(endptr, index))
+		long user_index = strtol(index_str, &endptr, 10);
+		if (scmp(endptr, index_str))
 		{
 			/* the strings are matching, therefore no valid characters were found */
 			fprintf(stderr, "Invalid index, '%s' is supposed to be an number (index)\n", endptr);
@@ -345,7 +364,6 @@ char *get_letters(const char *restrict letters, const char *restrict index, enum
 		if (*(endptr) != '\0')
 		{
 			/* there was at least one invalid character */
-			free(ptr);
 			fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
 					index_str, endptr);
 			err(INVALID_INDEX);
