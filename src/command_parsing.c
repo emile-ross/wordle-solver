@@ -314,7 +314,7 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 }
 
-int get_letters(const char *restrict letters, enum parsing_type mode_type)
+char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 {
 	size_t str_len = strlen(letters);
 
@@ -336,7 +336,7 @@ int get_letters(const char *restrict letters, enum parsing_type mode_type)
 	 * (adds support for multiple letters following an argument)
 	 * example: "./wordle -x eaf 1 -a zyx -s a 2 */
 
-	return (int)str_len;	 /* returns the number of letters found */
+	return letters_string;	 /* returns a pointer to the string */
 }
 
 bool check_for_pkg(const char *restrict cmd)

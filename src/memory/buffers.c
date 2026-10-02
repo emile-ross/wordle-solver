@@ -30,7 +30,7 @@ int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, co
 	return 0;
 }
 
-size_t prepend_fp(char *file_path_dst, size_t dst_size, char *filename)
+size_t prepend_fp(char *file_path_dst, size_t dst_size, const char *restrict filename)
 {
 	/* this function prepends (adds in front) the filename with the directory
 	 * in order for the wordle solver to be able to resolve the file paths correctly */ 

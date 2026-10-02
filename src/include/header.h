@@ -31,7 +31,7 @@
 	void safe_write(char **str, size_t *buffer_size, const char *restrict fmt, ...);
 	int buffer_write(void *buf_to_free[], char *str, const size_t size_of_string, const char *restrict format, ...);
 	void *smalloc(size_t size);
-	size_t prepend_fp(const char *file_path_dst, size_t dst_size, char *filename);
+	size_t prepend_fp(char *file_path_dst, size_t dst_size, const char *restrict filename);
 
 /* memory/checks.c */
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
