@@ -333,7 +333,9 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 	}
 	else
 	{
-		return bmalloc("%c", letters[0]);
+		char *str = smalloc(2);
+		strncpy(str, letters, 2);
+		return str;
 	}
 	/* TODO add memory allocation and return the string to parsing() fn 
 	 * the parsing fn will use this string in order to loop on it (probably a for loop) 
@@ -343,11 +345,11 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 	char *letters_string = smalloc(str_len);
 
 	size_t letter_entry = 0;
-	for (int i = 0; i < str_len; i++)
+	for (int i = 0; i < (signed)str_len; i++)
 	{
 		if (isalpha(letters[i]))
 		{
-			letters_string[letter_entry] = isalpha(letters[i]);
+			letters_string[letter_entry] = is_letter(letters[i]);
 			letter_entry++;
 		}
 		/* otherwise it isn't a letter and it cannot be parsed */
