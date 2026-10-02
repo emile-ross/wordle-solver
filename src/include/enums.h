@@ -71,3 +71,10 @@ enum parsing_type
 	include,
 	absent
 };
+
+struct data_for_parsing
+{
+	enum parsing_type type;
+	int index;
+	char character;
+};

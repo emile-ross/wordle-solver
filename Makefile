@@ -23,7 +23,7 @@ PRINTING := $(addprefix src/printing/, $(printing_filenames))
 PRINTING_FP := $(addsuffix .c, $(PRINTING))
 
 # found at /src/*.c
-src_filenames := command_parsing config errors file_reading functions main parsing validate
+src_filenames := command_parsing config errors file_reading functions main parsing validate match_store
 
 # memory management
 # found at /src/memory/*
