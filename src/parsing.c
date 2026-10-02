@@ -10,24 +10,16 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 
-	int letter_arg_index = *(parsing_args.flag_r) + 1;
 	int number_arg_index = *(parsing_args.flag_r) + 2;
 	
-	char letter_indexed = (char)up_letter((unsigned char)arguments[letter_arg_index][0]);
+	char letter_indexed = parsing_args.letter_indexed;
 
 	if (!(is_letter(letter_indexed)))
 	{
 		err(INVALID_LETTER);
 		exit(1);
 	}
-	
-	/* check if number of arguments given to parse is enough
-	 * will return error if not, this prevents segfault */
-	if (letter_arg_index >= parsing_args.num_args) 
-	{
-		err(CMD_MISSING_ARGS);
-	}
-	
+
 	/* in cases where the parsing type is 
 	 * "strict" or "exclude", an index must be specified */
 	bool letter_is_indexed = false;
@@ -36,10 +28,12 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		letter_is_indexed = true;
 	}
 
+	/* 
 	if (letter_is_indexed && number_arg_index >= parsing_args.num_args)
 	{
 		err(CMD_MISSING_ARGS);
 	}
+	*/
 
 	char (*ptr)[INDEX_LETTERS_WORD] = NULL;
 	uint32_t n_pos_arr = 0;
@@ -122,15 +116,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		}
 	}
 
-
-	if (arguments[letter_arg_index][0] == '\0')
-	{
-		if (*(parsing_args.first_exec))
-		{
-			free(ptr);
-		}
-		err(INVALID_LETTER);
-	}
 
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
 	uint32_t temp_count = 0; /* reset temporary count buffer */

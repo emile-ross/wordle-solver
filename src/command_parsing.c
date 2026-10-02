@@ -128,18 +128,36 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			&arg_r,
 			word_list,
 			num_args,
-			&first_execution
+			&first_execution,
+			'\0'
 		};
 
 		while (arg_r < num_args)
 		{
+
 			if (cmp(arguments[arg_r], "--strict", "-s"))
 			{
-				parsing(parsing_arguments, strict, arguments);
+				char *letter_str = get_letters(arguments[arg_r + 1], exclude);
+				int i = 0;
+
+				do
+				{
+					parsing_arguments.letter_indexed = letter_str[i];
+					parsing(parsing_arguments, strict, arguments);
+					i++;
+				} while (letter_str[i] != '\0');
 			}
 			else if (cmp(arguments[arg_r], "--excludes", "-x") || scmp(arguments[arg_r], "-e"))
 			{
-				parsing(parsing_arguments, exclude, arguments);
+				char *letter_str = get_letters(arguments[arg_r + 1], exclude);
+				int i = 0;
+
+				do
+				{
+					parsing_arguments.letter_indexed = letter_str[i];
+					parsing(parsing_arguments, exclude, arguments);
+					i++;
+				} while (letter_str[i] != '\0');
 			}
 			else if (cmp(arguments[arg_r], "--includes", "-i"))
 			{
@@ -320,7 +338,7 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 
 	if (str_len > 1)
 	{
-		if (mode_type == strict || mode_type == exclude)
+		if (mode_type == strict)
 		{
 			/* TODO free all buffers (prevent memory leak) */
 			err(MULTI_LET_SUPPORT);
@@ -337,19 +355,14 @@ char *get_letters(const char *restrict letters, enum parsing_type mode_type)
 		strncpy(str, letters, 2);
 		return str;
 	}
-	/* TODO add memory allocation and return the string to parsing() fn 
-	 * the parsing fn will use this string in order to loop on it (probably a for loop) 
-	 * this will be used in order to parse the word lists with 1 letter at a time
-	 * (adds support for multiple letters following an argument)
-	 * example: "./wordle -x eaf 1 -a zyx -s a 2 */
 	char *letters_string = smalloc(str_len);
 
 	size_t letter_entry = 0;
 	for (int i = 0; i < (signed)str_len; i++)
 	{
-		if (isalpha(letters[i]))
+		if (is_letter(letters[i]))
 		{
-			letters_string[letter_entry] = is_letter(letters[i]);
+			letters_string[letter_entry] = (char)up_letter(letters[i]);
 			letter_entry++;
 		}
 		/* otherwise it isn't a letter and it cannot be parsed */
