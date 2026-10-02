@@ -42,7 +42,7 @@
 	extern int64_t err_buffer_write;
 
 /* parsing.c */
-	int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[]);
+	int parsing(struct prs_args parsing_args, enum parsing_type type);
 
 void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[]);
 
@@ -52,7 +52,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 
 /* command_parsing.c */
 	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
-	char *get_letters(const char *restrict letters, const char *restrict index_str, enum parsing_type mode_type);
+	char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode_type, int *index);
 	bool check_for_pkg(const char *restrict cmd);
 
 /* ctype.c */

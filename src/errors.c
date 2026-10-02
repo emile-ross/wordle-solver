@@ -12,6 +12,7 @@ void err(error_codes error_code)
 	bool buffer_related = false;
 
 	char *error_message = malloc(128);
+	/* TODO fix overwrite of pointer allocated with malloc() */
 	switch (error_code)
     	{
 	case CMD_MISSING_ARGS:

@@ -4,13 +4,13 @@ uint32_t initial_words = 0;
 
 #define filename_len 128
 
-int parsing(struct prs_args parsing_args, enum parsing_type type, const char *arguments[])
+int parsing(struct prs_args parsing_args, enum parsing_type type)
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 
-	int number_arg_index = *(parsing_args.flag_r) + 2;
+	int index = parsing_args.index;
 	
 	char letter_indexed = parsing_args.letter_indexed;
 	printf("%c is indexed\n", letter_indexed);
@@ -70,7 +70,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		n_pos_arr = (uint16_t)n_possible_answers;
 	}
 
-	/* word_letter_index is the index of the letter the user is looking for
+	/* index is the index of the letter the user is looking for
 	 *
 	 * example 1: you want to find all words with A as the first letter
 	 * 'A' is at index 1
@@ -80,45 +80,6 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	 * 'T' would be at index 3 
 	 * "AFTER" would work */
 	
-	char *endptr = NULL;
-	int word_letter_index;
-	if (letter_is_indexed)
-	{
-		/* convert the string containing the index to the letter
-		 * this will convert it to a long and then it casts it to an int (word_letter_index) */
-		long user_index = strtol(arguments[number_arg_index], &endptr, 10);
-		if (strcmp(endptr, arguments[number_arg_index]) == 0)
-		{
-			/* the strings are matching, therefore no valid characters were found */
-			free(ptr);
-			fprintf(stderr, "Invalid index, '%s' is supposed to be an number (index)\n", endptr);
-			err(INVALID_INDEX);
-		}
-
-		if (*(endptr) != '\0')
-		{
-			/* there was at least one invalid character */
-			free(ptr);
-			fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
-					arguments[number_arg_index], endptr);
-			err(INVALID_INDEX);
-		}
-
-		word_letter_index = (int)valid_user_index(user_index, (void*)ptr);
-
-		word_letter_index = (uint8_t)valid_user_index((long)word_letter_index, (void*)ptr); /* validate the index the user provided */
-		word_letter_index--;	/* decrease the index by one because the user isn't typing an index
-								   therefore, we need to convert it from a count to an index */
-		if (word_letter_index < 0)
-		{
-			/* index cannot be negative */
-			free(ptr);
-			fprintf(stderr, "Index must be a positive integer\n");
-			err(INVALID_INDEX);
-		}
-	}
-
-
 	char filtered_arr_temp[n_pos_arr][INDEX_LETTERS_WORD];
 	uint32_t temp_count = 0; /* reset temporary count buffer */
 	
@@ -147,13 +108,13 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		bool first_character = false;
 		bool prev_character_found = false;
 	
-		if (word_letter_index == 0)
+		if (index == 0)
 			first_character = true;
 	
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			/* compare the specified letter against the words in a loop */
-			if (letter_indexed == ptr[j][word_letter_index])
+			if (letter_indexed == ptr[j][index])
 			{
 				memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
 				temp_count++;
@@ -176,7 +137,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			/* compare the specified letter against the words in a loop */
-			if (letter_indexed != ptr[j][word_letter_index])
+			if (letter_indexed != ptr[j][index])
 			{
 				memcpy(filtered_arr_temp[temp_count], ptr[j], INDEX_LETTERS_WORD);
 				temp_count++;
@@ -253,7 +214,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type, const char *ar
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	{
-		verbose_printing(mode_to_text(type), letter_indexed, word_letter_index, n_possible_answers, true);
+		verbose_printing(mode_to_text(type), letter_indexed, index, n_possible_answers, true);
 	}
 
 	/* offset the flag_r iterator by the number of arguments we used here 

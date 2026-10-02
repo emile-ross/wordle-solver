@@ -123,6 +123,8 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 	if (*(find_match_mode))
 	{
+		int index = 0;
+
 		struct prs_args parsing_arguments = 
 		{
 			&arg_r,
@@ -130,56 +132,57 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			num_args,
 			&first_execution,
 			'\0',
-			0
+			index
 		};
+
 
 		while (arg_r < num_args)
 		{
 			if (cmp(arguments[arg_r], "--strict", "-s"))
 			{
-				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], strict);
+				char *letter_str = get_letters(arguments, arg_r, strict, &index);
 				int i = 0;
 
 				do
 				{
 					parsing_arguments.letter_indexed = letter_str[i];
-					parsing(parsing_arguments, strict, arguments);
+					parsing(parsing_arguments, strict);
 					i++;
 				} while (letter_str[i] != '\0');
 			}
 			else if (cmp(arguments[arg_r], "--excludes", "-x") || scmp(arguments[arg_r], "-e"))
 			{
-				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], exclude);
+				char *letter_str = get_letters(arguments, arg_r, exclude, &index);
 				int i = 0;
 				do
 				{
 					parsing_arguments.letter_indexed = letter_str[i];
 
-					parsing(parsing_arguments, exclude, arguments);
+					parsing(parsing_arguments, exclude);
 					i++;
 				} while (letter_str[i] != '\0');
 			}
 			else if (cmp(arguments[arg_r], "--includes", "-i"))
 			{
-				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], include);
+				char *letter_str = get_letters(arguments, arg_r, include, &index);
 				int i = 0;
 				do
 				{
 					parsing_arguments.letter_indexed = letter_str[i];
 
-					parsing(parsing_arguments, include, arguments);
+					parsing(parsing_arguments, include);
 					i++;
 				} while (letter_str[i] != '\0');
 			}
 			else if (cmp(arguments[arg_r], "--absent", "-a"))
 			{
-				char *letter_str = get_letters(arguments[arg_r + 1], arguments[arg_r + 2], absent);
+				char *letter_str = get_letters(arguments, arg_r, absent, &index);
 				int i = 0;
 				do
 				{
 					parsing_arguments.letter_indexed = letter_str[i];
 
-					parsing(parsing_arguments, absent, arguments);
+					parsing(parsing_arguments, absent);
 					i++;
 				} while (letter_str[i] != '\0');
 			}
@@ -343,21 +346,24 @@ void invalid_flag(int total_args_index, int flag_index, const char *flag[])
 	}
 }
 
-char *get_letters(const char *restrict letters, const char *restrict index_str, enum parsing_type mode_type)
+char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode_type, int *index)
 {
-	printf("letters: %s\n", letters);
-	size_t str_len = strlen(letters);
+	arg_i++;
+	printf("letters: %s\n", args[arg_i]);
+	printf("letters: %s\n", args[arg_i + 1]);
+	size_t str_len = strlen(args[arg_i]);
 
 	/* convert the string to an index into the word (user_index) 
 	 * only required to do this if the user is in exclude mode or strict mode */
 	if (mode_type == strict || mode_type == exclude)
 	{
 		char *endptr = NULL;
-		long user_index = strtol(index_str, &endptr, 10);
-		if (scmp(endptr, index_str))
+		long user_index = strtol(args[arg_i + 1], &endptr, 10);
+		if (*(endptr) == args[arg_i + 1][0])
 		{
 			/* the strings are matching, therefore no valid characters were found */
 			fprintf(stderr, "Invalid index, '%s' is supposed to be an number (index)\n", endptr);
+			printf("%s is regex\n", endptr);
 			err(INVALID_INDEX);
 		}
 
@@ -365,9 +371,11 @@ char *get_letters(const char *restrict letters, const char *restrict index_str, 
 		{
 			/* there was at least one invalid character */
 			fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
-					index_str, endptr);
+					args[arg_i + 1], endptr);
 			err(INVALID_INDEX);
 		}
+
+		*(index) = (int)user_index;
 	}
 
 
@@ -387,7 +395,7 @@ char *get_letters(const char *restrict letters, const char *restrict index_str, 
 	else
 	{
 		char *str = smalloc(2);
-		strncpy(str, letters, 2);
+		strncpy(str, args[arg_i], 2);
 		return str;
 	}
 	char *letters_string = smalloc(str_len + 1);
@@ -395,9 +403,9 @@ char *get_letters(const char *restrict letters, const char *restrict index_str, 
 	size_t letter_entry = 0;
 	for (int i = 0; i < (signed)str_len; i++)
 	{
-		if (is_letter(letters[i]))
+		if (is_letter(args[arg_i][i]))
 		{
-			letters_string[letter_entry] = (char)up_letter(letters[i]);
+			letters_string[letter_entry] = (char)up_letter(args[arg_i][i]);
 			letter_entry++;
 		}
 		/* otherwise it isn't a letter and it cannot be parsed */
