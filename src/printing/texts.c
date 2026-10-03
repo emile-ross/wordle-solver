@@ -12,6 +12,9 @@ char *mode_to_text(enum parsing_type type)
 		return "--absent";
 	case strict:
 		return "--strict";
+	case undefined:
+		fprintf(stderr, "error: undefined case in mode_to_text switch()\n");
+		exit(1);
 	default:
 		return NULL;
 	}

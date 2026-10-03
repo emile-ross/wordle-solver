@@ -179,6 +179,9 @@ int parsing(struct prs_args parsing_args, enum parsing_type type)
 			}
 		}
 		break;
+	case undefined:
+		fprintf(stderr, "error: undefined case in parsing.c switch()\n");
+		exit(1);
 	}
 
 	if (*(parsing_args.first_exec))

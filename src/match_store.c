@@ -2,10 +2,17 @@
 
 #define GET_VALS() \
 
-struct data_for_parsing convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i)
+struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
 	int index = 0;
+
+	struct data_for_parsing *data = smalloc(sizeof(struct data_for_parsing));
+
+	data->type = undefined;
+	data->index = -1;
+	data->character = '\0';
+
 	for (int i = 0; i < argc; i++)
 	{
 		success = true;
@@ -68,7 +75,7 @@ struct data_for_parsing convert_to_struct(bool list_specified, const char *restr
 					err(INVALID_INDEX);
 				}
 
-				*(index) = (int)user_index;
+				index = (int)user_index;
 
 				if (type == strict)
 				{
@@ -81,16 +88,9 @@ struct data_for_parsing convert_to_struct(bool list_specified, const char *restr
 			{
 				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
 			}
-
-			char *letter_str = get_letters(argv, arg_i, strict, &index);
-			int j = 0;
-
-			do
-			{
-				parsing_arguments.letter_indexed = letter_str[j];
-				parsing(parsing_arguments, strict);
-				i++;
-			} while (letter_str[j] != '\0');
+			char *str = smalloc(2);
+			str[0] = argv[arg_i + 1][0];
 		}
 	}
+	return data;
 }
