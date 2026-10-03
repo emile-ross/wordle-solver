@@ -11,10 +11,15 @@ Supported on :
 [![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)](#)
 
 
-# Download for Arch Linux via AUR 
+### Download for Arch Linux via AUR 
 
-``
+```sh
+yay -S wordle-solver-git
+```
 
+### Download & compile 
+
+Anyone can also compile the program from source by cloning this repo and compiling using the makefile
 
 ```sh
 git clone https://github.com/emile-ross/wordle
