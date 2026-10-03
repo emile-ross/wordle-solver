@@ -114,10 +114,15 @@ void convert_to_struct(struct data_for_parsing **data_ptr[], bool list_specified
 
 
 		}
-		data_ptr->type[i] = type;
-		data_ptr->index[i] = index;
-		data_ptr->character[i] = character;
+		if (i > num_entries)
+		{
+			num_entries += size_increment;
+			data_ptr = realloc(data, (sizeof(struct data_for_parsing) * num_entries));
+			size_increment <<= 1;
+		}
+		(*data_ptr[i])->type = type;
+		(*data_ptr[i])->index = index;
+		(*data_ptr[i])->character = character;
 		arg_i++;
 	}
-	return data;
 }

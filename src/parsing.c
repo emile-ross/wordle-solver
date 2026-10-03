@@ -24,11 +24,6 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 
 	/* in cases where the parsing type is 
 	 * "strict" or "exclude", an index must be specified */
-	bool letter_is_indexed = false;
-	if (query_data.type == strict || query_data.type == exclude)
-	{
-		letter_is_indexed = true;
-	}
 
 	/* 
 	if (letter_is_indexed && number_arg_index >= parsing_args.num_args)
@@ -222,7 +217,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 
 	/* offset the flag_r iterator by the number of arguments we used here 
 	 * ("-s A 1" would count as 3) */
-	if (letter_is_indexed)
+	if (query_data.type == strict || query_data.type == exclude)
 	{
 		/* the number of arguments expected when no index is specified (2)
 		 * example: "-a Z" (any word without Z) */
