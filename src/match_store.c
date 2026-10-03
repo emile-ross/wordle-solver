@@ -1,6 +1,6 @@
 #include "include/header.h"
 
-#define GET_VALS() \
+#define SIZE_INCREMENT (2)
 
 struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
@@ -8,13 +8,15 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 	int index = 0;
 	char character = '\0';
 
-	struct data_for_parsing *data = smalloc(sizeof(struct data_for_parsing));
+	size_t data_size = (sizeof(struct data_for_parsing) * (unsigned int)((argc - arg_i) / 3));
+	struct data_for_parsing *data = smalloc(data_size);
 
 	data->type = undefined;
 	data->index = -1;
 	data->character = '\0';
 
-	for (int i = 0; i < argc; i++)
+	/* arg_i is incremented at the end of the loop */
+	for (int i = 0; arg_i < argc; i++)
 	{
 		success = true;
 		character = '\0';
@@ -58,6 +60,7 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 
 		if (success)
 		{
+
 			if (type == exclude || type == strict)
 			{
 				char *endptr = NULL;
@@ -97,6 +100,7 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 		data->type = type;
 		data->index = index;
 		data->character = character;
+		arg_i++;
 	}
 	return data;
 }
