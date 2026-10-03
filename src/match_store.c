@@ -2,6 +2,14 @@
 
 #define SIZE_INCREMENT (2)
 
+typedef enum
+{
+	UNDEFINED = 0,
+	EXPECT_FLAG,
+	EXPECT_LETTER,
+	EXPECT_INDEX
+} state;
+
 struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
@@ -21,6 +29,7 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 		success = true;
 		character = '\0';
 		index = 0;
+		bool flag_found = true;
 		
 		enum parsing_type type = 0;
 		size_t len = strlen(argv[arg_i + 1]);
@@ -43,6 +52,7 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 		}
 		else
 		{
+			flag_found = false;
 			if (list_specified)
 			{
 				if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
@@ -94,7 +104,12 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 			{
 				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
 			}
-			character = argv[arg_i + 1][0];
+			if (flag_found)
+			{
+				character = argv[arg_i + 1][0];
+				/* TODO add logic for other types with enums maybe */
+
+			}
 		}
 
 		data->type = type;

@@ -50,14 +50,18 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	bool cmp(const char *arg, const char *long_flag, const char *short_flag);
 	bool scmp(const char *arg, const char *str);
 
+/* ctype.c */
+	bool is_letter(const char ch);
+	char up_letter(int ch);
+
 /* command_parsing.c */
 	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
 	char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode_type, int *index);
 	bool check_for_pkg(const char *restrict cmd);
 
-/* ctype.c */
-	bool is_letter(const char ch);
-	char up_letter(int ch);
+/* in src/match_store.h */
+	struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i);
+
 
 /* validate.c */
 	void validate_word(char *command_word_string);
@@ -107,6 +111,3 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	extern char *custom_filename;	/* defined in functions.c */
 	extern bool installed_package;
 	extern uint32_t initial_words;
-
-
-struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i);
