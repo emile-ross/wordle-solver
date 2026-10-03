@@ -60,7 +60,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	bool check_for_pkg(const char *restrict cmd);
 
 /* in src/match_store.h */
-	struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i);
+	void convert_to_struct(struct data_for_parsing **data_ptr[], bool list_specified, const char *restrict argv[], const int argc, int arg_i);
 
 
 /* validate.c */

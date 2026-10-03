@@ -1,27 +1,27 @@
 #include "include/header.h"
 
-#define SIZE_INCREMENT (2)
-
 typedef enum
 {
 	UNDEFINED = 0,
 	EXPECT_FLAG,
 	EXPECT_LETTER,
 	EXPECT_INDEX
-} state;
+} state_type;
 
-struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i)
+void convert_to_struct(struct data_for_parsing **data_ptr[], bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
 	int index = 0;
 	char character = '\0';
 
-	size_t data_size = (sizeof(struct data_for_parsing) * (unsigned int)((argc - arg_i) / 3));
-	struct data_for_parsing *data = smalloc(data_size);
+	size_t size_increment = 2;
 
-	data->type = undefined;
-	data->index = -1;
-	data->character = '\0';
+	size_t num_entries = (unsigned int)((argc - arg_i) / 3);
+	*(data_ptr) = smalloc(sizeof(struct data_for_parsing) * num_entries);
+
+	(*data_ptr[0])->type = undefined;
+	(*data_ptr[0])->index = -1;
+	(*data_ptr[0])->character = '\0';
 
 	/* arg_i is incremented at the end of the loop */
 	for (int i = 0; arg_i < argc; i++)
@@ -33,6 +33,7 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 		
 		enum parsing_type type = 0;
 		size_t len = strlen(argv[arg_i + 1]);
+
 
 		if (cmp(argv[arg_i], "--strict", "-s"))
 		{
@@ -110,11 +111,12 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 				/* TODO add logic for other types with enums maybe */
 
 			}
-		}
 
-		data->type = type;
-		data->index = index;
-		data->character = character;
+
+		}
+		data_ptr->type[i] = type;
+		data_ptr->index[i] = index;
+		data_ptr->character[i] = character;
 		arg_i++;
 	}
 	return data;
