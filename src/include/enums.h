@@ -60,8 +60,6 @@ struct prs_args
 	ALL_WORD_LISTS w_list;
 	int num_args;
 	bool *first_exec;
-	char letter_indexed;
-	int index;
 };
 
 enum parsing_type
@@ -77,5 +75,5 @@ struct data_for_parsing
 {
 	enum parsing_type type;
 	int index;
-	char character;
+	char *character;
 };

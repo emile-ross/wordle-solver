@@ -42,7 +42,7 @@
 	extern int64_t err_buffer_write;
 
 /* parsing.c */
-	int parsing(struct prs_args parsing_args, enum parsing_type type);
+	int parsing(struct prs_args parsing_args, struct data_for_parsing query_data);
 
 void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[]);
 
@@ -109,3 +109,4 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	extern uint32_t initial_words;
 
 
+struct data_for_parsing *convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i);

@@ -6,16 +6,19 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 {
 	bool success = false;
 	int index = 0;
+	char *string = NULL;
 
 	struct data_for_parsing *data = smalloc(sizeof(struct data_for_parsing));
 
 	data->type = undefined;
 	data->index = -1;
-	data->character = '\0';
+	data->character = NULL;
 
 	for (int i = 0; i < argc; i++)
 	{
 		success = true;
+		string = NULL;
+		index = 0;
 		
 		enum parsing_type type = 0;
 		size_t len = strlen(argv[arg_i + 1]);
@@ -91,6 +94,10 @@ struct data_for_parsing *convert_to_struct(bool list_specified, const char *rest
 			char *str = smalloc(2);
 			str[0] = argv[arg_i + 1][0];
 		}
+
+		data->type = type;
+		data->index = index;
+		data->character = string;
 	}
 	return data;
 }

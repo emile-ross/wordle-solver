@@ -135,7 +135,12 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			index
 		};
 
+		
+		struct data_for_parsing *data = convert_to_struct(word_list_is_specified, arguments, num_args, arg_r);
 
+
+
+		/*
 		while (arg_r < num_args)
 		{
 			if (cmp(arguments[arg_r], "--strict", "-s"))
@@ -197,13 +202,13 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 				}
 				else 
 				{
-					/* can be improved */
 					invalid_flag(num_args, arg_r, arguments);
 					break;
 				}
 			}
 			valid_expression = true;
 		}
+		*/
 	}
 	else
 	{
