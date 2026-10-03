@@ -2,15 +2,17 @@
 
 #define GET_VALS() \
 
-struct data_for_parsing convert_to_struct(const char *restrict argv[], const int argc, int arg_i)
+struct data_for_parsing convert_to_struct(bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
+	int index = 0;
 	for (int i = 0; i < argc; i++)
 	{
 		success = true;
 		
 		enum parsing_type type = 0;
 		size_t len = strlen(argv[arg_i + 1]);
+
 		if (cmp(argv[arg_i], "--strict", "-s"))
 		{
 			type = strict;
@@ -29,7 +31,7 @@ struct data_for_parsing convert_to_struct(const char *restrict argv[], const int
 		}
 		else
 		{
-			if (word_list_is_specified)
+			if (list_specified)
 			{
 				if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
 				{
@@ -70,17 +72,25 @@ struct data_for_parsing convert_to_struct(const char *restrict argv[], const int
 
 				if (type == strict)
 				{
+					/* TODO free all buffers (prevent memory leak) */
+					err(MULTI_LET_SUPPORT);
 				}
 			}
-			char *letter_str = get_letters(arguments, arg_i, strict, &index);
-			int i = 0;
+
+			if (len > 26)
+			{
+				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
+			}
+
+			char *letter_str = get_letters(argv, arg_i, strict, &index);
+			int j = 0;
 
 			do
 			{
-				parsing_arguments.letter_indexed = letter_str[i];
+				parsing_arguments.letter_indexed = letter_str[j];
 				parsing(parsing_arguments, strict);
 				i++;
-			} while (letter_str[i] != '\0');
+			} while (letter_str[j] != '\0');
 		}
 	}
 }

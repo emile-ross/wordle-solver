@@ -66,6 +66,7 @@ struct prs_args
 
 enum parsing_type
 {
+	undefined = 0,
 	strict,
 	exclude,
 	include,

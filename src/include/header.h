@@ -24,7 +24,7 @@
  * errors.c */
 	void err(error_codes error_code);
 	void warn(warnings warning_type); /* warnings */
-	void invalid_flag(int total_args_index, int flag_index, const char *flag[]);
+	void invalid_flag(int total_args_index, int flag_index, const char *restrict flag[]);
 	void help_message(void);
 
 /* memory/buffers.c */

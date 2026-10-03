@@ -279,7 +279,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 	}
 }
 
-void invalid_flag(int total_args_index, int flag_index, const char *flag[])
+void invalid_flag(int total_args_index, int flag_index, const char *restrict flag[])
 {
 	total_args_index--;
 	/* determine the amount of arguments to print around the value */
