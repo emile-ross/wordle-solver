@@ -123,20 +123,18 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 
 	if (*(find_match_mode))
 	{
-		int index = 0;
-
 		struct prs_args parsing_arguments = 
 		{
 			&arg_r,
 			word_list,
 			num_args,
-			&first_execution,
-			'\0',
-			index
+			&first_execution
 		};
 
 		
 		struct data_for_parsing *data = convert_to_struct(word_list_is_specified, arguments, num_args, arg_r);
+
+		parsing(parsing_arguments, *data);
 
 
 

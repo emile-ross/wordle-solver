@@ -75,5 +75,5 @@ struct data_for_parsing
 {
 	enum parsing_type type;
 	int index;
-	char *character;
+	char character;
 };

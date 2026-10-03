@@ -4,15 +4,15 @@ uint32_t initial_words = 0;
 
 #define filename_len 128
 
-int parsing(struct prs_args parsing_args, enum parsing_type type)
+int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 
-	int index = parsing_args.index;
+	int index = query_data.index;
 	
-	char letter_indexed = parsing_args.letter_indexed;
+	char letter_indexed = query_data.character;
 	printf("%c is indexed\n", letter_indexed);
 
 
@@ -25,7 +25,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type)
 	/* in cases where the parsing type is 
 	 * "strict" or "exclude", an index must be specified */
 	bool letter_is_indexed = false;
-	if (type == strict || type == exclude)
+	if (query_data.type == strict || query_data.type == exclude)
 	{
 		letter_is_indexed = true;
 	}
@@ -102,7 +102,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type)
 	}
 	
 	/* parsing logic is below for all options */
-	switch (type)
+	switch (query_data.type)
 	{
 	case strict:
 		bool first_character = false;
@@ -217,7 +217,7 @@ int parsing(struct prs_args parsing_args, enum parsing_type type)
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	{
-		verbose_printing(mode_to_text(type), letter_indexed, index, n_possible_answers, true);
+		verbose_printing(mode_to_text(query_data.type), letter_indexed, index, n_possible_answers, true);
 	}
 
 	/* offset the flag_r iterator by the number of arguments we used here 
