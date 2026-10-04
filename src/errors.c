@@ -280,3 +280,71 @@ void help_message(void)
 	printf(BOLD_S"   --includes"STYLE_END" (the letter \'X\' is in the word)\n");
 	printf(STYLE_END);
 }
+
+void invalid_flag(int total_args_index, int flag_index, const char *restrict flag[])
+{
+	total_args_index--;
+	/* determine the amount of arguments to print around the value */
+	int num_args_surrounding = command_arguments_context;
+
+	printf(ANSI_RED"Invalid flag"STYLE_END": \""BOLD_S"%s"STYLE_END"\" at position %d\n", flag[flag_index], flag_index);
+
+	if (num_args_surrounding > 0)
+	{
+		int lower_bound = flag_index - num_args_surrounding;
+
+		if (lower_bound < 0)
+		{
+			lower_bound = 0;
+		}
+
+		int upper_bound = flag_index + num_args_surrounding;
+		if (upper_bound > total_args_index)
+		{
+			upper_bound = total_args_index;
+		}
+
+		printf("\nHere’s where the command uses an invalid argument:");
+		printf("\n\""BOLD_S);
+
+		for (int i = lower_bound; i < flag_index; i++)
+		{
+			printf("%s ", flag[i]);
+		}
+
+		printf(ANSI_RED"%s "STYLE_END BOLD_S, flag[flag_index]);
+		for (int i = flag_index + 1; i < upper_bound; i++)
+		{
+			/* print arguments one at a time */
+			printf("%s ", flag[i]);
+		}
+		printf(STYLE_END"\"");
+		for (int i = 0; i < indenting; i++)
+		{
+			printf("\n");
+		}
+	}
+	
+
+	if (valid_expression && total_args_index - flag_index >= 0)
+	{
+		/* this means that we need to append a message at the end of the program */
+		append_flag_ignore_msg = true;
+
+		const char *ignored_flags_template = BOLD_S"Ignored flags: "ANSI_RED"%s"STYLE_END;
+		
+		size_t ignored_flags_size = 1 + (size_t)snprintf(NULL, 0, ignored_flags_template, flag[flag_index]);
+		char *flags_ignored_msg = malloc(ignored_flags_size);
+
+		int ret = snprintf(flags_ignored_msg, ignored_flags_size, ignored_flags_template, flag[flag_index]);
+		check_buf(ret, (int)ignored_flags_size, (void*)flags_ignored_msg);	/* check buffer for possible truncation  */
+
+		printf("%s\n\n", flags_ignored_msg);
+		free(flags_ignored_msg);
+	}
+	else
+	{
+		err(CMD_INVALID_ARG);
+	}
+}
+
