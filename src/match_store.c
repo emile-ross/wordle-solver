@@ -10,6 +10,7 @@ typedef enum
 
 struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
+	state_type state = EXPECT_FLAG;
 	bool success = false;
 	int index = 0;
 
@@ -33,46 +34,51 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		
 		enum parsing_type type = 0;
 		size_t len = strlen(argv[arg_i + 1]);
-
-		if (cmp(argv[arg_i], "--strict", "-s"))
+		if (state == EXPECT_FLAG)
 		{
-			type = strict;
-		}
-		else if (cmp(argv[arg_i], "--excludes", "-x") || scmp(argv[arg_i], "-e"))
-		{
-			type = exclude;
-		}
-		else if (cmp(argv[arg_i], "--includes", "-i"))
-		{
-			type = include;
-		}
-		else if (cmp(argv[arg_i], "--absent", "-a"))
-		{
-			type = absent;
-		}
-		else
-		{
-			flag_found = false;
-			if (list_specified)
+			if (cmp(argv[arg_i], "--strict", "-s"))
 			{
-				if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
+				type = strict;
+			}
+			else if (cmp(argv[arg_i], "--excludes", "-x") || scmp(argv[arg_i], "-e"))
+			{
+				type = exclude;
+			}
+			else if (cmp(argv[arg_i], "--includes", "-i"))
+			{
+				type = include;
+			}
+			else if (cmp(argv[arg_i], "--absent", "-a"))
+			{
+				type = absent;
+			}
+			else
+			{
+				flag_found = false;
+				if (list_specified)
 				{
-					arg_i += WORD_LIST_ARG_EXP;
+					if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
+					{
+						arg_i += WORD_LIST_ARG_EXP;
+					}
+				}
+				else 
+				{
+					success = false;
+					/* can be improved */
+					invalid_flag(argc, arg_i, argv);
 				}
 			}
-			else 
-			{
-				success = false;
-				/* can be improved */
-				invalid_flag(argc, arg_i, argv);
-			}
 		}
+		else if (state == EXPECT_LETTER)
+		{
 
-		if (success)
+		}
+		else if (state == EXPECT_INDEX)
 		{
 			if (type == exclude || type == strict)
 			{
-				char *endptr;
+				char *endptr = NULL;
 				long value = strtol(argv[arg_i + 2], &endptr, 10);
 				
 				if (endptr == argv[arg_i + 2] || *endptr != '\0')
@@ -104,6 +110,11 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				arg_i++;
 
 			}
+			else
+			{
+				fprintf(stderr, "Logic error\n");
+				exit(EXIT_FAILURE);
+			}
 
 			if (len > 26)
 			{
@@ -121,6 +132,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				fprintf(stderr, "error: no valid flag was found");
 			}
 		}
+
 		if (i > (signed)num_entries)
 		{
 			num_entries += size_increment;
