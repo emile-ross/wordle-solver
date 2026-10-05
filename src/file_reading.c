@@ -59,7 +59,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	{
 		free(file_buf);
 		err(MALLOC_FAIL);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	FILE *file = fopen(file_path, "r");	/* open file in reading mode */
@@ -70,7 +70,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 		free(file_buf);
 		free(ptr);
 		err(NO_SUCH_FILE);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	
 	for (uint16_t i = 0; i < *num_words; i++) 

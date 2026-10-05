@@ -17,8 +17,10 @@
 	char *word_list_name(ALL_WORD_LISTS word_list_type, void *buf);	/* returns the name of the word list */
 	extern uint8_t NUM_WORD_LISTS;
 
+
 /* filtered array used to store filtered words and it is also used for printing results */
 	extern char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
+
 
 /* errors and error codes 
  * errors.c */
@@ -35,6 +37,7 @@
 
 /* memory/checks.c */
 	void check_buf(int return_value, int64_t size_of_buffer, void *buf_to_free[]);
+	uint8_t valid_user_index(const long index, void *ptr_to_free);
 
 	/* used in err() in order to show; 
 	 * the write size (in bytes) and the buffer size (in bytes) */
@@ -60,14 +63,14 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	bool check_for_pkg(const char *restrict cmd);
 
 /* in src/match_store.h */
-	void convert_to_struct(struct data_for_parsing **data_ptr[], bool list_specified, const char *restrict argv[], const int argc, int arg_i);
+	void convert_to_struct(struct data_for_parsing **data_ptr[], const bool list_specified, const char *restrict argv[], const int argc, int arg_i);
 
 
 /* validate.c */
 	void validate_word(char *command_word_string);
 	int middle(int64_t lb, int64_t ub);
 
-/* global variables */
+/* global variables defined in globals.c */
 	extern int ARGS_BEFORE_CUR_FLAG;
 	extern ALL_WORD_LISTS word_list;
 	extern ALL_WORD_LISTS default_word_list;
@@ -77,9 +80,6 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 
 	extern bool valid_expression;
 	extern bool append_flag_ignore_msg;
-
-/* general simple functions */
-	uint8_t valid_user_index(long index, void *ptr_to_free);
 
 
 /* config file */
@@ -96,6 +96,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	extern char *custom_list_name;
 	extern const char *default_config_list_name;
 	extern const char *program_name;
+
 
 /* printing/ directory */
 	char *mode_to_text(enum parsing_type type);

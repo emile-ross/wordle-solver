@@ -8,7 +8,7 @@ typedef enum
 	EXPECT_INDEX
 } state_type;
 
-void convert_to_struct(struct data_for_parsing **data_ptr[], bool list_specified, const char *restrict argv[], const int argc, int arg_i)
+void convert_to_struct(struct data_for_parsing **data_ptr[], const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
 	int index = 0;

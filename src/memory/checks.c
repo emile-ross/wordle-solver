@@ -1,6 +1,6 @@
 #include "../include/header.h"
 
-uint8_t valid_user_index(long index, void *ptr_to_free)
+uint8_t valid_user_index(const long index, void *ptr_to_free)
 {
 	/* return a valid uint8_t variable */
 	if (index > NUM_LETTERS_WORD || index > 65535 )
