@@ -8,7 +8,7 @@ typedef enum
 	EXPECT_INDEX
 } state_type;
 
-struct data_for_parsing **convert_to_struct(size_t *p_num_entries, const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
+struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
 	int index = 0;
@@ -17,13 +17,13 @@ struct data_for_parsing **convert_to_struct(size_t *p_num_entries, const bool li
 	size_t size_increment = 2;
 
 	size_t num_entries = (unsigned int)((argc - arg_i) / 3);
-	struct data_for_parsing *data_ptr[num_entries];
+	struct data_for_parsing *data_ptr;
 	
-	*(data_ptr) = calloc(num_entries + 1, sizeof(struct data_for_parsing));
+	data_ptr = calloc(num_entries + 1, sizeof(struct data_for_parsing));
 
-	data_ptr[0]->type = undefined;
-	data_ptr[0]->index = -1;
-	data_ptr[0]->character = '\0';
+	data_ptr[0].type = undefined;
+	data_ptr[0].index = -1;
+	data_ptr[0].character = '\0';
 
 	/* arg_i is incremented at the end of the loop */
 	for (int i = 0; arg_i < argc; i++)
@@ -119,14 +119,14 @@ struct data_for_parsing **convert_to_struct(size_t *p_num_entries, const bool li
 		if (i > (signed)num_entries)
 		{
 			num_entries += size_increment;
-			*data_ptr = realloc(data_ptr, (sizeof(struct data_for_parsing) * num_entries));
+			data_ptr = realloc(data_ptr, (sizeof(struct data_for_parsing) * num_entries));
 			size_increment <<= 1;
 		}
-		data_ptr[i]->type = type;
-		data_ptr[i]->index = index;
-		data_ptr[i]->character = character;
+		data_ptr[i].type = type;
+		data_ptr[i].index = index;
+		data_ptr[i].character = character;
 		arg_i++;
 	}
 	*p_num_entries = num_entries;
-	return **data_ptr;
+	return data_ptr;
 }
