@@ -12,7 +12,7 @@
 #include "enums.h"
 #include "macros.h"
 
-/* Word lists */
+/* word lists */
 	char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool standard_word_list))[6];
 	char *word_list_name(ALL_WORD_LISTS word_list_type, void *buf);	/* returns the name of the word list */
 	extern uint8_t NUM_WORD_LISTS;
@@ -67,7 +67,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	void validate_word(char *command_word_string);
 	int middle(int64_t lb, int64_t ub);
 
-/* Global variables */
+/* global variables */
 	extern int ARGS_BEFORE_CUR_FLAG;
 	extern ALL_WORD_LISTS word_list;
 	extern ALL_WORD_LISTS default_word_list;
@@ -78,8 +78,9 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	extern bool valid_expression;
 	extern bool append_flag_ignore_msg;
 
-/* General simple functions */
+/* general simple functions */
 	uint8_t valid_user_index(long index, void *ptr_to_free);
+
 
 /* config file */
 	extern bool awsum_table_mode;

@@ -114,10 +114,10 @@ void convert_to_struct(struct data_for_parsing **data_ptr[], bool list_specified
 
 
 		}
-		if (i > num_entries)
+		if (i > (signed)num_entries)
 		{
 			num_entries += size_increment;
-			data_ptr = realloc(data, (sizeof(struct data_for_parsing) * num_entries));
+			data_ptr = realloc(data_ptr, (sizeof(struct data_for_parsing) * num_entries));
 			size_increment <<= 1;
 		}
 		(*data_ptr[i])->type = type;
