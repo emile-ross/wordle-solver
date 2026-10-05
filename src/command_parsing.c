@@ -132,8 +132,9 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		};
 
 		
-		struct data_for_parsing **data;
-		convert_to_struct(&data, word_list_is_specified, arguments, num_args, arg_r);
+		size_t num_entries = 0;
+		/* convert_to_struct() returns a pointer to an array of structs allocated on the heap*/
+		struct data_for_parsing *data = convert_to_struct(&num_entries, word_list_is_specified, arguments, num_args, arg_r);
 
 		parsing(parsing_arguments, **data);
 
