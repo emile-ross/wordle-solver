@@ -10,9 +10,8 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
 	 * this means all words(in the list) ending in A */
 
-	int index = query_data.index;
-	
-	char letter_indexed = query_data.character;
+	const int index = query_data.index;
+	const char letter_indexed = query_data.character;
 	printf("%c is indexed\n", letter_indexed);
 
 

@@ -78,7 +78,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 				{
 					valid_word_list = false;
 					err(UNKNOWN_WORD_LIST);
-					exit(1);
+					exit(EXIT_FAILURE);
 				}
 
 				if (verbose)

@@ -8,7 +8,7 @@ typedef enum
 	EXPECT_INDEX
 } state_type;
 
-void convert_to_struct(struct data_for_parsing **data_ptr[], const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
+struct data_for_parsing convert_to_struct(size_t *num_entries, const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	bool success = false;
 	int index = 0;
@@ -17,7 +17,7 @@ void convert_to_struct(struct data_for_parsing **data_ptr[], const bool list_spe
 	size_t size_increment = 2;
 
 	size_t num_entries = (unsigned int)((argc - arg_i) / 3);
-	*(data_ptr) = smalloc(sizeof(struct data_for_parsing) * num_entries);
+	struct *data_ptr[num_entries] = smalloc(sizeof(struct data_for_parsing) * (num_entries + 1));
 
 	(*data_ptr[0])->type = undefined;
 	(*data_ptr[0])->index = -1;
@@ -125,4 +125,5 @@ void convert_to_struct(struct data_for_parsing **data_ptr[], const bool list_spe
 		(*data_ptr[i])->character = character;
 		arg_i++;
 	}
+	return data_ptr;
 }
