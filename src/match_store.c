@@ -12,7 +12,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 {
 	bool success = false;
 	int index = 0;
-	char character = '\0';
 
 	size_t size_increment = 2;
 
@@ -26,16 +25,14 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	data_ptr[0].character = '\0';
 
 	/* arg_i is incremented at the end of the loop */
-	for (int i = 0; arg_i < argc; i++)
+	for (int i = 0; arg_i < argc - 1; i++)
 	{
 		success = true;
-		character = '\0';
 		index = 0;
 		bool flag_found = true;
 		
 		enum parsing_type type = 0;
 		size_t len = strlen(argv[arg_i + 1]);
-
 
 		if (cmp(argv[arg_i], "--strict", "-s"))
 		{
@@ -73,19 +70,16 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 
 		if (success)
 		{
-
 			if (type == exclude || type == strict)
 			{
-				char *endptr = NULL;
-				long user_index = strtol(argv[arg_i + 1], &endptr, 10);
-				if (*(endptr) == argv[arg_i + 1][0])
+				char *endptr;
+				long value = strtol(argv[arg_i + 2], &endptr, 10);
+				
+				if (endptr == argv[arg_i + 2] || *endptr != '\0')
 				{
-					/* the strings are matching, therefore no valid characters were found */
-					fprintf(stderr, "Invalid index, '%s' is supposed to be an number (index)\n", endptr);
-					printf("%s is regex\n", endptr);
+					fprintf(stderr, "Invalid index: %s\n", argv[arg_i + 2]);
 					err(INVALID_INDEX);
 				}
-
 				if (*(endptr) != '\0')
 				{
 					/* there was at least one invalid character */
@@ -94,27 +88,38 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 					err(INVALID_INDEX);
 				}
 
-				index = (int)user_index;
+				if (value < 0 || value > NUM_LETTERS_WORD)
+				{
+					fprintf(stderr, "User index is out of bounds (minimum 0, maximum %d)\n", NUM_LETTERS_WORD);
+					exit(EXIT_FAILURE);
+				}
+				index = (int)value;
 
-				if (type == strict)
+				if (type == strict && strlen(argv[arg_i + 1]) > 1)
 				{
 					/* TODO free all buffers (prevent memory leak) */
 					err(MULTI_LET_SUPPORT);
 				}
+
+				arg_i++;
+
 			}
 
 			if (len > 26)
 			{
 				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
 			}
+
 			if (flag_found)
 			{
-				character = argv[arg_i + 1][0];
+				printf("set the character to %c\n", argv[arg_i + 1][0]);
+				data_ptr[i].character = argv[arg_i + 1][0];
 				/* TODO add logic for other types with enums maybe */
-
 			}
-
-
+			else
+			{
+				fprintf(stderr, "error: no valid flag was found");
+			}
 		}
 		if (i > (signed)num_entries)
 		{
@@ -124,7 +129,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		}
 		data_ptr[i].type = type;
 		data_ptr[i].index = index;
-		data_ptr[i].character = character;
 		arg_i++;
 	}
 	*p_num_entries = num_entries;
