@@ -40,7 +40,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				{
 					err(CMD_MISSING_ARGS);
 				}
-
 				type = strict;
 			}
 			else if (cmp(argv[arg_i], "--excludes", "-x") || scmp(argv[arg_i], "-e"))
@@ -94,39 +93,13 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		}
 		else if (state == EXPECT_INDEX)
 		{
-			if (type == exclude || type == strict)
+			char *endptr = NULL;
+			long value = strtol(argv[arg_i + 2], &endptr, 10);
+			
+			if (endptr == argv[arg_i + 2] || *endptr != '\0')
 			{
-				char *endptr = NULL;
-				long value = strtol(argv[arg_i + 2], &endptr, 10);
-				
-				if (endptr == argv[arg_i + 2] || *endptr != '\0')
-				{
-					fprintf(stderr, "Invalid index: %s\n", argv[arg_i + 2]);
-					err(INVALID_INDEX);
-				}
-				if (*(endptr) != '\0')
-				{
-					/* there was at least one invalid character */
-					fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
-							argv[arg_i + 1], endptr);
-					err(INVALID_INDEX);
-				}
-
-				if (value < 0 || value > NUM_LETTERS_WORD)
-				{
-					fprintf(stderr, "User index is out of bounds (minimum 0, maximum %d)\n", NUM_LETTERS_WORD);
-					exit(EXIT_FAILURE);
-				}
-				index = (int)value;
-
-				if (type == strict && strlen(argv[arg_i + 1]) > 1)
-				{
-					/* TODO free all buffers (prevent memory leak) */
-					err(MULTI_LET_SUPPORT);
-				}
-
-				arg_i++;
-
+				fprintf(stderr, "Invalid index: %s\n", argv[arg_i + 2]);
+				err(INVALID_INDEX);
 			}
 			if (*(endptr) != '\0')
 			{
@@ -136,6 +109,9 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				err(INVALID_INDEX);
 			}
 
+			if (value < 0 || value > NUM_LETTERS_WORD)
+			{
+				fprintf(stderr, "User index is out of bounds (minimum 0, maximum %d)\n", NUM_LETTERS_WORD);
 				exit(EXIT_FAILURE);
 			}
 			index = (int)value;
