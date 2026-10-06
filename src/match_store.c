@@ -11,8 +11,6 @@ typedef enum
 struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	state_type state = EXPECT_FLAG;
-	int index = 0;
-
 	size_t size_increment = 2;
 
 	size_t num_entries = (unsigned int)((argc - arg_i) / 3);
@@ -23,17 +21,16 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	data_ptr[0].type = undefined;
 	data_ptr[0].index = -1;
 	data_ptr[0].character = '\0';
-
+	int i = 0;
 
 	/* arg_i is incremented at the end of the loop */
-	for (int i = 0; arg_i < argc - 1; arg_i++)
+	for (; arg_i < argc - 1; arg_i++)
 	{
-		size_t len = strlen(argv[arg_i + 1]);
 		if (state == EXPECT_FLAG)
 		{
 			if (cmp(argv[arg_i], "--strict", "-s"))
 			{
-				if (arg_i + P_FILTERS_ARG_EXP < argc)
+				if (arg_i + P_FILTERS_ARG_EXP > argc)
 				{
 					err(CMD_MISSING_ARGS);
 				}
@@ -41,7 +38,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			}
 			else if (cmp(argv[arg_i], "--excludes", "-x") || scmp(argv[arg_i], "-e"))
 			{
-				if (arg_i + P_FILTERS_ARG_EXP < argc)
+				if (arg_i + P_FILTERS_ARG_EXP > argc)
 				{
 					err(CMD_MISSING_ARGS);
 				}
@@ -49,7 +46,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			}
 			else if (cmp(argv[arg_i], "--includes", "-i"))
 			{
-				if (arg_i + G_FILTERS_ARG_EXP < argc)
+				if (arg_i + G_FILTERS_ARG_EXP > argc)
 				{
 					err(CMD_MISSING_ARGS);
 				}
@@ -57,7 +54,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			}
 			else if (cmp(argv[arg_i], "--absent", "-a"))
 			{
-				if (arg_i + G_FILTERS_ARG_EXP < argc)
+				if (arg_i + G_FILTERS_ARG_EXP > argc)
 				{
 					err(CMD_MISSING_ARGS);
 				}
@@ -65,7 +62,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			}
 			else
 			{
-				printf("No flag found \n");
+				printf("No flag found\n");
 				if (list_specified)
 				{
 					if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
@@ -83,6 +80,11 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		}
 		else if (state == EXPECT_LETTER)
 		{
+			if (strlen(argv[arg_i]) > 26)
+			{
+				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
+			}
+
 			if (data_ptr[i].type == exclude || data_ptr[i].type == strict)
 			{
 				state = EXPECT_INDEX;
