@@ -21,10 +21,11 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	data_ptr[0].type = undefined;
 	data_ptr[0].index = -1;
 	data_ptr[0].character = '\0';
+
 	int i = 0;
 
 	/* arg_i is incremented at the end of the loop */
-	for (; arg_i < argc - 1; arg_i++)
+	for (; arg_i < argc; arg_i++)
 	{
 		if (state == EXPECT_FLAG)
 		{
@@ -106,11 +107,12 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			char *endptr = NULL;
 			long value = strtol(argv[arg_i], &endptr, 10);
 			
-			if (endptr == argv[arg_i] || *endptr != '\0')
+			if (*endptr == argv[arg_i][0])
 			{
-				fprintf(stderr, "Invalid index: %s\n", argv[arg_i]);
+				fprintf(stderr, "Invalid index: %s\n", endptr);
 				err(INVALID_INDEX);
 			}
+
 			if (*(endptr) != '\0')
 			{
 				/* there was at least one invalid character */
@@ -126,24 +128,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			}
 			data_ptr[i].index = (int)value;
 
-			if (data_ptr[i].type == strict && strlen(argv[arg_i + 1]) > 1)
-			{
-				/* TODO free all buffers (prevent memory leak) */
-				err(MULTI_LET_SUPPORT);
-			}
-
-			if (len > 26)
-			{
-				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
-			}
-
-			if (flag_found)
-			{
-			}
-			else
-			{
-				fprintf(stderr, "error: no valid flag was found");
-			}
 			i++;
 			state = EXPECT_FLAG;
 		}
@@ -159,7 +143,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			data_ptr = realloc(data_ptr, (sizeof(struct data_for_parsing) * num_entries));
 			size_increment <<= 1;
 		}
-		data_ptr[i].index = index;
 	}
 
 	printf("%d is the index\n", data_ptr[0].index);
