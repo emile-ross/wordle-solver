@@ -24,13 +24,10 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	data_ptr[0].index = -1;
 	data_ptr[0].character = '\0';
 
+
 	/* arg_i is incremented at the end of the loop */
-	for (int i = 0; arg_i < argc - 1; i++)
+	for (int i = 0; arg_i < argc - 1; arg_i++)
 	{
-		index = 0;
-		bool flag_found = true;
-		
-		enum parsing_type type = undefined;
 		size_t len = strlen(argv[arg_i + 1]);
 		if (state == EXPECT_FLAG)
 		{
@@ -40,7 +37,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				{
 					err(CMD_MISSING_ARGS);
 				}
-				type = strict;
+				data_ptr[i].type = strict;
 			}
 			else if (cmp(argv[arg_i], "--excludes", "-x") || scmp(argv[arg_i], "-e"))
 			{
@@ -48,7 +45,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				{
 					err(CMD_MISSING_ARGS);
 				}
-				type = exclude;
+				data_ptr[i].type = exclude;
 			}
 			else if (cmp(argv[arg_i], "--includes", "-i"))
 			{
@@ -56,7 +53,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				{
 					err(CMD_MISSING_ARGS);
 				}
-				type = include;
+				data_ptr[i].type = include;
 			}
 			else if (cmp(argv[arg_i], "--absent", "-a"))
 			{
@@ -64,11 +61,11 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				{
 					err(CMD_MISSING_ARGS);
 				}
-				type = absent;
+				data_ptr[i].type = absent;
 			}
 			else
 			{
-				flag_found = false;
+				printf("No flag found \n");
 				if (list_specified)
 				{
 					if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
@@ -86,7 +83,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		}
 		else if (state == EXPECT_LETTER)
 		{
-			if (type == exclude || type == strict)
+			if (data_ptr[i].type == exclude || data_ptr[i].type == strict)
 			{
 				state = EXPECT_INDEX;
 			}
@@ -114,15 +111,13 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				fprintf(stderr, "User index is out of bounds (minimum 0, maximum %d)\n", NUM_LETTERS_WORD);
 				exit(EXIT_FAILURE);
 			}
-			index = (int)value;
+			data_ptr[i].index = (int)value;
 
-			if (type == strict && strlen(argv[arg_i + 1]) > 1)
+			if (data_ptr[i].type == strict && strlen(argv[arg_i + 1]) > 1)
 			{
 				/* TODO free all buffers (prevent memory leak) */
 				err(MULTI_LET_SUPPORT);
 			}
-
-			arg_i++;
 
 			if (len > 26)
 			{
@@ -136,6 +131,8 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			{
 				fprintf(stderr, "error: no valid flag was found");
 			}
+			i++;
+			state = EXPECT_FLAG;
 		}
 		else
 		{
@@ -149,10 +146,12 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 			data_ptr = realloc(data_ptr, (sizeof(struct data_for_parsing) * num_entries));
 			size_increment <<= 1;
 		}
-		data_ptr[i].type = type;
 		data_ptr[i].index = index;
-		arg_i++;
 	}
+
+	printf("%d is the index\n", data_ptr[0].index);
+	printf("%c is the character\n", data_ptr[0].character);
+
 	*p_num_entries = num_entries;
 	return data_ptr;
 }
