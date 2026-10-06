@@ -49,18 +49,22 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				{
 					err(CMD_MISSING_ARGS);
 				}
-
 				type = exclude;
 			}
 			else if (cmp(argv[arg_i], "--includes", "-i"))
 			{
 				if (arg_i + G_FILTERS_ARG_EXP < argc)
 				{
+					err(CMD_MISSING_ARGS);
 				}
 				type = include;
 			}
 			else if (cmp(argv[arg_i], "--absent", "-a"))
 			{
+				if (arg_i + G_FILTERS_ARG_EXP < argc)
+				{
+					err(CMD_MISSING_ARGS);
+				}
 				type = absent;
 			}
 			else
@@ -79,10 +83,14 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 					invalid_flag(argc, arg_i, argv);
 				}
 			}
+			state = EXPECT_LETTER;
 		}
 		else if (state == EXPECT_LETTER)
 		{
-
+			if (type == exclude || type == strict)
+			{
+				state = EXPECT_INDEX;
+			}
 		}
 		else if (state == EXPECT_INDEX)
 		{
@@ -120,11 +128,25 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				arg_i++;
 
 			}
-			else
+			if (*(endptr) != '\0')
 			{
-				fprintf(stderr, "Logic error\n");
+				/* there was at least one invalid character */
+				fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
+						argv[arg_i + 1], endptr);
+				err(INVALID_INDEX);
+			}
+
 				exit(EXIT_FAILURE);
 			}
+			index = (int)value;
+
+			if (type == strict && strlen(argv[arg_i + 1]) > 1)
+			{
+				/* TODO free all buffers (prevent memory leak) */
+				err(MULTI_LET_SUPPORT);
+			}
+
+			arg_i++;
 
 			if (len > 26)
 			{
