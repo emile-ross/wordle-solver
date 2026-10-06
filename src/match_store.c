@@ -85,26 +85,37 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				fprintf(stderr, "Warning: too many letters following the parsing flag\n");
 			}
 
+			if (data_ptr[i].type == strict && strlen(argv[arg_i]) > 1)
+			{
+				/* TODO free all buffers (prevent memory leak) */
+				err(MULTI_LET_SUPPORT);
+			}
+			data_ptr[i].character = argv[arg_i][0];
 			if (data_ptr[i].type == exclude || data_ptr[i].type == strict)
 			{
 				state = EXPECT_INDEX;
+			}
+			else
+			{
+				state = EXPECT_FLAG;
+				i++;
 			}
 		}
 		else if (state == EXPECT_INDEX)
 		{
 			char *endptr = NULL;
-			long value = strtol(argv[arg_i + 2], &endptr, 10);
+			long value = strtol(argv[arg_i], &endptr, 10);
 			
-			if (endptr == argv[arg_i + 2] || *endptr != '\0')
+			if (endptr == argv[arg_i] || *endptr != '\0')
 			{
-				fprintf(stderr, "Invalid index: %s\n", argv[arg_i + 2]);
+				fprintf(stderr, "Invalid index: %s\n", argv[arg_i]);
 				err(INVALID_INDEX);
 			}
 			if (*(endptr) != '\0')
 			{
 				/* there was at least one invalid character */
 				fprintf(stderr, "Invalid user index \"%s\" contains invalid index \"%s\"\n", 
-						argv[arg_i + 1], endptr);
+						argv[arg_i], endptr);
 				err(INVALID_INDEX);
 			}
 
@@ -154,6 +165,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	printf("%d is the index\n", data_ptr[0].index);
 	printf("%c is the character\n", data_ptr[0].character);
 
-	*p_num_entries = num_entries;
+	*p_num_entries = (unsigned)(i + 1);
 	return data_ptr;
 }
