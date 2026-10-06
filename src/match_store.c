@@ -11,7 +11,6 @@ typedef enum
 struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool list_specified, const char *restrict argv[], const int argc, int arg_i)
 {
 	state_type state = EXPECT_FLAG;
-	bool success = false;
 	int index = 0;
 
 	size_t size_increment = 2;
@@ -28,24 +27,36 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	/* arg_i is incremented at the end of the loop */
 	for (int i = 0; arg_i < argc - 1; i++)
 	{
-		success = true;
 		index = 0;
 		bool flag_found = true;
 		
-		enum parsing_type type = 0;
+		enum parsing_type type = undefined;
 		size_t len = strlen(argv[arg_i + 1]);
 		if (state == EXPECT_FLAG)
 		{
 			if (cmp(argv[arg_i], "--strict", "-s"))
 			{
+				if (arg_i + P_FILTERS_ARG_EXP < argc)
+				{
+					err(CMD_MISSING_ARGS);
+				}
+
 				type = strict;
 			}
 			else if (cmp(argv[arg_i], "--excludes", "-x") || scmp(argv[arg_i], "-e"))
 			{
+				if (arg_i + P_FILTERS_ARG_EXP < argc)
+				{
+					err(CMD_MISSING_ARGS);
+				}
+
 				type = exclude;
 			}
 			else if (cmp(argv[arg_i], "--includes", "-i"))
 			{
+				if (arg_i + G_FILTERS_ARG_EXP < argc)
+				{
+				}
 				type = include;
 			}
 			else if (cmp(argv[arg_i], "--absent", "-a"))
@@ -64,7 +75,6 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				}
 				else 
 				{
-					success = false;
 					/* can be improved */
 					invalid_flag(argc, arg_i, argv);
 				}
@@ -123,14 +133,16 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 
 			if (flag_found)
 			{
-				printf("set the character to %c\n", argv[arg_i + 1][0]);
-				data_ptr[i].character = argv[arg_i + 1][0];
-				/* TODO add logic for other types with enums maybe */
 			}
 			else
 			{
 				fprintf(stderr, "error: no valid flag was found");
 			}
+		}
+		else
+		{
+			fprintf(stderr, "Logic error (undefined state)\n");
+			exit(EXIT_FAILURE);
 		}
 
 		if (i > (signed)num_entries)
