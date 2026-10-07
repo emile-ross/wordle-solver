@@ -1,4 +1,4 @@
-CC := gcc
+CC := cc
 # CC := clang
 # CC := zig cc
 

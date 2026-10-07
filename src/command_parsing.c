@@ -135,8 +135,12 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		/* convert_to_struct() returns a pointer to an array of structs allocated on the heap*/
 		struct data_for_parsing *data = convert_to_struct(&num_entries, word_list_is_specified, arguments, num_args, arg_r);
 
-		struct data_for_parsing first_arg = data[0];
-		parsing(parsing_arguments, first_arg);
+
+		for (size_t i = 0; i < num_entries; i++)
+		{
+			printf("index is %d\n", data[i].index);
+			parsing(parsing_arguments, data[i]);
+		}
 
 		/*
 		while (arg_r < num_args)
