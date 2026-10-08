@@ -1,5 +1,7 @@
 #include "include/header.h"
 
+#include <ctype.h>
+
 uint32_t initial_words = 0;
 
 #define filename_len 128
@@ -11,7 +13,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	 * this means all words(in the list) ending in A */
 
 	const int index = query_data.index;
-	const char letter_indexed = query_data.character;
+	const char letter_indexed = toupper(query_data.character);
 	printf("%c is indexed\n", letter_indexed);
 
 
@@ -24,19 +26,11 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	/* in cases where the parsing type is 
 	 * "strict" or "exclude", an index must be specified */
 
-	/* 
-	if (letter_is_indexed && number_arg_index >= parsing_args.num_args)
-	{
-		err(CMD_MISSING_ARGS);
-	}
-	*/
-
 	char (*ptr)[INDEX_LETTERS_WORD] = NULL;
 	uint32_t n_pos_arr = 0;
 
 	printf("%c\n", letter_indexed);
 	printf("%d\n", index);
-
 
 	if (*(parsing_args.first_exec))
 	{
@@ -50,9 +44,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 			exit(1);
 		}
 		
-		bool standard_word_list = true;
-
-
+		bool standard_word_list = true;	/* the built in word lists are considered standard */
 		set_length(parsing_args.w_list, &n_pos_arr, filename);
 
 		ptr = list_match(parsing_args.w_list, &n_pos_arr, standard_word_list);
@@ -158,9 +150,10 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 		}
 		break;
 	case absent: {
+		bool letter_match = false;
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
-			bool letter_match = false;
+			letter_match = false;
 			/* compare the specified letter against the words in a loop */
 			for (int k = 0; k < NUM_LETTERS_WORD; k++)
 			{
