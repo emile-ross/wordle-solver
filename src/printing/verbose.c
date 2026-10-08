@@ -2,10 +2,10 @@
 
 #include <stdarg.h>
 
-void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present)
 #define STR_WRITE(text)\
-	snprintf(str, str_len, "%s", text);
+	buffer_write(NULL, str, str_len, "%s", text);
 
+void verbose_printing(const char *restrict flag, const char letter, int indexed_letter_value, uint32_t affected_words, const bool letter_is_present)
 {
 	/* add colour to options */
 	verbose_print(BOLD_S"%s", flag);

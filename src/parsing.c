@@ -36,16 +36,6 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 
 	printf("%c\n", letter_indexed);
 	printf("%d\n", index);
-	switch(query_data.type)
-	{
-		case undefined:
-			printf("undef\n");
-			break;
-
-		default:
-			printf("Cool\n");
-			break;
-	}
 
 
 	if (*(parsing_args.first_exec))
