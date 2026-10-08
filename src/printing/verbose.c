@@ -7,7 +7,32 @@ void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_
 	/* add colour to options */
 	verbose_print(BOLD_S"%s", flag);
 	verbose_print(" flag caused ");
-	verbose_print(UDRL_S BOLD_S"%d", affected_words);
+	if (affected_words <= 5)
+	{
+		char str[12] = { 0 };
+		switch (affected_words)
+		{
+		case 1:
+			str = "one";
+			break;
+		case 2:
+			str = "two";
+			break;
+		case 3:
+			str = "three";
+			break;
+		case 4:
+			str = "four";
+			break;
+		case 5:
+			str = "five";
+			break;
+		case 6:
+			str = "six";
+			break;
+	}
+	else
+		verbose_print(UDRL_S BOLD_S"%d", affected_words);
 	verbose_print(" word");
 
 	/* craft sentence with appropriate words
