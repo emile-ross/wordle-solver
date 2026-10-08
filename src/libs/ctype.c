@@ -18,6 +18,12 @@ char up_letter(int ch)
 		char ret = (char)(ch - 32);
 		return ret;
 	}
+	else if (!(is_letter((char)ch)))
+	{
+		err(INVALID_LETTER);
+		exit(EXIT_FAILURE);
+	}
+
 
 	return (char)ch;
 }

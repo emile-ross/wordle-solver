@@ -91,7 +91,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				/* TODO free all buffers (prevent memory leak) */
 				err(MULTI_LET_SUPPORT);
 			}
-			data_ptr[i].character = argv[arg_i][0];
+			data_ptr[i].character = up_letter(argv[arg_i][0]);
 			if (data_ptr[i].type == exclude || data_ptr[i].type == strict)
 			{
 				state = EXPECT_INDEX;

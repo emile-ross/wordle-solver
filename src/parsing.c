@@ -1,7 +1,5 @@
 #include "include/header.h"
 
-#include <ctype.h>
-
 uint32_t initial_words = 0;
 
 #define filename_len 128
@@ -13,15 +11,9 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	 * this means all words(in the list) ending in A */
 
 	const int index = query_data.index;
-	const char letter_indexed = toupper(query_data.character);
-	printf("%c is indexed\n", letter_indexed);
 
-
-	if (!(is_letter(letter_indexed)))
-	{
-		err(INVALID_LETTER);
-		exit(1);
-	}
+	/* the letter is uppercased in convert_to_struct() */
+	const char letter_indexed = query_data.character;
 
 	/* in cases where the parsing type is 
 	 * "strict" or "exclude", an index must be specified */
