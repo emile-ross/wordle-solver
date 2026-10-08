@@ -3,33 +3,30 @@
 #include <stdarg.h>
 
 void verbose_printing(char *flag, char letter, int indexed_letter_value, uint32_t affected_words, bool letter_is_present)
+#define STR_WRITE(text)\
+	snprintf(str, str_len, "%s", text);
+
 {
 	/* add colour to options */
 	verbose_print(BOLD_S"%s", flag);
 	verbose_print(" flag caused ");
-	if (affected_words <= 5)
+	if (affected_words <= 3)
 	{
-		char str[12] = { 0 };
+		size_t str_len = 12;
+		char str[str_len];
 		switch (affected_words)
 		{
 		case 1:
-			str = "one";
+			STR_WRITE("one");
 			break;
 		case 2:
-			str = "two";
+			STR_WRITE("two");
 			break;
 		case 3:
-			str = "three";
+			STR_WRITE("three");
 			break;
-		case 4:
-			str = "four";
-			break;
-		case 5:
-			str = "five";
-			break;
-		case 6:
-			str = "six";
-			break;
+		}
+		verbose_print(UDRL_S BOLD_S"%s", str);
 	}
 	else
 		verbose_print(UDRL_S BOLD_S"%d", affected_words);
