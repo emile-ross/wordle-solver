@@ -136,7 +136,7 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		struct data_for_parsing *data = convert_to_struct(&num_entries, word_list_is_specified, arguments, num_args, arg_r);
 
 
-		for (size_t i = 0; i < num_entries; i++)
+		for (size_t i = 0; i < num_entries - 1; i++)
 		{
 			printf("index is %d\n", data[i].index);
 			parsing(parsing_arguments, data[i]);

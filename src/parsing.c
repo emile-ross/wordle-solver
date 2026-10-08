@@ -34,6 +34,20 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	char (*ptr)[INDEX_LETTERS_WORD] = NULL;
 	uint32_t n_pos_arr = 0;
 
+	printf("%c\n", letter_indexed);
+	printf("%d\n", index);
+	switch(query_data.type)
+	{
+		case undefined:
+			printf("undef\n");
+			break;
+
+		default:
+			printf("Cool\n");
+			break;
+	}
+
+
 	if (*(parsing_args.first_exec))
 	{
 		/* initialise the filename with zero 
@@ -153,7 +167,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 			}
 		}
 		break;
-	case absent:
+	case absent: {
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
 			bool letter_match = false;
@@ -173,8 +187,12 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 			}
 		}
 		break;
+	}
 	case undefined:
 		fprintf(stderr, "error: undefined case in parsing.c switch()\n");
+		exit(1);
+	default:
+		fprintf(stderr, "error: unknown case in switch (parsing.c)\n");
 		exit(1);
 	}
 
