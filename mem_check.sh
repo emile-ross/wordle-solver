@@ -2,6 +2,9 @@
 
 # execute command & check for memory leaks
 #
-valgrind --leak-check=full --log-file=log-valgrind.log ./wordle
+#
+filename=$(date --iso-8601="minutes")
+valgrind --leak-check=full --log-file=$filename ./wordle -s A 1 -w all -s l 2
+
 
 
