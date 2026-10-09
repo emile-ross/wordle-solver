@@ -126,7 +126,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				fprintf(stderr, "User index is out of bounds (minimum 0, maximum %d)\n", NUM_LETTERS_WORD);
 				exit(EXIT_FAILURE);
 			}
-			data_ptr[i].index = (int)value;
+			data_ptr[i].index = (int)value - 1;
 
 			i++;
 			state = EXPECT_FLAG;

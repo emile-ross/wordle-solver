@@ -5,6 +5,7 @@
 #define STR_WRITE(text)\
 	buffer_write(NULL, str, str_len, "%s", text);
 
+/* TODO: take in argument in order to fix the program saying (with) instead of without in the print */
 void verbose_printing(const char *restrict flag, const char letter, int indexed_letter_value, uint32_t affected_words, const bool letter_is_present)
 {
 	/* add colour to options */

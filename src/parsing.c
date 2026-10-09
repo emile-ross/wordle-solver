@@ -204,7 +204,13 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	/* display verbose message if verbose mode is enabled */
 	if (verbose)
 	{
-		verbose_printing(mode_to_text(query_data.type), letter_indexed, index, n_possible_answers, true);
+		bool letter_is_indexed = true;
+		if (query_data.type == absent || query_data.type == include)
+		{
+			letter_is_indexed = false;
+		}
+
+		verbose_printing(mode_to_text(query_data.type), letter_indexed, index, n_possible_answers, letter_is_indexed);
 	}
 
 	/* offset the flag_r iterator by the number of arguments we used here 
