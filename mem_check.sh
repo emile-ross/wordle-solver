@@ -2,6 +2,6 @@
 
 # execute command & check for memory leaks
 #
-valgrind --leak-check=full ./wordle
+valgrind --leak-check=full --log-file=log-valgrind.log ./wordle
 
 
