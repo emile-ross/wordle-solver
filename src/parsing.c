@@ -212,21 +212,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 
 		verbose_printing(mode_to_text(query_data.type), letter_indexed, index, n_possible_answers, letter_is_indexed);
 	}
-
-	/* offset the flag_r iterator by the number of arguments we used here 
-	 * ("-s A 1" would count as 3) */
-	if (query_data.type == strict || query_data.type == exclude)
-	{
-		/* the number of arguments expected when no index is specified (2)
-		 * example: "-a Z" (any word without Z) */
-		*(parsing_args.flag_r) += P_FILTERS_ARG_EXP;
-	}
-	else
-	{
-		/* the number of arguments expected when a letter index is specified (3) 
-		 * example: "-s A 1" (any word with A at the first position) */
-	    	*(parsing_args.flag_r) += G_FILTERS_ARG_EXP;
-	}
+	/* incrementing arg_r is useless since we now handle parsing the user input in march_store.c */
 	
 	*(parsing_args.first_exec) = false;
 	
