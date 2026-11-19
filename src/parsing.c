@@ -87,6 +87,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	switch (query_data.type)
 	{
 	case strict:
+	{
 		bool first_character = false;
 		bool prev_character_found = false;
 	
@@ -115,6 +116,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 			}
 		}
 		break;
+	}
 	case exclude:
 		for (uint32_t j = 0; j < n_pos_arr; j++)
 		{
