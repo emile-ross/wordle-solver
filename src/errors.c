@@ -1,5 +1,9 @@
 #include "include/header.h"
 
+#define write_error(str) \
+	snprintf(error_message, initial_string_size - 1, "%s", str);
+	
+
 #define init_var_value (-255)
 
 int64_t err_buffer_size = -1;
@@ -11,7 +15,7 @@ void err(error_codes error_code)
 	bool report_issue = false;
 	bool buffer_related = false;
 
-	char *error_message = NULL;
+	char error_message[initial_string_size] = { 0 };
 	/* TODO fix overwrite of pointer allocated with malloc() */
 	switch (error_code)
     	{

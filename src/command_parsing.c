@@ -143,76 +143,6 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 		}
 
 		free(data);
-
-		/*
-		while (arg_r < num_args)
-		{
-			if (cmp(arguments[arg_r], "--strict", "-s"))
-			{
-				char *letter_str = get_letters(arguments, arg_r, strict, &index);
-				int i = 0;
-
-				do
-				{
-					parsing_arguments.letter_indexed = letter_str[i];
-					parsing(parsing_arguments, strict);
-					i++;
-				} while (letter_str[i] != '\0');
-			}
-			else if (cmp(arguments[arg_r], "--excludes", "-x") || scmp(arguments[arg_r], "-e"))
-			{
-				char *letter_str = get_letters(arguments, arg_r, exclude, &index);
-				int i = 0;
-				do
-				{
-					parsing_arguments.letter_indexed = letter_str[i];
-
-					parsing(parsing_arguments, exclude);
-					i++;
-				} while (letter_str[i] != '\0');
-			}
-			else if (cmp(arguments[arg_r], "--includes", "-i"))
-			{
-				char *letter_str = get_letters(arguments, arg_r, include, &index);
-				int i = 0;
-				do
-				{
-					parsing_arguments.letter_indexed = letter_str[i];
-
-					parsing(parsing_arguments, include);
-					i++;
-				} while (letter_str[i] != '\0');
-			}
-			else if (cmp(arguments[arg_r], "--absent", "-a"))
-			{
-				char *letter_str = get_letters(arguments, arg_r, absent, &index);
-				int i = 0;
-				do
-				{
-					parsing_arguments.letter_indexed = letter_str[i];
-
-					parsing(parsing_arguments, absent);
-					i++;
-				} while (letter_str[i] != '\0');
-			}
-			else
-			{
-				if (word_list_is_specified)
-				{
-					if (cmp(arguments[arg_r], word_list_long_flag, word_list_flag))
-					{
-						arg_r += WORD_LIST_ARG_EXP;
-					}
-				}
-				else 
-				{
-					invalid_flag(num_args, arg_r, arguments);
-					break;
-				}
-			}
-			valid_expression = true;
-		}
-		*/
 	}
 	else
 	{
@@ -318,7 +248,6 @@ char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode
 
 		*(index) = (int)user_index;
 	}
-
 
 	if (str_len > 1)
 	{
