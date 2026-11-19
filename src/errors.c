@@ -16,128 +16,127 @@ void err(error_codes error_code)
 	bool buffer_related = false;
 
 	char error_message[initial_string_size] = { 0 };
-	/* TODO fix overwrite of pointer allocated with malloc() */
+
 	switch (error_code)
     	{
 	case CMD_MISSING_ARGS:
-		error_message = "Missing arguments";
+		write_error("Missing arguments");
 		break;
 		
 	case NEGATIVE_INDEX:
-		error_message = "Index value is negative";
+		write_error("Index value is negative");
 		/* this error message falls through and triggers CMD_INDEX_BOUNDS on purpose because both errors are heavily related */
 		__attribute__((fallthrough));
 
 	case INTEGER_BOUNDS:
-		error_message = "Integer is out of bounds";
+		write_error("Integer is out of bounds");
 		break;
 
 	case CMD_INDEX_BOUNDS:
-		error_message = "Index value must be between 1 and 5 (inclusive)";
+		write_error("Index value must be between 1 and 5 (inclusive)");
 		break;
 		
 	case FEAT_NOT_IMPLEMENTED:
-		error_message = "This feature hasn't been implemented";
+		write_error("This feature hasn't been implemented");
 		break;
 
 	case NO_SUCH_FILE:
-		error_message = "Failed to open file\nNo such file or directory.";
+		write_error("Failed to open file\nNo such file or directory.");
 		break;
 		
 	case CMD_INVALID_ARG:
-		error_message = "You provided an invalid argument, here is a list of all possible arguments:";
+		write_error("You provided an invalid argument, here is a list of all possible arguments:");
 		help_message();
 		break;
 		
 	case UNKNOWN_WORD_LIST:
-		error_message = "Unknown word list";
+		write_error("Unknown word list");
 		break;
 		
 	case NO_POSSIBLE_ANSWERS:
-		error_message = "No possible answers.\nTry editing your filters.";
+		write_error("No possible answers.\nTry editing your filters.");
 		break;
 
 	case WORD_TOO_LONG:
-		error_message = "Word is too long";
+		write_error("Word is too long");
 		buffer_related = true;
 		break;
 
 	case WORD_TOO_SHORT:
-		error_message = "Word is too short";
+		write_error("Word is too short");
 		buffer_related = true;
 		break;
 
 	case FORMATTING_ERROR:
-		error_message = "Formatting error\nThe string provided doesn't fit within the bounds";
+		write_error("Formatting error\nThe string provided doesn't fit within the bounds");
 		buffer_related = true;
 		report_issue = true;
 		break;
 
 	case MALLOC_FAIL:
-		fprintf(stderr, "Failed to allocate memory\nThe call to malloc() failed and returned NULL");
+		write_error("Failed to allocate memory\nThe call to malloc() failed and returned NULL");
 		exit(1);
 
 	case FILENAME_FAIL:
-		error_message = "Failed to get the filename for the word list";
+		write_error("Failed to get the filename for the word list");
 		break;
 
 	case FILEPATH_FAIL:
-		error_message =
-			"Failed to get the full filepath to the word list file\nReport this bug, use a custom word list in the meantime";
+		write_error("Failed to get the full filepath to the word list file\nReport this bug, use a custom word list in the meantime");
 		report_issue = true;
 		break;
 
 	case INPUT_FAIL:
-		error_message = "Failed to parse input from stdin";
+		write_error("Failed to parse input from stdin");
 		break;
 
 	case INVALID_WORD:
 		/* User is at fault */
-		error_message = "The word provided is invalid";
+		write_error("The word provided is invalid");
 		break;
 	
 	case INVALID_LETTER:
 		/* User is at fault */
-		error_message = "The letter you provided isn't valid (it isn't composed of letters)";
+		write_error("The letter you provided isn't valid (it isn't composed of letters)");
 		break;
 
 	case INVALID_INDEX:
 		/* User is at fault */
-		error_message = "The index into the word is invalid";
+		write_error("The index into the word is invalid");
 		break;
 
 	case VERBOSE_FAIL:
-		error_message = "Failed to write the verbose message\n";
+		write_error("Failed to write the verbose message\n");
 		report_issue = true;
 		break;
 
 	case BUFFER_WRITE_FAIL:
-		error_message = "Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it";
+		write_error("Buffer write failed\nThe string provided doesn't fit within the bounds, snprintf() made an invalid call to it");
 		report_issue = true;
 		/* buffer_related = true;
 		 * make sure the variable is initialised before un commenting this line */
 		break;
 
 	case ZERO_SIZED_BUF:
-		error_message = "A zero-sized buffer can't be written into (zero-sized buffer)\n";
+		write_error("A zero-sized buffer can't be written into (zero-sized buffer)\n");
 		report_issue = true;
 		buffer_related = true;
 		break;
 
 	case INVALID_CONFIG:
-		error_message = "Fix the errors in the src/config.c file\n";
+		write_error("Fix the errors in the src/config.c file\n");
 		break;
 
 	case UNDEFINED_LIST:
-		error_message = "The word list was never defined\n";
+		write_error("The word list was never defined\n");
 		report_issue = true;
 		break;
 	case MULTI_LET_SUPPORT:
-		error_message = "The exclude & strict modes do not support mutiple letter\n";
+		write_error("The exclude & strict modes do not support mutiple letter\n");
 		break;
 
 	case NO_WORD_LIST:
-		error_message = "The word list is not a word list (no_word_list)\n";
+		write_error("The word list is not a word list (no_word_list)\n");
 		report_issue = true;
 		break;
 	
