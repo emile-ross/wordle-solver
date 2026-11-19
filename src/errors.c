@@ -11,7 +11,7 @@ void err(error_codes error_code)
 	bool report_issue = false;
 	bool buffer_related = false;
 
-	char *error_message = malloc(128);
+	char *error_message = NULL;
 	/* TODO fix overwrite of pointer allocated with malloc() */
 	switch (error_code)
     	{
@@ -174,8 +174,6 @@ void err(error_codes error_code)
 
 		/* write to error_msg_base buffer */
 		int ret = snprintf(full_error_message, (size_t)message_size, message_template, program_name, error_message);
-		if (error_message != NULL)
-			free(error_message);
 
 		check_buf(ret, message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
 

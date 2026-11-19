@@ -142,6 +142,8 @@ void command_parsing(int num_args, int arg_r, const char *arguments[], bool *fin
 			parsing(parsing_arguments, data[i]);
 		}
 
+		free(data);
+
 		/*
 		while (arg_r < num_args)
 		{
