@@ -158,32 +158,29 @@ void err(error_codes error_code)
 		}
 	}
 
-	if (error_message != NULL)
+	char *message_template = "%s: %s";
+
+	/* calculate string length */
+	int message_size = 1 + snprintf(NULL, 0, message_template, program_name, error_message);
+	char *full_error_message = malloc((size_t)message_size);	/* allocate memory for the base error message string */
+	if (error_code == MALLOC_FAIL)
 	{
-		char *message_template = "%s: %s";
-
-		/* calculate string length */
-		int message_size = 1 + snprintf(NULL, 0, message_template, program_name, error_message);
-		char *full_error_message = malloc((size_t)message_size);	/* allocate memory for the base error message string */
-		if (error_code == MALLOC_FAIL)
+		if (full_error_message == NULL)
 		{
-			if (full_error_message == NULL)
-			{
-				/* do not call err(MALLOC_FAIL); in order to avoid recursion and a possible stack overflow */
-				fprintf(stderr, "Failed to allocate memory\nThe call to malloc() failed and returned NULL");
-				exit(1);
-			}
+			/* do not call err(MALLOC_FAIL); in order to avoid recursion and a possible stack overflow */
+			fprintf(stderr, "Failed to allocate memory\nThe call to malloc() failed and returned NULL");
+			exit(1);
 		}
-
-		/* write to error_msg_base buffer */
-		int ret = snprintf(full_error_message, (size_t)message_size, message_template, program_name, error_message);
-
-		check_buf(ret, message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
-
-		printf(ANSI_RED"%s"STYLE_END, full_error_message);
-
-		free(full_error_message);
 	}
+
+	/* write to error_msg_base buffer */
+	int ret = snprintf(full_error_message, (size_t)message_size, message_template, program_name, error_message);
+
+	check_buf(ret, message_size, (void*)full_error_message);	/* check buffer for possible truncation  */
+
+	printf(ANSI_RED"%s"STYLE_END, full_error_message);
+
+	free(full_error_message);
 
 	if (report_issue)
 	{

@@ -21,8 +21,11 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	char (*ptr)[INDEX_LETTERS_WORD] = NULL;
 	uint32_t n_pos_arr = 0;
 
-	printf("%c\n", letter_indexed);
-	printf("%d\n", index);
+	if (verbose)
+	{
+		printf("%c\n", letter_indexed);
+		printf("%d\n", index);
+	}
 
 	if (*(parsing_args.first_exec))
 	{
