@@ -58,7 +58,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	char up_letter(int ch);
 
 /* command_parsing.c */
-	void command_parsing(int num_args, int flag_reading_index, const char *arguments[], bool *find_match_mode);
+	void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode);
 	char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode_type, int *index);
 	bool check_for_pkg(const char *restrict cmd);
 

@@ -5,7 +5,7 @@ char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 uint32_t n_possible_answers;
 ALL_WORD_LISTS word_list;
 
-int main(int argc, const char *argv[])
+int c_main(const int argc, const char *restrict argv[])
 {
 	valid_expression = false;
 	bool find_match_mode = true; /* true by default
