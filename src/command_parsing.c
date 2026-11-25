@@ -5,7 +5,7 @@
 bool valid_expression;
 bool append_flag_ignore_msg;
 
-void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode)
+void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode, int *num_possible_answers)
 {
 	bool first_execution = true;
 
@@ -137,7 +137,7 @@ void command_parsing(int num_args, int arg_r, const char *restrict arguments[], 
 		for (size_t i = 0; i < num_entries - 1; i++)
 		{
 			printf("index is %d\n", data[i].index);
-			parsing(parsing_arguments, data[i]);
+			parsing(parsing_arguments, data[i], num_possible_answers);
 		}
 
 		free(data);
@@ -294,23 +294,21 @@ bool check_for_pkg(const char *restrict cmd)
 	{
 		return false;
 	}
-	else
+	else if (strlen(cmd) > 2)
 	{
-		if (strlen(cmd) > 2)
+		if ((cmd[0] == '.') && (cmd[1] == '/'))
 		{
-			if ((cmd[0] == '.') && (cmd[1] == '/'))
-			{
-				return false;
-			}
-			else if (cmd[0] == '~')
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return false;
+		}
+		else if (cmd[0] == '~')
+		{
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
+	
 	return false;
 }

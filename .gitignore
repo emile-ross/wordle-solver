@@ -1,5 +1,6 @@
 wordle
 wordle-solver
+Cargo.lock
 *.o
 src/*.o
 target/
