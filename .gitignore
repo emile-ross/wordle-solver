@@ -2,6 +2,7 @@ wordle
 wordle-solver
 *.o
 src/*.o
+target/
 *_SECRET.asc
 ID_RSA
 id_rsa
