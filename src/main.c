@@ -2,11 +2,11 @@
 
 char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-uint32_t n_possible_answers;
 ALL_WORD_LISTS word_list;
 
 int c_main(const int argc, const char *restrict argv[])
 {
+	int32_t num_possible_answers = 0;
 	valid_expression = false;
 	bool find_match_mode = true; /* true by default
 	 * true: finds all possible words matching all criterias
@@ -17,7 +17,7 @@ int c_main(const int argc, const char *restrict argv[])
 		int flag_r = ARGS_BEFORE_FLAG_BASE;
 		/* execute command parsing and provide the address of find_match_mode
 		 * in order to then dereference the address */
-		command_parsing(argc, flag_r, argv, &find_match_mode);
+		command_parsing(argc, flag_r, argv, &find_match_mode, &num_possible_answers);
 	}
 	else
 	{
@@ -26,7 +26,7 @@ int c_main(const int argc, const char *restrict argv[])
 	}
 
 	if (find_match_mode)
-		print_as_table(table_width, n_possible_answers, awsum_table_mode, filtered_arr);
+		print_as_table(table_width, num_possible_answers, awsum_table_mode, filtered_arr);
 
 	return 0;
 }

@@ -45,7 +45,7 @@
 	extern int64_t err_buffer_write;
 
 /* parsing.c */
-	int parsing(struct prs_args parsing_args, struct data_for_parsing query_data);
+	int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, int *num_possible_answers);
 
 void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[]);
 
@@ -58,7 +58,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	char up_letter(int ch);
 
 /* command_parsing.c */
-	void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode);
+	void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode, int *num_possible_answers);
 	char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode_type, int *index);
 	bool check_for_pkg(const char *restrict cmd);
 
@@ -74,7 +74,6 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	extern int ARGS_BEFORE_CUR_FLAG;
 	extern ALL_WORD_LISTS word_list;
 	extern ALL_WORD_LISTS default_word_list;
-	extern uint32_t n_possible_answers;
 	extern const char *word_list_flag;
 	extern const char *word_list_long_flag;
 

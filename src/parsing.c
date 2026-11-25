@@ -4,7 +4,7 @@ uint32_t initial_words = 0;
 
 #define filename_len 128
 
-int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
+int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, int *num_possible_answers)
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)
@@ -45,14 +45,14 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 		ptr = list_match(parsing_args.w_list, &n_pos_arr, standard_word_list);
 	
 		/* since this is the first execution, it will parse through the entire array */
-		n_possible_answers = 0;	
+		*num_possible_answers = 0;	
 		/* reset word count buffer this needs to be reset only once */
 	}
 	else
 	{
 		/* rename variables */
 		ptr = (char (*)[INDEX_LETTERS_WORD])filtered_arr;
-		n_pos_arr = (uint16_t)n_possible_answers;
+		n_pos_arr = (uint16_t)*num_possible_answers;
 	}
 
 	/* index is the index of the letter the user is looking for
@@ -181,12 +181,9 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 		free(ptr);
 	}
 	
-	/* set the global "n_possible_answers" to "temp_count" local variable 
-	 * this is done in order to prevent breaking the other processes using the global 
-	 * it also avoids modifying the global all the time */
-	n_possible_answers = temp_count;
+	*num_possible_answers = temp_count;
 
-	if (n_possible_answers == 0)
+	if (*num_possible_answers == 0)
 	{
 		/* free ptr before exiting */
 		if (*(parsing_args.first_exec))
@@ -200,7 +197,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 	}
 
 	/* Write to filtered array */
-	for (uint32_t k = 0; k < n_possible_answers; k++)
+	for (uint32_t k = 0; k < (unsigned)*num_possible_answers; k++)
 	{
 		/* call buffer_write as replacement for strcpy() */
 		buffer_write(NULL, filtered_arr[k], INDEX_LETTERS_WORD, filtered_arr_temp[k]);
@@ -215,7 +212,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data)
 			letter_is_indexed = false;
 		}
 
-		verbose_printing(mode_to_text(query_data.type), letter_indexed, index, n_possible_answers, letter_is_indexed);
+		verbose_printing(mode_to_text(query_data.type), letter_indexed, index, *num_possible_answers, letter_is_indexed);
 	}
 	/* incrementing arg_r is useless since we now handle parsing the user input in march_store.c */
 	
