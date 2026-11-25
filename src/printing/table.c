@@ -1,11 +1,11 @@
 #include "../include/header.h"
 
-void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
+void print_as_table(uint16_t width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {
 	/* hide elements */
 	uint64_t hidden_elements = 0;
 	bool hidden_msg = false;
-	if (cap_total_elements && element_cap < total_elements)
+	if (cap_total_elements && element_cap < (unsigned)total_elements)
 	{
 		hidden_elements = total_elements - element_cap;
 		total_elements = element_cap;
@@ -32,7 +32,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 				uint64_t index = base_count + base_offset;
 			
 				/* bounds checking (avoids printing garbage data */
-				if (index < total_elements)
+				if (index < (unsigned)total_elements)
 				{
 					printf("%s ", all_answers_print[index]);
 				}
@@ -42,7 +42,7 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	}
 	else
 	{
-		for (uint64_t i = 0; i < total_elements; i++)
+		for (int32_t i = 0; i < total_elements; i++)
 		{
 		    	if (i % width == 0)
 			{
@@ -78,9 +78,9 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 	size_t size = 24;
 	char *percent = smalloc(size);
 
-	if (n_possible_answers != 0)
+	if (total_elements != 0)
 	{
-		remaining_percent = (float)(((double)n_possible_answers / (double)initial_words) * 100);
+		remaining_percent = (float)(((double)total_elements / (double)initial_words) * 100);
 
 		if (remaining_percent < 0.25F)
 		{
@@ -101,13 +101,13 @@ void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, ch
 
 	}
 
-	printf(BOLD_S"%d possible words (%s%% of initial words)\n"STYLE_END, n_possible_answers, percent);
+	printf(BOLD_S"%d possible words (%s%% of initial words)\n"STYLE_END, total_elements, percent);
 	if (percent != NULL)
 		free(percent);
 
 
 	/* initial_words is initialised in src/parsing.c in the parsing() fn */
-	printf("( "BOLD_S"%d / %d"STYLE_END" possible words)\n", n_possible_answers, initial_words);
+	printf("( "BOLD_S"%d / %d"STYLE_END" possible words)\n", total_elements, initial_words);
 
 	if (hidden_msg)
 	{

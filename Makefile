@@ -38,7 +38,8 @@ ALL_FLAGS = -Wall -Wextra -Wpedantic -std=c99 -Wconversion -Wshadow -Wswitch-enu
 OUT = -o $(BINARY_FILE)
 
 wordle:
-	$(CC) $(ALL_FP) $(OUT) -O2
+	cargo clean
+	cargo build
 
 install: wordle
 	sudo cp -f $(BINARY_FILE) /usr/bin/
@@ -69,4 +70,4 @@ android: wordle
 	@echo "execute it with ~/$(BINARY_FILE)"
 
 clean:
-	rm $(BINARY_FILE)
+	rm $(BINARY_FILE) *.o

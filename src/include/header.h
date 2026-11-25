@@ -102,7 +102,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	char *mode_to_text(enum parsing_type type);
 	void verbose_printing(const char *restrict flag, const char letter, int indexed_letter_value, uint32_t affected_words, const bool letter_is_present);
 	void verbose_print(const char *restrict format, ...);
-	void print_as_table(uint16_t width, uint64_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
+	void print_as_table(uint16_t width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 
 /* file related */
