@@ -1,15 +1,26 @@
-use std::ffi::{CStr, c_char};
+use std::ffi::CString;
+use std::os::raw::{c_char, c_int};
 
 fn main()
 {
-    let arguments: Vec<String> = std::env::args().collect();
-    let argc: i32 = std::env::args().count().try_into().unwrap();
+    let arguments: Vec<CString> = std::env::args()
+        .map(|arg| CString::new(arg).unwrap())
+        .collect();
+
+    let mut argv: Vec<*const c_char> = arguments
+        .iter()
+        .map(|arg| arg.as_ptr())
+        .collect();
+
+    argv.push(std::ptr::null());
+
+    let argc = (arguments.len()) as c_int;
+
     unsafe {
-        c_main(argc, arguments);
+        c_main(argc, argv.as_ptr());
     }
-    println!("Hi");
 }
 
 unsafe extern "C" {
-    fn c_main(argc: i32, argv: Vec<String>) -> i32;
+    fn c_main(argc: c_int, argv: *const *const c_char) -> c_int;
 }
