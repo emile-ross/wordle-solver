@@ -16,7 +16,7 @@ void validate_word(char *command_word_string)
 	{
 		/* word is NULL therefore it can't be used */
 		err(INVALID_WORD);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	for (int i = en_nyt; i != custom_list; i++)
@@ -46,7 +46,7 @@ void validate_word(char *command_word_string)
 				{
 					fprintf(stderr, "Invalid index to word (out of bounds)\n");
 					fprintf(stderr, "lower bound: %d\nupper bound: %d\nindex: %d\n", lb, ub, mid);
-					exit(1);
+					exit(EXIT_FAILURE);
 				}
 
 				ret = strcmp(command_word_string, ptr[mid]);
@@ -122,7 +122,7 @@ int middle(int64_t lb, int64_t ub)
 	else if (dif < 0)
 	{
 		fprintf(stderr, "Invalid bounds, lower bound \"%ld\" lb is greater than upper bound \"%ld\"\n", lb, ub);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	return (int)(lb + (dif / 2));
 }

@@ -25,5 +25,7 @@ fn main()
     ];
 
     cc::Build::new().files(file_paths)
+        .debug(true)
+        .warnings(true)
         .compile("c_unsafe_functions");
 }

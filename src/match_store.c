@@ -19,7 +19,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 	data_ptr = calloc(num_entries + 1, sizeof(struct data_for_parsing));
 
 	data_ptr[0].type = undefined;
-	data_ptr[0].index = -1;
+	data_ptr[0].index = 0;
 	data_ptr[0].character = '\0';
 
 	int i = 0;
@@ -105,7 +105,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		else if (state == EXPECT_INDEX)
 		{
 			char *endptr = NULL;
-			long value = strtol(argv[arg_i], &endptr, 10);
+			int64_t value = strtol(argv[arg_i], &endptr, 10);
 			
 			if (*endptr == argv[arg_i][0])
 			{
@@ -121,7 +121,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				err(INVALID_INDEX);
 			}
 
-			if (value < 0 || value > NUM_LETTERS_WORD)
+			if (value <= 0 || value > NUM_LETTERS_WORD)
 			{
 				fprintf(stderr, "User index is out of bounds (minimum 0, maximum %d)\n", NUM_LETTERS_WORD);
 				exit(EXIT_FAILURE);

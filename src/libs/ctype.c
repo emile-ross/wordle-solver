@@ -13,7 +13,7 @@ bool is_letter(const char ch)
 
 char up_letter(int ch)
 {
-	if (ch > 96 && ch < 123)
+	if (ch >= 'a' && ch <= 'z')
 	{
 		char ret = (char)(ch - 32);
 		return ret;
