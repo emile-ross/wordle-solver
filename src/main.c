@@ -2,8 +2,6 @@
 
 char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
-ALL_WORD_LISTS word_list;
-
 int c_main(const int argc, const char *restrict argv[])
 {
 	uint32_t num_possible_answers = 0;

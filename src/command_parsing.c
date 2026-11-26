@@ -15,17 +15,19 @@ void command_parsing(int num_args, int arg_r, const char *restrict arguments[], 
 	installed_package = check_for_pkg(arguments[0]);
 
 	/* set the default word list as the nyt word list */
-	word_list = default_word_list;
 	bool word_list_is_specified = false;
 
 	uint8_t n_valid_args = 0;
 	int valid_args_index[max_valid_args];
 	append_flag_ignore_msg = false;	/* if a "ignored flag" message should appear at the end */
 
+	ALL_WORD_LISTS word_list;	/* enum for the word list picked */
+	word_list = default_word_list;
+
 	for (uint8_t i = 0; i < num_args; i++)
 	{
 		/* compare argument against word list (-w flag) */
-		if (cmp(arguments[i], word_list_long_flag, word_list_flag))
+		if (cmp(arguments[i], "--word-list", "-w"))
 		{
 			valid_args_index[n_valid_args] = i;
 			n_valid_args++;

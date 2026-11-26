@@ -66,7 +66,7 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 				printf("No flag found\n");
 				if (list_specified)
 				{
-					if (cmp(argv[arg_i], word_list_long_flag, word_list_flag))
+					if (cmp(argv[arg_i], "--word-list", "-w"))
 					{
 						arg_i += WORD_LIST_ARG_EXP;
 					}

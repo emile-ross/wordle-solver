@@ -72,10 +72,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 
 /* global variables defined in globals.c */
 	extern int ARGS_BEFORE_CUR_FLAG;
-	extern ALL_WORD_LISTS word_list;
 	extern ALL_WORD_LISTS default_word_list;
-	extern const char *word_list_flag;
-	extern const char *word_list_long_flag;
 
 	extern bool valid_expression;
 	extern bool append_flag_ignore_msg;
