@@ -39,7 +39,7 @@ OUT = -o $(BINARY_FILE)
 
 wordle:
 	cargo clean
-	cargo build
+	cargo build --release -vv
 
 install: wordle
 	sudo cp -f $(BINARY_FILE) /usr/bin/
