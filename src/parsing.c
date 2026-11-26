@@ -4,7 +4,7 @@ uint32_t initial_words = 0;
 
 #define filename_len 128
 
-int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, int *num_possible_answers)
+int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, uint32_t *num_possible_answers)
 {
 	/* this is the way this interprets characters
 	 * execute(./binary) flag(-s) letter_position(5) letter(A)

@@ -1,6 +1,6 @@
 #include "../include/header.h"
 
-void print_as_table(uint16_t width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
+void print_as_table(uint16_t width, uint32_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD])
 {
 	/* hide elements */
 	uint64_t hidden_elements = 0;
@@ -8,7 +8,8 @@ void print_as_table(uint16_t width, int total_elements, bool awsum_mode, char al
 	if (cap_total_elements && element_cap < (unsigned)total_elements)
 	{
 		hidden_elements = total_elements - element_cap;
-		total_elements = element_cap;
+		/* cast has no effect since total_elements has to be greater anyway */
+		total_elements = (uint32_t)element_cap;
 
 		if (hidden_elements > 0)
 		{
@@ -42,7 +43,7 @@ void print_as_table(uint16_t width, int total_elements, bool awsum_mode, char al
 	}
 	else
 	{
-		for (int32_t i = 0; i < total_elements; i++)
+		for (uint32_t i = 0; i < total_elements; i++)
 		{
 		    	if (i % width == 0)
 			{

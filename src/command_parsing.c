@@ -5,7 +5,7 @@
 bool valid_expression;
 bool append_flag_ignore_msg;
 
-void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode, int *num_possible_answers)
+void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode, uint32_t *num_possible_answers)
 {
 	bool first_execution = true;
 

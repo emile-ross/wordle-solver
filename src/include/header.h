@@ -45,7 +45,7 @@
 	extern int64_t err_buffer_write;
 
 /* parsing.c */
-	int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, int *num_possible_answers);
+	int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, uint32_t *num_possible_answers);
 
 void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char filename[]);
 
@@ -58,7 +58,7 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	char up_letter(int ch);
 
 /* command_parsing.c */
-	void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode, int *num_possible_answers);
+	void command_parsing(int num_args, int arg_r, const char *restrict arguments[], bool *find_match_mode, uint32_t *num_possible_answers);
 	char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode_type, int *index);
 	bool check_for_pkg(const char *restrict cmd);
 
@@ -101,12 +101,12 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	char *mode_to_text(enum parsing_type type);
 	void verbose_printing(const char *restrict flag, const char letter, int indexed_letter_value, uint32_t affected_words, const bool letter_is_present);
 	void verbose_print(const char *restrict format, ...);
-	void print_as_table(uint16_t width, int total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
+	void print_as_table(uint16_t width, uint32_t total_elements, bool awsum_mode, char all_answers_print[NUM_ALL_WORDS][INDEX_LETTERS_WORD]);
 
 
 /* file related */
 	char (*read_words(char *file_path, uint32_t *num_words))[6];
-	uint16_t get_num_lines(char *file_path);
+	uint16_t get_num_lines(const char *restrict file_path);
 	char *get_filename(ALL_WORD_LISTS word_list_type);
 	char *get_custom_file(char *buffer, size_t buffer_size);
 	extern char *custom_filename;	/* defined in functions.c */

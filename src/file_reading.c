@@ -1,7 +1,7 @@
 #include "include/header.h"
 
 /* there's no way there is more than 65535 words (can be changed to 32bit */
-uint16_t get_num_lines(char *file_path)
+uint16_t get_num_lines(const char *restrict file_path)
 {
 	if (verbose)
 	{
@@ -46,12 +46,7 @@ char (*read_words(char *file_path, uint32_t *num_words))[6]
 	/* allocate memory for all words
 	 * multiply the size of 1 word by the number of words to get the total size */
 	size_t file_buffer_size = (*num_words * sizeof(char[7]));	/* for reading from the file directly */
-	char (*file_buf)[7] = malloc(file_buffer_size);
-	if (file_buf == NULL)
-	{
-		err(MALLOC_FAIL);
-		exit(1);
-	}
+	char (*file_buf)[7] = smalloc(file_buffer_size);
 
 	size_t word_list_size = (*num_words * sizeof(char[7]));
 	char (*ptr)[INDEX_LETTERS_WORD] = smalloc(word_list_size);

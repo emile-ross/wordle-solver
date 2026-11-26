@@ -6,7 +6,7 @@ ALL_WORD_LISTS word_list;
 
 int c_main(const int argc, const char *restrict argv[])
 {
-	int32_t num_possible_answers = 0;
+	uint32_t num_possible_answers = 0;
 	valid_expression = false;
 	bool find_match_mode = true; /* true by default
 	 * true: finds all possible words matching all criterias
