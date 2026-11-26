@@ -1,6 +1,7 @@
 #include "include/header.h"
 
 uint32_t initial_words = 0;
+char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 #define filename_len 128
 

@@ -34,12 +34,12 @@ void set_length(ALL_WORD_LISTS word_list_type, uint32_t *(number_of_words), char
 	case undefined_list:
 		fprintf(stderr, "error in get_filename()\n");
 		err(UNDEFINED_LIST);
-		exit(1);
+		exit(EXIT_FAILURE);
 
 	case no_word_list:
 		fprintf(stderr, "error in get_filename()\n");
 		err(NO_WORD_LIST);
-		exit(1);
+		exit(EXIT_FAILURE);
 		
 	default:
 		err(UNKNOWN_WORD_LIST);
@@ -53,10 +53,10 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 
 	if (word_list_enum == custom_list)
 	{
-		if (custom_filename == NULL)
+		if (!custom_filename)
 		{
 			fprintf(stderr, "error: custom_filename is NULL (it hasn't been allocated yet)\n");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 
 		if (buffer_write(NULL, filename, max_filename_length, custom_filename) != 0)
@@ -85,11 +85,7 @@ char (*list_match(ALL_WORD_LISTS word_list_enum, uint32_t *number_of_words, bool
 			err(FILEPATH_FAIL);
 		}
 
-		char *temp_path_buffer = malloc(full_path_size);
-		if (temp_path_buffer == NULL)
-		{
-			err(MALLOC_FAIL);
-		}
+		char *temp_path_buffer = smalloc(full_path_size);
 		prepend_fp(temp_path_buffer, full_path_size, filename);
 
 		/* write to the filename string from the temp_full_path buffer */
@@ -137,26 +133,28 @@ char *get_filename(ALL_WORD_LISTS word_list_type)
 	case la_common:
 		return "la_com_words.txt";
 	case custom_list:
-		if (strcmp(default_config_list_name, custom_list_name) == 0)
+		if (scmp(default_config_list_name, custom_list_name))
 		{
 			size_t buffer_size = 128;
-			char *buffer = malloc(buffer_size);
-			custom_filename = buffer;
-			return get_custom_file(buffer, buffer_size);
+			/* custom_filename is a global */
+			custom_filename = smalloc(buffer_size);
+			return get_custom_file(custom_filename, buffer_size);
 		}
 		else
 		{
 			return custom_list_name;
 		}
 	case undefined_list:
+	{
 		fprintf(stderr, "error in get_filename() (undefined list)\n");
 		err(UNDEFINED_LIST);
-		exit(1);
+		exit(EXIT_FAILURE);
+	}
 
 	case no_word_list:
 		fprintf(stderr, "error in get_filename() (no word list)\n");
 		err(NO_WORD_LIST);
-		exit(1);
+		exit(EXIT_FAILURE);
 
 	default:
 		err(FILENAME_FAIL);

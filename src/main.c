@@ -1,6 +1,5 @@
 #include "include/header.h"
 
-char filtered_arr[NUM_ALL_WORDS][INDEX_LETTERS_WORD];
 
 int c_main(const int argc, const char *restrict argv[])
 {
