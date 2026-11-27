@@ -1,19 +1,9 @@
 use std::ffi::CString;
 use std::os::raw::{c_char, c_int};
 
-enum Parsing_States 
-{
-    flag_search,
-    letter_search,
-    index_search,
-    filename_search,
-    word_search,
-    mode_search
-}
-
 fn main()
 {
-    arguments_parsing(std::env::args().collect());
+    // arguments_parsing(std::env::args().collect());
 
     let arguments: Vec<CString> = std::env::args()
         .map(|arg| CString::new(arg).unwrap())
@@ -34,7 +24,7 @@ fn main()
     }
 }
 
-fn arguments_parsing(argv: Vec<String>)
+fn _arguments_parsing(argv: Vec<String>)
 {
     /* iterates over the argument array with the i iterator */
     for (i, arg) in argv.iter().enumerate()
@@ -44,7 +34,6 @@ fn arguments_parsing(argv: Vec<String>)
             println!("Argument is -w at pos {}", i);
         }
     }
-
 }
 
 unsafe extern "C" {

@@ -255,6 +255,7 @@ char *get_letters(const char *restrict args[], int arg_i, enum parsing_type mode
 		{
 			/* TODO free all buffers (prevent memory leak) */
 			err(MULTI_LET_SUPPORT);
+			exit(EXIT_FAILURE);
 		}
 
 		if (str_len > 26)

@@ -141,6 +141,12 @@ struct data_for_parsing *convert_to_struct(size_t *p_num_entries, const bool lis
 		{
 			num_entries += size_increment;
 			data_ptr = realloc(data_ptr, (sizeof(struct data_for_parsing) * num_entries));
+			if (!data_ptr)
+			{
+				fprintf(stderr, "alloc failed to allocate %zu\n", (sizeof(struct data_for_parsing) * num_entries));
+				exit(EXIT_FAILURE);
+			}
+
 			size_increment <<= 1;
 		}
 	}

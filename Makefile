@@ -1,4 +1,4 @@
-BINARY_FILE = wordle
+BINARY_FILE = wordle-solver
 
 WORD_DIR := src/word-lists
 
