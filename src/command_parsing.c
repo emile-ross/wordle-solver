@@ -296,20 +296,16 @@ bool check_for_pkg(const char *restrict cmd)
 	{
 		return false;
 	}
-	else if (strlen(cmd) > 2)
+	else if (strlen(cmd) >= 2)
 	{
 		if ((cmd[0] == '.') && (cmd[1] == '/'))
-		{
 			return false;
-		}
 		else if (cmd[0] == '~')
-		{
 			return false;
-		}
+		else if (cmd[0] == '/')
+			return false;
 		else
-		{
 			return true;
-		}
 	}
 	
 	return false;

@@ -1,6 +1,16 @@
 use std::ffi::CString;
 use std::os::raw::{c_char, c_int};
 
+enum Parsing_States 
+{
+    flag_search,
+    letter_search,
+    index_search,
+    filename_search,
+    word_search,
+    mode_search
+}
+
 fn main()
 {
     arguments_parsing(std::env::args().collect());
@@ -26,6 +36,7 @@ fn main()
 
 fn arguments_parsing(argv: Vec<String>)
 {
+    /* iterates over the argument array with the i iterator */
     for (i, arg) in argv.iter().enumerate()
     {
         if arg == "-w" || arg == "--word-list"

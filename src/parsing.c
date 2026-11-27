@@ -37,7 +37,7 @@ int parsing(struct prs_args parsing_args, struct data_for_parsing query_data, ui
 		if (buffer_write(NULL, filename, filename_len, get_filename(parsing_args.w_list)) != 0)
 		{
 			err(BUFFER_WRITE_FAIL);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		
 		bool standard_word_list = true;	/* the built in word lists are considered standard */
